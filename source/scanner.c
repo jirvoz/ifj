@@ -26,8 +26,9 @@ int addChar (char c, char* my_string) {
 int getNextToken(string *attr, int *type, FILE* source) {
 	string str = "";	//read string
 	int next = -1;
+	unsigned escape_number;
 	unsigned state = BEGIN;
-	char symbol;
+	char c;
 
 	do {
 		symbol = getchar();
@@ -58,7 +59,7 @@ int getNextToken(string *attr, int *type, FILE* source) {
 					//error...
 				}
 			}
-			else if (c == '+' || c == '-' || c == '*' || c == '/' || c == APOSTROPHE || c == '(' || c == ')') {								
+			else if (c == '+' || c == '-' || c == '*' || c == '/' || c == BACKSLASH || c == '(' || c == ')') {								
 				if (addChar(c, tmp_string)) {
 					state = SINGLE-OPERATOR;
 				}
@@ -80,9 +81,6 @@ int getNextToken(string *attr, int *type, FILE* source) {
 			else {
 				//error...
 			}
-		}
-		else if (state == NUMBER) {
-
 		}
 		else if (state == SINGLE-LINE-COMMENT) {
 			if (c == '\n') {	
@@ -121,8 +119,32 @@ int getNextToken(string *attr, int *type, FILE* source) {
 		else if (state == OPERATORS) {
 
 		}
+		else if (state == STRING-TEST) {
+			if (c == QUOTE) {
+				state = STRING;
+			}
+			else {
+				//error
+			}
+		}
 		else if (state == STRING) {
-
+			if (c == QUOTE) {
+				*type = STRING;
+				return OK;
+			}
+			else if (c > 31 && c <= 255) {
+				if (addChar(c, tmp_string)) {
+				}
+				else {
+					//error...
+				}
+			}
+			else if (c == BACKSLASH) {
+				state = ESCAPE-SEQUENCE;
+			}
+			else {
+				//error
+			}
 		}
 		else if (state == NUMBER) {
 			if (isdigit(c)) {
@@ -172,12 +194,108 @@ int getNextToken(string *attr, int *type, FILE* source) {
 			}
 			else {
 				next = c;
-				*type = FLOATING-POINT;
+				*type = FLOATING-NUMBER;
 				return OK;
 			}
 		}
 		else if (state == EXPONENT) {
-			
+			if (isdigit(c)) {
+				if (addChar(c, tmp_string)) {
+				}
+				else {
+					//error...
+				}
+			}
+			else if (c == '.') {
+				if (addChar(c, tmp_string)) {
+					state = FLOATING-EXPONENT;
+				}
+				else {
+					//error...
+				}
+			}
+			else {
+				next = c;
+				*type = FLOATING-EXPONENT-NUMBER;
+				return OK;
+			}
+		}
+		else if (state == FLOATING-EXPONENT) {
+			if (isdigit(c)) {
+				if (addChar(c, tmp_string)) {
+				}
+				else {
+					//error...
+				}
+			}
+			else {
+				next = c;
+				*type = FLOATING-EXPONENT-NUMBER;
+				return OK;
+			}
+		}
+		else if (state == ESCAPE-SEQUENCE) {
+			if (c == '"') {
+				if (addChar(QUOTE, tmp_string)) {
+					state = STRING;
+				}
+				else {
+					//error...
+				}
+			}
+			else if (c == 'n') {
+				if (addChar('\n', tmp_string)) {
+					state = STRING;
+				}
+				else {
+					//error...
+				}
+			}
+			else if (c == 't') {
+				if (addChar('\t', tmp_string)) {
+					state = STRING;
+				}
+				else {
+					//error...
+				}
+			}
+			else if (c == BACKSLASH) {
+				if (addChar(BACKSLASH, tmp_string)) {
+					state = STRING;
+				}
+				else {
+					//error...
+				}
+			}
+			else if (isdigit(c)) {
+				escape_number = c - 48;				//to get number from ascii table
+				state = ESCAPE-NUMBER;
+			}
+			else {
+				//error
+			}
+		}
+		else if (state == ESCAPE-NUMBER) {
+			if (isdigit(c)) {
+				escape_number = escape_number*10 + (c-48);
+
+				c = getchar();
+				if (isdigit(c)) {
+					escape_number = escape_number*10 + (c-48);
+					if (addChar(escape_number, tmp_string)) {
+						state = STRING;
+					}
+					else {
+						//error...
+					}
+				}
+				else {
+					//error escape number
+				}
+			}
+			else {
+				//error escape number
+			}
 		}
 	}
 

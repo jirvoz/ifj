@@ -16,7 +16,7 @@ enum tstates {
 	IDENTIFIER,		//7 - identifikator
 	STRING,				//8 - retezec
 	ESCAPE-SEQUENCE,	//9 - kontrola escape sekvenci
-	ZERO-NUMBER			//delete first ZEROS in the number
+	FLOATING-EXPONENT			//delete first ZEROS in the number
 	NUMBER, 				//10 - vynechani pocatecnich nul u cisla
 	EXPONENT,	//11 - celociselna cast cisla
 	UNEMPTY-CHECK, //12 - kontrola neprazdnosti desetineho cisla
@@ -34,5 +34,6 @@ enum tstates {
 #define FAILURE 0
 #define APOSTROPHE 39
 #define BACKSLASH 92
+#define QUOTE 34
 
 
