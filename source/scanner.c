@@ -2,7 +2,7 @@
 
 unsigned line = 1; 		//line counter
 
-int rest = -1;			//rest character
+int next = -1;			//character in queue
 
 char* tmp_string;
 
@@ -18,17 +18,14 @@ char* reserved_key_words[RESERVED_KEY_WORDS] = {
 };
 
 //add character to 
-int addChar (char c, char* my_string) {
 
-	return SUCCESS;
-}
 
-int getNextToken(char* attr, int* type, FILE* source_file) {
-	string str = "";	//read string
-	int next = -1;
+int getNextToken(string* tmp_string, enum tokens* type, FILE* source_file) {
 	unsigned escape_number;
-	states state = BEGIN;
+	enum states state = BEGIN;
 	char c;
+	int errors = 1; 
+	int lex_errors = 2;
 
 	do {
 		if (next == -1){
@@ -38,11 +35,11 @@ int getNextToken(char* attr, int* type, FILE* source_file) {
 			c = next;
 			next = -1;
 		}
-		
+/*********************************BEGIN STATE************************************/
 		if (state == BEGIN) {
 			if (isalpha(c) || c == '_') {
 				if (addChar(c, tmp_string)) {
-					state = IDENTIFIER-KEY;
+					state = IDENTIFIER_KEY;
 				}
 				else {
 					addError(line, errors);
@@ -50,17 +47,26 @@ int getNextToken(char* attr, int* type, FILE* source_file) {
 				}
 			}
 			else if (c == '!') {
-				state = STRING;
+				if (c = getc(source_file) && c == QUOTE) {
+					state = STRING;
+				}
+				else {
+					next = c;
+					addError(line, LEX_ERROR);
+					return LEX_ERROR;
+				}
+				
 			}
 			else if (c == APOSTROPHE) {						
-				state = SINGLE-LINE-COMMENT;
+				state = SINGLE_LINE_COMMENT;
 			}
 			else if (c == '/') {	
-				if (getc(c, source_file) == APOSTROPHE) {
-					state = MULTI-LINE-COMMENT;
+				if (c = getc(source_file) && c == APOSTROPHE) {
+					state = MULTI_LINE_COMMENT;
 				}								
 				else {
-					if (addChar(c, tmp_string)) {
+					if (addChar('/', tmp_string)) {
+						next = c;
 						*type = SINGLE_OPERATOR;
 						return OK;
 					}
@@ -71,7 +77,7 @@ int getNextToken(char* attr, int* type, FILE* source_file) {
 
 				}
 			}
-			else if (isdigit(c)) {									
+			else if (isdigit(c)) {								
 				if (addChar(c, tmp_string)) {
 					state = NUMBER;
 				}
@@ -80,7 +86,7 @@ int getNextToken(char* attr, int* type, FILE* source_file) {
 					return MEM_ERROR;
 				}
 			}
-			else if (c == '+' || c == '-' || c == '*' || c == BACKSLASH || c == '(' || c == ')' c == ';' || c == '=') {								
+			else if (c == '+' || c == '_' || c == '*' || c == BACKSLASH || c == '(' || c == ')' || c == ';' || c == '=' || c == ',') {								
 				if (addChar(c, tmp_string)) {
 					*type = SINGLE_OPERATOR;
 					return OK;
@@ -123,7 +129,8 @@ int getNextToken(char* attr, int* type, FILE* source_file) {
 				return LEX_ERROR; 
 			}
 		}
-		else if (state == SINGLE-LINE-COMMENT) {
+/*********************************SINGLE_LINE COMMENT STATE************************************/
+		else if (state == SINGLE_LINE_COMMENT) {
 			if (c == '\n') {	
 				line++;
 				state = BEGIN;
@@ -134,9 +141,10 @@ int getNextToken(char* attr, int* type, FILE* source_file) {
 			}
 			//we ignore comments
 		}
-		else if (state == MULTI-LINE-COMMENT) {
+/*********************************MULTI_LINE COMMENT STATE************************************/
+		else if (state == MULTI_LINE_COMMENT) {
 			if (c == APOSTROPHE) {
-				if (getc(c, source_file) == '/') {
+				if (c = getc(source_file) && c == '/') {
 					state = BEGIN;
 				}
 				else {
@@ -154,7 +162,8 @@ int getNextToken(char* attr, int* type, FILE* source_file) {
 			}
 			//we ignore comments
 		}
-		else if (state == IDENTIFIER-KEY) {
+/*********************************IDENTIFIER_KEY STATE************************************/
+		else if (state == IDENTIFIER_KEY) {
 			if (isalnum(c) || c == '_') {
 				if (addChar(c, tmp_string)) {
 				}
@@ -181,6 +190,7 @@ int getNextToken(char* attr, int* type, FILE* source_file) {
 				}
 			}
 		}
+/*********************************OPERATOR LOWER STATE************************************/
 		else if (state == LOWER) {
 			if (c == '>') {
 				if (addChar(c, tmp_string)) {
@@ -208,6 +218,7 @@ int getNextToken(char* attr, int* type, FILE* source_file) {
 				return OK;
 			}
 		}
+/*********************************OPERATOR HIGHER STATE************************************/
 		else if (state == HIGHER) {
 			if (c == '=') {
 				if (addChar(c, tmp_string)) {
@@ -225,14 +236,7 @@ int getNextToken(char* attr, int* type, FILE* source_file) {
 				return OK;
 			}
 		}
-		else if (state == STRING-TEST) {
-			if (c == QUOTE) {
-				state = STRING;
-			}
-			else {
-				//error
-			}
-		}
+/*********************************STRING STATE************************************/
 		else if (state == STRING) {
 			if (c == QUOTE) {
 				*type = STRING;
@@ -247,12 +251,19 @@ int getNextToken(char* attr, int* type, FILE* source_file) {
 				}
 			}
 			else if (c == BACKSLASH) {
-				state = ESCAPE-SEQUENCE;
+				state = ESCAPE_SEQUENCE;
+			}
+			else if (c == EOF) {
+				addError(line, LEX_ERROR);
+				*type = END_OF_FILE;
+				return LEX_ERROR;
 			}
 			else {
-				//error
+				addError(line, LEX_ERROR);
+				return LEX_ERROR;
 			}
 		}
+/*********************************NUMBER STATE************************************/
 		else if (state == NUMBER) {
 			if (isdigit(c)) {
 				if (addChar(c, tmp_string)) {
@@ -264,7 +275,7 @@ int getNextToken(char* attr, int* type, FILE* source_file) {
 			}
 			else if (c == '.') {
 				if (addChar(c, tmp_string)) {
-					state = FLOATING-POINT;
+					state = FLOATING_POINT;
 				}
 				else {
 					addError(line, errors);
@@ -286,7 +297,8 @@ int getNextToken(char* attr, int* type, FILE* source_file) {
 				return OK;
 			}
 		}
-		else if (state == FLOATING-POINT) {
+/*********************************FLOATING_POINT STATE************************************/
+		else if (state == FLOATING_POINT) {
 			if (isdigit(c)) {
 				if (addChar(c, tmp_string)) {
 				}
@@ -299,7 +311,7 @@ int getNextToken(char* attr, int* type, FILE* source_file) {
 				if (addChar(c, tmp_string)) {
 					state = EXPONENT;
 
-					if (getc(c, source_file) == '+' || c == '-'){
+					if ((c = getc(source_file) && c == '+') || c == '_'){
 						if (addChar(c, tmp_string)) {
 						}
 						else {
@@ -322,6 +334,7 @@ int getNextToken(char* attr, int* type, FILE* source_file) {
 				return OK;
 			}
 		}
+/*********************************EXPONENT STATE************************************/
 		else if (state == EXPONENT) {
 			if (isdigit(c)) {
 				if (addChar(c, tmp_string)) {
@@ -333,7 +346,7 @@ int getNextToken(char* attr, int* type, FILE* source_file) {
 			}
 			else if (c == '.') {
 				if (addChar(c, tmp_string)) {
-					state = FLOATING-EXPONENT;
+					state = FLOATING_EXPONENT;
 				}
 				else {
 					addError(line, errors);
@@ -346,12 +359,14 @@ int getNextToken(char* attr, int* type, FILE* source_file) {
 				return OK;
 			}
 		}
-		else if (state == FLOATING-EXPONENT) {
+/*********************************FLOATING_EXPONENT STATE************************************/
+		else if (state == FLOATING_EXPONENT) {
 			if (isdigit(c)) {
 				if (addChar(c, tmp_string)) {
 				}
 				else {
-					//error...
+					addError(line, errors);
+					return MEM_ERROR;
 				}
 			}
 			else {
@@ -360,13 +375,15 @@ int getNextToken(char* attr, int* type, FILE* source_file) {
 				return OK;
 			}
 		}
-		else if (state == ESCAPE-SEQUENCE) {
-			if (c == '"') {
+/*********************************ESCAPE_SEQUENCE STATE************************************/
+		else if (state == ESCAPE_SEQUENCE) {
+			if (c == QUOTE) {
 				if (addChar(QUOTE, tmp_string)) {
 					state = STRING;
 				}
 				else {
-					//error...
+					addError(line, errors);
+					return MEM_ERROR;
 				}
 			}
 			else if (c == 'n') {
@@ -374,7 +391,8 @@ int getNextToken(char* attr, int* type, FILE* source_file) {
 					state = STRING;
 				}
 				else {
-					//error...
+					addError(line, errors);
+					return MEM_ERROR;
 				}
 			}
 			else if (c == 't') {
@@ -382,7 +400,8 @@ int getNextToken(char* attr, int* type, FILE* source_file) {
 					state = STRING;
 				}
 				else {
-					//error...
+					addError(line, errors);
+					return MEM_ERROR;
 				}
 			}
 			else if (c == BACKSLASH) {
@@ -390,39 +409,45 @@ int getNextToken(char* attr, int* type, FILE* source_file) {
 					state = STRING;
 				}
 				else {
-					//error...
+					addError(line, errors);
+					return MEM_ERROR;
 				}
 			}
 			else if (isdigit(c)) {
 				escape_number = c - 48;				//to get number from ascii table
-				state = ESCAPE-NUMBER;
+				state = ESCAPE_NUMBER;
 			}
 			else {
-				//error
+				addError(line, LEX_ERROR);
+				return LEX_ERROR;
 			}
 		}
-		else if (state == ESCAPE-NUMBER) {
+/*********************************ESCAPE_NUMBER STATE************************************/
+		else if (state == ESCAPE_NUMBER) {
 			if (isdigit(c)) {
-				escape_number = escape_number*10 + (c-48);
+				escape_number = escape_number*10 + (c - 48);
 
-				c = getchar();
+				c = getc(source_file);
 				if (isdigit(c)) {
-					escape_number = escape_number*10 + (c-48);
+					escape_number = escape_number*10 + (c - 48);
 					if (addChar(escape_number, tmp_string)) {
 						state = STRING;
 					}
 					else {
-						//error...
+						addError(line, errors);
+					return MEM_ERROR;
 					}
 				}
 				else {
-					//error escape number
+					addError(line, LEX_ERROR);
+					return LEX_ERROR;
 				}
 			}
 			else {
-				//error escape number
+				addError(line, LEX_ERROR);
+				return LEX_ERROR;
 			}
 		}
-	}
+	} while (1);
 
 }
