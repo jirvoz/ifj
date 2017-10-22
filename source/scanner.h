@@ -48,8 +48,4 @@ typedef enum tokens {
 } token_types;
 
 //Declarations of functions
-<<<<<<< HEAD
 int getNextToken (string*, token_types*, FILE*);
-=======
-int getNextToken(string*, enum tokens*, FILE*);
->>>>>>> 94f5e046dc96bc6af1d2394ff455212632aa5d30
