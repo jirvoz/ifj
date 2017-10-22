@@ -17,14 +17,14 @@ char* reserved_key_words[RESERVED_KEY_WORDS] = {
 	"Not", "Or", "Shared", "Static", "True"
 };
 
-//add character to 
+//add character to
 
 
 int getNextToken(string* tmp_string, enum tokens* type, FILE* source_file) {
 	unsigned escape_number;
 	enum states state = BEGIN;
 	char c;
-	int errors = 1; 
+	int errors = 1;
 	int lex_errors = 2;
 
 	do {
@@ -55,15 +55,15 @@ int getNextToken(string* tmp_string, enum tokens* type, FILE* source_file) {
 					addError(line, LEX_ERROR);
 					return LEX_ERROR;
 				}
-				
+
 			}
-			else if (c == APOSTROPHE) {						
+			else if (c == APOSTROPHE) {
 				state = SINGLE_LINE_COMMENT;
 			}
-			else if (c == '/') {	
+			else if (c == '/') {
 				if (c = getc(source_file) && c == APOSTROPHE) {
 					state = MULTI_LINE_COMMENT;
-				}								
+				}
 				else {
 					if (addChar('/', tmp_string)) {
 						next = c;
@@ -77,7 +77,7 @@ int getNextToken(string* tmp_string, enum tokens* type, FILE* source_file) {
 
 				}
 			}
-			else if (isdigit(c)) {								
+			else if (isdigit(c)) {
 				if (addChar(c, tmp_string)) {
 					state = NUMBER;
 				}
@@ -86,7 +86,7 @@ int getNextToken(string* tmp_string, enum tokens* type, FILE* source_file) {
 					return MEM_ERROR;
 				}
 			}
-			else if (c == '+' || c == '_' || c == '*' || c == BACKSLASH || c == '(' || c == ')' || c == ';' || c == '=' || c == ',') {								
+			else if (c == '+' || c == '_' || c == '*' || c == BACKSLASH || c == '(' || c == ')' || c == ';' || c == '=' || c == ',') {
 				if (addChar(c, tmp_string)) {
 					*type = SINGLE_OPERATOR;
 					return OK;
@@ -96,7 +96,7 @@ int getNextToken(string* tmp_string, enum tokens* type, FILE* source_file) {
 					return MEM_ERROR;
 				}
 			}
-			else if (c == '<') {		
+			else if (c == '<') {
 				if (addChar(c, tmp_string)) {
 					state = LOWER;
 				}
@@ -126,12 +126,12 @@ int getNextToken(string* tmp_string, enum tokens* type, FILE* source_file) {
 			}
 			else {
 				addError(line, lex_errors);
-				return LEX_ERROR; 
+				return LEX_ERROR;
 			}
 		}
 /*********************************SINGLE_LINE COMMENT STATE************************************/
 		else if (state == SINGLE_LINE_COMMENT) {
-			if (c == '\n') {	
+			if (c == '\n') {
 				line++;
 				state = BEGIN;
 			}
