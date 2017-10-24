@@ -44,18 +44,19 @@ typedef enum tokens_types {
     //------------OPERATORS-------------//
     LOWER_OP = 10,              //starting at 10
     HIGHER_OP,
-    EQUAL_SIGN,
-    NOT_EQUAL,
-    LOWER_EQUAL,
-    HIGHER_EQUAL,
+    EQUAL_SIGN_OP,
+    NO_EQUAL_OP,
+    LOWER_EQUAL_OP,
+    HIGHER_EQUAL_OP,
     PLUS_OP,
     MINUS_OP,
-    STAR,
-    SLASH,
-    BACKSLASH,
-    LEFT_PARENTH,
-    RIGHT_PARENTH,
-    SEMICOLON,
+    STAR_OP,
+    SLASH_OP,
+    BACKSLASH_OP,
+    LEFT_PARENTH_OP,
+    RIGHT_PARENTH_OP,
+    COLON_OP,
+    SEMICOLON_OP,
     //------------KEYWORDS-------------//
     AS = 30,                    //starting at 30
     ASC,
@@ -96,10 +97,11 @@ typedef enum tokens_types {
 } token_types;
 
 typedef union Token {
-    int number;
+    long number;
     double float_number;
-    char* identifier;
+    char* identifier_string;
 } Token;
     
 //Declarations of functions
-int getNextToken (Token*, token_types*, FILE*);    
+int getNextToken (Token*, token_types*, FILE*);     //main functions of scanner
+int operatorTest (char);                            //this functions tests, if next token is operator(+,-,...)
