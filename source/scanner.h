@@ -35,16 +35,29 @@ typedef enum automata_states {
 
 //types of TOKENS sent to parser
 typedef enum tokens_types {
-    SINGLE_OPERATOR,
-    DOUBLE_OPERATOR,
-    END_OF_FILE,
     IDENTIFIER,
     STRING,
     INTEGER,
     FLOATING_POINT,
     FLOATING_POINT_EXPONENT,
+    END_OF_FILE,
+    //------------OPERATORS-------------//
+    LOWER_OP = 10,              //starting at 10
+    HIGHER_OP,
+    EQUAL_SIGN,
+    NOT_EQUAL,
+    LOWER_EQUAL,
+    HIGHER_EQUAL,
+    PLUS_OP,
+    MINUS_OP,
+    STAR,
+    SLASH,
+    BACKSLASH,
+    LEFT_PARENTH,
+    RIGHT_PARENTH,
+    SEMICOLON,
     //------------KEYWORDS-------------//
-    AS = 10,                    //starting at 10
+    AS = 30,                    //starting at 30
     ASC,
     DECLARE,
     DIM,
@@ -67,7 +80,7 @@ typedef enum tokens_types {
     THEN,
     WHILE,
     //-------RESERVED-KEYWORDS---------//
-    AND = 40,                   //starting at 40       
+    AND = 60,                   //starting at 60       
     BOOLEAN,
     CONTINUE,
     ELSEIF,
@@ -81,6 +94,12 @@ typedef enum tokens_types {
     STATIC,
     TRUE
 } token_types;
+
+typedef union Token {
+    int number;
+    double float_number;
+    char* identifier;
+} Token;
     
 //Declarations of functions
-int getNextToken (string*, token_types*, FILE*);    
+int getNextToken (Token*, token_types*, FILE*);    
