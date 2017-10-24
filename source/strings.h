@@ -8,12 +8,12 @@
 
 typedef struct
 {
-  char* str;        // loaded string ended with the '\0'
-  int length;       // length of string
+  char* str;            // loaded string ended with the '\0'
+  int length;           // length of string
   int allocatedSize;    // size of allocated memory for string
 } string;
 
-int strInit(string *str_1);
+int stringInit(string *str_1);
 void stringFree(string *str_1);
 void stringClear(string *str_1);
 

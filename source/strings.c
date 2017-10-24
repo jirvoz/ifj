@@ -6,10 +6,8 @@
 
 #define STR_LEN_INC 8 // the basic size of the allocated space for the str, relocating will be multiples of this number
 
-int strInit(string* str_1)  // function initialize new str
+int stringInit(string* str_1)  // function initialize new str
 {
-    
-
     str_1->str = (char*) malloc(STR_LEN_INC);
 
     if (str_1->str != NULL)
