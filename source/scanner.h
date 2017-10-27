@@ -36,8 +36,8 @@ typedef enum automata_states {
 //types of TOKENS sent to parser
 typedef enum tokens_types {
     IDENTIFIER,
-    STRING,
-    INTEGER,
+    STRING_TOK,
+    INTEGER_TOK,
     FLOATING_POINT,
     FLOATING_POINT_EXPONENT,
     END_OF_FILE,
@@ -99,7 +99,7 @@ typedef enum tokens_types {
 typedef union Token {
     long number;
     double float_number;
-    char* identifier_string;
+    string* identifier_string;
 } Token;
     
 //Declarations of functions

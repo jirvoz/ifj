@@ -59,7 +59,7 @@ void addError(int line, int errors)
     return;
 }
 
-int identifierTest(string* neco, char** neco_druhe)
+int identifierTest(string* neco, char** neco_druhe, char** neco_treti)
 {
     return 0;
 }

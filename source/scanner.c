@@ -57,6 +57,7 @@ int getNextToken (Token* next_token, token_types* type, FILE* source_file) {
     string* tmp_string = (string*) malloc (sizeof(string));
     stringInit(tmp_string);
 
+    int int_tmp;
     unsigned escape_number;
     automata_states state = BEGIN;          //first state is BEGIN
     char c;                                 //lexem
@@ -92,14 +93,13 @@ int getNextToken (Token* next_token, token_types* type, FILE* source_file) {
             }
             else if (c == '!') {
                 if (c = getc(source_file) && c == QUOTE) {
-                    state = STRING;
+                    state = IS_STRING;
                 }
                 else {
                     next = c;
                     addError(line, LEX_ERROR);
                     return LEX_ERROR;
                 }
-
             }
             else if (c == APOSTROPHE) {
                 state = SINGLE_LINE_COMMENT;
@@ -112,7 +112,6 @@ int getNextToken (Token* next_token, token_types* type, FILE* source_file) {
                     next = c;
                     *type = SLASH_OP;
                     return OK;
-                    }
                 }
             }
             else if (isdigit(c)) {
@@ -125,8 +124,8 @@ int getNextToken (Token* next_token, token_types* type, FILE* source_file) {
                 }
             }
             //single operators 
-            else if ((int tmp = operatorTest(c)) && tmp != -1) {
-                *type = tmp;
+            else if ((int_tmp = operatorTest(c)) && int_tmp != -1) {
+                *type = int_tmp;
                 return OK;
             }
             else if (c == '<') {
@@ -203,14 +202,14 @@ int getNextToken (Token* next_token, token_types* type, FILE* source_file) {
                 next = c;
                 state = BEGIN;
 
-                if ((int tmp = identifierTest(tmp_string, keywords, reserved_keywords)) && tmp != -1) {
+                if ((int_tmp = identifierTest(tmp_string, keywords, reserved_keywords)) && int_tmp != -1) {
                     stringFree(tmp_string);
                     free(tmp_string);
-                    *type = tmp
+                    *type = int_tmp;
                     return OK;
                 }
-                else {
-                    Token.identifier = tmp_string;
+                else {  
+                    next_token->identifier_string = tmp_string;
                     *type = IDENTIFIER;
                     return OK;
                 }
@@ -251,10 +250,10 @@ int getNextToken (Token* next_token, token_types* type, FILE* source_file) {
 
 /***********************************STRING STATE*******************************************/
 
-        else if (state == STRING) {
+        else if (state == IS_STRING) {
             if (c == QUOTE) {
-                Token.identifier_string = tmp_string;
-                *type = STRING;
+                next_token->identifier_string = tmp_string;
+                *type = STRING_TOK;
                 return OK;
             }
             else if (c > 31 && c <= 255) {
@@ -275,8 +274,8 @@ int getNextToken (Token* next_token, token_types* type, FILE* source_file) {
             }
             else {
                 addError(line, LEX_ERROR);
-                Token.identifier_string = tmp_string;
-                *type = STRING;
+                next_token->identifier_string = tmp_string;
+                *type = STRING_TOK;
                 return LEX_ERROR;
             }
         }
@@ -312,8 +311,8 @@ int getNextToken (Token* next_token, token_types* type, FILE* source_file) {
             }
             else {
                 next = c;
-                Token.number = strtol(tmp_string, NULL, 10);
-                *type = INTEGER;
+                next_token->number = strtol(tmp_string->str, NULL, 10);
+                *type = INTEGER_TOK;
                 stringFree(tmp_string);
                 free(tmp_string);
                 return OK;
@@ -354,7 +353,7 @@ int getNextToken (Token* next_token, token_types* type, FILE* source_file) {
             }
             else {
                 next = c;
-                Token.double = strtod(tmp_string, NULL);
+                next_token->float_number = strtod(tmp_string->str, NULL);
                 *type = FLOATING_POINT;
                 stringFree(tmp_string);
                 free(tmp_string);
@@ -384,7 +383,7 @@ int getNextToken (Token* next_token, token_types* type, FILE* source_file) {
             }
             else {
                 next = c;
-                Token.double = strtod(tmp_string, NULL);
+                next_token->float_number = strtod(tmp_string->str, NULL);
                 *type = FLOATING_POINT_EXPONENT;
                 stringFree(tmp_string);
                 free(tmp_string);
@@ -405,7 +404,7 @@ int getNextToken (Token* next_token, token_types* type, FILE* source_file) {
             }
             else {
                 next = c;
-                Token.double = strtod(tmp_string, NULL);
+                next_token->float_number = strtod(tmp_string->str, NULL);
                 *type = FLOATING_POINT_EXPONENT;
                 stringFree(tmp_string);
                 free(tmp_string);
@@ -418,7 +417,7 @@ int getNextToken (Token* next_token, token_types* type, FILE* source_file) {
         else if (state == ESCAPE_SEQUENCE) {
             if (c == QUOTE) {
                 if (stringAddChar(QUOTE, tmp_string)) {
-                    state = STRING;
+                    state = IS_STRING;
                 }
                 else {
                     addError(line, errors);
@@ -427,7 +426,7 @@ int getNextToken (Token* next_token, token_types* type, FILE* source_file) {
             }
             else if (c == 'n') {
                 if (stringAddChar('\n', tmp_string)) {
-                    state = STRING;
+                    state = IS_STRING;
                 }
                 else {
                     addError(line, errors);
@@ -436,7 +435,7 @@ int getNextToken (Token* next_token, token_types* type, FILE* source_file) {
             }
             else if (c == 't') {
                 if (stringAddChar('\t', tmp_string)) {
-                    state = STRING;
+                    state = IS_STRING;
                 }
                 else {
                     addError(line, errors);
@@ -445,7 +444,7 @@ int getNextToken (Token* next_token, token_types* type, FILE* source_file) {
             }
             else if (c == BACKSLASH) {
                 if (stringAddChar(BACKSLASH, tmp_string)) {
-                    state = STRING;
+                    state = IS_STRING;
                 }
                 else {
                     addError(line, errors);
@@ -472,7 +471,7 @@ int getNextToken (Token* next_token, token_types* type, FILE* source_file) {
                 if (isdigit(c)) {
                     escape_number = escape_number*10 + (c - 48);
                     if (stringAddChar(escape_number, tmp_string)) {
-                        state = STRING;
+                        state = IS_STRING;
                     }
                     else {
                         addError(line, errors);
