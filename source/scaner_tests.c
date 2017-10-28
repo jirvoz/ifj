@@ -204,6 +204,7 @@ Token* next_token;
 	TEST04();*/
   free(type);
   free(tmp_string);
+  free(next_token);
   printf("\n----- Scanner - The End of Tests -----\n");
 
   return(0);
