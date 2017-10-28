@@ -14,48 +14,48 @@
 
 #include "scanner.h"
 
-void TEST01(FILE* my_source, token_types* type, string* tmp_string)
+void TEST01(FILE* my_source, token_types* type, string* tmp_string, Token* next_token)
 {
 	my_source=fopen("test1", "r");
 	int i = 0;//0-false 1-true
 
     tmp_string = malloc(sizeof(tmp_string));
-  	strInit(tmp_string);
+  	stringInit(tmp_string);
 
 	printf("[TEST01] Basic Test Int,Single Op and EOF\n");
 	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
-    getNextToken(tmp_string, &type, my_source);
-	if((*type)==INTEGER){
-      getNextToken(tmp_string, &type, my_source);
-	    if((*type)==SINGLE_OPERATOR){
-	      getNextToken(tmp_string, &type, my_source);
-		    if((*type)==INTEGER){
-	  	      getNextToken(tmp_string, &type, my_source);
-	            if((*type)==SINGLE_OPERATOR){
-	              getNextToken(tmp_string, &type, my_source);
-		            if((*type)==INTEGER){
-	  	              getNextToken(tmp_string, &type, my_source);
+    getNextToken(next_token, type, my_source);
+	if((*type)==INTEGER_TOK){
+      getNextToken(next_token, type, my_source);
+	    if((*type)==PLUS_OP){
+	      getNextToken(next_token, type, my_source);
+		    if((*type)==INTEGER_TOK){
+	  	      getNextToken(next_token, type, my_source);
+	            if((*type)==EQUAL_SIGN_OP){
+	              getNextToken(next_token, type, my_source);
+		            if((*type)==INTEGER_TOK){
+	  	              getNextToken(next_token, type, my_source);
 			            if((*type)==END_OF_FILE){
                           i = 1;
                         }
                         else
-                          printf("Expected type END_OF_FILE in sixth place");
+                          printf("Expected type END_OF_FILE in sixth place\n");
 		            }
                     else
-                      printf("Expected type INTEGER in fifth place");
+                      printf("Expected type INTEGER_TOK in fifth place\n");
 	             }
                  else
-                   printf("Expected type SINGLE_OPERATOR in fourth place");
+                   printf("Expected type EQUAL_SIGN_OP in fourth place\n");
 		     }
              else
-               printf("Expected type INTEGER in third place");
+               printf("Expected type INTEGER_TOK in third place\n");
 	    }
         else
-          printf("Expected type SINGLE_OPERATOR in second place");
+          printf("Expected type PLUS_OP in second place\n");
 	 }
      else
-       printf("Expected type INTEGER in first place");
+       printf("Expected type INTEGER_TOK in first place\n");
 	if (!i) // scan test failed
 		printf("BASIC TEST01 FAILED\n\n");
 	else
@@ -176,6 +176,7 @@ int main (int argc, char* argv[]){
 FILE* my_source;
 token_types* type;
 string* tmp_string;
+Token* next_token;
 
   printf ("---------------------IFJ Scanner - Tests-----------------------\n");
   printf ("---------------------------------------------------------------\n\n");
@@ -183,7 +184,7 @@ string* tmp_string;
   tmp_string = (string*) malloc(sizeof(string));
   type = (token_types*) malloc(sizeof(token_types));
 
-	TEST01(my_source, type, tmp_string);
+	TEST01(my_source, type, tmp_string, next_token);
 	/*TEST02();
 	TEST03();
 	TEST04();*/
