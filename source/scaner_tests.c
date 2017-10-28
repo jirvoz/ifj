@@ -24,9 +24,23 @@ void TEST01(FILE* my_source, token_types* type, string* tmp_string, Token* next_
 
 	printf("[TEST01] Basic Test Int,Single Op and EOF\n");
 	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    printf("output:  " );
 
     getNextToken(next_token, type, my_source);
-	if((*type)==INTEGER_TOK){
+    printf(" %d",*type );
+    getNextToken(next_token, type, my_source);
+    printf(" %d",*type );
+    getNextToken(next_token, type, my_source);
+    printf(" %d",*type );
+    getNextToken(next_token, type, my_source);
+    printf(" %d",*type );
+    getNextToken(next_token, type, my_source);
+    printf(" %d",*type );
+    getNextToken(next_token, type, my_source);
+    printf(" %d\n",*type );
+
+    printf("expected: 3 16 3 12 3" );
+    /*if((*type)==INTEGER_TOK){
       getNextToken(next_token, type, my_source);
 	    if((*type)==PLUS_OP){
 	      getNextToken(next_token, type, my_source);
@@ -59,7 +73,7 @@ void TEST01(FILE* my_source, token_types* type, string* tmp_string, Token* next_
 	if (!i) // scan test failed
 		printf("BASIC TEST01 FAILED\n\n");
 	else
-		printf("TEST01 OK\n\n");
+		printf("TEST01 OK\n\n");*/
 	//printf("%s", tmp_string->str);
     stringClear(tmp_string);
     stringFree(tmp_string);
