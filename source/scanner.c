@@ -93,7 +93,7 @@ int getNextToken (token* next_token, FILE* source_file) {
                 }
             }
             else if (c == '!') {
-                if (c = getc(source_file) && c == QUOTE) {
+                if ((c = getc(source_file)) == QUOTE) {
                     state = IS_STRING;
                 }
                 else {

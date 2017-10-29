@@ -34,9 +34,9 @@ void TEST01(FILE* my_source, token* next_token) {
             printf("%f\n", next_token->attribute.float_number);
         }
         else {
+            printf("%s\n", next_token->attribute.identifier_string->str);
             stringFree(next_token->attribute.identifier_string);
-            free(next_token->attribute.identifier_string);
-            printf("---\n");
+            free(next_token->attribute.identifier_string);  
         }
 
         if (next_token->type == END_OF_FILE) {
@@ -73,9 +73,9 @@ void TEST02(FILE* my_source, token* next_token) {
             printf("%f\n", next_token->attribute.float_number);
         }
         else {
+            printf("%s\n", next_token->attribute.identifier_string->str);
             stringFree(next_token->attribute.identifier_string);
-            free(next_token->attribute.identifier_string);
-            printf("---\n");
+            free(next_token->attribute.identifier_string);  
         }
 
         if (next_token->type == END_OF_FILE) {
@@ -112,9 +112,9 @@ void TEST03(FILE* my_source, token* next_token) {
             printf("%f\n", next_token->attribute.float_number);
         }
         else {
+            printf("%s\n", next_token->attribute.identifier_string->str);
             stringFree(next_token->attribute.identifier_string);
-            free(next_token->attribute.identifier_string);
-            printf("---\n");
+            free(next_token->attribute.identifier_string);  
         }
 
         if (next_token->type == END_OF_FILE) {
@@ -151,9 +151,9 @@ void TEST04(FILE* my_source, token* next_token) {
             printf("%f\n", next_token->attribute.float_number);
         }
         else {
+            printf("%s\n", next_token->attribute.identifier_string->str);
             stringFree(next_token->attribute.identifier_string);
-            free(next_token->attribute.identifier_string);
-            printf("---\n");
+            free(next_token->attribute.identifier_string);  
         }
 
         if (next_token->type == END_OF_FILE) {
