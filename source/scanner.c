@@ -56,6 +56,7 @@ int operatorTest(char c) {
 int getNextToken (token* next_token, FILE* source_file) {
     string* tmp_string = (string*) malloc (sizeof(string));
     stringInit(tmp_string);
+    next_token->attribute.identifier_string = tmp_string;
 
     int int_tmp;
     unsigned escape_number;
@@ -203,13 +204,10 @@ int getNextToken (token* next_token, FILE* source_file) {
                 state = BEGIN;
 
                 if ((int_tmp = identifierTest(tmp_string, keywords, reserved_keywords)) && int_tmp != -1) {
-                    stringFree(tmp_string);
-                    free(tmp_string);
                     next_token->type = int_tmp;
                     return OK;
                 }
-                else {  
-                    next_token->attribute.identifier_string = tmp_string;
+                else {
                     next_token->type = IDENTIFIER;
                     return OK;
                 }
@@ -252,7 +250,6 @@ int getNextToken (token* next_token, FILE* source_file) {
 
         else if (state == IS_STRING) {
             if (c == QUOTE) {
-                next_token->attribute.identifier_string = tmp_string;
                 next_token->type = STRING_TOK;
                 return OK;
             }
@@ -274,7 +271,6 @@ int getNextToken (token* next_token, FILE* source_file) {
             }
             else {
                 addError(line, LEX_ERROR);
-                next_token->attribute.identifier_string = tmp_string;
                 next_token->type = STRING_TOK;
                 return LEX_ERROR;
             }
@@ -312,9 +308,9 @@ int getNextToken (token* next_token, FILE* source_file) {
             else {
                 next = c;
                 next_token->attribute.number = strtol(tmp_string->str, NULL, 10);
-                next_token->type = INTEGER_TOK;
                 stringFree(tmp_string);
                 free(tmp_string);
+                next_token->type = INTEGER_TOK;
                 return OK;
             }
         }
@@ -354,9 +350,9 @@ int getNextToken (token* next_token, FILE* source_file) {
             else {
                 next = c;
                 next_token->attribute.float_number = strtod(tmp_string->str, NULL);
-                next_token->type = FLOATING_POINT;
                 stringFree(tmp_string);
                 free(tmp_string);
+                next_token->type = FLOATING_POINT;
                 return OK;
             }
         }
@@ -384,9 +380,9 @@ int getNextToken (token* next_token, FILE* source_file) {
             else {
                 next = c;
                 next_token->attribute.float_number = strtod(tmp_string->str, NULL);
-                next_token->type = FLOATING_POINT_EXPONENT;
                 stringFree(tmp_string);
                 free(tmp_string);
+                next_token->type = FLOATING_POINT_EXPONENT;
                 return OK;
             }
         }
@@ -405,9 +401,9 @@ int getNextToken (token* next_token, FILE* source_file) {
             else {
                 next = c;
                 next_token->attribute.float_number = strtod(tmp_string->str, NULL);
-                next_token->type = FLOATING_POINT_EXPONENT;
                 stringFree(tmp_string);
                 free(tmp_string);
+                next_token->type = FLOATING_POINT_EXPONENT;
                 return OK;
             }
         }

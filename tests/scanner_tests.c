@@ -8,178 +8,180 @@
 /*           Ján Farský   : xfarsk00 : ()%                                    */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <strings.h>
+#include "../source/strings.h"
+#include "../source/scanner.h"
 
-#include "scanner.h"
-
-FILE* my_source;
-token_types* type;
-string* tmp_string;
-
-void TEST01()
-{
-    my_source=fopen("test1", "r");
-    int i = 0;//0-false 1-true
-
-    string* tmp_string = malloc(sizeof(tmp_string));
-    strInit(tmp_string);
+void TEST01(FILE* my_source, token* next_token) {
+    my_source = fopen("test1", "r");
 
     printf("[TEST01] Basic Test Int,Single Op and EOF\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    printf("Tokens:\n");
 
-    getNextToken(tmp_string, &type, my_source);
-    if((*type)==INTEGER){
-      getNextToken(tmp_string, &type, my_source);
-        if((*type)==SINGLE_OPERATOR){
-          getNextToken(tmp_string, &type, my_source);
-            if((*type)==INTEGER){
-              getNextToken(tmp_string, &type, my_source);
-                if((*type)==SINGLE_OPERATOR){
-                  getNextToken(tmp_string, &type, my_source);
-                    if((*type)==INTEGER){
-                      getNextToken(tmp_string, &type, my_source);
-                        if((*type)==END_OF_FILE){
-                          i = 1;
-                        }
-                    }
-                 }
-             }
+    while (1) {
+        getNextToken(next_token, my_source);
+        printf(" %d \t-> ",next_token->type);
+
+        if (next_token->type == IDENTIFIER) {
+            printf("%s\n", next_token->attribute.identifier_string->str);
+            stringFree(next_token->attribute.identifier_string);
+            free(next_token->attribute.identifier_string);
         }
-     }
-
-    if (!i) // scan test failed
-        printf("BASIC TEST01 FAILED\n\n");
-    else
-        printf("TEST01 OK\n\n");
-    //printf("%s", tmp_string->str);
-    stringClear(tmp_string);
-    stringFree(tmp_string);
-    fclose(my_source);
-}
-/*
-void TEST02(){
-    my_source=fopen("test2", "r");
-    int i = 0;//0-false 1-true
-
-    string* tmp_string;
-    strInit(tmp_string);
-
-    printf("[TEST02] Basic Test KEY WORDs\n");
-    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-
-    while((*type)!=END_OF_FILE){
-    getNextToken(tmp_string, &type, my_source);
-      if((*type)==KEY_WORD){
-            i = 1;
+        else if (next_token->type == INTEGER_TOK) {
+            printf("%d\n", next_token->attribute.number);
         }
-        else{
-            i = 0;
+        else if (next_token->type == FLOATING_POINT || next_token->type == FLOATING_POINT_EXPONENT) {
+            printf("%f\n", next_token->attribute.float_number);
+        }
+        else {
+            stringFree(next_token->attribute.identifier_string);
+            free(next_token->attribute.identifier_string);
+            printf("---\n");
+        }
+
+        if (next_token->type == END_OF_FILE) {
             break;
         }
     }
 
-    if (!i) // scan test failed
-        printf("BASIC TEST02 FAILED\n\n");
-    else
-        printf("TEST02 OK\n\n");
-    //printf("%s", tmp_string->str);
-    stringClear(tmp_string);
-    stringFree(tmp_string);
+    printf("Expected tokens:\n 2\n 16\n 2\n 12\n 2\n 5\n\n");
+    
     fclose(my_source);
 }
 
-void TEST03(){
-    my_source=fopen("test3", "r");
-    int i = 0;//0-false 1-true
+void TEST02(FILE* my_source, token* next_token) {
+    my_source=fopen("test2", "r");
 
-    string* tmp_string;
-    strInit(tmp_string);
+    printf("[TEST02] Basic Test KEY WORDs\n");
+    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+
+    printf("Tokens:\n");
+
+    while (1) {
+        getNextToken(next_token, my_source);
+        printf(" %d \t-> ",next_token->type);
+
+        if (next_token->type == IDENTIFIER) {
+            printf("%s\n", next_token->attribute.identifier_string->str);
+            stringFree(next_token->attribute.identifier_string);
+            free(next_token->attribute.identifier_string);
+        }
+        else if (next_token->type == INTEGER_TOK) {
+            printf("%d\n", next_token->attribute.number);
+        }
+        else if (next_token->type == FLOATING_POINT || next_token->type == FLOATING_POINT_EXPONENT) {
+            printf("%f\n", next_token->attribute.float_number);
+        }
+        else {
+            stringFree(next_token->attribute.identifier_string);
+            free(next_token->attribute.identifier_string);
+            printf("---\n");
+        }
+
+        if (next_token->type == END_OF_FILE) {
+            break;
+        }
+    }
+
+    printf("Expected tokens:\n 2\n 16\n 2\n 12\n 2\n 5\n\n");
+    
+    fclose(my_source);
+}
+
+void TEST03(FILE* my_source, token* next_token) {
+    my_source=fopen("test3", "r");
 
     printf("[TEST03] Basic Test RESERVED KEY WORDs\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
-    while((*type)!=END_OF_FILE){
-    getNextToken(tmp_string, &type, my_source);
-      if((*type)==RESERVED_KEY_WORD){
-        i = 1;
-      }
-      else{
-        i = 0;
-        break;
-      }
+    printf("Tokens:\n");
+
+    while (1) {
+        getNextToken(next_token, my_source);
+        printf(" %d \t-> ",next_token->type);
+
+        if (next_token->type == IDENTIFIER) {
+            printf("%s\n", next_token->attribute.identifier_string->str);
+            stringFree(next_token->attribute.identifier_string);
+            free(next_token->attribute.identifier_string);
+        }
+        else if (next_token->type == INTEGER_TOK) {
+            printf("%d\n", next_token->attribute.number);
+        }
+        else if (next_token->type == FLOATING_POINT || next_token->type == FLOATING_POINT_EXPONENT) {
+            printf("%f\n", next_token->attribute.float_number);
+        }
+        else {
+            stringFree(next_token->attribute.identifier_string);
+            free(next_token->attribute.identifier_string);
+            printf("---\n");
+        }
+
+        if (next_token->type == END_OF_FILE) {
+            break;
+        }
     }
 
-    if (!i) // scan test failed
-        printf("BASIC TEST03 FAILED\n\n");
-    else
-        printf("TEST03 OK\n\n");
-    //printf("%s", tmp_string->str);
-    stringClear(tmp_string);
-    stringFree(tmp_string);
+    printf("Expected tokens:\n 2\n 16\n 2\n 12\n 2\n 5\n\n");
+    
     fclose(my_source);
 }
 
-void TEST04(){
+void TEST04(FILE* my_source, token* next_token) {
     my_source=fopen("test4", "r");
-    int i = 0;
-
-    string* tmp_string;
-    strInit(tmp_string);
-
+    
     printf("[TEST04] Test correct identification \n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
-    while(type!=END_OF_FILE){
-      getNextToken(tmp_string, &type, my_source);
-        if ((*type)==0)
-            printf("%d) SINGLE_OPERATOR         0\n",i );
-        else if ((*type)==1)
-            printf("%d) DOUBLE_OPERATOR         1\n",i );
-        else if ((*type)==2)
-            printf("%d) END_OF_FILE             2\n",i );
-        else if ((*type)==3)
-            printf("%d) KEY_WORD                3\n",i );
-        else if ((*type)==4)
-            printf("%d) RESERVED_KEY_WORD       4\n",i );
-        else if ((*type)==5)
-            printf("%d) IDENTIFIER              5\n",i );
-        else if ((*type)==6)
-            printf("%d) STRING                  6\n",i );
-        else if ((*type)==7)
-            printf("%d) INTEGER                 7\n",i );
-        else if ((*type)==8)
-            printf("%d) FLOATING_POINT          8\n",i );
-        else if ((*type)==9)
-            printf("%d) FLOATING_POINT_EXPONENT 9\n",i );
-        else{
-          printf("TEST04 UNKNOW TOKEN\n\n");
-          break;
+    printf("Tokens:\n");
+
+    while (1) {
+        getNextToken(next_token, my_source);
+        printf(" %d \t-> ",next_token->type);
+
+        if (next_token->type == IDENTIFIER) {
+            printf("%s\n", next_token->attribute.identifier_string->str);
+            stringFree(next_token->attribute.identifier_string);
+            free(next_token->attribute.identifier_string);
         }
-      i++;
+        else if (next_token->type == INTEGER_TOK) {
+            printf("%d\n", next_token->attribute.number);
+        }
+        else if (next_token->type == FLOATING_POINT || next_token->type == FLOATING_POINT_EXPONENT) {
+            printf("%f\n", next_token->attribute.float_number);
+        }
+        else {
+            stringFree(next_token->attribute.identifier_string);
+            free(next_token->attribute.identifier_string);
+            printf("---\n");
+        }
+
+        if (next_token->type == END_OF_FILE) {
+            break;
+        }
     }
-    stringClear(tmp_string);
-    stringFree(tmp_string);
+
+    printf("Expected tokens:\n 2\n 16\n 2\n 12\n 2\n 5\n\n");
+    
     fclose(my_source);
 }
-*/
-int main (int argc, char* argv[]){
 
-  printf ("---------------------IFJ Scanner - Tests-----------------------\n");
-  printf ("---------------------------------------------------------------\n\n");
+int main (int argc, char* argv[]) {
+    FILE* my_source;
+    token* next_token;
 
-  tmp_string = (string*) malloc(sizeof(string));
-  type = (token_types*) malloc(sizeof(token_types));
+    printf ("---------------------IFJ Scanner - Tests-----------------------\n");
+    printf ("---------------------------------------------------------------\n\n");
 
-    TEST01();
-    /*TEST02();
-    TEST03();
-    TEST04();*/
+    next_token = (token*) malloc(sizeof(token));
 
-  free(type);
-  free(tmp_string);
-  printf("\n----- Scanner - The End of Tests -----\n");
+    TEST01(my_source, next_token);
+    TEST02(my_source, next_token);
+    TEST03(my_source, next_token);
+    TEST04(my_source, next_token);
 
-  return(0);
+    free(next_token);
+    printf("\n----- Scanner - The End of Tests -----\n");
+
+    return(0);
 }
