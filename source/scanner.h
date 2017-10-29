@@ -96,12 +96,17 @@ typedef enum tokens_types {
     TRUE
 } token_types;
 
-typedef union Token {
+typedef union Token_attributes {
     long number;
     double float_number;
     string* identifier_string;
-} Token;
+} Token_attributes;
+
+typedef struct token {
+    token_types type;
+    Token_attributes attribute;
+} token;
     
 //Declarations of functions
-int getNextToken (Token*, token_types*, FILE*);     //main functions of scanner
+int getNextToken (token*, FILE*);                   //main functions of scanner
 int operatorTest (char);                            //this functions tests, if next token is operator(+,-,...)

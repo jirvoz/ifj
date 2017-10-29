@@ -53,7 +53,7 @@ int operatorTest(char c) {
     return ((int) type);
 }
 
-int getNextToken (Token* next_token, token_types* type, FILE* source_file) {
+int getNextToken (token* next_token, FILE* source_file) {
     string* tmp_string = (string*) malloc (sizeof(string));
     stringInit(tmp_string);
 
@@ -110,7 +110,7 @@ int getNextToken (Token* next_token, token_types* type, FILE* source_file) {
                 }
                 else {
                     next = c;
-                    *type = SLASH_OP;
+                    next_token->type = SLASH_OP;
                     return OK;
                 }
             }
@@ -125,7 +125,7 @@ int getNextToken (Token* next_token, token_types* type, FILE* source_file) {
             }
             //single operators 
             else if ((int_tmp = operatorTest(c)) && int_tmp != -1) {
-                *type = int_tmp;
+                next_token->type = int_tmp;
                 return OK;
             }
             else if (c == '<') {
@@ -141,7 +141,7 @@ int getNextToken (Token* next_token, token_types* type, FILE* source_file) {
                 //nothing to do, white characters are ignored
             }
             else if (c = EOF) {
-                *type = END_OF_FILE;
+                next_token->type = END_OF_FILE;
                 return OK; 
             }
             else {
@@ -158,7 +158,7 @@ int getNextToken (Token* next_token, token_types* type, FILE* source_file) {
                 state = BEGIN;
             }
             else if (c == EOF) {
-                *type = END_OF_FILE;
+                next_token->type = END_OF_FILE;
                 return OK;
             }
             //we ignore comments
@@ -181,7 +181,7 @@ int getNextToken (Token* next_token, token_types* type, FILE* source_file) {
             else if (c == EOF) {
                 //unexpected
                 addError(line, lex_errors);
-                *type = END_OF_FILE;
+                next_token->type = END_OF_FILE;
                 return LEX_ERROR;
             }
             //we ignore comments
@@ -205,12 +205,12 @@ int getNextToken (Token* next_token, token_types* type, FILE* source_file) {
                 if ((int_tmp = identifierTest(tmp_string, keywords, reserved_keywords)) && int_tmp != -1) {
                     stringFree(tmp_string);
                     free(tmp_string);
-                    *type = int_tmp;
+                    next_token->type = int_tmp;
                     return OK;
                 }
                 else {  
-                    next_token->identifier_string = tmp_string;
-                    *type = IDENTIFIER;
+                    next_token->attribute.identifier_string = tmp_string;
+                    next_token->type = IDENTIFIER;
                     return OK;
                 }
             }
@@ -220,16 +220,16 @@ int getNextToken (Token* next_token, token_types* type, FILE* source_file) {
 
         else if (state == LOWER) {
             if (c == '>') {
-                *type = NO_EQUAL_OP;
+                next_token->type = NO_EQUAL_OP;
                 return OK;
             }
             else if (c == '=') {
-                *type = LOWER_EQUAL_OP;
+                next_token->type = LOWER_EQUAL_OP;
                 return OK;
             }
             else {
                 next = c;
-                *type = LOWER_OP;
+                next_token->type = LOWER_OP;
                 return OK;
             }
         }
@@ -238,12 +238,12 @@ int getNextToken (Token* next_token, token_types* type, FILE* source_file) {
 
         else if (state == HIGHER) {
             if (c == '=') {
-                *type = HIGHER_EQUAL_OP;
+                next_token->type = HIGHER_EQUAL_OP;
                 return OK;
             }
             else {
                 next = c;
-                *type = HIGHER_OP;
+                next_token->type = HIGHER_OP;
                 return OK;
             }
         }
@@ -252,8 +252,8 @@ int getNextToken (Token* next_token, token_types* type, FILE* source_file) {
 
         else if (state == IS_STRING) {
             if (c == QUOTE) {
-                next_token->identifier_string = tmp_string;
-                *type = STRING_TOK;
+                next_token->attribute.identifier_string = tmp_string;
+                next_token->type = STRING_TOK;
                 return OK;
             }
             else if (c > 31 && c <= 255) {
@@ -269,13 +269,13 @@ int getNextToken (Token* next_token, token_types* type, FILE* source_file) {
             }
             else if (c == EOF) {
                 addError(line, LEX_ERROR);
-                *type = END_OF_FILE;
+                next_token->type = END_OF_FILE;
                 return LEX_ERROR;
             }
             else {
                 addError(line, LEX_ERROR);
-                next_token->identifier_string = tmp_string;
-                *type = STRING_TOK;
+                next_token->attribute.identifier_string = tmp_string;
+                next_token->type = STRING_TOK;
                 return LEX_ERROR;
             }
         }
@@ -311,8 +311,8 @@ int getNextToken (Token* next_token, token_types* type, FILE* source_file) {
             }
             else {
                 next = c;
-                next_token->number = strtol(tmp_string->str, NULL, 10);
-                *type = INTEGER_TOK;
+                next_token->attribute.number = strtol(tmp_string->str, NULL, 10);
+                next_token->type = INTEGER_TOK;
                 stringFree(tmp_string);
                 free(tmp_string);
                 return OK;
@@ -353,8 +353,8 @@ int getNextToken (Token* next_token, token_types* type, FILE* source_file) {
             }
             else {
                 next = c;
-                next_token->float_number = strtod(tmp_string->str, NULL);
-                *type = FLOATING_POINT;
+                next_token->attribute.float_number = strtod(tmp_string->str, NULL);
+                next_token->type = FLOATING_POINT;
                 stringFree(tmp_string);
                 free(tmp_string);
                 return OK;
@@ -383,8 +383,8 @@ int getNextToken (Token* next_token, token_types* type, FILE* source_file) {
             }
             else {
                 next = c;
-                next_token->float_number = strtod(tmp_string->str, NULL);
-                *type = FLOATING_POINT_EXPONENT;
+                next_token->attribute.float_number = strtod(tmp_string->str, NULL);
+                next_token->type = FLOATING_POINT_EXPONENT;
                 stringFree(tmp_string);
                 free(tmp_string);
                 return OK;
@@ -404,8 +404,8 @@ int getNextToken (Token* next_token, token_types* type, FILE* source_file) {
             }
             else {
                 next = c;
-                next_token->float_number = strtod(tmp_string->str, NULL);
-                *type = FLOATING_POINT_EXPONENT;
+                next_token->attribute.float_number = strtod(tmp_string->str, NULL);
+                next_token->type = FLOATING_POINT_EXPONENT;
                 stringFree(tmp_string);
                 free(tmp_string);
                 return OK;
