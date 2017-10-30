@@ -21,4 +21,4 @@ strings.o: strings.c strings.h
 clean:
 	rm -f ifj *.o
 
-.PHONY: all ifj clean
+.PHONY: all clean
