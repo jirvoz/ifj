@@ -7,8 +7,7 @@
 #define QUOTE 34
 
 //Other constants
-#define KEYWORDS 22             //number of keywords
-#define RESERVED_KEYWORDS 13    //number of reserved keywords
+#define KWD_COUNT 35             //number of keywords
 #define MEM_ERROR 1
 #define LEX_ERROR 51 
 #define OK 7
@@ -16,7 +15,7 @@
 #define FAILURE 1               //bash style
 
 // states for finite automata
-typedef enum automata_states {
+typedef enum automata_state {
     BEGIN,                      //0 - initial state
     SINGLE_LINE_COMMENT,        //1 - comment on 1 line
     MULTI_LINE_COMMENT,         //2 - multi line comment
@@ -31,16 +30,15 @@ typedef enum automata_states {
     HIGHER ,                    //11 - higher operator - '>'
     ESCAPE_SEQUENCE,            //12 - escape sequence
     ESCAPE_NUMBER               //13 - \ddd number in escape sequence
-} automata_states;
+} automata_state;
 
 //types of TOKENS sent to parser
-typedef enum tokens_types {
-    IDENTIFIER,
+typedef enum tokens_type {
+    IDENTIFIER_TOK,
     STRING_TOK,
     INTEGER_TOK,
-    FLOATING_POINT,
-    FLOATING_POINT_EXPONENT,
-    END_OF_FILE,
+    FLOATING_POINT_TOK,
+    EOF_TOK,
     //------------OPERATORS-------------//
     LOWER_OP = 10,              //starting at 10
     HIGHER_OP,
@@ -94,7 +92,7 @@ typedef enum tokens_types {
     SHARED,
     STATIC,
     TRUE
-} token_types;
+} token_type;
 
 typedef union Token_attributes {
     long number;
