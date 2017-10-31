@@ -3,28 +3,27 @@
 #include "scanner.h"
 
 unsigned line = 1;      //line counter
-int next = -1;          //character in queue, if -1, no character is in queue
 
 // states for finite automata
 
 typedef enum automata_state {
     BEGIN_STATE,                      //0 - initial state
-    SINGLE_LINE_COMMENT_STATE_STATE,        //1 - comment on 1 line
+    SINGLE_LINE_COMMENT_STATE,        //1 - comment on 1 line
     MULTI_LINE_COMMENT_STATE,         //2 - multi line comment
-    END_OF_COMMENT_STATE_STATE,             //3 - valid end of multi line comment
+    END_OF_COMMENT_STATE,             //3 - valid end of multi line comment
     IDENTIFIER_STATE,             //4 - identifier or (reserved)keyword
-    IS_STRING_STATE,                  //5 - string
+    STRING_STATE,                  //5 - string
     NUMBER_STATE,                     //6 - number
-    FLOATING_STATE,                   //7 - number is floating point
+    FLOAT_STATE,                   //7 - number is floating point
     FLOAT_EXP_STATE,          //8 - floating point in exponent
     EXPONENT_STATE,                   //9 - exponent
     LOWER_STATE,                      //10 - lower operator - '<'
-    HIGHER _STATE,                    //11 - higher operator - '>'
+    HIGHER_STATE,                    //11 - higher operator - '>'
     ESCAPE_SEQUENCE_STATE,            //12 - escape sequence
     ESCAPE_NUMBER_STATE               //13 - \ddd number in escape sequence
 } automata_state;
 
-char* keywords[KEYWORDS] = {
+char* keywords[KWD_COUNT] = {
     "as", "asc", "declare", "dim", "do", "double", "else", "end", "chr",
     "function", "if", "input", "integer", "length", "loop", "print", "return",
     "scope", "string", "substr", "then", "while",
@@ -33,7 +32,7 @@ char* keywords[KEYWORDS] = {
 };
 
 int operatorTest(char c) {
-    token_types type;
+    token_type type;
     
     if (c == '+') {
         type = PLUS_OP;
@@ -69,29 +68,23 @@ int operatorTest(char c) {
     return ((int) type);
 }
 
-int getNextToken (token* next_token, FILE* source_file) {
-    string* tmp_string = (string*) malloc (sizeof(string));
-    stringInit(tmp_string);
-    next_token->attribute.identifier_string = tmp_string;
+int getNextToken (tToken* next_token, FILE* source_file) {
+    string tmp_string;
+    stringInit(&tmp_string);
+    next_token->attribute.string_ptr = tmp_string.str;
 
-    int int_tmp;
     unsigned escape_number;
-    automata_states state = BEGIN_STATE;          //first state is BEGIN_STATE
-    char c;                                 //lexem
+    automata_state state = BEGIN_STATE;          //first state is BEGIN_STATE
+    int c;                                       //lexem
+    int int_tmp;
 
     //just for tests, will be deleted later
     int errors = 1;                             
     int lex_errors = 2;
 
     do {
-        if (next == -1){
-            c = getc(source_file);      //get lexem from source file
-        }
-        else {
-            c = next;
-            next = -1;
-        }
-
+        c = getc(source_file);      //get lexem from source file
+        
         if (isalpha(c) && isupper(c)) {
             c = tolower(c);             // IFJCODE17 is case insensitive
         }
@@ -100,8 +93,8 @@ int getNextToken (token* next_token, FILE* source_file) {
 
         if (state == BEGIN_STATE) {
             if (isalpha(c) || c == '_') {
-                if (!stringAddChar(c, tmp_string)) {
-                    state = IDENTIFIER_KEY;
+                if (!(stringAddChar(c, &tmp_string))) {
+                    state = IDENTIFIER_STATE;
                 }
                 else {
                     addError(line, errors);
@@ -113,26 +106,26 @@ int getNextToken (token* next_token, FILE* source_file) {
                     state = STRING_STATE;
                 }
                 else {
-                    next = c;
+                    ungetc(c, source_file);
                     addError(line, LEX_ERROR);
                     return LEX_ERROR;
                 }
             }
             else if (c == APOSTROPHE) {
-                state = SINGLE_LINE_COMMENT;
+                state = SINGLE_LINE_COMMENT_STATE;
             }
             else if (c == '/') {
-                if (c = getc(source_file) && c == APOSTROPHE) {
+                if ((c = getc(source_file)) == APOSTROPHE) {
                     state = MULTI_LINE_COMMENT_STATE;
                 }
                 else {
-                    next = c;
+                    ungetc(c, source_file);
                     next_token->type = SLASH_OP;
                     return OK;
                 }
             }
             else if (isdigit(c)) {
-                if (!stringAddChar(c, tmp_string)) {
+                if (!(stringAddChar(c, &tmp_string))) {
                     state = NUMBER_STATE;
                 }
                 else {
@@ -157,7 +150,7 @@ int getNextToken (token* next_token, FILE* source_file) {
             else if (isspace(c)) {
                 //nothing to do, white characters are ignored
             }
-            else if (c = EOF) {
+            else if (c == EOF) {
                 next_token->type = EOF_TOK;
                 return OK; 
             }
@@ -169,7 +162,7 @@ int getNextToken (token* next_token, FILE* source_file) {
 
 /*********************************SINGLE_LINE COMMENT STATE************************************/
 
-        else if (state == SINGLE_LINE_COMMENT) {
+        else if (state == SINGLE_LINE_COMMENT_STATE) {
             if (c == '\n') {
                 line++;
                 state = BEGIN_STATE;
@@ -185,11 +178,11 @@ int getNextToken (token* next_token, FILE* source_file) {
 
         else if (state == MULTI_LINE_COMMENT_STATE) {
             if (c == APOSTROPHE) {
-                if (c = getc(source_file) && c == '/') {
+                if ((c = getc(source_file)) == '/') {
                     state = BEGIN_STATE;
                 }
                 else {
-                    next = c;
+                    ungetc(c, source_file);
                 }
             }
             else if (c == '\n') {
@@ -204,11 +197,11 @@ int getNextToken (token* next_token, FILE* source_file) {
             //we ignore comments
         }
 
-/*********************************IDENTIFIER_KEY STATE************************************/
+/*********************************IDENTIFIER STATE************************************/
 
-        else if (state == IDENTIFIER_KEY) {
+        else if (state == IDENTIFIER_STATE) {
             if (isalnum(c) || c == '_') {
-                if (!stringAddChar(c, tmp_string)) {
+                if (!stringAddChar(c, &tmp_string)) {
                 }
                 else {
                     addError(line, errors);
@@ -216,10 +209,10 @@ int getNextToken (token* next_token, FILE* source_file) {
                 }
             }
             else {
-                next = c;
+                ungetc(c, source_file);
                 state = BEGIN_STATE;
 
-                if ((int_tmp = identifierTest(tmp_string, keywords, reserved_keywords)) && int_tmp != -1) {
+                if ((int_tmp = identifierTest(&tmp_string, keywords)) != -1) {
                     next_token->type = int_tmp;
                     return OK;
                 }
@@ -230,7 +223,7 @@ int getNextToken (token* next_token, FILE* source_file) {
             }
         }
 
-/*********************************OPERATOR LOWER_STATE STATE************************************/
+/*********************************OPERATOR LOWER STATE************************************/
 
         else if (state == LOWER_STATE) {
             if (c == '>') {
@@ -238,12 +231,12 @@ int getNextToken (token* next_token, FILE* source_file) {
                 return OK;
             }
             else if (c == '=') {
-                next_token->type = LOWER_STATE_EQUAL_OP;
+                next_token->type = LOWER_EQUAL_OP;
                 return OK;
             }
             else {
-                next = c;
-                next_token->type = LOWER_STATE_OP;
+                ungetc(c, source_file);
+                next_token->type = LOWER_OP;
                 return OK;
             }
         }
@@ -252,12 +245,12 @@ int getNextToken (token* next_token, FILE* source_file) {
 
         else if (state == HIGHER_STATE) {
             if (c == '=') {
-                next_token->type = HIGHER_STATE_EQUAL_OP;
+                next_token->type = HIGHER_EQUAL_OP;
                 return OK;
             }
             else {
-                next = c;
-                next_token->type = HIGHER_STATE_OP;
+                ungetc(c, source_file);
+                next_token->type = HIGHER_OP;
                 return OK;
             }
         }
@@ -270,7 +263,7 @@ int getNextToken (token* next_token, FILE* source_file) {
                 return OK;
             }
             else if (c > 31 && c <= 255) {
-                if (!stringAddChar(c, tmp_string)) {
+                if (!stringAddChar(c, &tmp_string)) {
                 }
                 else {
                     addError(line, errors);
@@ -292,11 +285,11 @@ int getNextToken (token* next_token, FILE* source_file) {
             }
         }
 
-/*********************************NUMBER_STATE STATE************************************/
+/*********************************NUMBER STATE************************************/
 
         else if (state == NUMBER_STATE) {
             if (isdigit(c)) {
-                if (!stringAddChar(c, tmp_string)) {
+                if (!stringAddChar(c, &tmp_string)) {
                 }
                 else {
                     addError(line, errors);
@@ -304,8 +297,8 @@ int getNextToken (token* next_token, FILE* source_file) {
                 }
             }
             else if (c == '.') {
-                if (!stringAddChar(c, tmp_string)) {
-                    state = FLOAT_STATE_POINT_TOK;
+                if (!stringAddChar(c, &tmp_string)) {
+                    state = FLOAT_STATE;
                 }
                 else {
                     addError(line, errors);
@@ -313,7 +306,7 @@ int getNextToken (token* next_token, FILE* source_file) {
                 }
             }
             else if (c == 'e' || c == 'E') {
-                if (!stringAddChar(c, tmp_string)) {
+                if (!stringAddChar(c, &tmp_string)) {
                     state = EXPONENT_STATE;
                 }
                 else {
@@ -322,20 +315,19 @@ int getNextToken (token* next_token, FILE* source_file) {
                 }
             }
             else {
-                next = c;
-                next_token->attribute.number = strtol(tmp_string->str, NULL, 10);
-                stringFree(tmp_string);
-                free(tmp_string);
+                ungetc(c, source_file);
+                next_token->attribute.number = strtol(tmp_string.str, NULL, 10);
+                stringFree(&tmp_string);
                 next_token->type = INTEGER_TOK;
                 return OK;
             }
         }
 
-/*********************************FLOAT_STATE_POINT STATE************************************/
+/*********************************FLOAT STATE************************************/
 
         else if (state == FLOAT_STATE) {
             if (isdigit(c)) {
-                if (!stringAddChar(c, tmp_string)) {
+                if (!stringAddChar(c, &tmp_string)) {
                 }
                 else {
                     addError(line, errors);
@@ -343,11 +335,11 @@ int getNextToken (token* next_token, FILE* source_file) {
                 }
             }
             else if (c == 'e' || c == 'E') {
-                if (!stringAddChar(c, tmp_string)) {
+                if (!stringAddChar(c, &tmp_string)) {
                     state = EXPONENT_STATE;
 
                     if ((c = getc(source_file) && c == '+') || c == '-'){
-                        if (!stringAddChar(c, tmp_string)) {
+                        if (!stringAddChar(c, &tmp_string)) {
                         }
                         else {
                             addError(line, errors);
@@ -355,7 +347,7 @@ int getNextToken (token* next_token, FILE* source_file) {
                         }
                     }
                     else {
-                        next = c;
+                        ungetc(c, source_file);
                     }
                 }
                 else {
@@ -364,20 +356,19 @@ int getNextToken (token* next_token, FILE* source_file) {
                 }
             }
             else {
-                next = c;
-                next_token->attribute.float_number = strtod(tmp_string->str, NULL);
-                stringFree(tmp_string);
-                free(tmp_string);
-                next_token->type = FLOAT_STATE_POINT_TOK;
+                ungetc(c, source_file);
+                next_token->attribute.float_number = strtod(tmp_string.str, NULL);
+                stringFree(&tmp_string);
+                next_token->type = FLOATING_POINT_TOK;
                 return OK;
             }
         }
 
-/*********************************EXPONENT_STATE STATE************************************/
+/*********************************EXPONENT STATE************************************/
 
         else if (state == EXPONENT_STATE) {
             if (isdigit(c)) {
-                if (!stringAddChar(c, tmp_string)) {
+                if (!stringAddChar(c, &tmp_string)) {
                 }
                 else {
                     addError(line, errors);
@@ -385,7 +376,7 @@ int getNextToken (token* next_token, FILE* source_file) {
                 }
             }
             else if (c == '.') {
-                if (!stringAddChar(c, tmp_string)) {
+                if (!stringAddChar(c, &tmp_string)) {
                     state = FLOAT_EXP_STATE;
                 }
                 else {
@@ -394,20 +385,19 @@ int getNextToken (token* next_token, FILE* source_file) {
                 }
             }
             else {
-                next = c;
-                next_token->attribute.float_number = strtod(tmp_string->str, NULL);
-                stringFree(tmp_string);
-                free(tmp_string);
-                next_token->type = FLOAT_STATE_POINT_TOK;
+                ungetc(c, source_file);
+                next_token->attribute.float_number = strtod(tmp_string.str, NULL);
+                stringFree(&tmp_string);
+                next_token->type = FLOATING_POINT_TOK;
                 return OK;
             }
         }
 
-/*********************************FLOAT_EXP_STATE STATE************************************/
+/*********************************FLOAT_EXP STATE************************************/
 
         else if (state == FLOAT_EXP_STATE) {
             if (isdigit(c)) {
-                if (!stringAddChar(c, tmp_string)) {
+                if (!stringAddChar(c, &tmp_string)) {
                 }
                 else {
                     addError(line, errors);
@@ -415,20 +405,19 @@ int getNextToken (token* next_token, FILE* source_file) {
                 }
             }
             else {
-                next = c;
-                next_token->attribute.float_number = strtod(tmp_string->str, NULL);
-                stringFree(tmp_string);
-                free(tmp_string);
-                next_token->type = FLOAT_STATE_POINT_TOK;
+                ungetc(c, source_file);
+                next_token->attribute.float_number = strtod(tmp_string.str, NULL);
+                stringFree(&tmp_string);
+                next_token->type = FLOATING_POINT_TOK;
                 return OK;
             }
         }
 
-/*********************************ESCAPE_SEQUENCE_STATE STATE************************************/
+/*********************************ESCAPE_SEQUENCE STATE************************************/
 
         else if (state == ESCAPE_SEQUENCE_STATE) {
             if (c == QUOTE) {
-                if (!stringAddChar(QUOTE, tmp_string)) {
+                if (!stringAddChar(QUOTE, &tmp_string)) {
                     state = STRING_STATE;
                 }
                 else {
@@ -437,7 +426,7 @@ int getNextToken (token* next_token, FILE* source_file) {
                 }
             }
             else if (c == 'n') {
-                if (!stringAddChar('\n', tmp_string)) {
+                if (!stringAddChar('\n', &tmp_string)) {
                     state = STRING_STATE;
                 }
                 else {
@@ -446,7 +435,7 @@ int getNextToken (token* next_token, FILE* source_file) {
                 }
             }
             else if (c == 't') {
-                if (!stringAddChar('\t', tmp_string)) {
+                if (!stringAddChar('\t', &tmp_string)) {
                     state = STRING_STATE;
                 }
                 else {
@@ -455,7 +444,7 @@ int getNextToken (token* next_token, FILE* source_file) {
                 }
             }
             else if (c == BACKSLASH) {
-                if (!stringAddChar(BACKSLASH, tmp_string)) {
+                if (!stringAddChar(BACKSLASH, &tmp_string)) {
                     state = STRING_STATE;
                 }
                 else {
@@ -482,7 +471,7 @@ int getNextToken (token* next_token, FILE* source_file) {
                 c = getc(source_file);
                 if (isdigit(c)) {
                     escape_number = escape_number*10 + (c - 48);
-                    if (!stringAddChar(escape_number, tmp_string)) {
+                    if (!stringAddChar(escape_number, &tmp_string)) {
                         state = STRING_STATE;
                     }
                     else {

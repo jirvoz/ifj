@@ -14,26 +14,8 @@
 #define SUCCESS 0               //bash style
 #define FAILURE 1               //bash style
 
-// states for finite automata
-typedef enum automata_state {
-    BEGIN,                      //0 - initial state
-    SINGLE_LINE_COMMENT,        //1 - comment on 1 line
-    MULTI_LINE_COMMENT,         //2 - multi line comment
-    END_OF_COMMENT,             //3 - valid end of multi line comment
-    IDENTIFIER_KEY,             //4 - identifier or (reserved)keyword
-    IS_STRING,                  //5 - string
-    NUMBER,                     //6 - number
-    FLOATING,                   //7 - number is floating point
-    FLOATING_EXPONENT,          //8 - floating point in exponent
-    EXPONENT,                   //9 - exponent
-    LOWER,                      //10 - lower operator - '<'
-    HIGHER ,                    //11 - higher operator - '>'
-    ESCAPE_SEQUENCE,            //12 - escape sequence
-    ESCAPE_NUMBER               //13 - \ddd number in escape sequence
-} automata_state;
-
 //types of TOKENS sent to parser
-typedef enum tokens_type {
+typedef enum token_type {
     IDENTIFIER_TOK,
     STRING_TOK,
     INTEGER_TOK,
@@ -78,8 +60,7 @@ typedef enum tokens_type {
     SUBSTR,
     THEN,
     WHILE,
-    //-------RESERVED-KEYWORDS---------//
-    AND = 60,                   //starting at 60       
+    AND,                          
     BOOLEAN,
     CONTINUE,
     ELSEIF,
@@ -94,17 +75,17 @@ typedef enum tokens_type {
     TRUE
 } token_type;
 
-typedef union Token_attributes {
-    long number;
+typedef union tToken_attribute {
+    int number;
     double float_number;
-    string* identifier_string;
-} Token_attributes;
+    char* string_ptr;
+} tToken_attribute;
 
-typedef struct token {
-    token_types type;
-    Token_attributes attribute;
-} token;
+typedef struct tToken {
+    token_type type;
+    tToken_attribute attribute;
+} tToken;
     
 //Declarations of functions
-int getNextToken (token*, FILE*);                   //main functions of scanner
+int getNextToken (tToken*, FILE*);                   //main functions of scanner
 int operatorTest (char);                            //this functions tests, if next token is operator(+,-,...)
