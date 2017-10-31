@@ -2,25 +2,25 @@
 #include <stdlib.h>
 #include "scanner.h"
 
-unsigned line = 1;      //line counter
+extern unsigned line = 1;      //line counter
 
 // states for finite automata
 
 typedef enum automata_state {
-    BEGIN_STATE,                      //0 - initial state
-    SINGLE_LINE_COMMENT_STATE,        //1 - comment on 1 line
-    MULTI_LINE_COMMENT_STATE,         //2 - multi line comment
-    END_OF_COMMENT_STATE,             //3 - valid end of multi line comment
-    IDENTIFIER_STATE,             //4 - identifier or (reserved)keyword
-    STRING_STATE,                  //5 - string
-    NUMBER_STATE,                     //6 - number
-    FLOAT_STATE,                   //7 - number is floating point
-    FLOAT_EXP_STATE,          //8 - floating point in exponent
-    EXPONENT_STATE,                   //9 - exponent
-    LOWER_STATE,                      //10 - lower operator - '<'
-    HIGHER_STATE,                    //11 - higher operator - '>'
-    ESCAPE_SEQUENCE_STATE,            //12 - escape sequence
-    ESCAPE_NUMBER_STATE               //13 - \ddd number in escape sequence
+    BEGIN_STATE,                        //0 - initial state
+    SINGLE_LINE_COMMENT_STATE,          //1 - comment on 1 line
+    MULTI_LINE_COMMENT_STATE,           //2 - multi line comment
+    END_OF_COMMENT_STATE,               //3 - valid end of multi line comment
+    IDENTIFIER_STATE,                   //4 - identifier or (reserved)keyword
+    STRING_STATE,                       //5 - string
+    NUMBER_STATE,                       //6 - number
+    FLOAT_STATE,                        //7 - number is floating point
+    FLOAT_EXP_STATE,                    //8 - floating point in exponent
+    EXPONENT_STATE,                     //9 - exponent
+    LOWER_STATE,                        //10 - lower operator - '<'
+    HIGHER_STATE,                       //11 - higher operator - '>'
+    ESCAPE_SEQUENCE_STATE,              //12 - escape sequence
+    ESCAPE_NUMBER_STATE                 //13 - \ddd number in escape sequence
 } automata_state;
 
 char* keywords[KWD_COUNT] = {
@@ -83,10 +83,10 @@ int getNextToken (tToken* next_token, FILE* source_file) {
     int lex_errors = 2;
 
     do {
-        c = getc(source_file);      //get lexem from source file
+        c = getc(source_file);                  //get lexem from source file
         
         if (isalpha(c) && isupper(c)) {
-            c = tolower(c);             // IFJCODE17 is case insensitive
+            c = tolower(c);                     // IFJCODE17 is case insensitive
         }
 
 /*********************************BEGIN_STATE STATE************************************/
