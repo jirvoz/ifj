@@ -8,8 +8,8 @@
 /*           Ján Farský   : xfarsk00 : ()%                                    */
 /* ************************************************************************** */
 
-#include "../source/strings.h"
-#include "../source/scanner.h"
+#include "../src/strings.h"
+#include "../src/scanner.h"
 
 void TEST01(FILE* my_source, token* next_token) {
     my_source = fopen("test1", "r");

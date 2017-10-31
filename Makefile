@@ -3,7 +3,7 @@
 
 CC=gcc
 CFLAGS=-std=c99 -Wall -pedantic -g
-VPATH=source
+VPATH=src
 
 all: ifj
 
