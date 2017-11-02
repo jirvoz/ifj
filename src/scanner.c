@@ -355,7 +355,7 @@ int getNextToken (tToken* next_token, FILE* source_file) {
             }
             else {
                 ungetc(c, source_file);
-                next_token->attribute.number = strtol(tmp_string.str, NULL, 10);
+                next_token->attribute.number = (int) strtol(tmp_string.str, NULL, 10);
                 stringFree(&tmp_string);
                 next_token->type = INTEGER_TOK;
                 return OK;
@@ -401,7 +401,7 @@ int getNextToken (tToken* next_token, FILE* source_file) {
             }
             else {
                 ungetc(c, source_file);
-                next_token->attribute.number = strtol(tmp_string.str, NULL, 10);
+                next_token->attribute.number = (int) strtol(tmp_string.str, NULL, 10);
                 stringFree(&tmp_string);
                 next_token->type = INTEGER_TOK;
                 return OK;
