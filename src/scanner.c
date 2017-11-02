@@ -1,8 +1,20 @@
+/* *******************************(IFJ 2017)********************************* */
+/*  Course:  Formal Languages and Compilers (IFJ) - FIT VUT Brno 2017/18      */
+/*  Project: Implementation of the IFJ17 imperative language translator       */
+/*  File:    Source file of lexical analyser                                  */
+/*                                                                            */
+/*  Authors: Tomáš Nereča : xnerec00 : ()% (team leader)                      */
+/*           Samuel Obuch : xobuch00 : ()%                                    */
+/*           Jiří Vozár   : xvozar04 : ()%                                    */
+/*           Ján Farský   : xfarsk00 : ()%                                    */
+/* ************************************************************************** */
+
 #include <ctype.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "scanner.h"
 
-extern unsigned line = 1;      //line counter
+unsigned line = 1;      //line counter
 
 // states for finite automata
 
