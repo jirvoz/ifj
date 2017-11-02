@@ -26,6 +26,8 @@ typedef enum automata_state {
     IDENTIFIER_STATE,                   //4 - identifier or (reserved)keyword
     STRING_STATE,                       //5 - string
     NUMBER_STATE,                       //6 - number
+    ZERO_STATE,
+    ZERO_EXPONENT_STATE,
     FLOAT_STATE,                        //7 - number is floating point
     EXPONENT_STATE,                     //8 - exponent
     LOWER_STATE,                        //9 - lower operator - '<'
@@ -135,7 +137,16 @@ int getNextToken (tToken* next_token, FILE* source_file) {
                 }
             }
             else if (isdigit(c)) {
-                if (!(stringAddChar(c, &tmp_string))) {
+                if (c == '0') {
+                    if (!stringAddChar(c, &tmp_string)) {
+                        state = ZERO_STATE;               //ignore zeros 
+                    }
+                    else {
+                        addError(line, errors);
+                        return MEM_ERROR;
+                    } 
+                }
+                else if (!(stringAddChar(c, &tmp_string))) {
                     state = NUMBER_STATE;
                 }
                 else {
@@ -302,7 +313,10 @@ int getNextToken (tToken* next_token, FILE* source_file) {
 
         else if (state == NUMBER_STATE) {
             if (isdigit(c)) {
-                if (!stringAddChar(c, &tmp_string)) {
+                if (c == '0') {
+                   //ignore zeros 
+                }
+                else if (!stringAddChar(c, &tmp_string)) {
                 }
                 else {
                     addError(line, errors);
@@ -333,6 +347,52 @@ int getNextToken (tToken* next_token, FILE* source_file) {
                     else {
                         ungetc(c, source_file);
                     }
+                }
+                else {
+                    addError(line, errors);
+                    return MEM_ERROR;
+                }
+            }
+            else {
+                ungetc(c, source_file);
+                next_token->attribute.number = strtol(tmp_string.str, NULL, 10);
+                stringFree(&tmp_string);
+                next_token->type = INTEGER_TOK;
+                return OK;
+            }
+        }
+
+/**********************************ZERO STATE************************************/
+
+        else if (state == ZERO_STATE) {
+            if (isdigit(c)) {
+                if (c == '0') {
+                //ignore
+                }
+                else {
+                    stringClear(&tmp_string);
+
+                    if (!stringAddChar(c, &tmp_string)) {
+                        state = NUMBER_STATE;
+                    }
+                    else {
+                        addError(line, errors);
+                        return MEM_ERROR;
+                    } 
+                }
+            }
+            else if (c == 'e' || c == 'E') {
+                if (!stringAddChar(c, &tmp_string)) {
+                    state = EXPONENT_STATE;
+                }
+                else {
+                    addError(line, errors);
+                    return MEM_ERROR;
+                }
+            }
+            else if (c == '.') {
+                if (!stringAddChar(c, &tmp_string)) {
+                    state = FLOAT_STATE;
                 }
                 else {
                     addError(line, errors);
@@ -393,11 +453,40 @@ int getNextToken (tToken* next_token, FILE* source_file) {
 
         else if (state == EXPONENT_STATE) {
             if (isdigit(c)) {
-                if (!stringAddChar(c, &tmp_string)) {
+                if (c == '0') {
+                    state = ZERO_EXPONENT_STATE;
+                }
+                else if (!stringAddChar(c, &tmp_string)) {
                 }
                 else {
                     addError(line, errors);
                     return MEM_ERROR;
+                } 
+            }
+            else {
+                ungetc(c, source_file);
+                next_token->attribute.float_number = strtod(tmp_string.str, NULL);
+                stringFree(&tmp_string);
+                next_token->type = FLOATING_POINT_TOK;
+                return OK;
+            }
+        }
+
+/*****************************ZERO_EXPONENT STATE********************************/
+
+        else if (state == ZERO_EXPONENT_STATE) {
+            if (isdigit(c)) {
+                if (c == '0') {
+                    //ignore
+                }
+                else {
+                    if (!stringAddChar(c, &tmp_string)) {
+                        state = EXPONENT_STATE;
+                    }
+                    else {
+                        addError(line, errors);
+                        return MEM_ERROR;
+                    } 
                 }
             }
             else {
