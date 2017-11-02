@@ -27,12 +27,11 @@ typedef enum automata_state {
     STRING_STATE,                       //5 - string
     NUMBER_STATE,                       //6 - number
     FLOAT_STATE,                        //7 - number is floating point
-    FLOAT_EXP_STATE,                    //8 - floating point in exponent
-    EXPONENT_STATE,                     //9 - exponent
-    LOWER_STATE,                        //10 - lower operator - '<'
-    HIGHER_STATE,                       //11 - higher operator - '>'
-    ESCAPE_SEQUENCE_STATE,              //12 - escape sequence
-    ESCAPE_NUMBER_STATE                 //13 - \ddd number in escape sequence
+    EXPONENT_STATE,                     //8 - exponent
+    LOWER_STATE,                        //9 - lower operator - '<'
+    HIGHER_STATE,                       //10 - higher operator - '>'
+    ESCAPE_SEQUENCE_STATE,              //11 - escape sequence
+    ESCAPE_NUMBER_STATE                 //12 - \ddd number in escape sequence
 } automata_state;
 
 char* keywords[KWD_COUNT] = {
@@ -320,6 +319,18 @@ int getNextToken (tToken* next_token, FILE* source_file) {
             else if (c == 'e' || c == 'E') {
                 if (!stringAddChar(c, &tmp_string)) {
                     state = EXPONENT_STATE;
+
+                    if ((c = getc(source_file)) && (c == '+' || c == '-')) {
+                        if (!stringAddChar(c, &tmp_string)) {
+                        }
+                        else {
+                            addError(line, errors);
+                            return MEM_ERROR;
+                        }
+                    }
+                    else {
+                        ungetc(c, source_file);
+                    }
                 }
                 else {
                     addError(line, errors);
@@ -350,7 +361,7 @@ int getNextToken (tToken* next_token, FILE* source_file) {
                 if (!stringAddChar(c, &tmp_string)) {
                     state = EXPONENT_STATE;
 
-                    if ((c = getc(source_file) && c == '+') || c == '-'){
+                    if ((c = getc(source_file)) && (c == '+' || c == '-')) {
                         if (!stringAddChar(c, &tmp_string)) {
                         }
                         else {
@@ -379,35 +390,6 @@ int getNextToken (tToken* next_token, FILE* source_file) {
 /*********************************EXPONENT STATE************************************/
 
         else if (state == EXPONENT_STATE) {
-            if (isdigit(c)) {
-                if (!stringAddChar(c, &tmp_string)) {
-                }
-                else {
-                    addError(line, errors);
-                    return MEM_ERROR;
-                }
-            }
-            else if (c == '.') {
-                if (!stringAddChar(c, &tmp_string)) {
-                    state = FLOAT_EXP_STATE;
-                }
-                else {
-                    addError(line, errors);
-                    return MEM_ERROR;
-                }
-            }
-            else {
-                ungetc(c, source_file);
-                next_token->attribute.float_number = strtod(tmp_string.str, NULL);
-                stringFree(&tmp_string);
-                next_token->type = FLOATING_POINT_TOK;
-                return OK;
-            }
-        }
-
-/*********************************FLOAT_EXP STATE************************************/
-
-        else if (state == FLOAT_EXP_STATE) {
             if (isdigit(c)) {
                 if (!stringAddChar(c, &tmp_string)) {
                 }
