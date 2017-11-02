@@ -95,7 +95,6 @@ int getNextToken (tToken* next_token, FILE* source_file) {
 
     do {
         c = getc(source_file);                  //get lexem from source file
-        
         if (isalpha(c) && isupper(c)) {
             c = tolower(c);                     // IFJCODE17 is case insensitive
         }
@@ -221,13 +220,13 @@ int getNextToken (tToken* next_token, FILE* source_file) {
             }
             else {
                 ungetc(c, source_file);
-                state = BEGIN_STATE;
 
                 if ((int_tmp = identifierTest(&tmp_string, keywords)) != -1) {
                     next_token->type = int_tmp;
                     return OK;
                 }
                 else {
+                    next_token->attribute.string_ptr = tmp_string.str;
                     next_token->type = IDENTIFIER_TOK;
                     return OK;
                 }
@@ -270,6 +269,7 @@ int getNextToken (tToken* next_token, FILE* source_file) {
 
         else if (state == STRING_STATE) {
             if (c == QUOTE) {
+                next_token->attribute.string_ptr = tmp_string.str;
                 next_token->type = STRING_TOK;
                 return OK;
             }
@@ -286,11 +286,13 @@ int getNextToken (tToken* next_token, FILE* source_file) {
             }
             else if (c == EOF) {
                 addError(line, LEX_ERROR);
+                next_token->attribute.string_ptr = tmp_string.str;
                 next_token->type = EOF_TOK;
                 return LEX_ERROR;
             }
             else {
                 addError(line, LEX_ERROR);
+                next_token->attribute.string_ptr = tmp_string.str;
                 next_token->type = STRING_TOK;
                 return LEX_ERROR;
             }

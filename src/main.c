@@ -33,7 +33,5 @@ int main ()
     }
     while (tok.type != EOF_TOK);
 
-    free(tok.attribute.string_ptr);
-
     return 0;
 }
