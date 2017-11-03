@@ -45,40 +45,36 @@ char* keywords[KWD_COUNT] = {
 };
 
 int operatorTest(char c) {
-    token_type type;
-    
     if (c == '+') {
-        type = PLUS_OP;
+        return PLUS_OP;
     }
     else if (c == '-') {
-        type = MINUS_OP;
+        return MINUS_OP;
     }
     else if (c == '*') {
-        type = STAR_OP;
+        return STAR_OP;
     }
     else if (c == BACKSLASH) {
-        type = BACKSLASH_OP;
+        return BACKSLASH_OP;
     }
     else if (c == '(') {
-        type = LEFT_PARENTH_OP;
+        return LEFT_PARENTH_OP;
     }
     else if (c == ')') {
-        type = RIGHT_PARENTH_OP;
+        return RIGHT_PARENTH_OP;
     }
     else if (c == '=') {
-        type = EQUAL_SIGN_OP;
+        return EQUAL_SIGN_OP;
     }
     else if (c == ',') {
-        type = COLON_OP;
+        return COLON_OP;
     }
     else if (c == ';') {
-        type = SEMICOLON_OP;
+        return SEMICOLON_OP;
     }
     else {
         return -1;
     }
-
-    return ((int) type);
 }
 
 int getNextToken (tToken* next_token, FILE* source_file) {
@@ -167,7 +163,7 @@ int getNextToken (tToken* next_token, FILE* source_file) {
             }
             else if (c == '\n') {
                 line++;
-                next_token->token_type = EOL_TOK;
+                next_token->type = EOL_TOK;
                 return OK;
             }
             else if (isspace(c)) {
