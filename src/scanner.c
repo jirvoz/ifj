@@ -167,6 +167,8 @@ int getNextToken (tToken* next_token, FILE* source_file) {
             }
             else if (c == '\n') {
                 line++;
+                next_token->token_type = EOL_TOK;
+                return OK;
             }
             else if (isspace(c)) {
                 //nothing to do, white characters are ignored

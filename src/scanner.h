@@ -33,6 +33,7 @@ typedef enum token_type {
     STRING_TOK,
     INTEGER_TOK,
     FLOATING_POINT_TOK,
+    EOL_TOK,
     EOF_TOK,
     //------------OPERATORS-------------//
     LOWER_OP = 10,              //starting at 10
