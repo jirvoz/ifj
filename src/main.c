@@ -2,13 +2,14 @@
 #include <stdlib.h>
 
 #include "scanner.h"
+#include "errors.h"
 
 int main ()
 {
     tToken tok;
     do
     {
-        if (getNextToken(&tok, stdin) != OK)
+        if (getNextToken(&tok, stdin) != SUCCESS)
             return 1;
 
         switch (tok.type)

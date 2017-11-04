@@ -57,11 +57,6 @@ int stringAddChar(char c, string *str_1) // function to add new char to the end 
     return SUCCESS;
 }
 
-void addError(int line, int errors)
-{
-    return;
-}
-
 int identifierTest(string* neco, char** neco_druhe)
 {
     return -1;

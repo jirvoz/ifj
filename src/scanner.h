@@ -18,12 +18,6 @@
 
 //Other constants
 #define KWD_COUNT 35             //number of keywords
-#define MEM_ERROR 1
-#define LEX_ERROR 51 
-#define OK 7
-#define SUCCESS 0               //bash style
-#define FAILURE 1               //bash style
-
 
 extern unsigned line;           //extern variable - line counter
 
