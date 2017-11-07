@@ -1,4 +1,14 @@
-#include <stdio.h>
+/* *******************************(IFJ 2017)********************************* */
+/*  Course:  Formal Languages and Compilers (IFJ) - FIT VUT Brno 2017/18      */
+/*  Project: Implementation of the IFJ17 imperative language translator       */
+/*  File:    Header file of lexical analyser                                  */
+/*                                                                            */
+/*  Authors: Tomáš Nereča : xnerec00 : ()% (team leader)                      */
+/*           Samuel Obuch : xobuch00 : ()%                                    */
+/*           Jiří Vozár   : xvozar04 : ()%                                    */
+/*           Ján Farský   : xfarsk00 : ()%                                    */
+/* ************************************************************************** */
+
 #include "strings.h"
 
 //codes from ASCII table
@@ -8,11 +18,8 @@
 
 //Other constants
 #define KWD_COUNT 35             //number of keywords
-#define MEM_ERROR 1
-#define LEX_ERROR 51 
-#define OK 7
-#define SUCCESS 0               //bash style
-#define FAILURE 1               //bash style
+
+extern unsigned line;           //extern variable - line counter
 
 //types of TOKENS sent to parser
 typedef enum token_type {
@@ -20,6 +27,7 @@ typedef enum token_type {
     STRING_TOK,
     INTEGER_TOK,
     FLOATING_POINT_TOK,
+    EOL_TOK,
     EOF_TOK,
     //------------OPERATORS-------------//
     LOWER_OP = 10,              //starting at 10
