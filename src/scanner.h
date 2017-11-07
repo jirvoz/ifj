@@ -1,4 +1,14 @@
-#include <stdio.h>
+/* *******************************(IFJ 2017)********************************* */
+/*  Course:  Formal Languages and Compilers (IFJ) - FIT VUT Brno 2017/18      */
+/*  Project: Implementation of the IFJ17 imperative language translator       */
+/*  File:    Header file of lexical analyser                                  */
+/*                                                                            */
+/*  Authors: Tomáš Nereča : xnerec00 : ()% (team leader)                      */
+/*           Samuel Obuch : xobuch00 : ()%                                    */
+/*           Jiří Vozár   : xvozar04 : ()%                                    */
+/*           Ján Farský   : xfarsk00 : ()%                                    */
+/* ************************************************************************** */
+
 #include "strings.h"
 
 //codes from ASCII table
@@ -7,40 +17,18 @@
 #define QUOTE 34
 
 //Other constants
-#define KEYWORDS 22             //number of keywords
-#define RESERVED_KEYWORDS 13    //number of reserved keywords
-#define MEM_ERROR 1
-#define LEX_ERROR 51 
-#define OK 7
-#define SUCCESS 0               //bash style
-#define FAILURE 1               //bash style
+#define KWD_COUNT 35             //number of keywords
 
-// states for finite automata
-typedef enum automata_states {
-    BEGIN,                      //0 - initial state
-    SINGLE_LINE_COMMENT,        //1 - comment on 1 line
-    MULTI_LINE_COMMENT,         //2 - multi line comment
-    END_OF_COMMENT,             //3 - valid end of multi line comment
-    IDENTIFIER_KEY,             //4 - identifier or (reserved)keyword
-    IS_STRING,                  //5 - string
-    NUMBER,                     //6 - number
-    FLOATING,                   //7 - number is floating point
-    FLOATING_EXPONENT,          //8 - floating point in exponent
-    EXPONENT,                   //9 - exponent
-    LOWER,                      //10 - lower operator - '<'
-    HIGHER ,                    //11 - higher operator - '>'
-    ESCAPE_SEQUENCE,            //12 - escape sequence
-    ESCAPE_NUMBER               //13 - \ddd number in escape sequence
-} automata_states;
+extern unsigned line;           //extern variable - line counter
 
 //types of TOKENS sent to parser
-typedef enum tokens_types {
-    IDENTIFIER,
+typedef enum token_type {
+    IDENTIFIER_TOK,
     STRING_TOK,
     INTEGER_TOK,
-    FLOATING_POINT,
-    FLOATING_POINT_EXPONENT,
-    END_OF_FILE,
+    FLOATING_POINT_TOK,
+    EOL_TOK,
+    EOF_TOK,
     //------------OPERATORS-------------//
     LOWER_OP = 10,              //starting at 10
     HIGHER_OP,
@@ -80,8 +68,7 @@ typedef enum tokens_types {
     SUBSTR,
     THEN,
     WHILE,
-    //-------RESERVED-KEYWORDS---------//
-    AND = 60,                   //starting at 60       
+    AND,                          
     BOOLEAN,
     CONTINUE,
     ELSEIF,
@@ -94,19 +81,19 @@ typedef enum tokens_types {
     SHARED,
     STATIC,
     TRUE
-} token_types;
+} token_type;
 
-typedef union Token_attributes {
-    long number;
+typedef union tToken_attribute {
+    int number;
     double float_number;
-    string* identifier_string;
-} Token_attributes;
+    char* string_ptr;
+} tToken_attribute;
 
-typedef struct token {
-    token_types type;
-    Token_attributes attribute;
-} token;
+typedef struct tToken {
+    token_type type;
+    tToken_attribute attribute;
+} tToken;
     
 //Declarations of functions
-int getNextToken (token*, FILE*);                   //main functions of scanner
+int getNextToken (tToken*, FILE*);                   //main functions of scanner
 int operatorTest (char);                            //this functions tests, if next token is operator(+,-,...)

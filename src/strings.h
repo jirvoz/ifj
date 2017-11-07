@@ -18,7 +18,6 @@ void stringFree(string *str_1);
 void stringClear(string *str_1);
 
 int stringAddChar(char c, string *str_1);
-void addError(int, int);
-int identifierTest(string*, char**, char**);
+int identifierTest(string*, char**);
 
 #endif

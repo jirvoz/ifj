@@ -44,7 +44,10 @@ int stringAddChar(char c, string *str_1) // function to add new char to the end 
             str_1->allocatedSize = str_1->length + STR_LEN_INC ;
         }
         else
-            return ERROR;   
+        {
+            return ERROR;  
+        }
+              
     }
     
     str_1->str[str_1->length] = c;
@@ -54,13 +57,8 @@ int stringAddChar(char c, string *str_1) // function to add new char to the end 
     return SUCCESS;
 }
 
-void addError(int line, int errors)
+int identifierTest(string* neco, char** neco_druhe)
 {
-    return;
-}
-
-int identifierTest(string* neco, char** neco_druhe, char** neco_treti)
-{
-    return 0;
+    return -1;
 }
 
