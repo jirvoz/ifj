@@ -280,6 +280,22 @@ int getNextToken (tToken* next_token, FILE* source_file) {
                 next_token->type = STRING_TOK;
                 return SUCCESS;
             }
+            else if (c == ' ') {
+                if (!stringConcat("\032", &tmp_string)) {
+                }
+                else {
+                    addError(line,OTHER_ERROR);
+                    return FAILURE;
+                }
+            }
+            else if (c == '#') {
+                if (!stringConcat("\035", &tmp_string)) {
+                }
+                else {
+                    addError(line,OTHER_ERROR);
+                    return FAILURE;
+                }
+            }
             else if (c > 31 && c <= 255) {
                 if (!stringAddChar(c, &tmp_string)) {
                 }
