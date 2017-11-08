@@ -498,7 +498,7 @@ int getNextToken (tToken* next_token, FILE* source_file) {
 
         else if (state == ESCAPE_SEQUENCE_STATE) {
             if (c == QUOTE) {
-                if (!stringAddChar(QUOTE, &tmp_string)) {
+                if (!stringConcat("\034", &tmp_string)) {
                     state = STRING_STATE;
                 }
                 else {
@@ -507,7 +507,7 @@ int getNextToken (tToken* next_token, FILE* source_file) {
                 }
             }
             else if (c == 'n') {
-                if (!stringAddChar('\n', &tmp_string)) {
+                if (!stringConcat("\010", &tmp_string)) {
                     state = STRING_STATE;
                 }
                 else {
@@ -516,7 +516,7 @@ int getNextToken (tToken* next_token, FILE* source_file) {
                 }
             }
             else if (c == 't') {
-                if (!stringAddChar('\t', &tmp_string)) {
+                if (!stringConcat("\009", &tmp_string)) {
                     state = STRING_STATE;
                 }
                 else {
@@ -525,7 +525,7 @@ int getNextToken (tToken* next_token, FILE* source_file) {
                 }
             }
             else if (c == BACKSLASH) {
-                if (!stringAddChar(BACKSLASH, &tmp_string)) {
+                if (!stringConcat("\092", &tmp_string)) {
                     state = STRING_STATE;
                 }
                 else {
