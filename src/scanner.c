@@ -83,7 +83,6 @@ int getNextToken (tToken* next_token, FILE* source_file) {
     stringInit(&tmp_string);
     next_token->attribute.string_ptr = tmp_string.str;
 
-    unsigned escape_number;
     automata_state state = BEGIN_STATE;          //first state is BEGIN_STATE
     int c;                                       //lexem
     int int_tmp;
@@ -535,8 +534,8 @@ int getNextToken (tToken* next_token, FILE* source_file) {
                 }
             }
             else if (isdigit(c)) {
-                escape_number = c - 48;             //to get number from ascii table
                 state = ESCAPE_NUMBER_STATE;
+                ungetc(c, source_file);
             }
             else {
                 addError(line, LEX_ERROR);
@@ -547,22 +546,11 @@ int getNextToken (tToken* next_token, FILE* source_file) {
 /*********************************ESCAPE_NUMBER STATE************************************/
 
         else if (state == ESCAPE_NUMBER_STATE) {
-            if (isdigit(c)) {
-                escape_number = escape_number*10 + (c - 48);
-
-                c = getc(source_file);
-                if (isdigit(c)) {
-                    escape_number = escape_number*10 + (c - 48);
-                    if (!stringAddChar(escape_number, &tmp_string)) {
-                        state = STRING_STATE;
-                    }
-                    else {
-                        addError(line,OTHER_ERROR);
-                    return FAILURE;
-                    }
+            if (c >= '0' && c <= '2') {
+                if (!stringAddChar(c, &tmp_string)) {
                 }
                 else {
-                    addError(line, LEX_ERROR);
+                    addError(line,OTHER_ERROR);
                     return FAILURE;
                 }
             }
@@ -570,6 +558,35 @@ int getNextToken (tToken* next_token, FILE* source_file) {
                 addError(line, LEX_ERROR);
                 return FAILURE;
             }
+
+            c = getc(source_file);
+            if (isdigit(c) && c >= '0' && c <= '5') {
+                if (!stringAddChar(c, &tmp_string)) {
+                }
+                else {
+                    addError(line,OTHER_ERROR);
+                    return FAILURE;
+                }
+            }
+            else {
+                addError(line, LEX_ERROR);
+                return FAILURE;
+            }
+
+            c = getc(source_file);
+            if (isdigit(c) && c >= '0' && c <= '5') {
+                if (!stringAddChar(c, &tmp_string)) {
+                }
+                else {
+                    addError(line,OTHER_ERROR);
+                    return FAILURE;
+                }
+                state = STRING_STATE;
+            }
+            else {
+                addError(line, LEX_ERROR);
+                return FAILURE;
+            }  
         }
     } while (1);
 
