@@ -522,6 +522,15 @@ int getNextToken (tToken* next_token, FILE* source_file) {
                     return FAILURE;
                 }
             }
+            else if (c == 't') {
+                if (!stringConcat("\009", &tmp_string)) {
+                    state = STRING_STATE;
+                }
+                else {
+                    addError(line,OTHER_ERROR);
+                    return FAILURE;
+                }
+            }
             else if (c == 'n') {
                 if (!stringConcat("\010", &tmp_string)) {
                     state = STRING_STATE;
@@ -531,8 +540,26 @@ int getNextToken (tToken* next_token, FILE* source_file) {
                     return FAILURE;
                 }
             }
-            else if (c == 't') {
-                if (!stringConcat("\009", &tmp_string)) {
+            else if (c == 'v') {
+                if (!stringConcat("\011", &tmp_string)) {
+                    state = STRING_STATE;
+                }
+                else {
+                    addError(line,OTHER_ERROR);
+                    return FAILURE;
+                }
+            }
+            else if (c == 'f') {
+                if (!stringConcat("\012", &tmp_string)) {
+                    state = STRING_STATE;
+                }
+                else {
+                    addError(line,OTHER_ERROR);
+                    return FAILURE;
+                }
+            }
+            else if (c == 'r') {
+                if (!stringConcat("\013", &tmp_string)) {
                     state = STRING_STATE;
                 }
                 else {
