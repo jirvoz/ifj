@@ -281,7 +281,7 @@ int getNextToken (tToken* next_token, FILE* source_file) {
                 return SUCCESS;
             }
             else if (c == ' ') {
-                if (!stringConcat("\032", &tmp_string)) {
+                if (!stringConcat("032", &tmp_string)) {
                 }
                 else {
                     addError(line,OTHER_ERROR);
@@ -289,12 +289,21 @@ int getNextToken (tToken* next_token, FILE* source_file) {
                 }
             }
             else if (c == '#') {
-                if (!stringConcat("\035", &tmp_string)) {
+                if (!stringConcat("035", &tmp_string)) {
                 }
                 else {
                     addError(line,OTHER_ERROR);
                     return FAILURE;
                 }
+            }
+            else if (c == BACKSLASH) {
+                if (!stringAddChar(c, &tmp_string)) {
+                }
+                else {
+                    addError(line,OTHER_ERROR);
+                    return FAILURE;
+                }
+                state = ESCAPE_SEQUENCE_STATE;
             }
             else if (c > 31 && c <= 255) {
                 if (!stringAddChar(c, &tmp_string)) {
@@ -303,9 +312,6 @@ int getNextToken (tToken* next_token, FILE* source_file) {
                     addError(line,OTHER_ERROR);
                     return FAILURE;
                 }
-            }
-            else if (c == BACKSLASH) {
-                state = ESCAPE_SEQUENCE_STATE;
             }
             else if (c == EOF) {
                 addError(line, LEX_ERROR);
@@ -319,6 +325,128 @@ int getNextToken (tToken* next_token, FILE* source_file) {
                 next_token->type = STRING_TOK;
                 return FAILURE;
             }
+        }
+
+/*********************************ESCAPE_SEQUENCE STATE************************************/
+
+        else if (state == ESCAPE_SEQUENCE_STATE) {
+            if (c == QUOTE) {
+                if (!stringConcat("034", &tmp_string)) {
+                    state = STRING_STATE;
+                }
+                else {
+                    addError(line,OTHER_ERROR);
+                    return FAILURE;
+                }
+            }
+            else if (c == 't') {
+                if (!stringConcat("009", &tmp_string)) {
+                    state = STRING_STATE;
+                }
+                else {
+                    addError(line,OTHER_ERROR);
+                    return FAILURE;
+                }
+            }
+            else if (c == 'n') {
+                if (!stringConcat("010", &tmp_string)) {
+                    state = STRING_STATE;
+                }
+                else {
+                    addError(line,OTHER_ERROR);
+                    return FAILURE;
+                }
+            }
+            else if (c == 'v') {
+                if (!stringConcat("011", &tmp_string)) {
+                    state = STRING_STATE;
+                }
+                else {
+                    addError(line,OTHER_ERROR);
+                    return FAILURE;
+                }
+            }
+            else if (c == 'f') {
+                if (!stringConcat("012", &tmp_string)) {
+                    state = STRING_STATE;
+                }
+                else {
+                    addError(line,OTHER_ERROR);
+                    return FAILURE;
+                }
+            }
+            else if (c == 'r') {
+                if (!stringConcat("013", &tmp_string)) {
+                    state = STRING_STATE;
+                }
+                else {
+                    addError(line,OTHER_ERROR);
+                    return FAILURE;
+                }
+            }
+            else if (c == BACKSLASH) {
+                if (!stringConcat("092", &tmp_string)) {
+                    state = STRING_STATE;
+                }
+                else {
+                    addError(line,OTHER_ERROR);
+                    return FAILURE;
+                }
+            }
+            else if (isdigit(c)) {
+                state = ESCAPE_NUMBER_STATE;
+                ungetc(c, source_file);
+            }
+            else {
+                addError(line, LEX_ERROR);
+                return FAILURE;
+            }
+        }
+
+/*********************************ESCAPE_NUMBER STATE************************************/
+
+        else if (state == ESCAPE_NUMBER_STATE) {
+            if (c >= '0' && c <= '2') {
+                if (!stringAddChar(c, &tmp_string)) {
+                }
+                else {
+                    addError(line,OTHER_ERROR);
+                    return FAILURE;
+                }
+            }
+            else {
+                addError(line, LEX_ERROR);
+                return FAILURE;
+            }
+
+            c = getc(source_file);
+            if (isdigit(c) && c >= '0' && c <= '5') {
+                if (!stringAddChar(c, &tmp_string)) {
+                }
+                else {
+                    addError(line,OTHER_ERROR);
+                    return FAILURE;
+                }
+            }
+            else {
+                addError(line, LEX_ERROR);
+                return FAILURE;
+            }
+
+            c = getc(source_file);
+            if (isdigit(c) && c >= '0' && c <= '5') {
+                if (!stringAddChar(c, &tmp_string)) {
+                }
+                else {
+                    addError(line,OTHER_ERROR);
+                    return FAILURE;
+                }
+                state = STRING_STATE;
+            }
+            else {
+                addError(line, LEX_ERROR);
+                return FAILURE;
+            }  
         }
 
 /*********************************NUMBER STATE************************************/
@@ -508,128 +636,6 @@ int getNextToken (tToken* next_token, FILE* source_file) {
                 next_token->type = FLOATING_POINT_TOK;
                 return SUCCESS;
             }
-        }
-
-/*********************************ESCAPE_SEQUENCE STATE************************************/
-
-        else if (state == ESCAPE_SEQUENCE_STATE) {
-            if (c == QUOTE) {
-                if (!stringConcat("\034", &tmp_string)) {
-                    state = STRING_STATE;
-                }
-                else {
-                    addError(line,OTHER_ERROR);
-                    return FAILURE;
-                }
-            }
-            else if (c == 't') {
-                if (!stringConcat("\009", &tmp_string)) {
-                    state = STRING_STATE;
-                }
-                else {
-                    addError(line,OTHER_ERROR);
-                    return FAILURE;
-                }
-            }
-            else if (c == 'n') {
-                if (!stringConcat("\010", &tmp_string)) {
-                    state = STRING_STATE;
-                }
-                else {
-                    addError(line,OTHER_ERROR);
-                    return FAILURE;
-                }
-            }
-            else if (c == 'v') {
-                if (!stringConcat("\011", &tmp_string)) {
-                    state = STRING_STATE;
-                }
-                else {
-                    addError(line,OTHER_ERROR);
-                    return FAILURE;
-                }
-            }
-            else if (c == 'f') {
-                if (!stringConcat("\012", &tmp_string)) {
-                    state = STRING_STATE;
-                }
-                else {
-                    addError(line,OTHER_ERROR);
-                    return FAILURE;
-                }
-            }
-            else if (c == 'r') {
-                if (!stringConcat("\013", &tmp_string)) {
-                    state = STRING_STATE;
-                }
-                else {
-                    addError(line,OTHER_ERROR);
-                    return FAILURE;
-                }
-            }
-            else if (c == BACKSLASH) {
-                if (!stringConcat("\092", &tmp_string)) {
-                    state = STRING_STATE;
-                }
-                else {
-                    addError(line,OTHER_ERROR);
-                    return FAILURE;
-                }
-            }
-            else if (isdigit(c)) {
-                state = ESCAPE_NUMBER_STATE;
-                ungetc(c, source_file);
-            }
-            else {
-                addError(line, LEX_ERROR);
-                return FAILURE;
-            }
-        }
-
-/*********************************ESCAPE_NUMBER STATE************************************/
-
-        else if (state == ESCAPE_NUMBER_STATE) {
-            if (c >= '0' && c <= '2') {
-                if (!stringAddChar(c, &tmp_string)) {
-                }
-                else {
-                    addError(line,OTHER_ERROR);
-                    return FAILURE;
-                }
-            }
-            else {
-                addError(line, LEX_ERROR);
-                return FAILURE;
-            }
-
-            c = getc(source_file);
-            if (isdigit(c) && c >= '0' && c <= '5') {
-                if (!stringAddChar(c, &tmp_string)) {
-                }
-                else {
-                    addError(line,OTHER_ERROR);
-                    return FAILURE;
-                }
-            }
-            else {
-                addError(line, LEX_ERROR);
-                return FAILURE;
-            }
-
-            c = getc(source_file);
-            if (isdigit(c) && c >= '0' && c <= '5') {
-                if (!stringAddChar(c, &tmp_string)) {
-                }
-                else {
-                    addError(line,OTHER_ERROR);
-                    return FAILURE;
-                }
-                state = STRING_STATE;
-            }
-            else {
-                addError(line, LEX_ERROR);
-                return FAILURE;
-            }  
         }
     } while (1);
 

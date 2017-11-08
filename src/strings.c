@@ -55,11 +55,10 @@ int stringAddChar(char c, string *str_1) // function to add new char to the end 
     str_1->str[str_1->length] = c;
     str_1->length++;
     str_1->str[str_1->length] = '\0';
-    
     return SUCCESS;
 }
 
-int stringConcat(char* str_2, string* str_1)
+int stringConcat(const char* str_2, string* str_1)
 {
     int str_2_length = strlen(str_2);
 
