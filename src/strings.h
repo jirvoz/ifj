@@ -1,11 +1,6 @@
 #ifndef _STRINGS_H_
 #define _STRINGS_H_
 
-#include <stdio.h>
-#include <malloc.h>
-#include <string.h>
-
-
 typedef struct
 {
   char* str;            // loaded string ended with the '\0'

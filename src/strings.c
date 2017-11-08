@@ -1,5 +1,7 @@
 #include "strings.h"
 #include "stdlib.h"
+#include <string.h>
+#include <stdio.h>
 
 #define ERROR 1    // return value when it was error
 #define SUCCESS 0   // return value when it was success
@@ -57,8 +59,15 @@ int stringAddChar(char c, string *str_1) // function to add new char to the end 
     return SUCCESS;
 }
 
-int identifierTest(string* neco, char** neco_druhe)
+int identifierTest(string* identifier, char** keywords)
 {
+    for (int i = 30; i < 65; i++) 
+    {
+        if (!strcmp(identifier->str, keywords[i-30]))
+        {
+            return i;
+        }
+    }
     return -1;
 }
 
