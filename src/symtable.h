@@ -7,7 +7,7 @@ typedef enum tVarType {
     INTEGER_TYPE,
     FLOATING_POINT_TYPE,
     STRING_TYPE
-}tVarType;
+} tVarType;
 
 typedef union tVar {
     tVarType type;
@@ -17,23 +17,27 @@ typedef union tVar {
 typedef struct tVarData {
     char* var_name;
     bool init_flag;
-    tVarType var_type;
-    tToken_attribute var_data;
+    tVar var_data;
 } tVarData;
 
 typedef struct tFuncData {
     char* func_name;
     bool decl_flag;
     bool def_flag;
-    tVarType ret_value;
+    tVar ret_value;
     int param_count;
     tVar* params;
-
 } tFuncData;
 
 typedef union tData {
-    
+    tVarData variable;
+    tFuncData function;
 } tData;
+
+typedef enum symbol_type {
+    VARIABLE,
+    FUNCTION
+} symbol_type;
 
 /* Maximální velikost pole pro implementaci
    vyhledávací tabulky. Řešené procedury však
@@ -47,6 +51,7 @@ typedef char* tKey;
 /*Datová položka TRP s explicitně řetězenými synonymy*/
  typedef struct tHTItem{
     tKey key;               /* klíč  */
+    symbol_type type;       
     tData data;             /* obsah */
     struct tHTItem* ptrnext;    /* ukazatel na další synonymum */
 } tHTItem;
