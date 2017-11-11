@@ -9,6 +9,7 @@
 /*           Ján Farský   : xfarsk00 : ()%                                    */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "strings.h"
 
 //codes from ASCII table
