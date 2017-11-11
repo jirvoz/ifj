@@ -7,18 +7,18 @@ VPATH=src:tests
 
 all: ifj
 
-ifj: main.o scanner.o strings.o errors.o
+ifj: main.o errors.o parser.o scanner.o strings.o
 	$(CC) $(CFLAGS) $^ -o $@
 
-sctest: scanner_tests.o scanner.o strings.o errors.o
+sctest: scanner_tests.o errors.o scanner.o strings.o
 	$(CC) $(CFLAGS) $^ -o $@
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $<
 
 errors.o: errors.c errors.h
-main.o: main.c scanner.h strings.h errors.h
-parser.o: parser.c parser.h scanner.h strings.h
+main.o: main.c errors.h parser.h scanner.h strings.h
+parser.o: parser.c parser.h scanner.h strings.h errors.h
 scanner.o: scanner.c scanner.h strings.h errors.h
 strings.o: strings.c strings.h
 
