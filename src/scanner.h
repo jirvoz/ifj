@@ -9,6 +9,9 @@
 /*           Ján Farský   : xfarsk00 : ()%                                    */
 /* ************************************************************************** */
 
+#ifndef _SCANNER_H_
+#define _SCANNER_H_
+
 #include <stdio.h>
 #include "strings.h"
 
@@ -98,3 +101,5 @@ typedef struct tToken {
 //Declarations of functions
 int getNextToken (tToken*, FILE*);                   //main functions of scanner
 int operatorTest (char);                            //this functions tests, if next token is operator(+,-,...)
+
+#endif
