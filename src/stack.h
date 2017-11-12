@@ -21,4 +21,5 @@ void stackPush(tStack* stack, tToken* token);
 void stackPop(tStack* stack);
 void stackTop(tStack* stack, tToken* token);
 void stackFree(tStack* stack);
+
 #endif
