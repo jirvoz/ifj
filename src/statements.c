@@ -14,7 +14,7 @@ bool dim_stat()
         return false;
 
     char * identif_name = last_token.attribute.string_ptr;
-    printf("DEFVAR %s\n", identif_name);
+    printf("DEFVAR LF@%s\n", identif_name);
 
     UPDATE_LAST_TOKEN();
 

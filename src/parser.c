@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "errors.h"
+#include "functions.h"
 #include "parser.h"
 #include "statements.h"
 
@@ -74,26 +75,37 @@ bool program()
     UPDATE_LAST_TOKEN();
     
     // TODO read functions
-
-    // parse the main scope
-    if (last_token.type == SCOPE)
+    switch (last_token.type)
     {
-        printf("LABEL $$main\n");
+        case DECLARE:
+            function_decl();
+            break;
+        case FUNCTION:
+            function_def();
+            break;
+        case SCOPE:
+            printf("LABEL $$main\n");
+            printf("CREATEFRAME\n");
+            printf("PUSHFRAME\n");
 
-        // parse the inside of scope
-        if (!statement_list())
-            return false;
+            // parse the inside of scope
+            if (!statement_list())
+                return false;
 
-        UPDATE_LAST_TOKEN();
+            UPDATE_LAST_TOKEN();
 
-        // test the correct ending of scope
-        if (last_token.type == SCOPE)
-            return true;
-        else
+            // test the correct ending of scope
+            if (last_token.type == SCOPE)
+                return true;
+            else
+                return false;
+            break;
+
+        default:
             return false;
     }
-    else
-        return false;
+    // empty program
+    return false;
 }
 
 // Main function that requests tokens and forges them to output code
