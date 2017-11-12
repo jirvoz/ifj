@@ -102,6 +102,7 @@ typedef struct tToken
 } tToken;
     
 //Declarations of functions
+
 int getNextToken (tToken*, FILE*);                  //main functions of scanner
 int operatorTest (char);                            //this functions tests, if next token is operator(+,-,...)
 
