@@ -2,7 +2,8 @@
 #define _INST_LIST_H
 
 //enum of instructions
-typedef enum instructions {
+typedef enum instruction 
+{
 //frames, function calling
     MOVE_INST,
     CREATEFRAME_INST,
@@ -68,21 +69,24 @@ typedef enum instructions {
 //tune instructions
     BREAK_INST,
     DPRINT_INST
-} instructions;
+} instruction;
 
-typedef struct tInst {
-    instructions instType;    //type of instructions
+typedef struct tInst 
+{
+    instruction instType;    //type of instructions
     void* addr1;              //adress 1
     void* addr2;              //adress 2
     void* addr3;              //adress 3
 } tInst;
 
-typedef struct tlistItem {
+typedef struct tListItem 
+{
     tInst instruction;
-    struct tlistItem* nextItem;
+    struct tListItem* nextItem;
 } tListItem;
     
-typedef struct tlistOfInst {
+typedef struct tlistOfInst 
+{
     tListItem* first;         //pointer to first item
     tListItem* last;           //pointer to last item
     tListItem* active;        //pointer to active item
