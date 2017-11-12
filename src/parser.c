@@ -10,8 +10,7 @@ bool skip_statement()
 {
     do
     {
-        if (getNextToken(&last_token, stdin) != SUCCESS)
-            return false;
+        UPDATE_LAST_TOKEN();
 
         if (last_token.type == END || last_token.type == EOL_TOK
             || last_token.type == EOF_TOK)
@@ -22,8 +21,7 @@ bool skip_statement()
 
 bool statement()
 {
-    if (getNextToken(&last_token, stdin) != SUCCESS)
-        return false;
+    UPDATE_LAST_TOKEN();
     // TODO evaluate statements
     switch (last_token.type)
     {
@@ -73,8 +71,7 @@ bool statement_list()
 
 bool program()
 {
-    if (getNextToken(&last_token, stdin) != SUCCESS)
-        return false;
+    UPDATE_LAST_TOKEN();
     
     // TODO read functions
 
@@ -87,8 +84,7 @@ bool program()
         if (!statement_list())
             return false;
 
-        if (getNextToken(&last_token, stdin) != SUCCESS)
-            return false;
+        UPDATE_LAST_TOKEN();
 
         // test the correct ending of scope
         if (last_token.type == SCOPE)

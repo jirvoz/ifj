@@ -8,8 +8,7 @@ bool dim_stat()
 {
     // last_token.type is DIM
 
-    if (getNextToken(&last_token, stdin) != SUCCESS)
-        return false;
+    UPDATE_LAST_TOKEN();
 
     if (last_token.type != IDENTIFIER_TOK)
         return false;
@@ -17,14 +16,12 @@ bool dim_stat()
     char * identif_name = last_token.attribute.string_ptr;
     printf("DEFVAR %s\n", identif_name);
 
-    if (getNextToken(&last_token, stdin) != SUCCESS)
-        return false;
+    UPDATE_LAST_TOKEN();
 
     if (last_token.type != AS)
         return false;
 
-    if (getNextToken(&last_token, stdin) != SUCCESS)
-        return false;
+    UPDATE_LAST_TOKEN();
 
     // TODO add to symbol table
     switch (last_token.type)
@@ -39,8 +36,7 @@ bool dim_stat()
             return false;
     }
 
-    if (getNextToken(&last_token, stdin) != SUCCESS)
-        return false;
+    UPDATE_LAST_TOKEN();
 
     if (last_token.type == EOL_TOK)
         return true;
@@ -55,8 +51,7 @@ bool assignment_stat()
 {
     // last_token.type is IDENTIFIER_TOK
 
-    if (getNextToken(&last_token, stdin) != SUCCESS)
-        return false;
+    UPDATE_LAST_TOKEN();
 
     if (last_token.type != EQUAL_SIGN_OP)
         return false;
@@ -81,14 +76,12 @@ bool print_stat()
 
     do
     {
-        if (getNextToken(&last_token, stdin) != SUCCESS)
-            return false;
+        UPDATE_LAST_TOKEN();
 
         // TODO handle properly all types for printing
         printf("WRITE %s\n", last_token.attribute.string_ptr);
 
-        if (getNextToken(&last_token, stdin) != SUCCESS)
-            return false;
+        UPDATE_LAST_TOKEN();
 
         if (last_token.type == EOL_TOK)
             return true;
