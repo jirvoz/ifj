@@ -1,89 +1,75 @@
 #ifndef _SYMTABLE_H_
 #define _SYMTABLE_H_
 
-#include <stdbool>
+#include <stdbool.h>
+#include "scanner.h"
 
-typedef enum tVarType {
+typedef enum var_type {
     INTEGER_TYPE,
     FLOATING_POINT_TYPE,
     STRING_TYPE
-} tVarType;
+} var_type;
 
 typedef union tVar {
-    tVarType type;
+    var_type type;
     tToken_attribute attribute;
-}
+} tVar;
 
-typedef struct tVarData {
+typedef struct tVar_data {
     char* var_name;
     bool init_flag;
     tVar var_data;
-} tVarData;
+} tVar_data;
 
-typedef struct tFuncData {
+typedef struct tFunc_data {
     char* func_name;
     bool decl_flag;
     bool def_flag;
     tVar ret_value;
     int param_count;
     tVar* params;
-} tFuncData;
+} tFunc_data;
 
 typedef union tData {
-    tVarData variable;
-    tFuncData function;
+    tVar_data variable;
+    tFunc_data function;
 } tData;
 
 typedef enum symbol_type {
-    VARIABLE,
-    FUNCTION
+    VARIABLE_SYMBOL,
+    FUNCTION_SYMBOL
 } symbol_type;
 
-/* Maximální velikost pole pro implementaci
-   vyhledávací tabulky. Řešené procedury však
-   využívají pouze HTSIZE prvků pole (viz deklarace této proměnné).
-*/
+//max size of hash table
 #define MAX_HTSIZE 101
 
-/* typ klíče (například identifikace zboží) */
-typedef char* tKey;
-
-/*Datová položka TRP s explicitně řetězenými synonymy*/
+//this structure represent symbol in hash table
  typedef struct tHTItem{
-    tKey key;               /* klíč  */
-    symbol_type type;       
-    tData data;             /* obsah */
-    struct tHTItem* ptrnext;    /* ukazatel na další synonymum */
+    char* key;                  //key
+    symbol_type type;           //type of symbol 
+    tData data;                 //data of symbol
+    struct tHTItem* ptrnext;    //pointer to next synonymum
 } tHTItem;
 
-/* TRP s explicitně zřetězenými synonymy. */
+//hash table
 typedef tHTItem* tHTable[MAX_HTSIZE];
 
-/* Pro účely testování je vhodné mít možnost volby velikosti pole,
-   kterým je vyhledávací tabulka implementována. Fyzicky je deklarováno
-   pole o rozměru MAX_HTSIZE, ale při implementaci vašich procedur uvažujte
-   velikost HTSIZE.  Ve skriptu se před voláním řešených procedur musí
-   objevit příkaz HTSIZE N, kde N je velikost požadovaného prostoru.
-   
-   POZOR! Pro správnou funkci TRP musí být hodnota této proměnné prvočíslem.
-*/
-extern int HTSIZE;
 
-/* Hlavičky řešených procedur a funkcí. */
+//Declarations of functions
 
-int hashCode ( tKey key );
+int hashCode ( char* key );
 
 void setData (tData data, tHTItem* ptr);
 
 void htInit ( tHTable* ptrht );
 
-tHTItem* htSearch ( tHTable* ptrht, tKey key );
+tHTItem* htSearch ( tHTable* ptrht, char* key );
 
-void htInsert ( tHTable* ptrht, tKey key, tData data );
+void htInsert ( tHTable* ptrht, char* key, tData data );
 
-tData* htRead ( tHTable* ptrht, tKey key );
+tData* htRead ( tHTable* ptrht, char* key );
 
-void htDelete ( tHTable* ptrht, tKey key );
+void htDelete ( tHTable* ptrht, char* key );
 
 void htClearAll ( tHTable* ptrht );
 
