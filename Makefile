@@ -7,7 +7,7 @@ VPATH=src:tests
 
 all: ifj
 
-ifj: main.o errors.o functions.o parser.o scanner.o statements.o strings.o
+ifj: main.o errors.o expressions.o functions.o parser.o scanner.o statements.o strings.o
 	$(CC) $(CFLAGS) $^ -o $@
 
 sctest: scanner_tests.o errors.o scanner.o strings.o
@@ -17,13 +17,16 @@ sctest: scanner_tests.o errors.o scanner.o strings.o
 	$(CC) $(CFLAGS) -c $<
 
 errors.o: errors.c errors.h
-functions.o: functions.c errors.h parser.h scanner.h strings.h \
- statements.h
+expressions.o: expressions.c errors.h expressions.h scanner.h strings.h \
+ functions.h parser.h statements.h
+functions.o: functions.c errors.h functions.h parser.h scanner.h \
+ strings.h statements.h
 main.o: main.c errors.h parser.h scanner.h strings.h
 parser.o: parser.c errors.h functions.h parser.h scanner.h strings.h \
  statements.h
 scanner.o: scanner.c scanner.h strings.h errors.h
-statements.o: statements.c errors.h parser.h scanner.h strings.h
+statements.o: statements.c errors.h expressions.h scanner.h strings.h \
+ parser.h statements.h
 strings.o: strings.c strings.h
 
 scanner_tests.o: scanner_tests.c strings.h scanner.h strings.h
