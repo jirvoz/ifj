@@ -25,6 +25,9 @@ strings.o: strings.c strings.h
 
 scanner_tests.o: scanner_tests.c strings.h scanner.h strings.h
 
+tags: src/*
+	ctags -R .
+
 clean:
 	rm -f ifj sctest *.o
 
