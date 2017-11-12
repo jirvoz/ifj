@@ -57,20 +57,20 @@ typedef tHTItem* tHTable[MAX_HTSIZE];
 
 //Declarations of functions
 
-int hashCode ( char* key );
+int hashCode (char* key);
 
-void setData (tData data, tHTItem* ptr);
+void setData (symbol_type type, tData data, tHTItem* ptr);
 
-void htInit ( tHTable* ptrht );
+void htInit (tHTable* ptrht);
 
-tHTItem* htSearch ( tHTable* ptrht, char* key );
+tHTItem* htSearch (tHTable* ptrht, char* key);
 
-void htInsert ( tHTable* ptrht, char* key, tData data );
+void htInsert (tHTable* ptrht, char* key, symbol_type type, tData data);
 
-tData* htRead ( tHTable* ptrht, char* key );
+tData* htRead (tHTable* ptrht, char* key);
 
-void htDelete ( tHTable* ptrht, char* key );
+void htDelete (tHTable* ptrht, char* key);
 
-void htClearAll ( tHTable* ptrht );
+void htClearAll (tHTable* ptrht);
 
 #endif
