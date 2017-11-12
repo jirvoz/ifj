@@ -9,6 +9,10 @@
 /*           Ján Farský   : xfarsk00 : ()%                                    */
 /* ************************************************************************** */
 
+#ifndef _SCANNER_H_
+#define _SCANNER_H_
+
+#include <stdio.h>
 #include "strings.h"
 
 //codes from ASCII table
@@ -22,7 +26,8 @@
 extern unsigned line;           //extern variable - line counter
 
 //types of TOKENS sent to parser
-typedef enum token_type {
+typedef enum token_type 
+{
     IDENTIFIER_TOK,
     STRING_TOK,
     INTEGER_TOK,
@@ -83,17 +88,21 @@ typedef enum token_type {
     TRUE
 } token_type;
 
-typedef union tToken_attribute {
+typedef union tToken_attribute 
+{
     int number;
     double float_number;
     char* string_ptr;
 } tToken_attribute;
 
-typedef struct tToken {
+typedef struct tToken 
+{
     token_type type;
     tToken_attribute attribute;
 } tToken;
     
 //Declarations of functions
-int getNextToken (tToken*, FILE*);                   //main functions of scanner
+int getNextToken (tToken*, FILE*);                  //main functions of scanner
 int operatorTest (char);                            //this functions tests, if next token is operator(+,-,...)
+
+#endif
