@@ -6,6 +6,8 @@
 
 extern tToken last_token;
 
+bool skip_statement();
+
 bool parse();
 
 #endif

@@ -1,26 +1,64 @@
 #include <stdio.h>
-#include "parser.h"
 #include "errors.h"
+#include "parser.h"
+#include "statements.h"
 
 tToken last_token;
 
-bool statement()
+// Temporary function to skip not implemented statements
+bool skip_statement()
 {
-    // TODO evaluate statements
-
-    // skip to EOL or END token
     do
     {
         if (getNextToken(&last_token, stdin) != SUCCESS)
             return false;
 
-        if (last_token.type == END)
-            return true;
-
-        if (last_token.type == EOL_TOK)
+        if (last_token.type == END || last_token.type == EOL_TOK
+            || last_token.type == EOF_TOK)
             return true;
     }
     while (true);
+}
+
+bool statement()
+{
+    if (getNextToken(&last_token, stdin) != SUCCESS)
+        return false;
+    // TODO evaluate statements
+    switch (last_token.type)
+    {
+        case DIM:
+            return dim_stat();
+            break;
+        case IDENTIFIER_TOK:
+            return assignment_stat();
+            // assignment
+            break;
+        case INPUT:
+            return input_stat();
+            break; 
+        case PRINT:
+            return print_stat();
+            break; 
+        case IF:
+            return skip_statement();
+            break; 
+        case DO:
+            return skip_statement();
+            break; 
+        case RETURN:
+            return skip_statement();
+            break; 
+        case EOL_TOK:
+        case END:
+        case ELSE:
+        case LOOP:
+            return true;
+            break;
+        default:
+            return false;
+    }
+
 }
 
 bool statement_list()
