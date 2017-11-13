@@ -29,10 +29,13 @@ bool dim_stat()
     switch (last_token.type)
     {
         case INTEGER:
+            printf("MOVE LF@%s int@0\n", identif_name);
             break;
         case DOUBLE:
+            printf("MOVE LF@%s float@0\n", identif_name);
             break;
         case STRING:
+            printf("MOVE LF@%s string@\n", identif_name);
             break;
         default:
             return false;
