@@ -54,20 +54,29 @@ void stackPush(tStack* stack, tToken* token)
 }
 
 //delete item from the top of stack
-void stackPop(tStack* stack) 
+tToken* stackPop(tStack* stack) 
 {
     if(!stackEmpty(stack)) 
     {
         (stack->top)--;
+        return &(stack->arr[(stack->top) + 1]);
     }   
+    else 
+    {
+        return NULL;
+    }
 }
 
 //save the pointer of the item from the top of stack
-void stackTop(tStack* stack, tToken* token) 
+tToken* stackTop(tStack* stack) 
 {
     if (!stackEmpty(stack)) 
     {
-        token = &(stack->arr[stack->top]);
+        return &(stack->arr[stack->top]);
+    }
+    else
+    {
+        return NULL;
     }
 }
 

@@ -18,8 +18,8 @@ typedef struct tStack
 tStack* stackInit();
 bool stackEmpty(tStack* stack);
 void stackPush(tStack* stack, tToken* token);
-void stackPop(tStack* stack);
-void stackTop(tStack* stack, tToken* token);
+tToken* stackPop(tStack* stack);
+tToken* stackTop(tStack* stack);
 void stackFree(tStack* stack);
 
 #endif
