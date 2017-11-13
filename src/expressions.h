@@ -1,5 +1,5 @@
-#ifndef _EXPRESSION_H_
-#define _EXPRESSION_H_
+#ifndef _EXPRESSIONS_H_
+#define _EXPRESSIONS_H_
 
 #include <stdbool.h>
 #include "scanner.h"

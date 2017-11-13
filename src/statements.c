@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "errors.h"
+#include "expressions.h"
 #include "parser.h"
 #include "scanner.h"
+#include "statements.h"
 
 bool dim_stat()
 {
