@@ -6,6 +6,8 @@
 
 extern int exit_code;
 
+//this structure represent one error message
+
 typedef enum err_code 
 {
     LEX_ERROR = 1,
@@ -16,6 +18,13 @@ typedef enum err_code
     OTHER_ERROR = 99
 } err_code;
 
-void addError(unsigned, err_code);
+typedef struct tCode_pair
+{
+    unsigned line;
+    err_code code;
+} tCode_pair;
+
+void addError(unsigned line, err_code code);
+void printErrors();
 
 #endif
