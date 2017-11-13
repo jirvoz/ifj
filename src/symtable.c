@@ -7,11 +7,13 @@ int solved;
 //hash function
 int hashCode (char* name)
 {
-    int retval = 0;
-    int keylen = strlen(name);
-    for (int i = 0; i < keylen; i++)
-        retval += name[i];
-    return ( retval % HTSIZE );
+    unsigned int h = 0;
+    unsigned char *p;
+
+    for(p = (unsigned char*)name; *p != '\0'; p++)
+        h = 65599 * h + *p;
+
+    return h;
 }
 
 //initializaton of hash table before first use
