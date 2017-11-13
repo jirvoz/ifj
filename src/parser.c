@@ -72,40 +72,44 @@ bool statement_list()
 
 bool program()
 {
-    UPDATE_LAST_TOKEN();
-    
-    // TODO read functions
-    switch (last_token.type)
+    do 
     {
-        case DECLARE:
-            function_decl();
-            break;
-        case FUNCTION:
-            function_def();
-            break;
-        case SCOPE:
-            printf("LABEL $$main\n");
-            printf("CREATEFRAME\n");
-            printf("PUSHFRAME\n");
+        UPDATE_LAST_TOKEN();
+        
+        // TODO read functions
+        switch (last_token.type)
+        {
+            case DECLARE:
+                function_decl();
+                break;
+            case FUNCTION:
+                function_def();
+                break;
+            case SCOPE:
+                printf("LABEL $$main\n");
+                printf("CREATEFRAME\n");
+                printf("PUSHFRAME\n");
 
-            // parse the inside of scope
-            if (!statement_list())
+                // parse the inside of scope
+                if (!statement_list())
+                    return false;
+
+                UPDATE_LAST_TOKEN();
+
+                // test the correct ending of scope
+                if (last_token.type == SCOPE)
+                    return true;
+                else
+                    return false;
+                break;
+            case EOL_TOK:
+                // spare EOL is fine
+                break;
+            default:
                 return false;
-
-            UPDATE_LAST_TOKEN();
-
-            // test the correct ending of scope
-            if (last_token.type == SCOPE)
-                return true;
-            else
-                return false;
-            break;
-
-        default:
-            return false;
+        }
     }
-    // empty program
-    return false;
+    while (true);
 }
 
 // Main function that requests tokens and forges them to output code
