@@ -76,20 +76,42 @@ bool print_stat()
 {
     // last_token.type is PRINT
 
+    UPDATE_LAST_TOKEN();
     do
     {
+        // TODO handle properly all types for printing
+
+        switch (last_token.type)
+        {
+            case INTEGER_TOK:
+                printf("WRITE string@\\032");
+                printf("WRITE int@%d\n", last_token.attribute.number);
+                break;
+            case FLOATING_POINT_TOK:
+                printf("WRITE string@\\032");
+                printf("WRITE float@%f\n", last_token.attribute.float_number);
+                break;
+            case STRING_TOK:
+                printf("WRITE string@%s\n", last_token.attribute.string_ptr);
+                break;
+            case IDENTIFIER_TOK:
+                printf("WRITE LF@%s\n", last_token.attribute.string_ptr);
+                break;
+            default:
+                return false;
+        }
+
+        // Read semicolon after expression
         UPDATE_LAST_TOKEN();
 
-        // TODO handle properly all types for printing
-        printf("WRITE %s\n", last_token.attribute.string_ptr);
+        if (last_token.type != SEMICOLON_OP)
+            return false;
 
+        // Read next expression or EOL after semicolon
         UPDATE_LAST_TOKEN();
 
         if (last_token.type == EOL_TOK)
             return true;
-
-        if (last_token.type != SEMICOLON_OP)
-            return false;
 
     }
     while (true);
