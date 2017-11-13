@@ -15,7 +15,7 @@ typedef struct tSymbol
     //for function only
     bool declared;              //function declared flag
     int arr_count;              //function arguments count
-    token_type* args[];         //array of function arguments
+    token_type** args;          //array of function arguments
 } tSymbol;
 
 //this structure represent symbol in hash table
@@ -23,7 +23,7 @@ typedef struct  tHtitem
 {
     char* name;                 //name is also key
     tSymbol symbol;             //data of symbol
-    struct tHtitem* next;              //pointer to the next synonym
+    struct tHtitem* next;       //pointer to the next synonym
 } tHtitem;
 
 //hash table

@@ -2,126 +2,119 @@
 #include <string.h>
 #include "symtable.h"
 
-int HTSIZE = MAX_HTSIZE;
 int solved;
 
 //hash function
-int hashCode (char* key) 
+int hashCode (char* name)
 {
     int retval = 0;
-    int keylen = strlen(key);
-    for (int i=0; i<keylen; i++)
-        retval += key[i];
+    int keylen = strlen(name);
+    for (int i = 0; i < keylen; i++)
+        retval += name[i];
     return ( retval % HTSIZE );
 }
 
 //initializaton of hash table before first use
-void htInit (tHTable* ptrht) 
+void htInit (tHtable* ptrht)
 {
-    for (int i = 0; i < MAX_HTSIZE; i++) 
+    for (int i = 0; i < HTSIZE; i++)
     {
-        (*ptrht)[i] = NULL; 
+        (*ptrht)[i] = NULL;
     }
 }
 
-//this function set data of hash table item
-void setSymbol (symbol_type type, tData data, tHTItem* ptr) 
-{
-    ptr->type = type;
-    ptr->data = data;
-}
-
 //searching function
-tHTItem* htSearch ( tHTable* ptrht, char* key ) 
+tHtitem* htSearch ( tHtable* ptrht, char* name ) 
 {
-    tHTItem* ptr = (*ptrht)[hashCode(key)];
+    tHtitem* ptr = (*ptrht)[hashCode(name)];
 
-    while (ptr != NULL) 
+    while (ptr != NULL)
     {
-        if (!strcmp(ptr->key, key)) 
+        if (!strcmp(ptr->name, name))
         {
             return ptr;
         }
-        ptr = ptr->ptrnext;
+        ptr = ptr->next;
     }
     return NULL;
 }
 
 //function insert item in the table
-void htInsert (tHTable* ptrht, char* key, symbol_type type, tData data) 
+void htInsert (tHtable* ptrht, char* name, tSymbol symbol)
 {
-    tHTItem* ptr = NULL;
+    tHtitem* ptr = NULL;
 
-    if ((ptr = htSearch(ptrht, key)) != NULL) 
+    if ((ptr = htSearch(ptrht, name)) != NULL)
     {
-        setData(type, data, ptr);
+        ptr->symbol = symbol;
     }
-    else {
-        int code = hashCode(key);
-        ptr = malloc (sizeof(tHTItem));
-        ptr->ptrnext = (*ptrht)[code];
+    else
+    {
+        int code = hashCode(name);
+        ptr = malloc (sizeof(tHtitem));
+        ptr->next = (*ptrht)[code];
         (*ptrht)[code] = ptr;
-        ptr->key = key;
-        setData(type, data, ptr);
+        ptr->name = name;
+        ptr->symbol = symbol;
     }
 }
 
 //function returns data of item 
-tData* htRead (tHTable* ptrht, char* key) 
+tSymbol* htRead (tHtable* ptrht, char* name)
 {
-    tHTItem* ptr;
-    if ((ptr = htSearch(ptrht, key)) != NULL) 
+    tHtitem* ptr;
+    if ((ptr = htSearch(ptrht, name)) != NULL)
     {
-        return &(ptr->data);
+        return &(ptr->symbol);
     }
-    else 
+    else
     {
         return NULL;
     }
 }
 
 //delete item from table
-void htDelete (tHTable* ptrht, char* key) 
+void htDelete (tHtable* ptrht, char* name)
 {
-    int i = hashCode(key);
-    tHTItem* ptr = (*ptrht)[i];
-    tHTItem* tmp;
+    int code = hashCode(name);
+    tHtitem* ptr = (*ptrht)[code];
+    tHtitem* tmp;
 
-    if (ptr != NULL) 
+    if (ptr != NULL)
     {
-        if (!strcmp(ptr->key, key)) 
+        if (!strcmp(ptr->name, name))
         {
-            tmp = ptr->ptrnext;
+            tmp = ptr->next;
             free(ptr);
-            (*ptrht)[i] = tmp;
+            (*ptrht)[code] = tmp;
             return;
         }
-        while (ptr->ptrnext != NULL) 
+        while (ptr->next != NULL)
         {
-            if (ptr->ptrnext->key == key) 
+            if (ptr->next->name == name)
             {
-                tmp = ptr->ptrnext;
-                ptr->ptrnext = ptr->ptrnext->ptrnext;
+                tmp = ptr->next;
+                ptr->next = ptr->next->next;
                 free(tmp);
                 tmp = NULL;
             }
-            ptr = ptr->ptrnext;
+            ptr = ptr->next;
         }
     }
 }
 
 //clear whole hash table
-void htClearAll (tHTable* ptrht) 
+void htClearAll (tHtable* ptrht)
 {
-    tHTItem* ptr;
-    for (int i = 0; i < MAX_HTSIZE; i++) 
+    tHtitem* ptr;
+    for (int i = 0; i < HTSIZE; i++) 
     {
         if ((*ptrht)[i] != NULL) 
         {
             while ((*ptrht)[i] != NULL) 
             {
                 ptr = (*ptrht)[i];
-                (*ptrht)[i] = ptr->ptrnext;
+                (*ptrht)[i] = ptr->next;
                 free(ptr);
                 ptr = NULL;
             }
