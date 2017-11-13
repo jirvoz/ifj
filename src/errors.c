@@ -2,14 +2,16 @@
 #include <stdio.h>
 
 unsigned error_count = 0;
+int exit_code = 0;
 
-char* err_message[] = {
-    "Nastala chyba v programu v rámci lexikální analýzy\n",
-    "Nastala chyba v programu v rámci syntaktické analýzy\n",      
-    "Nastala sémantická chyba v programu\n",
-    "Nastala sémantická chyba typové kompatibility\n",
-    "Nastala jiná sémantická chyba\n",
-    "Nastala vnitřní chyba\n"
+char* err_message[] = 
+{
+    "lexical error\n",
+    "Syntax error\n",      
+    "Semantic error - in program\n",
+    "Semantic error - type incompatibility\n",
+    "Semantic error - else\n",
+    "Internal error\n"
 }; 
 
 void addError (unsigned line, err_code code) {
