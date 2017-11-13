@@ -4,73 +4,46 @@
 #include <stdbool.h>
 #include "scanner.h"
 
-typedef enum var_type {
-    INTEGER_TYPE,
-    FLOATING_POINT_TYPE,
-    STRING_TYPE
-} var_type;
+//size of hash table
+#define HTSIZE 128
 
-typedef union tVar {
-    var_type type;
-    tToken_attribute attribute;
-} tVar;
+typedef struct tSymbol
+{
+    //for var and function
+    token_type type;            //type of variable(or return type of function)
 
-typedef struct tVar_data {
-    char* var_name;
-    bool init_flag;
-    tVar var_data;
-} tVar_data;
-
-typedef struct tFunc_data {
-    char* func_name;
-    bool decl_flag;
-    bool def_flag;
-    tVar ret_value;
-    int param_count;
-    tVar* params;
-} tFunc_data;
-
-typedef union tData {
-    tVar_data variable;
-    tFunc_data function;
-} tData;
-
-typedef enum symbol_type {
-    VARIABLE_SYMBOL,
-    FUNCTION_SYMBOL
-} symbol_type;
-
-//max size of hash table
-#define MAX_HTSIZE 101
+    //for function only
+    bool declared;              //function declared flag
+    int arr_count;              //function arguments count
+    token_type* args[];         //array of function arguments
+} tSymbol;
 
 //this structure represent symbol in hash table
- typedef struct tHTItem{
-    char* key;                  //key
-    symbol_type type;           //type of symbol 
-    tData data;                 //data of symbol
-    struct tHTItem* ptrnext;    //pointer to next synonymum
-} tHTItem;
+typedef struct  tHtitem
+{
+    char* name;                 //name is also key
+    tSymbol symbol;             //data of symbol
+    struct tHtitem* next;              //pointer to the next synonym
+} tHtitem;
 
 //hash table
-typedef tHTItem* tHTable[MAX_HTSIZE];
+typedef tHtitem* tHtable[HTSIZE];
 
 
 //Declarations of functions
 
-int hashCode (char* key);
+int hashCode (char* name);
 
-void setData (symbol_type type, tData data, tHTItem* ptr);
+void htInit (tHtable* ptrht);
 
-void htInit (tHTable* ptrht);
+tHtitem* htSearch (tHtable* ptrht, char* name);
 
-tHTItem* htSearch (tHTable* ptrht, char* key);
+void htInsert (tHtable* ptrht, char* name, tSymbol symbol);
 
-void htInsert (tHTable* ptrht, char* key, symbol_type type, tData data);
+tSymbol* htRead (tHtable* ptrht, char* name);
 
-tData* htRead (tHTable* ptrht, char* key);
+void htDelete (tHtable* ptrht, char* name);
 
-void htDelete (tHTable* ptrht, char* key);
-
-void htClearAll (tHTable* ptrht);
+void htClearAll (tHtable* ptrht);
 
 #endif
