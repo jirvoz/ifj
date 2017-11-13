@@ -82,16 +82,14 @@ bool print_stat()
     UPDATE_LAST_TOKEN();
     do
     {
-        // TODO handle properly all types for printing
+        // TODO add printing of expressions
 
         switch (last_token.type)
         {
             case INTEGER_TOK:
-                printf("WRITE string@\\032");
                 printf("WRITE int@%d\n", last_token.attribute.number);
                 break;
             case FLOATING_POINT_TOK:
-                printf("WRITE string@\\032");
                 printf("WRITE float@%f\n", last_token.attribute.float_number);
                 break;
             case STRING_TOK:
