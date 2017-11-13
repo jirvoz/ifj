@@ -178,12 +178,16 @@ int getNextToken (tToken* next_token, FILE* source_file) {
 
 /*********************************SINGLE_LINE COMMENT STATE************************************/
 
-        else if (state == SINGLE_LINE_COMMENT_STATE) {
-            if (c == '\n') {
+        else if (state == SINGLE_LINE_COMMENT_STATE) 
+        {
+            if (c == '\n') 
+            {
                 line++;
-                state = BEGIN_STATE;
+                next_token->type = EOL_TOK;
+                return SUCCESS;
             }
-            else if (c == EOF) {
+            else if (c == EOF) 
+            {
                 next_token->type = EOF_TOK;
                 return SUCCESS;
             }
@@ -319,6 +323,7 @@ int getNextToken (tToken* next_token, FILE* source_file) {
                 return FAILURE;
             }
             else {
+                printf("lexError\n");
                 addError(line, LEX_ERROR);
                 next_token->attribute.string_ptr = tmp_string.str;
                 next_token->type = STRING_TOK;
@@ -393,8 +398,10 @@ int getNextToken (tToken* next_token, FILE* source_file) {
                 }
             }
             else if (isdigit(c)) {
-                state = ESCAPE_NUMBER_STATE;
+                printf("go to escape number state\n");
+                printf("%c\n", c);
                 ungetc(c, source_file);
+                state = ESCAPE_NUMBER_STATE;
             }
             else {
                 addError(line, LEX_ERROR);
@@ -404,45 +411,43 @@ int getNextToken (tToken* next_token, FILE* source_file) {
 
 /*********************************ESCAPE_NUMBER STATE************************************/
 
-        else if (state == ESCAPE_NUMBER_STATE) {
-            if (c >= '0' && c <= '2') {
-                if (!stringAddChar(c, &tmp_string)) {
-                }
-                else {
-                    addError(line,OTHER_ERROR);
-                    return FAILURE;
-                }
-            }
-            else {
-                addError(line, LEX_ERROR);
-                return FAILURE;
-            }
+        else if (state == ESCAPE_NUMBER_STATE) 
+        {
+            ungetc(c, source_file);
+            string escape_string;
+            stringInit(&escape_string);
 
-            c = getc(source_file);
-            if (isdigit(c) && c >= '0' && c <= '5') {
-                if (!stringAddChar(c, &tmp_string)) {
+            for (int i = 0; i < 3; i++)
+            {
+                c = getc(source_file);
+                printf("%c\n", c);
+                if (isdigit(c))
+                {
+                    if (stringAddChar(c, &escape_string)) 
+                    {
+                        addError(line,OTHER_ERROR);
+                        return FAILURE;
+                    }
                 }
-                else {
-                    addError(line,OTHER_ERROR);
+                else 
+                {
+                    printf("neni cislo\n");
+                    addError(line, LEX_ERROR);
                     return FAILURE;
                 }
             }
-            else {
-                addError(line, LEX_ERROR);
-                return FAILURE;
-            }
+                
+            long tmp;
+            tmp = strtol(escape_string.str, NULL, 10);
 
-            c = getc(source_file);
-            if (isdigit(c) && c >= '0' && c <= '5') {
-                if (!stringAddChar(c, &tmp_string)) {
-                }
-                else {
-                    addError(line,OTHER_ERROR);
-                    return FAILURE;
-                }
+            if (tmp > 0 && tmp < 256)
+            {
+                stringConcat(escape_string.str, &tmp_string);
+                stringFree(&escape_string);
                 state = STRING_STATE;
             }
-            else {
+            else 
+            {
                 addError(line, LEX_ERROR);
                 return FAILURE;
             }  
