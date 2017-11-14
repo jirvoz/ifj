@@ -17,11 +17,13 @@ sctest: scanner_tests.o errors.o scanner.o strings.o
 %.o: %.c
 	$(CC) $(CFLAGS) -c $<
 
-errors.o: errors.c errors.h
+
+errors.o: errors.c errors.h scanner.h strings.h
 expressions.o: expressions.c errors.h expressions.h scanner.h strings.h \
  functions.h parser.h statements.h
 functions.o: functions.c errors.h functions.h parser.h scanner.h \
  strings.h statements.h
+inst_list.o: inst_list.c inst_list.h errors.h scanner.h strings.h
 main.o: main.c errors.h parser.h scanner.h strings.h
 parser.o: parser.c errors.h functions.h parser.h scanner.h strings.h \
  statements.h

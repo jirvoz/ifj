@@ -1,68 +1,42 @@
 #include <stdio.h>
-#include <malloc.h>
+#include <stdarg.h>
 #include "errors.h"
+#include "scanner.h"
 
-unsigned error_count = 0;
 int exit_code = 0;
-tCode_pair* errors;
 
-char* err_message[] =
-{
-    "Lexical error",
-    "Syntax error",      
-    "Semantic error in the program",
-    "Type incompatibility semantic error",
-    "Else semantic error",
-    "Internal error"
+char* err_messages[] =
+{                                           // return values:
+    "Info",                                 // 0
+    "Lexical error",                        // 1
+    "Syntax error",                         // 2
+    "Semantic error in the program",        // 3
+    "Type incompatibility semantic error",  // 4
+    "Else semantic error",                  // 6
+    "Internal error"                        // 99
 }; 
 
 //function counts errors and creates array of errors
-void addError (unsigned line, err_code code)
+void addError(err_code code, const char* fmt, ...)
 {
     //exit code will be first error code
     if (exit_code == 0)
-    {
         exit_code = code;
-    }
 
-    if (error_count == 0)
-    {
-        errors = malloc(sizeof(tCode_pair));
-    }
+    // print error type
+    fprintf(stderr, "Line %d: ", line);
+    if (code == 99)
+        fprintf(stderr, "%s: ", err_messages[6]);
+    else if (code == 6)
+        fprintf(stderr, "%s: ", err_messages[5]);
     else
-    {
-        errors = realloc(errors, error_count + 1);
-    }
+        fprintf(stderr, "%s: ", err_messages[code]);
 
-    //if memory error, do nothing
-    if (errors == NULL)
-    {
-        return;
-    }
+    // print custom message
+    va_list args;
+    va_start(args, fmt);
+    vfprintf(stderr, fmt, args);
+    va_end(args);
 
-    //add new error to array
-    errors[error_count].line = line;
-    errors[error_count].code = code;
-    error_count++;
-}
-
-void printErrors()
-{
-    for (int i = 0; i < error_count; i++)
-    {
-        if (errors[i].code == 6)
-        {
-            fprintf(stderr, err_message[4]);
-        }
-        else if (errors[i].code == 99)
-        {
-            fprintf(stderr, err_message[5]);
-        }
-        else
-        {
-            fprintf(stderr, err_message[errors[i].code - 1]);
-        }
-        fprintf(stderr, " on the line: %u\n", errors[i].line);
-    }
-    free(errors);
+    fprintf(stderr, "\n");
 }

@@ -64,7 +64,7 @@ void* listGetPointerLast(tListOfInst* list) {
 //return active instruction
 tInst *listGetData(tListOfInst* list) {
     if (list->active == NULL) {
-        addError(line, OTHER_ERROR);
+        addError(OTHER_ERROR, NULL);
         return NULL;
     }
     else {
