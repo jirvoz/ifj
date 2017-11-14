@@ -49,7 +49,7 @@ void htInsert (tHtable* ptrht, char* name, tSymbol symbol)
     ptr = malloc (sizeof(tHtitem));
     ptr->next = (*ptrht)[code];
     (*ptrht)[code] = ptr;
-    
+
     ptr->name = name;
     ptr->symbol = symbol;
     
@@ -97,6 +97,8 @@ void htClearAll (tHtable* ptrht)
             {
                 ptr = (*ptrht)[i];
                 (*ptrht)[i] = ptr->next;
+                free(ptr->name);
+                free(ptr->symbol.args);
                 free(ptr);
                 ptr = NULL;
             }
