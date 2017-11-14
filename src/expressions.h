@@ -5,8 +5,9 @@
 #include "scanner.h"
 
 // Parsing of expressions
-// expected_type - type of variable, that ends on the top of stack
-//                 can be INTEGER, DOUBLE, STRING or BOOL
+// expected_type - type of variable, that should end on the top of stack
+//                 can be INTEGER, DOUBLE, STRING, BOOL
+//                 or UNDEFINED_TOK = 0 (no specific type needed)
 bool expression(token_type expected_type);
 
 #endif

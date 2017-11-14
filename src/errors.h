@@ -1,7 +1,16 @@
+#ifndef _ERRORS_H_
+#define _ERRORS_H_
+
 #define SUCCESS 0               //bash style
 #define FAILURE 1               //bash style
 
-typedef enum err_code {
+extern int exit_code;
+
+//this structure represent one error message
+
+typedef enum err_code 
+{
+    NO_ERROR = 0,
     LEX_ERROR = 1,
     SYN_ERROR = 2,
     SEM_PROG_ERROR = 3,
@@ -10,4 +19,11 @@ typedef enum err_code {
     OTHER_ERROR = 99
 } err_code;
 
-void addError(unsigned, err_code);
+// Print error message and set return value
+// Return value is error code of first error
+//
+// code is error type and possible return value
+// fmt and other arguments are same as in printf
+void addError(err_code code, const char* fmt, ...);
+
+#endif
