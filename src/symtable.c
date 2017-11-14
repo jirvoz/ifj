@@ -11,7 +11,7 @@ int hashCode (char* name)
     for(p = (unsigned char*)name; *p != '\0'; p++)
         h = 65599 * h + *p;
 
-    return h;
+    return h % HTSIZE;
 }
 
 //initializaton of hash table before first use

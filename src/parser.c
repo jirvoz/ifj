@@ -1,10 +1,16 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "errors.h"
 #include "functions.h"
 #include "parser.h"
 #include "statements.h"
 
+// Shared last-read token
 tToken last_token;
+
+// Symbol tables
+tHtable* func_table;
+tHtable* var_table;
 
 // Temporary function to skip not implemented statements
 bool skip_statement()
@@ -107,6 +113,8 @@ bool program()
             case EOL_TOK:
                 // spare EOL is fine
                 break;
+            case EOF_TOK:
+                ERROR_AND_RETURN(SYN_ERROR, "Missing main scope.");
             default:
                 ERROR_AND_RETURN(SYN_ERROR, "Wrong beginning of statement.");
         }
@@ -119,6 +127,11 @@ bool parse()
 {
     printf(".IFJcode17\n");
     printf("JUMP $$main\n");
+
+    func_table = malloc(sizeof(tHtitem) * HTSIZE);
+    var_table = malloc(sizeof(tHtitem) * HTSIZE);
+    htInit(func_table);
+    htInit(var_table);
 
     return program();
 

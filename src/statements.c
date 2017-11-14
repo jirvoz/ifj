@@ -5,6 +5,7 @@
 #include "parser.h"
 #include "scanner.h"
 #include "statements.h"
+#include "symtable.h"
 
 bool dim_stat()
 {
@@ -12,20 +13,30 @@ bool dim_stat()
 
     UPDATE_LAST_TOKEN();
 
+    // Check for identifier token
     if (last_token.type != IDENTIFIER_TOK)
         ERROR_AND_RETURN(SYN_ERROR, "Expected identifier after DIM.");
 
     char * identif_name = last_token.attribute.string_ptr;
+
+    // Check for collision with function name
+    if (htSearch(func_table, identif_name))
+        ERROR_AND_RETURN(SEM_PROG_ERROR, "There is already function named '%s'.", identif_name);
+
+    // Check for redefinition
+    if (htSearch(var_table, identif_name))
+        ERROR_AND_RETURN(SEM_PROG_ERROR, "Variable '%s' is already defined.", identif_name);
+
     printf("DEFVAR LF@%s\n", identif_name);
 
     UPDATE_LAST_TOKEN();
 
+    // Check for AS token
     if (last_token.type != AS)
         ERROR_AND_RETURN(SYN_ERROR, "Expected AS after identifier.");
 
     UPDATE_LAST_TOKEN();
 
-    // TODO add to symbol table
     switch (last_token.type)
     {
         case INTEGER:
@@ -40,6 +51,8 @@ bool dim_stat()
         default:
             ERROR_AND_RETURN(SYN_ERROR, "Expected variable type after AS.");
     }
+
+    htInsert(var_table, identif_name, (tSymbol){ .type=last_token.type });
 
     UPDATE_LAST_TOKEN();
 
@@ -81,7 +94,32 @@ bool input_stat()
     if (last_token.type != IDENTIFIER_TOK)
         ERROR_AND_RETURN(SYN_ERROR, "Expected identifier after INPUT.");
 
-    // TODO check symtable and write code
+    // Check symtable if variable exists
+    tHtitem* var = htSearch(var_table, last_token.attribute.string_ptr);
+    if (!var)
+        ERROR_AND_RETURN(SEM_PROG_ERROR, "Undefined variable after INPUT.");
+
+    // Write read instruction with first parameter
+    printf("READ LF@%s ", last_token.attribute.string_ptr);
+
+    // Write second parameter - type of input
+    switch (var->symbol.type)
+    {
+        case INTEGER:
+            printf("int\n");
+            break;
+        case DOUBLE:
+            printf("float\n");
+            break;
+        case STRING:
+            printf("string\n");
+            break;
+        case BOOLEAN:
+            printf("bool\n");
+            break;
+        default:
+            ERROR_AND_RETURN(OTHER_ERROR, "Unknown type of variable at input.");
+    }
 
     // EOL after input statement
     UPDATE_LAST_TOKEN();
