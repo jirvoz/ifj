@@ -19,20 +19,20 @@ void htInit (tHtable* ptrht)
 {
     for (int i = 0; i < HTSIZE; i++)
     {
-        (*ptrht)[i] = NULL;
+        ptrht[i] = NULL;
     }
 }
 
 //searching function
-tHtitem* htSearch ( tHtable* ptrht, char* name ) 
+tSymbol* htSearch ( tHtable* ptrht, char* name ) 
 {
-    tHtitem* ptr = (*ptrht)[hashCode(name)];
+    tHtitem* ptr = ptrht[hashCode(name)];
 
     while (ptr != NULL)
     {
         if (!strcmp(ptr->name, name))
         {
-            return ptr;
+            return &ptr->symbol;
         }
         ptr = ptr->next;
     }
@@ -47,8 +47,8 @@ void htInsert (tHtable* ptrht, char* name, tSymbol symbol)
     int code = hashCode(name);
 
     ptr = malloc (sizeof(tHtitem));
-    ptr->next = (*ptrht)[code];
-    (*ptrht)[code] = ptr;
+    ptr->next = ptrht[code];
+    ptrht[code] = ptr;
 
     ptr->name = name;
     ptr->symbol = symbol;
@@ -59,7 +59,7 @@ void htInsert (tHtable* ptrht, char* name, tSymbol symbol)
 void htDelete (tHtable* ptrht, char* name)
 {
     int code = hashCode(name);
-    tHtitem* ptr = (*ptrht)[code];
+    tHtitem* ptr = ptrht[code];
     tHtitem* tmp;
 
     if (ptr != NULL)
@@ -68,7 +68,7 @@ void htDelete (tHtable* ptrht, char* name)
         {
             tmp = ptr->next;
             free(ptr);
-            (*ptrht)[code] = tmp;
+            ptrht[code] = tmp;
             return;
         }
         while (ptr->next != NULL)
@@ -91,12 +91,12 @@ void htClearAll (tHtable* ptrht)
     tHtitem* ptr;
     for (int i = 0; i < HTSIZE; i++) 
     {
-        if ((*ptrht)[i] != NULL) 
+        if (ptrht[i] != NULL) 
         {
-            while ((*ptrht)[i] != NULL) 
+            while (ptrht[i] != NULL) 
             {
-                ptr = (*ptrht)[i];
-                (*ptrht)[i] = ptr->next;
+                ptr = ptrht[i];
+                ptrht[i] = ptr->next;
                 free(ptr->name);
                 free(ptr->symbol.args);
                 free(ptr);

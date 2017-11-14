@@ -9,17 +9,17 @@
 
 typedef struct tSymbol
 {
-    //for var and function
-    token_type type;            //type of variable(or return type of function)
+    //for variable and function
+    token_type type;            //type of variable (or return type of function)
 
     //for function only
-    bool declared;              //function declared flag
+    bool defined;               //function defined flag
     int arg_count;              //function arguments count
     token_type* args;          	//array of function arguments
 } tSymbol;
 
 //this structure represent symbol in hash table
-typedef struct  tHtitem
+typedef struct tHtitem
 {
     char* name;                 //name is also key
     tSymbol symbol;             //data of symbol
@@ -27,21 +27,21 @@ typedef struct  tHtitem
 } tHtitem;
 
 //hash table
-typedef tHtitem* tHtable[HTSIZE];
+typedef tHtitem* tHtable;
 
 
 //Declarations of functions
 
-int hashCode (char* name);
+int hashCode(char* name);
 
-void htInit (tHtable* ptrht);
+void htInit(tHtable* ptrht);
 
-tHtitem* htSearch (tHtable* ptrht, char* name);
+tSymbol* htSearch(tHtable* ptrht, char* name);
 
-void htInsert (tHtable* ptrht, char* name, tSymbol symbol);
+void htInsert(tHtable* ptrht, char* name, tSymbol symbol);
 
-void htDelete (tHtable* ptrht, char* name);
+void htDelete(tHtable* ptrht, char* name);
 
-void htClearAll (tHtable* ptrht);
+void htClearAll(tHtable* ptrht);
 
 #endif

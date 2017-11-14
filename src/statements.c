@@ -95,15 +95,15 @@ bool input_stat()
         ERROR_AND_RETURN(SYN_ERROR, "Expected identifier after INPUT.");
 
     // Check symtable if variable exists
-    tHtitem* var = htSearch(var_table, last_token.attribute.string_ptr);
-    if (!var)
+    tSymbol* symbol = htSearch(var_table, last_token.attribute.string_ptr);
+    if (!symbol)
         ERROR_AND_RETURN(SEM_PROG_ERROR, "Undefined variable after INPUT.");
 
     // Write read instruction with first parameter
     printf("READ LF@%s ", last_token.attribute.string_ptr);
 
     // Write second parameter - type of input
-    switch (var->symbol.type)
+    switch (symbol->type)
     {
         case INTEGER:
             printf("int\n");
