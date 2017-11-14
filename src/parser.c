@@ -108,7 +108,7 @@ bool program()
                 if (last_token.type == SCOPE)
                     return true;
                 else
-                    return false;
+                    ERROR_AND_RETURN(SYN_ERROR, "Bad ending of scope.");
                 break;
             case EOL_TOK:
                 // spare EOL is fine
