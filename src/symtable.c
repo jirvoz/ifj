@@ -2,8 +2,6 @@
 #include <string.h>
 #include "symtable.h"
 
-int solved;
-
 //hash function
 int hashCode (char* name)
 {
@@ -46,33 +44,15 @@ void htInsert (tHtable* ptrht, char* name, tSymbol symbol)
 {
     tHtitem* ptr = NULL;
 
-    if ((ptr = htSearch(ptrht, name)) != NULL)
-    {
-        ptr->symbol = symbol;
-    }
-    else
-    {
-        int code = hashCode(name);
-        ptr = malloc (sizeof(tHtitem));
-        ptr->next = (*ptrht)[code];
-        (*ptrht)[code] = ptr;
-        ptr->name = name;
-        ptr->symbol = symbol;
-    }
-}
+    int code = hashCode(name);
 
-//function returns data of item 
-tSymbol* htRead (tHtable* ptrht, char* name)
-{
-    tHtitem* ptr;
-    if ((ptr = htSearch(ptrht, name)) != NULL)
-    {
-        return &(ptr->symbol);
-    }
-    else
-    {
-        return NULL;
-    }
+    ptr = malloc (sizeof(tHtitem));
+    ptr->next = (*ptrht)[code];
+    (*ptrht)[code] = ptr;
+    
+    ptr->name = name;
+    ptr->symbol = symbol;
+    
 }
 
 //delete item from table
