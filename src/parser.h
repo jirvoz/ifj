@@ -7,6 +7,9 @@
 // Shortcut for getting next token
 #define UPDATE_LAST_TOKEN(); if (getNextToken(&last_token, stdin) != SUCCESS) return false;
 
+// Shortcut for printig error and returning from function
+#define ERROR_AND_RETURN(err_code, ...) do { addError(err_code, __VA_ARGS__); \
+                                             return false; } while (0)
 
 // Last loaded token for public use
 extern tToken last_token;

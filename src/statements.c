@@ -13,7 +13,7 @@ bool dim_stat()
     UPDATE_LAST_TOKEN();
 
     if (last_token.type != IDENTIFIER_TOK)
-        return false;
+        ERROR_AND_RETURN(SYN_ERROR, "Expected identifier after DIM.");
 
     char * identif_name = last_token.attribute.string_ptr;
     printf("DEFVAR LF@%s\n", identif_name);
@@ -21,7 +21,7 @@ bool dim_stat()
     UPDATE_LAST_TOKEN();
 
     if (last_token.type != AS)
-        return false;
+        ERROR_AND_RETURN(SYN_ERROR, "Expected AS after identifier.");
 
     UPDATE_LAST_TOKEN();
 
@@ -38,7 +38,7 @@ bool dim_stat()
             printf("MOVE LF@%s string@\n", identif_name);
             break;
         default:
-            return false;
+            ERROR_AND_RETURN(SYN_ERROR, "Expected variable type after AS.");
     }
 
     UPDATE_LAST_TOKEN();
@@ -46,9 +46,11 @@ bool dim_stat()
     if (last_token.type == EOL_TOK)
         return true;
     else if (last_token.type != EQUAL_SIGN_OP)
-        return false;
+        ERROR_AND_RETURN(SYN_ERROR, "Expected assignment symbol '=' ",
+            "or end of line after declaration.");
 
     // TODO value assignment
+
     return skip_statement();
 }
 
@@ -59,6 +61,7 @@ bool assignment_stat()
     UPDATE_LAST_TOKEN();
 
     if (last_token.type != EQUAL_SIGN_OP)
+        ERROR_AND_RETURN(SYN_ERROR, "Expected assignment symbol '=' after identifier.");
         return false;
     
     // TODO call expression parsing
@@ -70,9 +73,23 @@ bool input_stat()
 {
     // last_token.type is INPUT
 
-    printf("WRITE string@?\\032");
+    printf("WRITE string@?\\032\n");
 
-    return skip_statement();
+    // Read variable to use for input
+    UPDATE_LAST_TOKEN();
+
+    if (last_token.type != IDENTIFIER_TOK)
+        ERROR_AND_RETURN(SYN_ERROR, "Expected identifier after INPUT.");
+
+    // TODO check symtable and write code
+
+    // EOL after input statement
+    UPDATE_LAST_TOKEN();
+
+    if (last_token.type == EOL_TOK)
+        return true;
+    else
+        ERROR_AND_RETURN(SYN_ERROR, "Expected end of line after variable for input.");
 }
 
 bool print_stat()
@@ -99,14 +116,14 @@ bool print_stat()
                 printf("WRITE LF@%s\n", last_token.attribute.string_ptr);
                 break;
             default:
-                return false;
+                ERROR_AND_RETURN(SYN_ERROR, "Can print only constants and single variables.");
         }
 
         // Read semicolon after expression
         UPDATE_LAST_TOKEN();
 
         if (last_token.type != SEMICOLON_OP)
-            return false;
+            ERROR_AND_RETURN(SYN_ERROR, "Expected semicolon after print value.");
 
         // Read next expression or EOL after semicolon
         UPDATE_LAST_TOKEN();

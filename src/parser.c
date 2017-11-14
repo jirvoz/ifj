@@ -55,7 +55,7 @@ bool statement()
             return true;
             break;
         default:
-            return false;
+            ERROR_AND_RETURN(SYN_ERROR, "Wrong beginning of statement.");
     }
 
 }
@@ -80,10 +80,12 @@ bool program()
         switch (last_token.type)
         {
             case DECLARE:
-                function_decl();
+                if (!function_decl())
+                    return false;
                 break;
             case FUNCTION:
-                function_def();
+                if (!function_def())
+                    return false;
                 break;
             case SCOPE:
                 printf("LABEL $$main\n");
@@ -106,7 +108,7 @@ bool program()
                 // spare EOL is fine
                 break;
             default:
-                return false;
+                ERROR_AND_RETURN(SYN_ERROR, "Wrong beginning of statement.");
         }
     }
     while (true);
