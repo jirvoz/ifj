@@ -28,6 +28,7 @@ extern unsigned line;           //extern variable - line counter
 //types of TOKENS sent to parser
 typedef enum token_type
 {
+    UNDEFINED_TOK = 0,          //non-existent token for functions in parser
     IDENTIFIER_TOK,
     STRING_TOK,
     INTEGER_TOK,
