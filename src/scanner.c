@@ -47,45 +47,27 @@ char* keywords[KWD_COUNT] =
 
 int operatorTest(char c)
 {
-    if (c == '+')
+    switch (c)
     {
-        return PLUS_OP;
-    }
-    else if (c == '-')
-    {
-        return MINUS_OP;
-    }
-    else if (c == '*')
-    {
-        return STAR_OP;
-    }
-    else if (c == BACKSLASH)
-    {
-        return BACKSLASH_OP;
-    }
-    else if (c == '(')
-    {
-        return LEFT_PARENTH_OP;
-    }
-    else if (c == ')')
-    {
-        return RIGHT_PARENTH_OP;
-    }
-    else if (c == '=')
-    {
-        return EQUAL_SIGN_OP;
-    }
-    else if (c == ',')
-    {
-        return COLON_OP;
-    }
-    else if (c == ';')
-    {
-        return SEMICOLON_OP;
-    }
-    else
-    {
-        return -1;
+        case '+':   return PLUS_OP;
+            break;
+        case '-':   return MINUS_OP;
+            break;
+        case '*':   return STAR_OP;
+            break;
+        case '(':   return LEFT_PARENTH_OP;
+            break;
+        case ')':   return RIGHT_PARENTH_OP;
+            break;
+        case '=':   return EQUAL_SIGN_OP;
+            break;
+        case ',':   return COLON_OP;
+            break;
+        case ';':   return SEMICOLON_OP;
+            break;
+        case BACKSLASH: return BACKSLASH_OP;
+            break;
+        default:    return -1;
     }
 }
 
