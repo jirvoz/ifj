@@ -78,16 +78,3 @@ int stringConcat(const char* str_2, string* str_1)
 
     return true;
 }
-
-int identifierTest(string* identifier, char** keywords)
-{
-    for (int i = 30; i < 65; i++) 
-    {
-        if (!strcmp(identifier->str, keywords[i-30]))
-        {
-            return i;
-        }
-    }
-    return -1;
-}
-

@@ -14,6 +14,5 @@ void stringClear(string*);
 
 int stringAddChar(char, string*);
 int stringConcat(const char*, string*);
-int identifierTest(string*, char**);
 
 #endif

@@ -85,8 +85,8 @@ typedef enum token_type
     STRING,
     SUBSTR,
     THEN,
-    TRUE
-    WHILE,
+    TRUE,
+    WHILE
 } token_type;
 
 typedef union tToken_attribute
@@ -104,7 +104,8 @@ typedef struct tToken
     
 //Declarations of functions
 
-int getNextToken (tToken*, FILE*);                  //main functions of scanner
-int operatorTest (char);                            //this functions tests, if next token is operator(+,-,...)
+int getNextToken(tToken*, FILE*);       //main functions of scanner
+int operatorTest(char);                 //this functions tests, if next token is operator(+,-,...)
+int identifierTest(string*, char**);    //this functions tests, if identifier is keyword
 
 #endif

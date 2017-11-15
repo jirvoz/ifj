@@ -11,6 +11,7 @@
 
 #include <ctype.h>
 #include <stdlib.h>
+#include <string.h>
 #include "scanner.h"
 #include "errors.h"
 
@@ -45,6 +46,7 @@ char* keywords[KWD_COUNT] =
     "string", "substr", "then", "true", "while"
 };
 
+//this functions tests, if next token is operator(+,-,...)
 int operatorTest(char c)
 {
     switch (c)
@@ -70,6 +72,35 @@ int operatorTest(char c)
         default:    return -1;
     }
 }
+
+//this functions tests, if identifier is keyword
+int identifierTest(string* identifier, char** keywords)
+{
+    int left = 0;
+    int right = KWD_COUNT / 2;
+    int middle;
+
+    do 
+    {
+        middle = (left + right) / 2;
+
+        if (strcmp(identifier->str, keywords[middle]) < 0)
+        {
+            right = middle - 1;
+        }
+        else if (strcmp(identifier->str, keywords[middle]) > 0)
+        {
+            left = middle + 1;
+        }
+        else
+        {
+            return (middle + 30);
+        }
+    } while (right >= left);
+
+    return -1;
+}
+
 
 int getNextToken (tToken* next_token, FILE* source_file)
 {
