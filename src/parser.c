@@ -150,4 +150,7 @@ bool parse()
                 ERROR_AND_RETURN(SYN_ERROR, "There is something after main scope.");
         }
     }
+
+    htClearAll(func_table);
+    htClearAll(var_table);
 }
