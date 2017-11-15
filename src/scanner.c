@@ -101,7 +101,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else
                 {
-                    addError(line,OTHER_ERROR);
+                    addError(OTHER_ERROR, NULL);
                     return FAILURE;
                 }
             }
@@ -114,7 +114,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 else
                 {
                     ungetc(c, source_file);
-                    addError(line, FAILURE);
+                    addError(FAILURE, NULL);
                     return FAILURE;
                 }
             }
@@ -145,7 +145,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     }
                     else
                     {
-                        addError(line,OTHER_ERROR);
+                        addError(OTHER_ERROR, NULL);
                         return FAILURE;
                     } 
                 }
@@ -155,7 +155,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else
                 {
-                    addError(line,OTHER_ERROR);
+                    addError(OTHER_ERROR, NULL);
                     return FAILURE;
                 }
             }
@@ -190,7 +190,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             }
             else
             {
-                addError(line, LEX_ERROR);
+                addError(LEX_ERROR, NULL);
                 return FAILURE;
             }
         }
@@ -235,7 +235,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             else if (c == EOF)
             {
                 //unexpected
-                addError(line, LEX_ERROR);
+                addError(LEX_ERROR, NULL);
                 next_token->type = EOF_TOK;
                 return FAILURE;
             }
@@ -250,7 +250,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             {
                 if (stringAddChar(c, &tmp_string))
                 {
-                    addError(line,OTHER_ERROR);
+                    addError(OTHER_ERROR, NULL);
                     return FAILURE;
                 }
             }
@@ -325,7 +325,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             {
                 if (stringConcat("032", &tmp_string))
                 {
-                    addError(line,OTHER_ERROR);
+                    addError(OTHER_ERROR, NULL);
                     return FAILURE;
                 }
             }
@@ -333,7 +333,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             {
                 if (stringConcat("035", &tmp_string))
                 {
-                    addError(line,OTHER_ERROR);
+                    addError(OTHER_ERROR, NULL);
                     return FAILURE;
                 }
             }
@@ -341,7 +341,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             {
                 if (stringAddChar(c, &tmp_string))
                 {
-                    addError(line,OTHER_ERROR);
+                    addError(OTHER_ERROR, NULL);
                     return FAILURE;
                 }
                 state = ESCAPE_SEQUENCE_STATE;
@@ -350,20 +350,20 @@ int getNextToken (tToken* next_token, FILE* source_file)
             {
                 if (stringAddChar(c, &tmp_string))
                 {
-                    addError(line,OTHER_ERROR);
+                    addError(OTHER_ERROR, NULL);
                     return FAILURE;
                 }
             }
             else if (c == EOF)
             {
-                addError(line, LEX_ERROR);
+                addError(LEX_ERROR, NULL);
                 next_token->attribute.string_ptr = tmp_string.str;
                 next_token->type = EOF_TOK;
                 return FAILURE;
             }
             else
             {
-                addError(line, LEX_ERROR);
+                addError(LEX_ERROR, NULL);
                 next_token->attribute.string_ptr = tmp_string.str;
                 next_token->type = STRING_TOK;
                 return FAILURE;
@@ -382,7 +382,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else
                 {
-                    addError(line,OTHER_ERROR);
+                    addError(OTHER_ERROR, NULL);
                     return FAILURE;
                 }
             }
@@ -394,7 +394,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else
                 {
-                    addError(line,OTHER_ERROR);
+                    addError(OTHER_ERROR, NULL);
                     return FAILURE;
                 }
             }
@@ -406,7 +406,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else
                 {
-                    addError(line,OTHER_ERROR);
+                    addError(OTHER_ERROR, NULL);
                     return FAILURE;
                 }
             }
@@ -418,7 +418,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else
                 {
-                    addError(line,OTHER_ERROR);
+                    addError(OTHER_ERROR, NULL);
                     return FAILURE;
                 }
             }
@@ -430,7 +430,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else
                 {
-                    addError(line,OTHER_ERROR);
+                    addError(OTHER_ERROR, NULL);
                     return FAILURE;
                 }
             }
@@ -442,7 +442,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else
                 {
-                    addError(line,OTHER_ERROR);
+                    addError(OTHER_ERROR, NULL);
                     return FAILURE;
                 }
             }
@@ -454,7 +454,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else
                 {
-                    addError(line,OTHER_ERROR);
+                    addError(OTHER_ERROR, NULL);
                     return FAILURE;
                 }
             }
@@ -465,7 +465,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             }
             else
             {
-                addError(line, LEX_ERROR);
+                addError(LEX_ERROR, NULL);
                 return FAILURE;
             }
         }
@@ -485,13 +485,13 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 {
                     if (stringAddChar(c, &escape_string))
                     {
-                        addError(line,OTHER_ERROR);
+                        addError(OTHER_ERROR, NULL);
                         return FAILURE;
                     }
                 }
                 else
                 {
-                    addError(line, LEX_ERROR);
+                    addError(LEX_ERROR, NULL);
                     return FAILURE;
                 }
             }
@@ -507,7 +507,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             }
             else
             {
-                addError(line, LEX_ERROR);
+                addError(LEX_ERROR, NULL);
                 return FAILURE;
             }
         }
@@ -524,7 +524,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else if (stringAddChar(c, &tmp_string))
                 {
-                    addError(line,OTHER_ERROR);
+                    addError(OTHER_ERROR, NULL);
                     return FAILURE;
                 }
             }
@@ -536,7 +536,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else
                 {
-                    addError(line,OTHER_ERROR);
+                    addError(OTHER_ERROR, NULL);
                     return FAILURE;
                 }
             }
@@ -550,7 +550,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     {
                         if (stringAddChar(c, &tmp_string))
                         {
-                            addError(line,OTHER_ERROR);
+                            addError(OTHER_ERROR, NULL);
                             return FAILURE;
                         }
                     }
@@ -561,7 +561,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else
                 {
-                    addError(line,OTHER_ERROR);
+                    addError(OTHER_ERROR, NULL);
                     return FAILURE;
                 }
             }
@@ -594,7 +594,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                         state = NUMBER_STATE;
                     }
                     else {
-                        addError(line,OTHER_ERROR);
+                        addError(OTHER_ERROR, NULL);
                         return FAILURE;
                     } 
                 }
@@ -607,7 +607,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else
                 {
-                    addError(line,OTHER_ERROR);
+                    addError(OTHER_ERROR, NULL);
                     return FAILURE;
                 }
             }
@@ -619,7 +619,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else
                 {
-                    addError(line,OTHER_ERROR);
+                    addError(OTHER_ERROR, NULL);
                     return FAILURE;
                 }
             }
@@ -640,7 +640,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             if (isdigit(c)) {
                 if (stringAddChar(c, &tmp_string))
                 {
-                    addError(line,OTHER_ERROR);
+                    addError(OTHER_ERROR, NULL);
                     return FAILURE;
                 }
             }
@@ -654,7 +654,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     {
                         if (stringAddChar(c, &tmp_string))
                         {
-                            addError(line,OTHER_ERROR);
+                            addError(OTHER_ERROR, NULL);
                             return FAILURE;
                         }
                     }
@@ -665,7 +665,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else
                 {
-                    addError(line,OTHER_ERROR);
+                    addError(OTHER_ERROR, NULL);
                     return FAILURE;
                 }
             }
@@ -691,7 +691,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else if (stringAddChar(c, &tmp_string))
                 {
-                    addError(line,OTHER_ERROR);
+                    addError(OTHER_ERROR, NULL);
                     return FAILURE;
                 } 
             }
@@ -723,7 +723,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     }
                     else
                     {
-                        addError(line,OTHER_ERROR);
+                        addError(OTHER_ERROR, NULL);
                         return FAILURE;
                     } 
                 }

@@ -11,14 +11,14 @@ tStack* stackInit()
 
     if (stack == NULL) 
     {
-        addError(line, OTHER_ERROR);
+        addError(OTHER_ERROR, NULL);
         return NULL;
     }
 
     stack->arr = malloc(sizeof(tToken) * 8);
     if (stack->arr == NULL) 
     {
-        addError(line, OTHER_ERROR);
+        addError(OTHER_ERROR, NULL);
         free(stack);
         return NULL;
     }
@@ -43,7 +43,7 @@ void stackPush(tStack* stack, tToken* token)
         stack->arr = realloc(stack->arr, (sizeof(tToken) * (stack->size + 8)));
         if (stack->arr == NULL) 
         {
-            addError(line, OTHER_ERROR);
+            addError(OTHER_ERROR, NULL);
             free(stack);
             return;
         }

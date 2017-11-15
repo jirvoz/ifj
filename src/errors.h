@@ -10,6 +10,7 @@ extern int exit_code;
 
 typedef enum err_code 
 {
+    NO_ERROR = 0,
     LEX_ERROR = 1,
     SYN_ERROR = 2,
     SEM_PROG_ERROR = 3,
@@ -18,13 +19,11 @@ typedef enum err_code
     OTHER_ERROR = 99
 } err_code;
 
-typedef struct tCode_pair
-{
-    unsigned line;
-    err_code code;
-} tCode_pair;
-
-void addError(unsigned line, err_code code);
-void printErrors();
+// Print error message and set return value
+// Return value is error code of first error
+//
+// code is error type and possible return value
+// fmt and other arguments are same as in printf
+void addError(err_code code, const char* fmt, ...);
 
 #endif

@@ -7,9 +7,9 @@
 
 int main ()
 {
-    if (parse())
-       return 0;
-    else
-        // TODO return correct error code
-        return 1;
+    // Run parser
+    parse();
+
+    // Return code of first error (from errors.h)
+    return exit_code;
 }
