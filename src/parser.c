@@ -108,7 +108,7 @@ bool program()
                 if (last_token.type == SCOPE)
                     return true;
                 else
-                    return false;
+                    ERROR_AND_RETURN(SYN_ERROR, "Bad ending of scope.");
                 break;
             case EOL_TOK:
                 // spare EOL is fine
@@ -133,7 +133,21 @@ bool parse()
     htInit(func_table);
     htInit(var_table);
 
-    return program();
+    if (!program())
+        return false;
 
-    // TODO make sure there isn't anything after "end scope"
+    // Make sure there isn't anything after "end scope"
+    while (true)
+    {
+        UPDATE_LAST_TOKEN();
+        switch (last_token.type)
+        {
+            case EOL_TOK:
+                continue;
+            case EOF_TOK:
+                return true;
+            default:
+                ERROR_AND_RETURN(SYN_ERROR, "There is something after main scope.");
+        }
+    }
 }
