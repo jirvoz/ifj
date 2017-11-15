@@ -77,7 +77,7 @@ int operatorTest(char c)
 int identifierTest(string* identifier, char** keywords)
 {
     int left = 0;
-    int right = KWD_COUNT / 2;
+    int right = KWD_COUNT - 1;
     int middle;
 
     do 
@@ -132,6 +132,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else
                 {
+                    stringFree(&tmp_string);
                     addError(OTHER_ERROR, NULL);
                     return false;
                 }
@@ -144,6 +145,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else
                 {
+                    stringFree(&tmp_string);
                     ungetc(c, source_file);
                     addError(LEX_ERROR, NULL);
                     return false;
@@ -161,6 +163,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else
                 {
+                    stringFree(&tmp_string);
                     ungetc(c, source_file);
                     next_token->type = SLASH_OP;
                     return true;
@@ -176,6 +179,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     }
                     else
                     {
+                        stringFree(&tmp_string);
                         addError(OTHER_ERROR, NULL);
                         return false;
                     } 
@@ -186,6 +190,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else
                 {
+                    stringFree(&tmp_string);
                     addError(OTHER_ERROR, NULL);
                     return false;
                 }
@@ -193,6 +198,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             //single operators 
             else if ((int_tmp = operatorTest(c)) != -1)
             {
+                stringFree(&tmp_string);
                 next_token->type = int_tmp;
                 return true;
             }
@@ -206,6 +212,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             }
             else if (c == '\n')
             {
+                stringFree(&tmp_string);
                 line++;
                 next_token->type = EOL_TOK;
                 return true;
@@ -216,11 +223,13 @@ int getNextToken (tToken* next_token, FILE* source_file)
             }
             else if (c == EOF)
             {
+                stringFree(&tmp_string);
                 next_token->type = EOF_TOK;
                 return true; 
             }
             else
             {
+                stringFree(&tmp_string);
                 addError(LEX_ERROR, NULL);
                 return false;
             }
@@ -232,12 +241,14 @@ int getNextToken (tToken* next_token, FILE* source_file)
         {
             if (c == '\n')
             {
+                stringFree(&tmp_string);
                 line++;
                 next_token->type = EOL_TOK;
                 return true;
             }
             else if (c == EOF)
             {
+                stringFree(&tmp_string);
                 next_token->type = EOF_TOK;
                 return true;
             }
@@ -266,6 +277,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             else if (c == EOF)
             {
                 //unexpected
+                stringFree(&tmp_string);
                 addError(LEX_ERROR, NULL);
                 next_token->type = EOF_TOK;
                 return false;
@@ -281,6 +293,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             {
                 if (!stringAddChar(c, &tmp_string))
                 {
+                    stringFree(&tmp_string);
                     addError(OTHER_ERROR, NULL);
                     return false;
                 }
@@ -291,6 +304,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
 
                 if ((int_tmp = identifierTest(&tmp_string, keywords)) != -1)
                 {
+                    stringFree(&tmp_string);
                     next_token->type = int_tmp;
                     return true;
                 }
@@ -309,16 +323,19 @@ int getNextToken (tToken* next_token, FILE* source_file)
         {
             if (c == '>')
             {
+                stringFree(&tmp_string);
                 next_token->type = NO_EQUAL_OP;
                 return true;
             }
             else if (c == '=')
             {
+                stringFree(&tmp_string);
                 next_token->type = LOWER_EQUAL_OP;
                 return true;
             }
             else
             {
+                stringFree(&tmp_string);
                 ungetc(c, source_file);
                 next_token->type = LOWER_OP;
                 return true;
@@ -331,11 +348,13 @@ int getNextToken (tToken* next_token, FILE* source_file)
         {
             if (c == '=')
             {
+                stringFree(&tmp_string);
                 next_token->type = HIGHER_EQUAL_OP;
                 return true;
             }
             else
             {
+                stringFree(&tmp_string);
                 ungetc(c, source_file);
                 next_token->type = HIGHER_OP;
                 return true;
@@ -356,6 +375,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             {
                 if (!stringConcat("032", &tmp_string))
                 {
+                    stringFree(&tmp_string);
                     addError(OTHER_ERROR, NULL);
                     return false;
                 }
@@ -364,6 +384,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             {
                 if (!stringConcat("035", &tmp_string))
                 {
+                    stringFree(&tmp_string);
                     addError(OTHER_ERROR, NULL);
                     return false;
                 }
@@ -372,6 +393,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             {
                 if (!stringAddChar(c, &tmp_string))
                 {
+                    stringFree(&tmp_string);
                     addError(OTHER_ERROR, NULL);
                     return false;
                 }
@@ -381,22 +403,21 @@ int getNextToken (tToken* next_token, FILE* source_file)
             {
                 if (!stringAddChar(c, &tmp_string))
                 {
+                    stringFree(&tmp_string);
                     addError(OTHER_ERROR, NULL);
                     return false;
                 }
             }
             else if (c == EOF)
             {
+                stringFree(&tmp_string);
                 addError(LEX_ERROR, NULL);
-                next_token->attribute.string_ptr = tmp_string.str;
-                next_token->type = EOF_TOK;
                 return false;
             }
             else
             {
+                stringFree(&tmp_string);
                 addError(LEX_ERROR, NULL);
-                next_token->attribute.string_ptr = tmp_string.str;
-                next_token->type = STRING_TOK;
                 return false;
             }
         }
@@ -413,6 +434,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else
                 {
+                    stringFree(&tmp_string);
                     addError(OTHER_ERROR, NULL);
                     return false;
                 }
@@ -425,6 +447,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else
                 {
+                    stringFree(&tmp_string);
                     addError(OTHER_ERROR, NULL);
                     return false;
                 }
@@ -437,6 +460,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else
                 {
+                    stringFree(&tmp_string);
                     addError(OTHER_ERROR, NULL);
                     return false;
                 }
@@ -449,6 +473,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else
                 {
+                    stringFree(&tmp_string);
                     addError(OTHER_ERROR, NULL);
                     return false;
                 }
@@ -461,6 +486,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else
                 {
+                    stringFree(&tmp_string);
                     addError(OTHER_ERROR, NULL);
                     return false;
                 }
@@ -473,6 +499,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else
                 {
+                    stringFree(&tmp_string);
                     addError(OTHER_ERROR, NULL);
                     return false;
                 }
@@ -485,6 +512,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else
                 {
+                    stringFree(&tmp_string);
                     addError(OTHER_ERROR, NULL);
                     return false;
                 }
@@ -496,6 +524,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             }
             else
             {
+                stringFree(&tmp_string);
                 addError(LEX_ERROR, NULL);
                 return false;
             }
@@ -516,12 +545,14 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 {
                     if (!stringAddChar(c, &escape_string))
                     {
+                        stringFree(&tmp_string);
                         addError(OTHER_ERROR, NULL);
                         return false;
                     }
                 }
                 else
                 {
+                    stringFree(&tmp_string);
                     addError(LEX_ERROR, NULL);
                     return false;
                 }
@@ -538,6 +569,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             }
             else
             {
+                stringFree(&tmp_string);
                 addError(LEX_ERROR, NULL);
                 return false;
             }
@@ -555,6 +587,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else if (!stringAddChar(c, &tmp_string))
                 {
+                    stringFree(&tmp_string);
                     addError(OTHER_ERROR, NULL);
                     return false;
                 }
@@ -567,6 +600,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else
                 {
+                    stringFree(&tmp_string);
                     addError(OTHER_ERROR, NULL);
                     return false;
                 }
@@ -581,6 +615,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     {
                         if (!stringAddChar(c, &tmp_string))
                         {
+                            stringFree(&tmp_string);
                             addError(OTHER_ERROR, NULL);
                             return false;
                         }
@@ -592,6 +627,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else
                 {
+                    stringFree(&tmp_string);
                     addError(OTHER_ERROR, NULL);
                     return false;
                 }
@@ -624,7 +660,9 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     {
                         state = NUMBER_STATE;
                     }
-                    else {
+                    else
+                    {
+                        stringFree(&tmp_string);
                         addError(OTHER_ERROR, NULL);
                         return false;
                     } 
@@ -638,6 +676,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else
                 {
+                    stringFree(&tmp_string);
                     addError(OTHER_ERROR, NULL);
                     return false;
                 }
@@ -650,6 +689,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else
                 {
+                    stringFree(&tmp_string);
                     addError(OTHER_ERROR, NULL);
                     return false;
                 }
@@ -671,6 +711,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             if (isdigit(c)) {
                 if (!stringAddChar(c, &tmp_string))
                 {
+                    stringFree(&tmp_string);
                     addError(OTHER_ERROR, NULL);
                     return false;
                 }
@@ -685,6 +726,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     {
                         if (!stringAddChar(c, &tmp_string))
                         {
+                            stringFree(&tmp_string);
                             addError(OTHER_ERROR, NULL);
                             return false;
                         }
@@ -696,6 +738,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else
                 {
+                    stringFree(&tmp_string);
                     addError(OTHER_ERROR, NULL);
                     return false;
                 }
@@ -722,6 +765,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else if (!stringAddChar(c, &tmp_string))
                 {
+                    stringFree(&tmp_string);
                     addError(OTHER_ERROR, NULL);
                     return false;
                 } 
@@ -754,6 +798,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     }
                     else
                     {
+                        stringFree(&tmp_string);
                         addError(OTHER_ERROR, NULL);
                         return false;
                     } 
