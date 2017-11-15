@@ -38,11 +38,11 @@ typedef enum automata_state
 
 char* keywords[KWD_COUNT] =
 {
-    "as", "asc", "declare", "dim", "do", "double", "else", "end", "chr",
-    "function", "if", "input", "integer", "length", "loop", "print", "return",
-    "scope", "string", "substr", "then", "while",
-    "and", "boolean", "continue", "elseif", "exit", "false", "for", "next",
-    "not", "or", "shared", "static", "true"
+    "and", "as", "asc", "boolean", "chr", "continue", "declare", 
+    "dim", "do", "double", "else", "elseif", "end", "exit", "false", 
+    "for", "function", "if", "input", "integer", "length", "loop", 
+    "next", "not", "or", "print", "return", "scope", "shared", "static", 
+    "string", "substr", "then", "true", "while"
 };
 
 int operatorTest(char c)
