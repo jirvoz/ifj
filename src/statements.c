@@ -52,7 +52,8 @@ bool dim_stat()
             ERROR_AND_RETURN(SYN_ERROR, "Expected variable type after AS.");
     }
 
-    htInsert(var_table, identif_name, (tSymbol){ .type=last_token.type });
+    htInsert(var_table, identif_name,
+        (tSymbol){ .type=last_token.type, .defined = true, .arg_count = 0 });
 
     UPDATE_LAST_TOKEN();
 
