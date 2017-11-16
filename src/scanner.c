@@ -373,7 +373,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             }
             else if (c == ' ')
             {
-                if (!stringConcat("032", &tmp_string))
+                if (!stringConcat("\\032", &tmp_string))
                 {
                     stringFree(&tmp_string);
                     addError(OTHER_ERROR, NULL);
@@ -382,7 +382,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             }
             else if (c == '#')
             {
-                if (!stringConcat("035", &tmp_string))
+                if (!stringConcat("\\035", &tmp_string))
                 {
                     stringFree(&tmp_string);
                     addError(OTHER_ERROR, NULL);
