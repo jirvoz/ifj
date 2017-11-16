@@ -115,7 +115,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
     do
     {
         c = getc(source_file);                  //get lexem from source file
-        if (isalpha(c) && isupper(c))
+        if (isalpha(c) && isupper(c) && state != STRING_STATE && state != ESCAPE_SEQUENCE_STATE)
         {
             c = tolower(c);                     // IFJCODE17 is case insensitive
         }
