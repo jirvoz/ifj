@@ -46,10 +46,10 @@ bool statement()
             return print_stat();
             break; 
         case IF:
-            return skip_statement();
+            return if_stat();
             break; 
         case DO:
-            return skip_statement();
+            return while_stat();
             break; 
         case RETURN:
             return skip_statement();
@@ -68,12 +68,17 @@ bool statement()
 
 bool statement_list()
 {
-    // stop when hitted the end of block of code
-    if (last_token.type == END)
-        return true;
-
-    // parse the actual statements
-    return statement() && statement_list();
+    switch (last_token.type)
+    {
+        case END:
+        case ELSE:
+        case LOOP:
+            // stop when hitted the end of block of code
+            return true;
+        default:
+            // parse the actual statements
+            return statement() && statement_list();
+    }
 }
 
 bool program()
