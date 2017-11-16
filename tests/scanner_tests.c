@@ -136,7 +136,7 @@ void TEST03(tToken* next_token)
 
 void TEST04(tToken* next_token)
 {
-    FILE* my_source=fopen("./tests/test4", "r");
+    FILE* my_source=fopen("./tests/test7", "r");
 
     printf("[TEST04] Test correct identification \n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
