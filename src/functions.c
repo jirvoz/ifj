@@ -42,17 +42,21 @@ bool function_header(bool define)
         ERROR_AND_RETURN(SEM_PROG_ERROR, "Function '%s' is already defined.",
             last_token.attribute.string_ptr);
 
-    printf("LABEL $%s\n", identif_name);
-    
     // TODO: read params and return value
 
     if (!symbol)
         htInsert(func_table, identif_name, (tSymbol){ .type=UNDEFINED_TOK, .defined=define });
 
-    if (!skip_statement())
-        return false;
+    if (define)
+    {
+        printf("LABEL $%s\n", identif_name);
 
-    printf("RETURN\n");
+        if (!skip_statement())
+            return false;
+
+        printf("RETURN\n");
+    }
+
     return true;
 }
 
