@@ -14,6 +14,7 @@
 
 #include <stdio.h>
 #include "strings.h"
+#include "errors.h"
 
 //codes from ASCII table
 #define APOSTROPHE 39
@@ -104,8 +105,9 @@ typedef struct tToken
     
 //Declarations of functions
 
-int getNextToken(tToken*, FILE*);       //main functions of scanner
-int operatorTest(char);                 //this functions tests, if next token is operator(+,-,...)
-int identifierTest(string*, char**);    //this functions tests, if identifier is keyword
+int getNextToken(tToken*, FILE*);           //main functions of scanner
+int operatorTest(char);                     //this functions tests, if next token is operator(+,-,...)
+int identifierTest(string*, char**);        //this functions tests, if identifier is keyword
+bool return_false(err_code, const char*, string*);   //this functions is called is error occured
 
 #endif
