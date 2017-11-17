@@ -805,7 +805,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             {
                 if (isdigit(c))
                 {
-                    if (c == '0')
+                    if (!isdigit(tmp_string.str[tmp_string.length - 1]) && c == '0')
                     {
                         state = ZERO_EXPONENT_STATE;
                     }
