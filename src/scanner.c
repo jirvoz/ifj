@@ -13,7 +13,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "scanner.h"
-#include "errors.h"
 
 unsigned line = 1;      //line counter
 
@@ -105,6 +104,13 @@ int identifierTest(string* identifier, char** keywords)
     return -1;
 }
 
+//this functions is called is error occured
+bool return_false(err_code code, const char* message, string* str)
+{
+    stringFree(str);
+    addError(code, message);
+    return false;
+}
 
 int getNextToken (tToken* next_token, FILE* source_file)
 {
