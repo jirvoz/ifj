@@ -49,6 +49,10 @@ char* keywords[KWD_COUNT] =
     "string", "substr", "then", "true", "while"
 };
 
+const char* memory_err = "Memory allocation problem";
+const char* unknown_tok = "Unknown token";
+const char* unexpected_tok = "Unexpected token";
+
 //this functions tests, if next token is operator(+,-,...)
 int operatorTest(char c)
 {
@@ -120,14 +124,16 @@ int getNextToken (tToken* next_token, FILE* source_file)
 
     automata_state state = BEGIN_STATE;         //first state is BEGIN_STATE
     int c;                                      //lexem
-    int int_tmp;
+    int int_tmp;                                //integer storing keyword enum value
 
     do
     {
         c = getc(source_file);                  //get lexem from source file
+
+        // IFJCODE17 is case insensitive
         if ((state != STRING_STATE) && (state != ESCAPE_SEQUENCE_STATE))
         {
-            c = tolower(c);                     // IFJCODE17 is case insensitive
+            c = tolower(c);
         }
 
 /*********************************BEGIN STATE************************************/
@@ -151,9 +157,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     }
                     else
                     {
-                        stringFree(&tmp_string);
-                        addError(OTHER_ERROR, "Memory allocation problem");
-                        return false;
+                        return return_false(OTHER_ERROR, memory_err, &tmp_string);
                     }
                 }
 
@@ -170,9 +174,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     }
                     else
                     {
-                        stringFree(&tmp_string);
-                        addError(OTHER_ERROR, "Memory allocation problem");
-                        return false;
+                        return return_false(OTHER_ERROR, memory_err, &tmp_string);
                     }
                 }
 
@@ -205,9 +207,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                                         break;
                                     default: 
                                     {
-                                        stringFree(&tmp_string);
-                                        addError(LEX_ERROR, "Unknown token");
-                                        return false;
+                                        return return_false(LEX_ERROR, unknown_tok, &tmp_string);
                                     }
                                 }
                         }
@@ -222,10 +222,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                             }
                             else
                             {
-                                stringFree(&tmp_string);
-                                ungetc(c, source_file);
-                                addError(LEX_ERROR, "Unknown token");
-                                return false;
+                                return return_false(LEX_ERROR, unknown_tok, &tmp_string);
                             }
                         }
                             break;
@@ -275,6 +272,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                             return true;
                         }
                             break;
+
                         //end of file
                         case EOF:
                         {
@@ -287,14 +285,12 @@ int getNextToken (tToken* next_token, FILE* source_file)
                         //other character - error
                         default:
                         {
-                            stringFree(&tmp_string);
-                            addError(LEX_ERROR, "Unknown token");
-                            return false;
+                            return return_false(LEX_ERROR, unknown_tok, &tmp_string);
                         }
                     }
                 }
             }
-            break;
+                break;
 
 /*********************************SINGLE_LINE COMMENT STATE************************************/
 
@@ -315,7 +311,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 //we ignore comments
             }
-            break;
+                break;
 
 /*********************************MULTI_LINE COMMENT STATE************************************/
 
@@ -327,10 +323,6 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     {
                         state = BEGIN_STATE;
                     }
-                    else
-                    {
-                        ungetc(c, source_file);
-                    }
                 }
                 else if (c == '\n')
                 {
@@ -339,14 +331,11 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 else if (c == EOF)
                 {
                     //unexpected
-                    stringFree(&tmp_string);
-                    addError(LEX_ERROR, NULL);
-                    next_token->type = EOF_TOK;
-                    return false;
+                    return return_false(LEX_ERROR, "Unexpected end of file in block comment", &tmp_string);
                 }
                 //we ignore comments
             }
-            break;
+                break;
 
 /*********************************IDENTIFIER STATE************************************/
 
@@ -356,9 +345,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 {
                     if (!stringAddChar(c, &tmp_string))
                     {
-                        stringFree(&tmp_string);
-                        addError(OTHER_ERROR, "Memory allocation problem");
-                        return false;
+                        return return_false(OTHER_ERROR, memory_err, &tmp_string);
                     }
                 }
                 else
@@ -379,7 +366,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     }
                 }
             }
-            break;
+                break;
 
 /*********************************OPERATOR LOWER STATE************************************/
 
@@ -405,7 +392,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     return true;
                 }
             }
-            break;
+                break;
 
 /*********************************OPERATOR HIGHER STATE************************************/
 
@@ -425,7 +412,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     return true;
                 }
             }
-            break;
+                break;
 
 /***********************************STRING STATE*******************************************/
 
@@ -441,27 +428,21 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 {
                     if (!stringConcat("\\032", &tmp_string))
                     {
-                        stringFree(&tmp_string);
-                        addError(OTHER_ERROR, "Memory allocation problem");
-                        return false;
+                        return return_false(OTHER_ERROR, memory_err, &tmp_string);
                     }
                 }
                 else if (c == '#')
                 {
                 if (!stringConcat("\\035", &tmp_string))
                     {
-                        stringFree(&tmp_string);
-                        addError(OTHER_ERROR, "Memory allocation problem");
-                        return false;
+                        return return_false(OTHER_ERROR, memory_err, &tmp_string);
                     }
                 }
                 else if (c == BACKSLASH)
                 {
                     if (!stringAddChar(c, &tmp_string))
                     {
-                        stringFree(&tmp_string);
-                        addError(OTHER_ERROR, "Memory allocation problem");
-                        return false;
+                        return return_false(OTHER_ERROR, memory_err, &tmp_string);
                     }
                     state = ESCAPE_SEQUENCE_STATE;
                 }
@@ -469,25 +450,19 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 {
                     if (!stringAddChar(c, &tmp_string))
                     {
-                        stringFree(&tmp_string);
-                        addError(OTHER_ERROR, "Memory allocation problem");
-                        return false;
+                        return return_false(OTHER_ERROR, memory_err, &tmp_string);
                     }
                 }
                 else if (c == EOF)
                 {
-                    stringFree(&tmp_string);
-                    addError(LEX_ERROR, NULL);
-                    return false;
+                    return return_false(LEX_ERROR, "Unexpected end of file in string", &tmp_string);
                 }
                 else
                 {
-                    stringFree(&tmp_string);
-                    addError(LEX_ERROR, NULL);
-                    return false;
+                    return return_false(LEX_ERROR, "Unknown character in string", &tmp_string);
                 }
             }
-            break;
+                break;
 
 /*********************************ESCAPE_SEQUENCE STATE************************************/
 
@@ -501,9 +476,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     }
                     else
                     {
-                        stringFree(&tmp_string);
-                        addError(OTHER_ERROR, "Memory allocation problem");
-                        return false;
+                        return return_false(OTHER_ERROR, memory_err, &tmp_string);
                     }
                 }
                 else if (c == 't')
@@ -514,9 +487,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     }
                     else
                     {
-                        stringFree(&tmp_string);
-                        addError(OTHER_ERROR, "Memory allocation problem");
-                        return false;
+                        return return_false(OTHER_ERROR, memory_err, &tmp_string);
                     }
                 }
                 else if (c == 'n')
@@ -527,9 +498,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     }
                     else
                     {
-                        stringFree(&tmp_string);
-                        addError(OTHER_ERROR, "Memory allocation problem");
-                        return false;
+                        return return_false(OTHER_ERROR, memory_err, &tmp_string);
                     }
                 }
                 else if (c == 'v')
@@ -540,9 +509,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     }
                     else
                     {
-                        stringFree(&tmp_string);
-                        addError(OTHER_ERROR, "Memory allocation problem");
-                        return false;
+                        return return_false(OTHER_ERROR, memory_err, &tmp_string);
                     }
                 }
                 else if (c == 'f')
@@ -553,9 +520,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     }
                     else
                     {
-                        stringFree(&tmp_string);
-                        addError(OTHER_ERROR, "Memory allocation problem");
-                        return false;
+                        return return_false(OTHER_ERROR, memory_err, &tmp_string);
                     }
                 }
                 else if (c == 'r')
@@ -566,9 +531,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     }
                     else
                     {
-                        stringFree(&tmp_string);
-                        addError(OTHER_ERROR, "Memory allocation problem");
-                        return false;
+                        return return_false(OTHER_ERROR, memory_err, &tmp_string);
                     }
                 }
                 else if (c == BACKSLASH)
@@ -579,9 +542,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     }
                     else
                     {
-                        stringFree(&tmp_string);
-                        addError(OTHER_ERROR, "Memory allocation problem");
-                        return false;
+                        return return_false(OTHER_ERROR, memory_err, &tmp_string);
                     }
                 }
                 else if (isdigit(c))
@@ -591,12 +552,10 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else
                 {
-                    stringFree(&tmp_string);
-                    addError(LEX_ERROR, NULL);
-                    return false;
+                    return return_false(LEX_ERROR, "Unknown escape sequence", &tmp_string);
                 }
             }
-            break;
+                break;
 
 /*********************************ESCAPE_NUMBER STATE************************************/
 
@@ -613,21 +572,16 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     {
                         if (!stringAddChar(c, &escape_string))
                         {
-                            stringFree(&tmp_string);
-                            addError(OTHER_ERROR, "Memory allocation problem");
-                            return false;
+                            return return_false(OTHER_ERROR, memory_err, &tmp_string);
                         }
                     }
                     else
                     {
-                        stringFree(&tmp_string);
-                        addError(LEX_ERROR, NULL);
-                        return false;
+                        return return_false(LEX_ERROR, "Wrong escape sequence", &tmp_string);
                     }
                 }
                 
-                long tmp;
-                    tmp = strtol(escape_string.str, NULL, 10);
+                long tmp = strtol(escape_string.str, NULL, 10);
     
                 if (tmp > 0 && tmp < 256)
                 {
@@ -637,12 +591,11 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 else
                 {
-                    stringFree(&tmp_string);
-                    addError(LEX_ERROR, NULL);
-                    return false;
+                    stringFree(&escape_string);
+                    return return_false(LEX_ERROR, "Wrong escape sequence", &tmp_string);
                 }
             }
-            break;
+                break;
 
 /*********************************NUMBER STATE************************************/
 
@@ -652,9 +605,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 {
                     if (!stringAddChar(c, &tmp_string))
                     {
-                        stringFree(&tmp_string);
-                        addError(OTHER_ERROR, "Memory allocation problem");
-                        return false;
+                        return return_false(OTHER_ERROR, memory_err, &tmp_string);
                     }
                 }
                 else if (c == '.')
@@ -663,9 +614,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
 
                     if (!isdigit(c))
                     {
-                        stringFree(&tmp_string);
-                        addError(LEX_ERROR, NULL);
-                        return false;
+                        return return_false(LEX_ERROR, "Wrong number", &tmp_string);
                     }
                     ungetc(c, source_file);
 
@@ -675,9 +624,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     }
                     else
                     {
-                        stringFree(&tmp_string);
-                        addError(OTHER_ERROR, "Memory allocation problem");
-                        return false;
+                        return return_false(OTHER_ERROR, memory_err, &tmp_string);
                     }
                 }
                 else if (c == 'e' || c == 'E')
@@ -691,16 +638,12 @@ int getNextToken (tToken* next_token, FILE* source_file)
                         {
                             if (!stringAddChar(c, &tmp_string))
                             {
-                                stringFree(&tmp_string);
-                                addError(OTHER_ERROR, "Memory allocation problem");
-                                return false;
+                                return return_false(OTHER_ERROR, memory_err, &tmp_string);
                             }
                         }
-                    else if (!isdigit(c))
+                        else if (!isdigit(c))
                         {
-                            stringFree(&tmp_string);
-                            addError(LEX_ERROR, NULL);
-                            return false;
+                            return return_false(LEX_ERROR, "Wrong number", &tmp_string);
                         }
                         else
                         {
@@ -709,9 +652,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     }
                     else
                     {
-                        stringFree(&tmp_string);
-                        addError(OTHER_ERROR, "Memory allocation problem");
-                        return false;
+                        return return_false(OTHER_ERROR, memory_err, &tmp_string);
                     }
                 }
                 else
@@ -723,7 +664,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     return true;
                 }
             }
-            break;
+                break;
 
 /**********************************ZERO STATE************************************/
 
@@ -743,9 +684,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                         }
                         else
                         {
-                            stringFree(&tmp_string);
-                            addError(OTHER_ERROR, "Memory allocation problem");
-                            return false;
+                            return return_false(OTHER_ERROR, memory_err, &tmp_string);
                         } 
                     }
                 }
@@ -760,9 +699,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                         {
                             if (!stringAddChar(c, &tmp_string))
                             {
-                                stringFree(&tmp_string);
-                                addError(OTHER_ERROR, "Memory allocation problem");
-                                return false;
+                                return return_false(OTHER_ERROR, memory_err, &tmp_string);
                             }
                         }
                         else if (!isdigit(c))
@@ -783,9 +720,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
 
                     if (!isdigit(c))
                     {
-                        stringFree(&tmp_string);
-                        addError(LEX_ERROR, NULL);
-                        return false;
+                        return return_false(LEX_ERROR, "Wrong number", &tmp_string);
                     }
                     ungetc(c, source_file);
 
@@ -795,9 +730,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     }
                     else
                     {
-                        stringFree(&tmp_string);
-                        addError(OTHER_ERROR, "Memory allocation problem");
-                        return false;
+                        return return_false(OTHER_ERROR, memory_err, &tmp_string);
                     }
                 }
                 else
@@ -816,7 +749,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     return true;
                 }
             }
-            break;
+                break;
 
 /*********************************FLOAT STATE************************************/
 
@@ -826,9 +759,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 {
                     if (!stringAddChar(c, &tmp_string))
                     {
-                        stringFree(&tmp_string);
-                        addError(OTHER_ERROR, "Memory allocation problem");
-                        return false;
+                        return return_false(OTHER_ERROR, memory_err, &tmp_string);
                     }
                 }
                 else if (c == 'e' || c == 'E')
@@ -842,9 +773,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                         {
                             if (!stringAddChar(c, &tmp_string))
                             {
-                                stringFree(&tmp_string);
-                                addError(OTHER_ERROR, "Memory allocation problem");
-                                return false;
+                                return return_false(OTHER_ERROR, memory_err, &tmp_string);
                             }
                         }
                         else if (!isdigit(c))
@@ -860,9 +789,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     }
                     else
                     {
-                        stringFree(&tmp_string);
-                        addError(OTHER_ERROR, "Memory allocation problem");
-                        return false;
+                        return return_false(OTHER_ERROR, memory_err, &tmp_string);
                     }
                 }
                 else
@@ -874,7 +801,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     return true;
                 }
             }
-            break;
+                break;
 
 /*********************************EXPONENT STATE************************************/
 
@@ -888,9 +815,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     }
                     else if (!stringAddChar(c, &tmp_string))
                     {
-                        stringFree(&tmp_string);
-                        addError(OTHER_ERROR, "Memory allocation problem");
-                        return false;
+                        return return_false(OTHER_ERROR, memory_err, &tmp_string);
                     } 
                 }
                 else
@@ -902,7 +827,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     return true;
                 }
             }
-            break;
+                break;
 
 /*****************************ZERO_EXPONENT STATE********************************/
 
@@ -922,9 +847,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                         }
                         else
                         {
-                            stringFree(&tmp_string);
-                            addError(OTHER_ERROR, "Memory allocation problem");
-                            return false;
+                            return return_false(OTHER_ERROR, memory_err, &tmp_string);
                         } 
                     }
                 }
@@ -937,8 +860,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     return true;
                 }
             }
-            break;
+                break;
         }
     } while (1);
-
 }
