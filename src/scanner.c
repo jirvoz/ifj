@@ -34,7 +34,11 @@ typedef enum automata_state
     LOWER_STATE,                        //11 - lower operator - '<'
     HIGHER_STATE,                       //12 - higher operator - '>'
     ESCAPE_SEQUENCE_STATE,              //13 - escape sequence
-    ESCAPE_NUMBER_STATE                 //14 - \ddd number in escape sequence
+    ESCAPE_NUMBER_STATE,                //14 - \ddd number in escape sequence
+    //extensions
+    BIN_STATE,                          //15 - binary number
+    OCTA_STATE,                         //16 - octal number
+    HEXA_STATE                          //17 - hexadecimal number
 } automata_state;
 
 char* keywords[KWD_COUNT] =
@@ -115,20 +119,24 @@ int getNextToken (tToken* next_token, FILE* source_file)
     do
     {
         c = getc(source_file);                  //get lexem from source file
-        if (isalpha(c) && isupper(c) && state != STRING_STATE && state != ESCAPE_SEQUENCE_STATE)
+        if ((state != STRING_STATE) && (state != ESCAPE_SEQUENCE_STATE))
         {
             c = tolower(c);                     // IFJCODE17 is case insensitive
         }
 
-/*********************************BEGIN_STATE STATE************************************/
+/*********************************BEGIN STATE************************************/
+
         switch (state)
         {
             case BEGIN_STATE:
             {
-                if (isspace(c))
+                //ignore white characters, but new line
+                if (isspace(c) && (c != '\n'))
                 {
                     //nothing to do, white characters are ignored
                 }
+
+                //identifiers and keywords
                 else if (isalpha(c) || c == '_')
                 {
                     if (stringAddChar(c, &tmp_string))
@@ -142,6 +150,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                         return false;
                     }
                 }
+
                 //decimal numbers
                 else if (isdigit(c))
                 {
@@ -160,6 +169,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                         return false;
                     }
                 }
+
                 //single operators 
                 else if ((int_tmp = operatorTest(c)) != -1)
                 {
@@ -167,88 +177,115 @@ int getNextToken (tToken* next_token, FILE* source_file)
                     next_token->type = int_tmp;
                     return true;
                 }
-                //Binary, octa and hexa BASE numbers
-                else if (c == '&')
-                {   
-                    c = getc(source_file);
-                    c = tolower(c);
 
-                    switch(c)
+                //Other states depend on exact characters, we can use switch
+                else
+                {
+                    switch (c)
                     {
-                        case 'b': state = BIN_STATE;
+                        //bin, octa and hexa numbers
+                        case '&':
+                        {   
+                            c = getc(source_file);
+                            c = tolower(c);
+    
+                                switch(c)
+                                {
+                                    case 'b': state = BIN_STATE;
+                                        break;
+                                    case 'o': state = OCTA_STATE;
+                                        break;
+                                    case 'h': state = HEXA_STATE;
+                                        break;
+                                    default: 
+                                    {
+                                        stringFree(&tmp_string);
+                                        addError(LEX_ERROR, "Unknown token");
+                                        return false;
+                                    }
+                                }
+                        }
                             break;
-                        case 'o'; state = OCTA_STATE;
+
+                        //string
+                        case '!':
+                        {
+                            if ((c = getc(source_file)) == QUOTE)
+                            {
+                                state = STRING_STATE;
+                            }
+                            else
+                            {
+                                stringFree(&tmp_string);
+                                ungetc(c, source_file);
+                                addError(LEX_ERROR, "Unknown token");
+                                return false;
+                            }
+                        }
                             break;
-                        case 'h': state = HEXA_STATE;
+
+                        //single line comment
+                        case APOSTROPHE:
+                        {
+                            state = SINGLE_LINE_COMMENT_STATE;
+                        }
+                            break; 
+
+                        //multi line comment
+                        case '/':
+                        {
+                            if ((c = getc(source_file)) == APOSTROPHE)
+                            {
+                                state = MULTI_LINE_COMMENT_STATE;
+                            }
+                            else
+                            {
+                                stringFree(&tmp_string);
+                                ungetc(c, source_file);
+                                next_token->type = SLASH_OP;
+                                return true;
+                            }
+                        }
                             break;
-                        default: 
+
+                        //multiple charakter operators
+                        case '<':
+                        {
+                            state = LOWER_STATE;   
+                        }
+                            break;
+                        case '>':
+                        {
+                            state = HIGHER_STATE;
+                        }
+                            break;
+
+                        //new line token
+                        case '\n':
+                        {
+                            stringFree(&tmp_string);
+                            line++;
+                            next_token->type = EOL_TOK;
+                            return true;
+                        }
+                            break;
+                        //end of file
+                        case EOF:
+                        {
+                            stringFree(&tmp_string);
+                            next_token->type = EOF_TOK;
+                            return true; 
+                        }
+                            break;
+
+                        //other character - error
+                        default:
                         {
                             stringFree(&tmp_string);
                             addError(LEX_ERROR, "Unknown token");
                             return false;
                         }
                     }
-                }
-                else if (c == '!')
-                {
-                    if ((c = getc(source_file)) == QUOTE)
-                    {
-                        state = STRING_STATE;
-                    }
-                    else
-                    {
-                        stringFree(&tmp_string);
-                        ungetc(c, source_file);
-                        addError(LEX_ERROR, "Unknown token");
-                        return false;
-                    }
-                }
-                else if (c == APOSTROPHE)
-                {
-                    state = SINGLE_LINE_COMMENT_STATE;
-                }
-                else if (c == '/')
-                {
-                    if ((c = getc(source_file)) == APOSTROPHE)
-                    {
-                        state = MULTI_LINE_COMMENT_STATE;
-                    }
-                    else
-                    {
-                        stringFree(&tmp_string);
-                        ungetc(c, source_file);
-                        next_token->type = SLASH_OP;
-                        return true;
-                    }
-                }
-                //multiple charakter operators
-                else if (c == '<')
-                {
-                    state = LOWER_STATE;   
-                }
-                else if (c == '>')
-                {
-                    state = HIGHER_STATE;
-                }
-                else if (c == '\n')
-                {
-                    stringFree(&tmp_string);
-                    line++;
-                    next_token->type = EOL_TOK;
-                    return true;
-                }
-                
-                else if (c == EOF)
-                {
-                    stringFree(&tmp_string);
-                    next_token->type = EOF_TOK;
-                    return true; 
-                }
-                else
-                {
-                    stringFree(&tmp_string);
-                    addError(LEX_ERROR, "Unknown token");
-                    return false;
                 }
             }
             break;
