@@ -6,30 +6,6 @@
 #include "postfix_list.h"
 #include "statements.h"
 
-//rows and cols in precedence table
-typedef enum p_table_index
-{
-    EQ_EXPR_IN,
-    NOT_EQ_IN,
-    LESS_EQ_IN,
-    MORE_EQ_IN,
-    LESS_IN,
-    MORE_IN,
-    PLUS_IN,
-    MINUS_IN,
-    MUL_IN,
-    FLOAT_DIV_IN,
-    INT_DIV_IN,
-    LEFT_PARENT_IN,
-    RIGHT_PARENT_IN,
-    INT_IN,                 //13
-    DOUBLE_IN,
-    STRING_IN,
-    EQ_COMMAND_IN,
-    UNARY_MINUS_IN,
-    DOLAR_IN
-} p_table_index;
-
 //size of precedence table
 #define P_TAB_SIZE 19
 
@@ -88,6 +64,9 @@ int generateRule(int *rule)
     }
     return -1;
 }
+
+//declarations of variable in symboltable
+void 
 
 bool getTerm(tToken token, p_table_index* index)
 {
