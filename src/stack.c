@@ -11,14 +11,14 @@ tStack* stackInit()
 
     if (stack == NULL) 
     {
-        addError(OTHER_ERROR, NULL);
+        addError(OTHER_ERROR, "Memmory allocation error");
         return NULL;
     }
 
     stack->arr = malloc(sizeof(tToken) * 8);
     if (stack->arr == NULL) 
     {
-        addError(OTHER_ERROR, NULL);
+        addError(OTHER_ERROR, "Memmory allocation error");
         free(stack);
         return NULL;
     }
@@ -36,25 +36,26 @@ bool stackEmpty(tStack* stack)
 
 //push item to the top of stack
 //if the stack is full, is resized
-void stackPush(tStack* stack, tToken* token) 
+void stackPush(tStack* stack, tToken token, p_table_index index) 
 {
     if (stack->size < (stack->top)) 
     {
         stack->arr = realloc(stack->arr, (sizeof(tToken) * (stack->size + 8)));
         if (stack->arr == NULL) 
         {
-            addError(OTHER_ERROR, NULL);
+            addError(OTHER_ERROR, "Memmory allocation error");
             free(stack);
             return;
         }
         stack->size += 8;
     }
-    stack->arr[stack->top] = *token;
+    stack->arr[stack->top].token = token;
+    stack->arr[stack->top].index = index;
     (stack->top)++;
 }
 
 //delete item from the top of stack
-tToken* stackPop(tStack* stack) 
+tStack_data* stackPop(tStack* stack) 
 {
     if(!stackEmpty(stack)) 
     {
@@ -68,7 +69,7 @@ tToken* stackPop(tStack* stack)
 }
 
 //save the pointer of the item from the top of stack
-tToken* stackTop(tStack* stack) 
+tStack_data* stackTop(tStack* stack) 
 {
     if (!stackEmpty(stack)) 
     {
