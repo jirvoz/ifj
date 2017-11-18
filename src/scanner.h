@@ -31,18 +31,18 @@ typedef enum token_type
 {
     UNDEFINED_TOK = 0,          //non-existent token for functions in parser
     IDENTIFIER_TOK,
-    STRING_TOK,
     INTEGER_TOK,
     FLOATING_POINT_TOK,
+    STRING_TOK,
     EOL_TOK,
     EOF_TOK,
     //------------OPERATORS-------------//
-    LOWER_OP = 10,              //operators starting at 10
-    HIGHER_OP,
-    EQUAL_SIGN_OP,
+    EQUAL_SIGN_OP = 10,         //operators starting at 10
     NO_EQUAL_OP,
     LOWER_EQUAL_OP,
     HIGHER_EQUAL_OP,
+    LOWER_OP,
+    HIGHER_OP,
     PLUS_OP,
     MINUS_OP,
     STAR_OP,
