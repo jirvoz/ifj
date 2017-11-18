@@ -105,9 +105,9 @@ typedef struct tToken
     
 //Declarations of functions
 
-int getNextToken(tToken*, FILE*);           //main functions of scanner
-int operatorTest(char);                     //this functions tests, if next token is operator(+,-,...)
-int identifierTest(string*, char**);        //this functions tests, if identifier is keyword
-bool return_false(err_code, const char*, string*);   //this functions is called is error occured
+int getNextToken(tToken*, FILE*);       //main functions of scanner
+int operatorTest(char);                 //this functions tests, if next token is operator(+,-,...)
+int identifierTest(string*, char**);    //this functions tests, if identifier is keyword
+bool returnFalse(err_code, const char*, string*);   //this functions is called is error occured
 
 #endif
