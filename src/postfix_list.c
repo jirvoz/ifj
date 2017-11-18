@@ -27,11 +27,12 @@ void listFree(tList* list)
 }
 
 //insert new item to end of the list
-void listInsertLast(tList* list, tToken token)
+void listInsertLast(tList* list, tToken token, p_table_index index)
 {
     tList_item *new_item;
     new_item = malloc(sizeof (tList_item));
     new_item->token = token;
+    new_item->index = index;
     new_item->next = NULL;
 
     if (list->first == NULL)
@@ -61,19 +62,19 @@ void listNext(tList* list)
 }
 
 //activate token on pointer
-void listGoto(tList* list, tToken* token)
+void listGoto(tList* list, tList_item* item)
 {
-    list->active = (tList_item*) token;
+    list->active = item;
 }
 
 //return pointer of last item 
-tToken* listGetPointerLast(tList* list)
+tList_item* listGetPointerLast(tList* list)
 {
-    return (tToken*) list->last;
+    return list->last;
 }
 
-//return active token
-tToken* listGetData(tList* list)
+//return active item
+tList_item* listGetData(tList* list)
 {
     if (list->active == NULL)
     {
@@ -82,6 +83,6 @@ tToken* listGetData(tList* list)
     }
     else
     {
-        return &(list->active->token);  
+        return list->active;  
     } 
 }
