@@ -261,7 +261,7 @@ bool while_stat()
 
     // test the LOOP and eol at the end of loop
     if (last_token.type != LOOP)
-        ERROR_AND_RETURN(SYN_ERROR, "Expected end of line after ELSE.");
+        ERROR_AND_RETURN(SYN_ERROR, "Expected LOOP after do while block.");
 
     UPDATE_LAST_TOKEN();
 
@@ -269,4 +269,21 @@ bool while_stat()
         ERROR_AND_RETURN(SYN_ERROR, "Expected end of line after LOOP.");
 
     return true;
+}
+
+bool return_stat()
+{
+    // last_token.type is RETURN
+
+    // TODO Check if in function
+
+    UPDATE_LAST_TOKEN();
+
+    // Check for identifier token
+    if (last_token.type != IDENTIFIER_TOK)
+        ERROR_AND_RETURN(SYN_ERROR, "Expected expression after RETURN.");
+
+    // TODO call expression parsing
+
+    return skip_statement();
 }

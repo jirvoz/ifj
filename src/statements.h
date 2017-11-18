@@ -21,4 +21,7 @@ bool if_stat();
 // Parse do while block
 bool while_stat();
 
+// Parse return
+bool return_stat();
+
 #endif
