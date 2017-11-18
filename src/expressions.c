@@ -56,6 +56,38 @@ const int precedence_table[P_TAB_SIZE][P_TAB_SIZE] =
     {'<', '<', '<', '<', '<', '<', '<', '<', '<', '<', '<', '<', 'x', '<', '<', '<',    'x',  '<', 'x'}, //'$'
 };
 
+//number of rules
+#define RULE_COUNT 10
+
+
+//this function compare two rules
+bool compareRules(int* rule1, int* rule2)
+{
+    for (int i = 0; i < 3; i++)
+    {
+        if (rule1[i] != rule2[i])
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+//this functions returns number of rule 
+//if unsuccess, returns -1
+int generateRule(int *rule)
+{
+
+    for (int i = 0; i < RULE_COUNT, i++)
+    {
+        if (compareRules(rule, rules[i]))
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
 bool getTerm(tToken token, p_table_index* index)
 {
     //token is identifier, figure out if var or func
