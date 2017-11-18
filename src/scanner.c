@@ -11,8 +11,8 @@
 
 #include <ctype.h>
 #include <stdlib.h>
+#include <string.h>
 #include "scanner.h"
-#include "errors.h"
 
 unsigned line = 1;      //line counter
 
@@ -33,60 +33,85 @@ typedef enum automata_state
     LOWER_STATE,                        //11 - lower operator - '<'
     HIGHER_STATE,                       //12 - higher operator - '>'
     ESCAPE_SEQUENCE_STATE,              //13 - escape sequence
-    ESCAPE_NUMBER_STATE                 //14 - \ddd number in escape sequence
+    ESCAPE_NUMBER_STATE,                //14 - \ddd number in escape sequence
+    //extensions
+    BASE_STATE                          //15 - binary, octal and hexadecimal numbers
 } automata_state;
 
 char* keywords[KWD_COUNT] =
 {
-    "as", "asc", "declare", "dim", "do", "double", "else", "end", "chr",
-    "function", "if", "input", "integer", "length", "loop", "print", "return",
-    "scope", "string", "substr", "then", "while",
-    "and", "boolean", "continue", "elseif", "exit", "false", "for", "next",
-    "not", "or", "shared", "static", "true"
+    "and", "as", "asc", "boolean", "chr", "continue", "declare", 
+    "dim", "do", "double", "else", "elseif", "end", "exit", "false", 
+    "for", "function", "if", "input", "integer", "length", "loop", 
+    "next", "not", "or", "print", "return", "scope", "shared", "static", 
+    "string", "substr", "then", "true", "while"
 };
 
+const char* memory_err = "Memory allocation problem";
+const char* unknown_tok = "Unknown token";
+const char* unexpected_tok = "Unexpected token";
+
+//this functions tests, if next token is operator(+,-,...)
 int operatorTest(char c)
 {
-    if (c == '+')
+    switch (c)
     {
-        return PLUS_OP;
+        case '+':   return PLUS_OP;
+            break;
+        case '-':   return MINUS_OP;
+            break;
+        case '*':   return STAR_OP;
+            break;
+        case '(':   return LEFT_PARENTH_OP;
+            break;
+        case ')':   return RIGHT_PARENTH_OP;
+            break;
+        case '=':   return EQUAL_SIGN_OP;
+            break;
+        case ',':   return COLON_OP;
+            break;
+        case ';':   return SEMICOLON_OP;
+            break;
+        case BACKSLASH: return BACKSLASH_OP;
+            break;
+        default:    return -1;
     }
-    else if (c == '-')
+}
+
+//this functions tests, if identifier is keyword
+int identifierTest(string* identifier, char** keywords)
+{
+    int left = 0;
+    int right = KWD_COUNT - 1;
+    int middle;
+
+    do 
     {
-        return MINUS_OP;
-    }
-    else if (c == '*')
-    {
-        return STAR_OP;
-    }
-    else if (c == BACKSLASH)
-    {
-        return BACKSLASH_OP;
-    }
-    else if (c == '(')
-    {
-        return LEFT_PARENTH_OP;
-    }
-    else if (c == ')')
-    {
-        return RIGHT_PARENTH_OP;
-    }
-    else if (c == '=')
-    {
-        return EQUAL_SIGN_OP;
-    }
-    else if (c == ',')
-    {
-        return COLON_OP;
-    }
-    else if (c == ';')
-    {
-        return SEMICOLON_OP;
-    }
-    else
-    {
-        return -1;
-    }
+        middle = (left + right) / 2;
+
+        if (strcmp(identifier->str, keywords[middle]) < 0)
+        {
+            right = middle - 1;
+        }
+        else if (strcmp(identifier->str, keywords[middle]) > 0)
+        {
+            left = middle + 1;
+        }
+        else
+        {
+            return (middle + 30);
+        }
+    } while (right >= left);
+
+    return -1;
+}
+
+//this functions is called is error occured
+bool returnFalse(err_code code, const char* message, string* str)
+{
+    stringFree(str);
+    addError(code, message);
+    return false;
 }
 
 int getNextToken (tToken* next_token, FILE* source_file)
@@ -97,664 +122,794 @@ int getNextToken (tToken* next_token, FILE* source_file)
 
     automata_state state = BEGIN_STATE;         //first state is BEGIN_STATE
     int c;                                      //lexem
-    int int_tmp;
+    int int_tmp = 10;                                //tmp int for identifiers and numbers BASE
 
     do
     {
         c = getc(source_file);                  //get lexem from source file
-        if (isalpha(c) && isupper(c))
+
+        // IFJCODE17 is case insensitive
+        if ((state != STRING_STATE) && (state != ESCAPE_SEQUENCE_STATE))
         {
-            c = tolower(c);                     // IFJCODE17 is case insensitive
+            c = tolower(c);
         }
 
-/*********************************BEGIN_STATE STATE************************************/
+/*********************************BEGIN STATE************************************/
 
-        if (state == BEGIN_STATE)
+        switch (state)
         {
-            if (isalpha(c) || c == '_')
+            case BEGIN_STATE:
             {
-                if (!(stringAddChar(c, &tmp_string)))
+                //ignore white characters, but new line
+                if (isspace(c) && (c != '\n'))
                 {
-                    state = IDENTIFIER_STATE;
+                    //nothing to do, white characters are ignored
                 }
-                else
+
+                //identifiers and keywords
+                else if (isalpha(c) || c == '_')
                 {
-                    addError(OTHER_ERROR, NULL);
-                    return FAILURE;
-                }
-            }
-            else if (c == '!')
-            {
-                if ((c = getc(source_file)) == QUOTE)
-                {
-                    state = STRING_STATE;
-                }
-                else
-                {
-                    ungetc(c, source_file);
-                    addError(FAILURE, NULL);
-                    return FAILURE;
-                }
-            }
-            else if (c == APOSTROPHE)
-            {
-                state = SINGLE_LINE_COMMENT_STATE;
-            }
-            else if (c == '/')
-            {
-                if ((c = getc(source_file)) == APOSTROPHE)
-                {
-                    state = MULTI_LINE_COMMENT_STATE;
-                }
-                else
-                {
-                    ungetc(c, source_file);
-                    next_token->type = SLASH_OP;
-                    return SUCCESS;
-                }
-            }
-            else if (isdigit(c))
-            {
-                if (c == '0')
-                {
-                    if (!stringAddChar(c, &tmp_string))
+                    if (stringAddChar(c, &tmp_string))
                     {
-                        state = ZERO_STATE;               //ignore zeros 
+                        state = IDENTIFIER_STATE;
                     }
                     else
                     {
-                        addError(OTHER_ERROR, NULL);
-                        return FAILURE;
-                    } 
-                }
-                else if (!(stringAddChar(c, &tmp_string)))
-                {
-                    state = NUMBER_STATE;
-                }
-                else
-                {
-                    addError(OTHER_ERROR, NULL);
-                    return FAILURE;
-                }
-            }
-            //single operators 
-            else if ((int_tmp = operatorTest(c)) && int_tmp != -1)
-            {
-                next_token->type = int_tmp;
-                return SUCCESS;
-            }
-            else if (c == '<')
-            {
-                state = LOWER_STATE;   
-            }
-            else if (c == '>')
-            {
-                state = HIGHER_STATE;
-            }
-            else if (c == '\n')
-            {
-                line++;
-                next_token->type = EOL_TOK;
-                return SUCCESS;
-            }
-            else if (isspace(c))
-            {
-                //nothing to do, white characters are ignored
-            }
-            else if (c == EOF)
-            {
-                next_token->type = EOF_TOK;
-                return SUCCESS; 
-            }
-            else
-            {
-                addError(LEX_ERROR, NULL);
-                return FAILURE;
-            }
-        }
-
-/*********************************SINGLE_LINE COMMENT STATE************************************/
-
-        else if (state == SINGLE_LINE_COMMENT_STATE)
-        {
-            if (c == '\n')
-            {
-                line++;
-                next_token->type = EOL_TOK;
-                return SUCCESS;
-            }
-            else if (c == EOF)
-            {
-                next_token->type = EOF_TOK;
-                return SUCCESS;
-            }
-            //we ignore comments
-        }
-
-/*********************************MULTI_LINE COMMENT STATE************************************/
-
-        else if (state == MULTI_LINE_COMMENT_STATE)
-        {
-            if (c == APOSTROPHE)
-            {
-                if ((c = getc(source_file)) == '/')
-                {
-                    state = BEGIN_STATE;
-                }
-                else
-                {
-                    ungetc(c, source_file);
-                }
-            }
-            else if (c == '\n')
-            {
-                line++;
-            }
-            else if (c == EOF)
-            {
-                //unexpected
-                addError(LEX_ERROR, NULL);
-                next_token->type = EOF_TOK;
-                return FAILURE;
-            }
-            //we ignore comments
-        }
-
-/*********************************IDENTIFIER STATE************************************/
-
-        else if (state == IDENTIFIER_STATE)
-        {
-            if (isalnum(c) || c == '_')
-            {
-                if (stringAddChar(c, &tmp_string))
-                {
-                    addError(OTHER_ERROR, NULL);
-                    return FAILURE;
-                }
-            }
-            else
-            {
-                ungetc(c, source_file);
-
-                if ((int_tmp = identifierTest(&tmp_string, keywords)) != -1)
-                {
-                    next_token->type = int_tmp;
-                    return SUCCESS;
-                }
-                else
-                {
-                    next_token->attribute.string_ptr = tmp_string.str;
-                    next_token->type = IDENTIFIER_TOK;
-                    return SUCCESS;
-                }
-            }
-        }
-
-/*********************************OPERATOR LOWER STATE************************************/
-
-        else if (state == LOWER_STATE)
-        {
-            if (c == '>')
-            {
-                next_token->type = NO_EQUAL_OP;
-                return SUCCESS;
-            }
-            else if (c == '=')
-            {
-                next_token->type = LOWER_EQUAL_OP;
-                return SUCCESS;
-            }
-            else
-            {
-                ungetc(c, source_file);
-                next_token->type = LOWER_OP;
-                return SUCCESS;
-            }
-        }
-
-/*********************************OPERATOR HIGHER STATE************************************/
-
-        else if (state == HIGHER_STATE)
-        {
-            if (c == '=')
-            {
-                next_token->type = HIGHER_EQUAL_OP;
-                return SUCCESS;
-            }
-            else
-            {
-                ungetc(c, source_file);
-                next_token->type = HIGHER_OP;
-                return SUCCESS;
-            }
-        }
-
-/***********************************STRING STATE*******************************************/
-
-        else if (state == STRING_STATE)
-        {
-            if (c == QUOTE)
-            {
-                next_token->attribute.string_ptr = tmp_string.str;
-                next_token->type = STRING_TOK;
-                return SUCCESS;
-            }
-            else if (c == ' ')
-            {
-                if (stringConcat("032", &tmp_string))
-                {
-                    addError(OTHER_ERROR, NULL);
-                    return FAILURE;
-                }
-            }
-            else if (c == '#')
-            {
-                if (stringConcat("035", &tmp_string))
-                {
-                    addError(OTHER_ERROR, NULL);
-                    return FAILURE;
-                }
-            }
-            else if (c == BACKSLASH)
-            {
-                if (stringAddChar(c, &tmp_string))
-                {
-                    addError(OTHER_ERROR, NULL);
-                    return FAILURE;
-                }
-                state = ESCAPE_SEQUENCE_STATE;
-            }
-            else if (c > 31 && c <= 255)
-            {
-                if (stringAddChar(c, &tmp_string))
-                {
-                    addError(OTHER_ERROR, NULL);
-                    return FAILURE;
-                }
-            }
-            else if (c == EOF)
-            {
-                addError(LEX_ERROR, NULL);
-                next_token->attribute.string_ptr = tmp_string.str;
-                next_token->type = EOF_TOK;
-                return FAILURE;
-            }
-            else
-            {
-                addError(LEX_ERROR, NULL);
-                next_token->attribute.string_ptr = tmp_string.str;
-                next_token->type = STRING_TOK;
-                return FAILURE;
-            }
-        }
-
-/*********************************ESCAPE_SEQUENCE STATE************************************/
-
-        else if (state == ESCAPE_SEQUENCE_STATE)
-        {
-            if (c == QUOTE)
-            {
-                if (!stringConcat("034", &tmp_string))
-                {
-                    state = STRING_STATE;
-                }
-                else
-                {
-                    addError(OTHER_ERROR, NULL);
-                    return FAILURE;
-                }
-            }
-            else if (c == 't')
-            {
-                if (!stringConcat("009", &tmp_string))
-                {
-                    state = STRING_STATE;
-                }
-                else
-                {
-                    addError(OTHER_ERROR, NULL);
-                    return FAILURE;
-                }
-            }
-            else if (c == 'n')
-            {
-                if (!stringConcat("010", &tmp_string))
-                {
-                    state = STRING_STATE;
-                }
-                else
-                {
-                    addError(OTHER_ERROR, NULL);
-                    return FAILURE;
-                }
-            }
-            else if (c == 'v')
-            {
-                if (!stringConcat("011", &tmp_string))
-                {
-                    state = STRING_STATE;
-                }
-                else
-                {
-                    addError(OTHER_ERROR, NULL);
-                    return FAILURE;
-                }
-            }
-            else if (c == 'f')
-            {
-                if (!stringConcat("012", &tmp_string))
-                {
-                    state = STRING_STATE;
-                }
-                else
-                {
-                    addError(OTHER_ERROR, NULL);
-                    return FAILURE;
-                }
-            }
-            else if (c == 'r')
-            {
-                if (!stringConcat("013", &tmp_string))
-                {
-                    state = STRING_STATE;
-                }
-                else
-                {
-                    addError(OTHER_ERROR, NULL);
-                    return FAILURE;
-                }
-            }
-            else if (c == BACKSLASH)
-            {
-                if (!stringConcat("092", &tmp_string))
-                {
-                    state = STRING_STATE;
-                }
-                else
-                {
-                    addError(OTHER_ERROR, NULL);
-                    return FAILURE;
-                }
-            }
-            else if (isdigit(c))
-            {
-                ungetc(c, source_file);
-                state = ESCAPE_NUMBER_STATE;
-            }
-            else
-            {
-                addError(LEX_ERROR, NULL);
-                return FAILURE;
-            }
-        }
-
-/*********************************ESCAPE_NUMBER STATE************************************/
-
-        else if (state == ESCAPE_NUMBER_STATE)
-        {
-            ungetc(c, source_file);
-            string escape_string;
-            stringInit(&escape_string);
-
-            for (int i = 0; i < 3; i++)
-            {
-                c = getc(source_file);
-                if (isdigit(c))
-                {
-                    if (stringAddChar(c, &escape_string))
-                    {
-                        addError(OTHER_ERROR, NULL);
-                        return FAILURE;
+                        return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
                     }
                 }
-                else
-                {
-                    addError(LEX_ERROR, NULL);
-                    return FAILURE;
-                }
-            }
-                
-            long tmp;
-            tmp = strtol(escape_string.str, NULL, 10);
 
-            if (tmp > 0 && tmp < 256)
-            {
-                stringConcat(escape_string.str, &tmp_string);
-                stringFree(&escape_string);
-                state = STRING_STATE;
-            }
-            else
-            {
-                addError(LEX_ERROR, NULL);
-                return FAILURE;
-            }
-        }
-
-/*********************************NUMBER STATE************************************/
-
-        else if (state == NUMBER_STATE)
-        {
-            if (isdigit(c))
-            {
-                if (c == '0')
+                //decimal numbers
+                else if (isdigit(c))
                 {
-                   //ignore zeros 
-                }
-                else if (stringAddChar(c, &tmp_string))
-                {
-                    addError(OTHER_ERROR, NULL);
-                    return FAILURE;
-                }
-            }
-            else if (c == '.')
-            {
-                if (!stringAddChar(c, &tmp_string))
-                {
-                    state = FLOAT_STATE;
-                }
-                else
-                {
-                    addError(OTHER_ERROR, NULL);
-                    return FAILURE;
-                }
-            }
-            else if (c == 'e' || c == 'E')
-            {
-                if (!stringAddChar(c, &tmp_string))
-                {
-                    state = EXPONENT_STATE;
-
-                    if ((c = getc(source_file)) && (c == '+' || c == '-'))
+                    if (c == '0')
                     {
-                        if (stringAddChar(c, &tmp_string))
-                        {
-                            addError(OTHER_ERROR, NULL);
-                            return FAILURE;
-                        }
+                        state = ZERO_STATE;               //ignore zeros  
                     }
-                    else
-                    {
-                        ungetc(c, source_file);
-                    }
-                }
-                else
-                {
-                    addError(OTHER_ERROR, NULL);
-                    return FAILURE;
-                }
-            }
-            else
-            {
-                ungetc(c, source_file);
-                next_token->attribute.number = (int) strtol(tmp_string.str, NULL, 10);
-                stringFree(&tmp_string);
-                next_token->type = INTEGER_TOK;
-                return SUCCESS;
-            }
-        }
-
-/**********************************ZERO STATE************************************/
-
-        else if (state == ZERO_STATE)
-        {
-            if (isdigit(c))
-            {
-                if (c == '0')
-                {
-                //ignore
-                }
-                else
-                {
-                    stringClear(&tmp_string);
-
-                    if (!stringAddChar(c, &tmp_string))
+                    else if (stringAddChar(c, &tmp_string))
                     {
                         state = NUMBER_STATE;
                     }
-                    else {
-                        addError(OTHER_ERROR, NULL);
-                        return FAILURE;
-                    } 
+                    else
+                    {
+                        return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
+                    }
+                }
+
+                //single operators 
+                else if ((int_tmp = operatorTest(c)) != -1)
+                {
+                    stringFree(&tmp_string);
+                    next_token->type = int_tmp;
+                    return true;
+                }
+
+                //Other states depend on exact characters, we can use switch
+                else
+                {
+                    switch (c)
+                    {
+                        //bin, octa and hexa numbers
+                        case '&':
+                        {   
+                            c = getc(source_file);
+                            c = tolower(c);
+                            state = ZERO_EXPONENT_STATE;    //remove first zeros
+    
+                                switch(c)
+                                {
+                                    case 'b': int_tmp = 2;
+                                        break;
+                                    case 'o': int_tmp = 8;
+                                        break;
+                                    case 'h': int_tmp = 16;
+                                        break;
+                                    default: return returnFalse(LEX_ERROR, unknown_tok, &tmp_string);
+                                }
+                        }
+                            break;
+
+                        //string
+                        case '!':
+                        {
+                            if ((c = getc(source_file)) == QUOTE)
+                            {
+                                state = STRING_STATE;
+                            }
+                            else
+                            {
+                                return returnFalse(LEX_ERROR, unknown_tok, &tmp_string);
+                            }
+                        }
+                            break;
+
+                        //single line comment
+                        case APOSTROPHE:
+                        {
+                            state = SINGLE_LINE_COMMENT_STATE;
+                        }
+                            break; 
+
+                        //multi line comment
+                        case '/':
+                        {
+                            if ((c = getc(source_file)) == APOSTROPHE)
+                            {
+                                state = MULTI_LINE_COMMENT_STATE;
+                            }
+                            else
+                            {
+                                stringFree(&tmp_string);
+                                ungetc(c, source_file);
+                                next_token->type = SLASH_OP;
+                                return true;
+                            }
+                        }
+                            break;
+
+                        //multiple charakter operators
+                        case '<':
+                        {
+                            state = LOWER_STATE;   
+                        }
+                            break;
+                        case '>':
+                        {
+                            state = HIGHER_STATE;
+                        }
+                            break;
+
+                        //new line token
+                        case '\n':
+                        {
+                            stringFree(&tmp_string);
+                            line++;
+                            next_token->type = EOL_TOK;
+                            return true;
+                        }
+                            break;
+
+                        //end of file
+                        case EOF:
+                        {
+                            stringFree(&tmp_string);
+                            next_token->type = EOF_TOK;
+                            return true; 
+                        }
+                            break;
+
+                        //other character - error
+                        default:
+                        {
+                            return returnFalse(LEX_ERROR, unknown_tok, &tmp_string);
+                        }
+                    }
                 }
             }
-            else if (c == 'e' || c == 'E')
+                break;
+
+/*********************************SINGLE_LINE COMMENT STATE************************************/
+
+            case SINGLE_LINE_COMMENT_STATE:
             {
-                if (!stringAddChar(c, &tmp_string))
+                if (c == '\n')
                 {
-                    state = EXPONENT_STATE;
+                    stringFree(&tmp_string);
+                    line++;
+                    next_token->type = EOL_TOK;
+                    return true;
+                }
+                else if (c == EOF)
+                {
+                    stringFree(&tmp_string);
+                    next_token->type = EOF_TOK;
+                    return true;
+                }
+                //we ignore comments
+            }
+                break;
+
+/*********************************MULTI_LINE COMMENT STATE************************************/
+
+            case MULTI_LINE_COMMENT_STATE:
+            {
+                if (c == APOSTROPHE)
+                {
+                    if ((c = getc(source_file)) == '/')
+                    {
+                        state = BEGIN_STATE;
+                    }
+                }
+                else if (c == '\n')
+                {
+                    line++;
+                }
+                else if (c == EOF)
+                {
+                    //unexpected
+                    return returnFalse(LEX_ERROR, "Unexpected end of file in block comment", &tmp_string);
+                }
+                //we ignore comments
+            }
+                break;
+
+/*********************************IDENTIFIER STATE************************************/
+
+            case IDENTIFIER_STATE:
+            {
+                if (isalnum(c) || c == '_')
+                {
+                    if (!stringAddChar(c, &tmp_string))
+                    {
+                        return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
+                    }
                 }
                 else
                 {
-                    addError(OTHER_ERROR, NULL);
-                    return FAILURE;
+                    ungetc(c, source_file);
+
+                    if ((int_tmp = identifierTest(&tmp_string, keywords)) != -1)
+                    {
+                        stringFree(&tmp_string);
+                        next_token->type = int_tmp;
+                        return true;
+                    }
+                    else
+                    {
+                        next_token->attribute.string_ptr = tmp_string.str;
+                        next_token->type = IDENTIFIER_TOK;
+                        return true;
+                    }
                 }
             }
-            else if (c == '.')
+                break;
+
+/*********************************OPERATOR LOWER STATE************************************/
+
+            case LOWER_STATE:
             {
-                if (!stringAddChar(c, &tmp_string))
+                if (c == '>')
                 {
-                    state = FLOAT_STATE;
+                    stringFree(&tmp_string);
+                    next_token->type = NO_EQUAL_OP;
+                    return true;
+                }
+                else if (c == '=')
+                {
+                    stringFree(&tmp_string);
+                    next_token->type = LOWER_EQUAL_OP;
+                    return true;
                 }
                 else
                 {
-                    addError(OTHER_ERROR, NULL);
-                    return FAILURE;
+                    stringFree(&tmp_string);
+                    ungetc(c, source_file);
+                    next_token->type = LOWER_OP;
+                    return true;
                 }
             }
-            else
+                break;
+
+/*********************************OPERATOR HIGHER STATE************************************/
+
+            case HIGHER_STATE:
+            {
+                if (c == '=')
+                {
+                    stringFree(&tmp_string);
+                    next_token->type = HIGHER_EQUAL_OP;
+                    return true;
+                }
+                else
+                {
+                    stringFree(&tmp_string);
+                    ungetc(c, source_file);
+                    next_token->type = HIGHER_OP;
+                    return true;
+                }
+            }
+                break;
+
+/***********************************STRING STATE*******************************************/
+
+            case STRING_STATE:
+            {
+                if (c == QUOTE)
+                {
+                    next_token->attribute.string_ptr = tmp_string.str;
+                    next_token->type = STRING_TOK;
+                    return true;
+                }
+                else if (c == ' ')
+                {
+                    if (!stringConcat("\\032", &tmp_string))
+                    {
+                        return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
+                    }
+                }
+                else if (c == '#')
+                {
+                if (!stringConcat("\\035", &tmp_string))
+                    {
+                        return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
+                    }
+                }
+                else if (c == BACKSLASH)
+                {
+                    if (!stringAddChar(c, &tmp_string))
+                    {
+                        return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
+                    }
+                    state = ESCAPE_SEQUENCE_STATE;
+                }
+                else if (c > 31 && c <= 255)
+                {
+                    if (!stringAddChar(c, &tmp_string))
+                    {
+                        return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
+                    }
+                }
+                else if (c == EOF)
+                {
+                    return returnFalse(LEX_ERROR, "Unexpected end of file in string", &tmp_string);
+                }
+                else
+                {
+                    return returnFalse(LEX_ERROR, "Unknown character in string", &tmp_string);
+                }
+            }
+                break;
+
+/*********************************ESCAPE_SEQUENCE STATE************************************/
+
+            case ESCAPE_SEQUENCE_STATE:
+            {
+                if (c == QUOTE)
+                {
+                    if (stringConcat("034", &tmp_string))
+                    {
+                        state = STRING_STATE;
+                    }
+                    else
+                    {
+                        return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
+                    }
+                }
+                else if (c == 't')
+                {
+                    if (stringConcat("009", &tmp_string))
+                    {
+                        state = STRING_STATE;
+                    }
+                    else
+                    {
+                        return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
+                    }
+                }
+                else if (c == 'n')
+                {
+                    if (stringConcat("010", &tmp_string))
+                    {
+                        state = STRING_STATE;
+                    }
+                    else
+                    {
+                        return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
+                    }
+                }
+                else if (c == 'v')
+                {
+                    if (stringConcat("011", &tmp_string))
+                    {
+                        state = STRING_STATE;
+                    }
+                    else
+                    {
+                        return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
+                    }
+                }
+                else if (c == 'f')
+                {
+                    if (stringConcat("012", &tmp_string))
+                    {
+                        state = STRING_STATE;
+                    }
+                    else
+                    {
+                        return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
+                    }
+                }
+                else if (c == 'r')
+                {
+                    if (stringConcat("013", &tmp_string))
+                    {
+                        state = STRING_STATE;
+                    }
+                    else
+                    {
+                        return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
+                    }
+                }
+                else if (c == BACKSLASH)
+                {
+                    if (stringConcat("092", &tmp_string))
+                    {
+                        state = STRING_STATE;
+                    }
+                    else
+                    {
+                        return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
+                    }
+                }
+                else if (isdigit(c))
+                {
+                    ungetc(c, source_file);
+                    state = ESCAPE_NUMBER_STATE;
+                }
+                else
+                {
+                    return returnFalse(LEX_ERROR, "Unknown escape sequence", &tmp_string);
+                }
+            }
+                break;
+
+/*********************************ESCAPE_NUMBER STATE************************************/
+
+            case ESCAPE_NUMBER_STATE:
             {
                 ungetc(c, source_file);
-                next_token->attribute.number = (int) strtol(tmp_string.str, NULL, 10);
-                stringFree(&tmp_string);
-                next_token->type = INTEGER_TOK;
-                return SUCCESS;
-            }
-        }
+                string escape_string;
+                stringInit(&escape_string);
 
-/*********************************FLOAT STATE************************************/
-
-        else if (state == FLOAT_STATE)
-        {
-            if (isdigit(c)) {
-                if (stringAddChar(c, &tmp_string))
+                for (int i = 0; i < 3; i++)
                 {
-                    addError(OTHER_ERROR, NULL);
-                    return FAILURE;
-                }
-            }
-            else if (c == 'e' || c == 'E')
-            {
-                if (!stringAddChar(c, &tmp_string))
-                {
-                    state = EXPONENT_STATE;
-
-                    if ((c = getc(source_file)) && (c == '+' || c == '-'))
+                    c = getc(source_file);
+                    if (isdigit(c))
                     {
-                        if (stringAddChar(c, &tmp_string))
+                        if (!stringAddChar(c, &escape_string))
                         {
-                            addError(OTHER_ERROR, NULL);
-                            return FAILURE;
+                            return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
                         }
                     }
                     else
                     {
-                        ungetc(c, source_file);
+                        return returnFalse(LEX_ERROR, "Wrong escape sequence", &tmp_string);
                     }
                 }
-                else
+                
+                long tmp = strtol(escape_string.str, NULL, 10);
+    
+                if (tmp > 0 && tmp < 256)
                 {
-                    addError(OTHER_ERROR, NULL);
-                    return FAILURE;
-                }
-            }
-            else
-            {
-                ungetc(c, source_file);
-                next_token->attribute.float_number = strtod(tmp_string.str, NULL);
-                stringFree(&tmp_string);
-                next_token->type = FLOATING_POINT_TOK;
-                return SUCCESS;
-            }
-        }
-
-/*********************************EXPONENT STATE************************************/
-
-        else if (state == EXPONENT_STATE)
-        {
-            if (isdigit(c))
-            {
-                if (c == '0')
-                {
-                    state = ZERO_EXPONENT_STATE;
-                }
-                else if (stringAddChar(c, &tmp_string))
-                {
-                    addError(OTHER_ERROR, NULL);
-                    return FAILURE;
-                } 
-            }
-            else
-            {
-                ungetc(c, source_file);
-                next_token->attribute.float_number = strtod(tmp_string.str, NULL);
-                stringFree(&tmp_string);
-                next_token->type = FLOATING_POINT_TOK;
-                return SUCCESS;
-            }
-        }
-
-/*****************************ZERO_EXPONENT STATE********************************/
-
-        else if (state == ZERO_EXPONENT_STATE)
-        {
-            if (isdigit(c))
-            {
-                if (c == '0')
-                {
-                    //ignore
+                    stringConcat(escape_string.str, &tmp_string);
+                    stringFree(&escape_string);
+                    state = STRING_STATE;
                 }
                 else
+                {
+                    stringFree(&escape_string);
+                    return returnFalse(LEX_ERROR, "Wrong escape sequence", &tmp_string);
+                }
+            }
+                break;
+
+/*********************************NUMBER STATE************************************/
+
+            case NUMBER_STATE:
+            {
+                if (isdigit(c))
                 {
                     if (!stringAddChar(c, &tmp_string))
                     {
-                        state = EXPONENT_STATE;
+                        return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
+                    }
+                }
+                else if (c == '.')
+                {
+                    c = getc(source_file);
+
+                    if (!isdigit(c))
+                    {
+                        return returnFalse(LEX_ERROR, "Wrong number", &tmp_string);
+                    }
+                    ungetc(c, source_file);
+
+                    if (stringAddChar('.', &tmp_string))
+                    {
+                        state = FLOAT_STATE;
                     }
                     else
                     {
-                        addError(OTHER_ERROR, NULL);
-                        return FAILURE;
-                    } 
+                        return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
+                    }
+                }
+                else if (c == 'e' || c == 'E')
+                {
+                    if (stringAddChar(c, &tmp_string))
+                    {
+                        state = EXPONENT_STATE;
+                        c = getc(source_file);
+
+                        if ((c == '+' || c == '-'))
+                        {
+                            if (!stringAddChar(c, &tmp_string))
+                            {
+                                return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
+                            }
+                        }
+                        else if (!isdigit(c))
+                        {
+                            return returnFalse(LEX_ERROR, "Wrong number", &tmp_string);
+                        }
+                        else
+                        {
+                            ungetc(c, source_file);
+                        }
+                    }
+                    else
+                    {
+                        return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
+                    }
+                }
+                else
+                {
+                    ungetc(c, source_file);
+                    next_token->attribute.number = (int) strtol(tmp_string.str, NULL, 10);
+                    stringFree(&tmp_string);
+                    next_token->type = INTEGER_TOK;
+                    return true;
                 }
             }
-            else
+                break;
+
+/**********************************ZERO STATE************************************/
+
+            case ZERO_STATE:
             {
-                ungetc(c, source_file);
-                next_token->attribute.float_number = strtod(tmp_string.str, NULL);
-                stringFree(&tmp_string);
-                next_token->type = FLOATING_POINT_TOK;
-                return SUCCESS;
+                if (isdigit(c))
+                {
+                    if (c == '0')
+                    {
+                    //ignore
+                    }
+                    else
+                    {
+                        if (stringAddChar(c, &tmp_string))
+                        {
+                            state = NUMBER_STATE;
+                        }
+                        else
+                        {
+                            return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
+                        } 
+                    }
+                }
+                else if (c == 'e' || c == 'E')
+                {
+                    if (stringConcat("0e", &tmp_string))
+                    {
+                        state = EXPONENT_STATE;
+                        c = getc(source_file);
+
+                        if ((c == '+' || c == '-'))
+                        {
+                            if (!stringAddChar(c, &tmp_string))
+                            {
+                                return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
+                            }
+                        }
+                        else if (!isdigit(c))
+                        {
+                            stringFree(&tmp_string);
+                            addError(LEX_ERROR, NULL);
+                            return false;
+                        }
+                        else
+                        {
+                            ungetc(c, source_file);
+                        }
+                    }
+                }
+                else if (c == '.')
+                {
+                    c = getc(source_file);
+
+                    if (!isdigit(c))
+                    {
+                        return returnFalse(LEX_ERROR, "Wrong number", &tmp_string);
+                    }
+                    ungetc(c, source_file);
+
+                    if (stringAddChar('.', &tmp_string))
+                    {
+                        state = FLOAT_STATE;
+                    }
+                    else
+                    {
+                        return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
+                    }
+                }
+                else
+                {
+                    ungetc(c, source_file);
+                    if (!stringAddChar('0', &tmp_string))
+                    {
+                        stringFree(&tmp_string);
+                        addError(OTHER_ERROR, "Memory allocation problem");
+                        return false;
+                    }
+
+                    next_token->attribute.number = (int) strtol(tmp_string.str, NULL, 10);
+                    stringFree(&tmp_string);
+                    next_token->type = INTEGER_TOK;
+                    return true;
+                }
             }
+                break;
+
+/*********************************FLOAT STATE************************************/
+
+            case FLOAT_STATE:
+            {
+                if (isdigit(c))
+                {
+                    if (!stringAddChar(c, &tmp_string))
+                    {
+                        return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
+                    }
+                }
+                else if (c == 'e' || c == 'E')
+                {
+                    if (stringAddChar(c, &tmp_string))
+                    {
+                        state = EXPONENT_STATE;
+                        c = getc(source_file);
+    
+                        if ((c == '+' || c == '-'))
+                        {
+                            if (!stringAddChar(c, &tmp_string))
+                            {
+                                return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
+                            }
+                        }
+                        else if (!isdigit(c))
+                        {
+                            stringFree(&tmp_string);
+                            addError(LEX_ERROR, NULL);
+                            return false;
+                        }
+                        else
+                        {
+                            ungetc(c, source_file);
+                        }
+                    }
+                    else
+                    {
+                        return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
+                    }
+                }
+                else
+                {
+                    ungetc(c, source_file);
+                    next_token->attribute.float_number = strtod(tmp_string.str, NULL);
+                    stringFree(&tmp_string);
+                    next_token->type = FLOATING_POINT_TOK;
+                    return true;
+                }
+            }
+                break;
+
+/*********************************EXPONENT STATE************************************/
+
+            case EXPONENT_STATE:
+            {
+                if (isdigit(c))
+                {
+                    if (!isdigit(tmp_string.str[tmp_string.length - 1]) && c == '0')
+                    {
+                        state = ZERO_EXPONENT_STATE;
+                    }
+                    else if (!stringAddChar(c, &tmp_string))
+                    {
+                        return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
+                    } 
+                }
+                else
+                {
+                    ungetc(c, source_file);
+                    next_token->attribute.float_number = strtod(tmp_string.str, NULL);
+                    stringFree(&tmp_string);
+                    next_token->type = FLOATING_POINT_TOK;
+                    return true;
+                }
+            }
+                break;
+
+/*****************************ZERO_EXPONENT STATE********************************/
+
+            //used also for remove zeros in "other base" number
+            case ZERO_EXPONENT_STATE:
+            {
+                if (isdigit(c))
+                {
+                    if (c == '0')
+                    {
+                        //ignore
+                    }
+                    else
+                    {
+                        if (stringAddChar(c, &tmp_string))
+                        {
+                            if (int_tmp == 10)
+                            {   
+                                state = EXPONENT_STATE;
+                            }
+                            else
+                            {
+                                state = BASE_STATE;
+                            }
+                        }
+                        else
+                        {
+                            return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
+                        } 
+                    }
+                }
+                else if (c >= 'a' && c <= 'f' && int_tmp == 16)
+                {
+                    if (stringAddChar(c, &tmp_string))
+                    {
+                        state = BASE_STATE;
+                    }
+                    else
+                    {
+                        return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
+                    } 
+                }
+                else
+                {
+                    ungetc(c, source_file);
+                    next_token->attribute.float_number = strtod(tmp_string.str, NULL);
+                    stringFree(&tmp_string);
+                    next_token->type = FLOATING_POINT_TOK;
+                    return true;
+                }
+            }
+                break;
+
+/*****************************BASE_STATE********************************/
+
+            case BASE_STATE:
+            {
+                if (isdigit(c) || (c >= 'a' && c <= 'f'))
+                {
+                    if (!stringAddChar(c, &tmp_string))
+                    {
+                        return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
+                    }
+                }
+                else
+                {
+                    ungetc(c, source_file);
+                    char* err_string;
+                    next_token->attribute.number = (int) strtol(tmp_string.str, &err_string, int_tmp);
+
+                    //test if number is correct
+                    if (*err_string == '\0')
+                    {
+                        stringFree(&tmp_string);
+                        next_token->type = INTEGER_TOK;
+                        return true;
+                    }
+                    else
+                    {
+                        return returnFalse(LEX_ERROR, "Wrong number", &tmp_string);
+                    }
+                }
+            }
+                break;
+
+            default: return returnFalse(OTHER_ERROR, "Unknown error", &tmp_string);
         }
     } while (1);
-
 }

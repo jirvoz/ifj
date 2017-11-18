@@ -14,6 +14,7 @@
 
 #include <stdio.h>
 #include "strings.h"
+#include "errors.h"
 
 //codes from ASCII table
 #define APOSTROPHE 39
@@ -36,7 +37,7 @@ typedef enum token_type
     EOL_TOK,
     EOF_TOK,
     //------------OPERATORS-------------//
-    LOWER_OP = 10,              //starting at 10
+    LOWER_OP = 10,              //operators starting at 10
     HIGHER_OP,
     EQUAL_SIGN_OP,
     NO_EQUAL_OP,
@@ -52,41 +53,41 @@ typedef enum token_type
     COLON_OP,
     SEMICOLON_OP,
     //------------KEYWORDS-------------//
-    AS = 30,                    //starting at 30
+    AND = 30,                   //keywords starting at 30
+    AS,
     ASC,
+    BOOLEAN,
+    CHR,
+    CONTINUE,
     DECLARE,
     DIM,
     DO,
     DOUBLE,
     ELSE,
+    ELSEIF,
     END,
-    CHR,
+    EXIT,
+    FALSE,
+    FOR,
     FUNCTION,
     IF,
     INPUT,
     INTEGER,
     LENGTH,
     LOOP,
-    PRINT,
-    RETURN,
-    SCOPE,
-    STRING,
-    SUBSTR,
-    THEN,
-    WHILE,
-    AND,                          
-    BOOLEAN,
-    CONTINUE,
-    ELSEIF,
-    EXIT,
-    FALSE,
-    FOR,
     NEXT,
     NOT,
     OR,
+    PRINT,
+    RETURN,
+    SCOPE,
     SHARED,
     STATIC,
-    TRUE
+    STRING,
+    SUBSTR,
+    THEN,
+    TRUE,
+    WHILE
 } token_type;
 
 typedef union tToken_attribute
@@ -104,7 +105,9 @@ typedef struct tToken
     
 //Declarations of functions
 
-int getNextToken (tToken*, FILE*);                  //main functions of scanner
-int operatorTest (char);                            //this functions tests, if next token is operator(+,-,...)
+int getNextToken(tToken*, FILE*);           //main functions of scanner
+int operatorTest(char);                     //this functions tests, if next token is operator(+,-,...)
+int identifierTest(string*, char**);        //this functions tests, if identifier is keyword
+bool return_false(err_code, const char*, string*);   //this functions is called is error occured
 
 #endif

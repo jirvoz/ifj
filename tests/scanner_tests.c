@@ -10,9 +10,12 @@
 
 #include "../src/strings.h"
 #include "../src/scanner.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-void TEST01(FILE* my_source, token* next_token) {
-    my_source = fopen("test1", "r");
+void TEST01(tToken* next_token)
+{
+    FILE* my_source = fopen("./tests/test1", "r");
 
     printf("[TEST01] Basic Test Int,Single Op and EOF\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
@@ -22,163 +25,167 @@ void TEST01(FILE* my_source, token* next_token) {
         getNextToken(next_token, my_source);
         printf(" %d \t-> ",next_token->type);
 
-        if (next_token->type == IDENTIFIER) {
-            printf("%s\n", next_token->attribute.identifier_string->str);
-            stringFree(next_token->attribute.identifier_string);
-            free(next_token->attribute.identifier_string);
+        if (next_token->type == IDENTIFIER_TOK) {
+            printf("%s\n", next_token->attribute.string_ptr);
+            free(next_token->attribute.string_ptr);
         }
         else if (next_token->type == INTEGER_TOK) {
             printf("%d\n", next_token->attribute.number);
         }
-        else if (next_token->type == FLOATING_POINT || next_token->type == FLOATING_POINT_EXPONENT) {
+        else if (next_token->type == FLOATING_POINT_TOK) {
             printf("%f\n", next_token->attribute.float_number);
         }
-        else {
-            printf("%s\n", next_token->attribute.identifier_string->str);
-            stringFree(next_token->attribute.identifier_string);
-            free(next_token->attribute.identifier_string);  
+        else if (next_token->type == STRING_TOK) {
+            printf("%s\n", next_token->attribute.string_ptr);
+            free(next_token->attribute.string_ptr);
+        }
+        else
+        {
+            printf("\n");
         }
 
-        if (next_token->type == END_OF_FILE) {
+        if (next_token->type == EOF_TOK) {
             break;
         }
     }
 
-    printf("Expected tokens:\n 2\n 16\n 2\n 12\n 2\n 5\n\n");
-    
     fclose(my_source);
 }
 
-void TEST02(FILE* my_source, token* next_token) {
-    my_source=fopen("test2", "r");
+void TEST02(tToken* next_token)
+{
+    FILE* my_source = fopen("./tests/test2", "r");
 
     printf("[TEST02] Basic Test KEY WORDs\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
     printf("Tokens:\n");
 
-    while (1) {
+    while (1)
+    {
         getNextToken(next_token, my_source);
         printf(" %d \t-> ",next_token->type);
 
-        if (next_token->type == IDENTIFIER) {
-            printf("%s\n", next_token->attribute.identifier_string->str);
-            stringFree(next_token->attribute.identifier_string);
-            free(next_token->attribute.identifier_string);
+        if (next_token->type == IDENTIFIER_TOK) {
+            printf("%s\n", next_token->attribute.string_ptr);
+            free(next_token->attribute.string_ptr);
         }
         else if (next_token->type == INTEGER_TOK) {
             printf("%d\n", next_token->attribute.number);
         }
-        else if (next_token->type == FLOATING_POINT || next_token->type == FLOATING_POINT_EXPONENT) {
+        else if (next_token->type == FLOATING_POINT_TOK) {
             printf("%f\n", next_token->attribute.float_number);
         }
-        else {
-            printf("%s\n", next_token->attribute.identifier_string->str);
-            stringFree(next_token->attribute.identifier_string);
-            free(next_token->attribute.identifier_string);  
+        else if (next_token->type == STRING_TOK) {
+            printf("%s\n", next_token->attribute.string_ptr);
+            free(next_token->attribute.string_ptr);
+        }
+        else
+        {
+            printf("\n");
         }
 
-        if (next_token->type == END_OF_FILE) {
+        if (next_token->type == EOF_TOK) {
             break;
         }
     }
 
-    printf("Expected tokens:\n 2\n 16\n 2\n 12\n 2\n 5\n\n");
-    
     fclose(my_source);
 }
 
-void TEST03(FILE* my_source, token* next_token) {
-    my_source=fopen("test3", "r");
+void TEST03(tToken* next_token)
+{
+    FILE* my_source=fopen("./tests/test3", "r");
 
     printf("[TEST03] Basic Test RESERVED KEY WORDs\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
     printf("Tokens:\n");
 
-    while (1) {
+    while (1)
+    {
         getNextToken(next_token, my_source);
         printf(" %d \t-> ",next_token->type);
 
-        if (next_token->type == IDENTIFIER) {
-            printf("%s\n", next_token->attribute.identifier_string->str);
-            stringFree(next_token->attribute.identifier_string);
-            free(next_token->attribute.identifier_string);
+        if (next_token->type == IDENTIFIER_TOK) {
+            printf("%s\n", next_token->attribute.string_ptr);
+            free(next_token->attribute.string_ptr);
         }
         else if (next_token->type == INTEGER_TOK) {
             printf("%d\n", next_token->attribute.number);
         }
-        else if (next_token->type == FLOATING_POINT || next_token->type == FLOATING_POINT_EXPONENT) {
+        else if (next_token->type == FLOATING_POINT_TOK) {
             printf("%f\n", next_token->attribute.float_number);
         }
-        else {
-            printf("%s\n", next_token->attribute.identifier_string->str);
-            stringFree(next_token->attribute.identifier_string);
-            free(next_token->attribute.identifier_string);  
+        else if (next_token->type == STRING_TOK) {
+            printf("%s\n", next_token->attribute.string_ptr);
+            free(next_token->attribute.string_ptr);
+        }
+        else
+        {
+            printf("\n");
         }
 
-        if (next_token->type == END_OF_FILE) {
+        if (next_token->type == EOF_TOK) {
             break;
-        }
+        }  
     }
 
-    printf("Expected tokens:\n 2\n 16\n 2\n 12\n 2\n 5\n\n");
-    
     fclose(my_source);
 }
 
-void TEST04(FILE* my_source, token* next_token) {
-    my_source=fopen("test4", "r");
-    
+void TEST04(tToken* next_token)
+{
+    FILE* my_source=fopen("./tests/test7", "r");
+
     printf("[TEST04] Test correct identification \n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
     printf("Tokens:\n");
 
-    while (1) {
+    while (1)
+    {
         getNextToken(next_token, my_source);
         printf(" %d \t-> ",next_token->type);
 
-        if (next_token->type == IDENTIFIER) {
-            printf("%s\n", next_token->attribute.identifier_string->str);
-            stringFree(next_token->attribute.identifier_string);
-            free(next_token->attribute.identifier_string);
+        if (next_token->type == IDENTIFIER_TOK) {
+            printf("%s\n", next_token->attribute.string_ptr);
+            free(next_token->attribute.string_ptr);
         }
         else if (next_token->type == INTEGER_TOK) {
             printf("%d\n", next_token->attribute.number);
         }
-        else if (next_token->type == FLOATING_POINT || next_token->type == FLOATING_POINT_EXPONENT) {
+        else if (next_token->type == FLOATING_POINT_TOK) {
             printf("%f\n", next_token->attribute.float_number);
         }
-        else {
-            printf("%s\n", next_token->attribute.identifier_string->str);
-            stringFree(next_token->attribute.identifier_string);
-            free(next_token->attribute.identifier_string);  
+        else if (next_token->type == STRING_TOK) {
+            printf("%s\n", next_token->attribute.string_ptr);
+            free(next_token->attribute.string_ptr);
+        }
+        else
+        {
+            printf("\n");
         }
 
-        if (next_token->type == END_OF_FILE) {
+        if (next_token->type == EOF_TOK) {
             break;
         }
     }
 
-    printf("Expected tokens:\n 2\n 16\n 2\n 12\n 2\n 5\n\n");
-    
     fclose(my_source);
 }
 
-int main (int argc, char* argv[]) {
-    FILE* my_source;
-    token* next_token;
+int main (int argc, char* argv[])
+{
+    tToken* next_token = malloc(sizeof (tToken));
 
     printf ("---------------------IFJ Scanner - Tests-----------------------\n");
     printf ("---------------------------------------------------------------\n\n");
 
-    next_token = (token*) malloc(sizeof(token));
-
-    TEST01(my_source, next_token);
-    TEST02(my_source, next_token);
-    TEST03(my_source, next_token);
-    TEST04(my_source, next_token);
+    TEST01(next_token);
+    TEST02(next_token);
+    TEST03(next_token);
+    TEST04(next_token);
 
     free(next_token);
     printf("\n----- Scanner - The End of Tests -----\n");
