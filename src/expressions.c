@@ -3,6 +3,7 @@
 #include "expressions.h"
 #include "functions.h"
 #include "parser.h"
+#include "postfix_list.h"
 #include "statements.h"
 
 //rows and cols in precedence table
@@ -142,5 +143,98 @@ bool getTerm(tToken token, p_table_index* index)
 
 bool expression(token_type expected_type)
 {
-    return true;
+	tList list_infix = getInfix(expected_type);
+
+    //return true;
 }
+
+tList getInfix(token_type expected_type) 
+{	
+	tToken token;
+	getNextToken(&token, stdin);
+
+	tList list_infix;
+
+	p_table_index index;
+
+	getTerm(token, &index);
+
+	switch(expected_type)
+	{
+		case INTEGER_TOK:					// expected token is INTEGER or DOUBLE 
+		case FLOATING_POINT_TOK:
+		{
+			listInit(&list_infix);
+
+			while (getTerm(token, &index) && index != DOLAR_IN) ;
+			{
+				if(index == INT_IN || index == DOUBLE_IN || index == PLUS_IN || index == MINUS_IN || index == MUL_IN || 	//Operands and operations allowed when expected type is INTEGER or DOUBLE
+				   index == FLOAT_DIV_IN || index == INT_DIV_IN || index == LEFT_PARENT_IN || index == RIGHT_PARENT_IN)
+				{
+    				listInsertLast(&list_infix, token);
+    				getNextToken(&token, stdin);		
+				}
+				else
+				{
+					addError(SEM_TYPE_ERROR,"Bad operation or operand in expression");
+					listFree(&list_infix);
+				}
+			}
+
+			if(index != DOUBLE_IN)
+			{
+				listFree(&list_infix);
+			}
+
+			return list_infix; 
+		}
+		case STRING_TOK:
+		{
+			while (getTerm(token, &index) && index != DOLAR_IN);
+			{
+				if(index == STRING_IN || index == PLUS_IN || index == DOLAR_IN)
+				{
+					listInsertLast(&list_infix, token);
+					//concatenate
+    				getNextToken(&token, stdin);		
+				}
+				else
+				{
+					addError(SEM_TYPE_ERROR,"Bad operation or operand in expression");
+					listFree(&list_infix);
+				}
+			}
+
+			if (index != DOLAR_IN)
+			{
+				listFree(&list_infix);
+			}
+
+			return list_infix; 
+		}
+
+		case BOOLEAN:
+		{
+			while (getTerm(token, &index) && index != DOLAR_IN);
+			{
+				listInsertLast(&list_infix, token);
+    			getNextToken(&token, stdin);		
+			}
+
+			if (index != DOLAR_IN)
+			{
+				listFree(&list_infix);
+			}
+
+			return list_infix; 
+		}	
+	}	
+}
+
+/*tList infixToPostfix(token_type expected_type, tList list_infix)
+{
+	tList list_postfix;
+
+	tStack stack;
+	stackInit(&stack);
+}*/
