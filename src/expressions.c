@@ -5,6 +5,7 @@
 #include "functions.h"
 #include "parser.h"
 #include "statements.h"
+#include "stack.h"
 
 /*****************************LIST-STUFF**************************/
 
@@ -121,41 +122,6 @@ const int precedence_table[P_TAB_SIZE][P_TAB_SIZE] =
     {'<', '<', '<', '<', '<', '<', '<', '<', '<', '<', '<', '<', 'x', '<', '<', '<',    'x',  '<', 'x'}, //'$'
 };
 
-//number of rules
-#define RULE_COUNT 10
-
-/*
-//this function compare two rules
-bool compareRules(int* rule1, int* rule2)
-{
-    for (int i = 0; i < 3; i++)
-    {
-        if (rule1[i] != rule2[i])
-        {
-            return false;
-        }
-    }
-    return true;
-}
-
-//this functions returns number of rule 
-//if unsuccess, returns -1
-int generateRule(int *rule)
-{
-
-    for (int i = 0; i < RULE_COUNT, i++)
-    {
-        if (compareRules(rule, rules[i]))
-        {
-            return i;
-        }
-    }
-    return -1;
-}
-
-//declarations of variable in symboltable
-void 
-*/
 bool getTerm(tToken token, p_table_index* index)
 {
     //token is identifier, figure out if var or func
@@ -210,9 +176,10 @@ bool getTerm(tToken token, p_table_index* index)
 
 bool expression(token_type expected_type)
 {
-	tList* list_infix = getInfix(expected_type);
-    //will be deleted, just for compilation
-    list_infix = (void*) list_infix;
+	tList* list = getInfix(expected_type);
+    *list = infixToPostfix(expected_type, list);
+
+    generateInstructions(expected_type, list);
     return true;
 }
 
@@ -303,10 +270,83 @@ tList* getInfix(token_type expected_type)
 	}	
 }
 
-/*tList infixToPostfix(token_type expected_type, tList list_infix)
+
+/*
+tList infixToPostfix(token_type expected_type, tList* list_infix)
 {
 	tList list_postfix;
 
 	tStack stack;
 	stackInit(&stack);
-}*/
+    return list_postfix;
+}
+*/
+void generateInstructions(token_type expected_type, tList* list)
+{
+    listFirst(list);
+    tList_item* item;
+
+    while ((item = listGetData(list)) != NULL)
+    {
+        switch (item->index)
+        {
+            //push integer to stack
+            case INT_IN:
+            {
+                if (item->token.type == INTEGER_TOK)
+                {
+                    printf("PUSHS LF@int@%d\n", item->token.attribute.number);
+                    printf("INT2FLOAT LF\n");
+                }
+                else if (item->token.type == IDENTIFIER_TOK)
+                {
+                    printf("PUSHS LF@%s\n", item->token.attribute.string_ptr);
+                    printf("INT2FLOAT LF\n");
+                }
+            }
+            //push float to stack
+            case DOUBLE_IN:
+            {
+                if (item->token.type == FLOATING_POINT_TOK)
+                {
+                    printf("PUSHS LF@float@%g\n", item->token.attribute.float_number);
+                }
+                else if (item->token.type == IDENTIFIER_TOK)
+                {
+                    printf("PUSHS LF@%s\n", item->token.attribute.string_ptr);
+                }
+            }
+            //ADDS instruction
+            case PLUS_IN:
+            {
+                printf("ADDS LF\n");
+            }
+            //SUBS instruction
+            case MINUS_IN:
+            {
+                printf("SUBS LF\n");
+            }
+            //MULS instruction
+            case MUL_IN:
+            {
+                printf("MULS LF\n");
+            }
+            //classic DIVS
+            case FLOAT_DIV_IN:
+            {
+                printf("SUBS LF\n");
+            }
+            //'\' DIVS - integers
+            case INT_DIV_IN:
+            {
+                printf("SUBS LF\n");
+                printf("FLOAT2R2EINTS LF\n");
+                printf("INT2FLOAT LF\n");
+            }
+            default:
+            {
+                addError(OTHER_ERROR, NULL);
+            }
+        }
+    }
+}
