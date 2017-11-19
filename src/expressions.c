@@ -285,6 +285,15 @@ void generateInstructions(token_type expected_type, tList* list)
 {
     listFirst(list);
     tList_item* item;
+    bool string_flag = false;
+
+    //prepare string variables in Local Frame
+    if (expected_type == STRING_TOK)
+    {
+        printf("DEFVAR LF@tmp_string1\n");
+        printf("DEFVAR LF@tmp_string2\n");
+        printf("DEFVAR LF@tmp_string3\n");
+    }
 
     while ((item = listGetData(list)) != NULL)
     {
@@ -300,6 +309,8 @@ void generateInstructions(token_type expected_type, tList* list)
                 }
                 else if (item->token.type == IDENTIFIER_TOK)
                 {
+                    printf("DEFVAR LF@%s\n", item->token.attribute.string_ptr);
+                    printf("MOVE LF@%s GF@v%s\n", item->token.attribute.string_ptr, item->token.attribute.string_ptr);
                     printf("PUSHS LF@%s\n", item->token.attribute.string_ptr);
                     printf("INT2FLOAT LF\n");
                 }
@@ -313,6 +324,8 @@ void generateInstructions(token_type expected_type, tList* list)
                 }
                 else if (item->token.type == IDENTIFIER_TOK)
                 {
+                    printf("DEFVAR LF@%s\n", item->token.attribute.string_ptr);
+                    printf("MOVE LF@%s GF@v%s\n", item->token.attribute.string_ptr, item->token.attribute.string_ptr);
                     printf("PUSHS LF@%s\n", item->token.attribute.string_ptr);
                 }
             }
@@ -342,6 +355,47 @@ void generateInstructions(token_type expected_type, tList* list)
                 printf("SUBS LF\n");
                 printf("FLOAT2R2EINTS LF\n");
                 printf("INT2FLOAT LF\n");
+            }
+            //strings
+            case STRING_IN:
+            {
+                if (item->token.type == STRING_TOK)
+                {
+                    if (string_flag)
+                    {
+                        printf("DEFVAR LF@tmp_string1\n");
+                        printf("POPS LF@tmp_string1\n");
+                        printf("DEFVAR LF@tmp_string2\n");
+                        printf("MOVE LF@tmp_string2 string@%s\n", item->token.attribute.string_ptr);
+                        printf("DEFVAR LF@tmp_string3\n");
+                        printf("CONCAT LF@tmp_string3 LF@tmp_string1 LF@tmp_string2\n");
+                        printf("PUSHS LF@tmp_string3\n");
+
+                        if (item->next.index == PLUS_IN)
+                        {
+                            item = item->next;
+                        }
+                    }
+                    else
+                    {
+                        printf("PUSHS LF@string@%s\n", item->token.attribute.string_ptr);
+                        string_flag = true;
+                    }
+                    
+                }
+                else if (item->token.type == IDENTIFIER_TOK)
+                {
+                    if (string_flag)
+                    {
+                        printf("DEFVAR LF@tmp_string1\n");
+                        printf("POPS LF@tmp_string1\n");
+                        printf("DEFVAR LF@tmp_string2\n");
+                        printf("MOVE LF@tmp_string2 string@%s\n", item->token.attribute.string_ptr);
+                        printf("DEFVAR LF@tmp_string3\n");
+                        printf("CONCAT LF@tmp_string3 LF@tmp_string1 LF@tmp_string2\n");
+                        printf("PUSHS LF@tmp_string3\n");    
+                    } 
+                }
             }
             default:
             {
