@@ -162,7 +162,7 @@ bool getTerm(tToken token, p_table_index* index)
         }
     }
     //operators
-    else if(token.type >= 10 && token.type <= 22)
+    else if (token.type >= 10 && token.type <= 22)
     {
         *index = token.type - 10;
     }
@@ -176,111 +176,230 @@ bool getTerm(tToken token, p_table_index* index)
 
 bool expression(token_type expected_type)
 {
-	tList* list = getInfix(expected_type);
-    *list = infixToPostfix(expected_type, list);
-
-    generateInstructions(expected_type, list);
-    return true;
+    tList* list = getInfix(expected_type);
+    *list = infixToPostfix(list);
+    
+    return generateInstructions(expected_type, list);
 }
 
 tList* getInfix(token_type expected_type) 
-{	
-	tToken token;
-	getNextToken(&token, stdin);
+{   
+    tToken token;
+    getNextToken(&token, stdin);
 
-	tList* list_infix = malloc(sizeof(tList));
+    tList* list_infix = malloc(sizeof(tList));
 
-	p_table_index index;
+    p_table_index index;
 
-	getTerm(token, &index);
+    int operand_count = 0;
+    int operation_count = 0;
+    int left_parent_count = 0;
+    int right_parent_count = 0;
 
-	switch(expected_type)
-	{
-		case INTEGER_TOK:					// expected token is INTEGER or DOUBLE 
-		case FLOATING_POINT_TOK:
-		{
-			listInit(list_infix);
+    getTerm(token, &index);
 
-			while (getTerm(token, &index) && index != DOLAR_IN)
-			{
-				if(index == INT_IN || index == DOUBLE_IN || index == PLUS_IN || index == MINUS_IN || index == MUL_IN || 	//Operands and operations allowed when expected type is INTEGER or DOUBLE
-				   index == FLOAT_DIV_IN || index == INT_DIV_IN || index == LEFT_PARENT_IN || index == RIGHT_PARENT_IN)
-				{
-    				listInsertLast(list_infix, token, index);
-    				getNextToken(&token, stdin);		
-				}
-				else
-				{
-					addError(SEM_TYPE_ERROR,"Bad operation or operand in expression");
-					listFree(list_infix);
-				}
-			}
+    switch(expected_type)
+    {
+        case INTEGER_TOK:                   // expected token is INTEGER or DOUBLE 
+        case FLOATING_POINT_TOK:
+        {
+            listInit(list_infix);
 
-			if(index != DOUBLE_IN)
-			{
-				listFree(list_infix);
-			}
+            while (getTerm(token, &index) && index != DOLAR_IN)
+            {
+                if (index == INT_IN || index == DOUBLE_IN || index == PLUS_IN || index == MINUS_IN || index == MUL_IN ||     //Operands and operations allowed when expected type is INTEGER or DOUBLE
+                   index == FLOAT_DIV_IN || index == INT_DIV_IN || index == LEFT_PARENT_IN || index == RIGHT_PARENT_IN)
+                {
+                    if (index == INT_IN || index == DOUBLE_IN)
+                    {
+                        operand_count++;
+                    }
+                    else if (index = LEFT_PARENT_IN)
+                    {
+                        left_parent_count++;
+                    }
+                    else if (index == RIGHT_PARENT_IN)
+                    {
+                        right_parent_count++;
+                    }
+                    else 
+                    {
+                        operation_count++;
+                    }
 
-			return list_infix; 
-		}
-		case STRING_TOK:
-		{
-			while (getTerm(token, &index) && index != DOLAR_IN)
-			{
-				if(index == STRING_IN || index == PLUS_IN || index == DOLAR_IN)
-				{
-					listInsertLast(list_infix, token, index);
-					//concatenate
-    				getNextToken(&token, stdin);		
-				}
-				else
-				{
-					addError(SEM_TYPE_ERROR,"Bad operation or operand in expression");
-					listFree(list_infix);
-				}
-			}
+                    listInsertLast(list_infix, token, index);
+                    getNextToken(&token, stdin);        
+                }
+                else
+                {
+                    addError(SEM_TYPE_ERROR,"Bad operation or operand in expression");          //not expected operands or operations
+                    listFree(list_infix);
+                    return list_infix;
+                }
+            }
 
-			if (index != DOLAR_IN)
-			{
-				listFree(list_infix);
-			}
+            if (right_parent_count == left_parent_count)
+            {
+                if ((operation_count + 1)== operand_count)
+                {
+                    return list_infix;    
+                }
+                else
+                {
+                    addError(SEM_TYPE_ERROR,"Bad number of operations or operands in expression");          //not expected operands or operations
+                    listFree(list_infix);
+                    return list_infix;
+                }
+            }
+            else
+            {
+                addError(SEM_TYPE_ERROR,"Bad number of parentals in expression");           //not expected number of parentals
+                listFree(list_infix);
+                return list_infix;
+            }
+             
+        }
 
-			return list_infix; 
-		}
+        case STRING_TOK:
+        {
+            while (getTerm(token, &index) && index != DOLAR_IN)
+            {
+                if (index == STRING_IN || index == PLUS_IN || index == LEFT_PARENT_IN || index == RIGHT_PARENT_IN)
+                {
+                    if (index == STRING_IN)
+                    {
+                        operand_count++;
+                    }
+                    else if (index == RIGHT_PARENT_IN)
+                    {
+                        right_parent_count++;
+                    }
+                    else if (index == LEFT_PARENT_IN)
+                    {
+                        left_parent_count++;
+                    }
+                    else
+                    {
+                        operation_count++;
+                    }
 
-		case BOOLEAN:
-		{
-			while (getTerm(token, &index) && index != DOLAR_IN)
-			{
-				listInsertLast(list_infix, token, index);
-    			getNextToken(&token, stdin);		
-			}
+                    listInsertLast(list_infix, token, index);
+                    //concatenate
+                    getNextToken(&token, stdin);        
+                }
+                else
+                {
+                    addError(SEM_TYPE_ERROR,"Bad operation or operand in expression");
+                    listFree(list_infix);
+                    return list_infix; 
+                }
+            }
 
-			if (index != DOLAR_IN)
-			{
-				listFree(list_infix);
-			}
+            if (right_parent_count == left_parent_count)
+            {
+                if ((operation_count + 1)== operand_count)
+                {
+                    return list_infix;    
+                }
+                else
+                {
+                    addError(SEM_TYPE_ERROR,"Bad number of operations or operands in expression");          //not expected operands or operations
+                    listFree(list_infix);
+                    return list_infix;
+                }
+            }
+            else
+            {
+                addError(SEM_TYPE_ERROR,"Bad number of parentals in expression");          //not expected number of parentals
+                listFree(list_infix);
+                return list_infix;
+            } 
+        }
 
-			return list_infix; 
-		}
+        case BOOLEAN:
+        {
+            while (getTerm(token, &index) && index != DOLAR_IN)
+            {
+                if (index == STRING_IN || index == DOUBLE_IN || index == INT_IN)
+                {
+                    operand_count++;
+                }
+                else if ( index == LEFT_PARENT_IN)
+                {
+                    left_parent_count++;
+                }
+                else if (index == RIGHT_PARENT_IN)
+                {
+                    right_parent_count++;
+                }
+                else
+                {
+                    operation_count++;
+                }
+
+                listInsertLast(list_infix, token, index);
+                getNextToken(&token, stdin);        
+            }
+
+            if (right_parent_count == left_parent_count)
+            {
+                if ((operation_count + 1)== operand_count)
+                {
+                    return list_infix;    
+                }
+                else
+                {
+                    addError(SEM_TYPE_ERROR,"Bad number of operations or operands in expression");          //not expected operands or operations
+                    listFree(list_infix);
+                    return list_infix;
+                }
+            }
+            else
+            {
+                addError(SEM_TYPE_ERROR,"Bad number of parentals in expression");           //not expected number of parentals
+                listFree(list_infix);
+                return list_infix;
+            }
+        }
         default:
             listFree(list_infix);
             addError(OTHER_ERROR, "Unknown error");
             return list_infix;
-	}	
+    }   
 }
 
+/****************************************************************************/
 
-/*
-tList infixToPostfix(token_type expected_type, tList* list_infix)
+tList* infixToPostfix(tList* list_infix)
 {
-	tList list_postfix;
+    tList* list_postfix = NULL; //pointer to postfix_list
 
-	tStack stack;
-	stackInit(&stack);
+    if (list_infix->first != NULL)  //if infix_list is empty return NULL
+    {
+        tStack stack;               //stack init for operators
+        stackInit(&stack);
+
+        tList_item* item;
+
+        tList* list_postfix = malloc(sizeof(tList));
+        listFirst(list_infix);  //activate first item in list
+
+        while ((item = listGetData(list_infix)) != NULL)
+        {
+
+        }
+
+
+
+
+
+
+
+
+    }
     return list_postfix;
 }
-*/
+
 void generateInstructions(token_type expected_type, tList* list)
 {
     listFirst(list);

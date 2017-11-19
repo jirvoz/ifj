@@ -52,7 +52,7 @@ bool expression(token_type expected_type);
 
 tList* getInfix(token_type expected_type);
 bool getTerm(tToken token, p_table_index* index);
-tList infixToPostfix(token_type expected_type, tList* list_infix);
+tList infixToPostfix(tList* list_infix);
 void generateInstructions(token_type expected_type, tList* list);
 
 /*********************LIST functions*******************************/
