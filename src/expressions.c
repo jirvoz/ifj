@@ -7,94 +7,6 @@
 #include "statements.h"
 #include "stack.h"
 
-/*****************************LIST-STUFF**************************/
-
-//list initialization
-void listInit(tList* list)
-{
-    list->first  = NULL;
-    list->last   = NULL;
-    list->active = NULL;
-}
-  
-//list dealocation
-void listFree(tList* list)
-{
-    tList_item* ptr;
-    while (list->first != NULL)
-    {
-        ptr = list->first;
-        list->first = list->first->next;
-
-        //free whole item
-        free(ptr);
-    }
-}
-
-//insert new item to end of the list
-void listInsertLast(tList* list, tToken token, p_table_index index)
-{
-    tList_item *new_item;
-    new_item = malloc(sizeof (tList_item));
-    new_item->token = token;
-    new_item->index = index;
-    new_item->next = NULL;
-
-    if (list->first == NULL)
-    {
-        list->first = new_item;
-    }
-    else
-    {
-        list->last->next = new_item;
-    }
-    list->last = new_item;
-}
-
-//activate first item
-void listFirst(tList* list)
-{
-    list->active = list->first;
-}
-
-//activate item after actual activated item
-void listNext(tList* list)
-{
-    if (list->active != NULL)
-    {
-        list->active = list->active->next;   
-    }
-}
-
-//activate token on pointer
-void listGoto(tList* list, tList_item* item)
-{
-    list->active = item;
-}
-
-//return pointer of last item 
-tList_item* listGetPointerLast(tList* list)
-{
-    return list->last;
-}
-
-//return active item
-tList_item* listGetData(tList* list)
-{
-    if (list->active == NULL)
-    {
-        addError(OTHER_ERROR, "Internal error");
-        return NULL;
-    }
-    else
-    {
-        return list->active;  
-    } 
-}
-
-/*************************END-OF-LIST-STUFF******************************/
-
-
 //size of precedence table
 #define P_TAB_SIZE 19
 
@@ -176,18 +88,50 @@ bool getTerm(tToken token, p_table_index* index)
 
 bool expression(token_type expected_type)
 {
-    tList* list = getInfix(expected_type);
-    *list = infixToPostfix(list);
-    
-    return generateInstructions(expected_type, list);
-}
-
-tList* getInfix(token_type expected_type) 
-{   
     tToken token;
     getNextToken(&token, stdin);
 
-    tList* list_infix = malloc(sizeof(tList));
+    if (expected_type == UNDEFINED_TOK) // Undefined token set by first token type
+        expected_type = token->type;
+
+    switch (expected_type)
+        case INTEGER_TOK:
+        case FLOATING_POINT_TOK:
+            postNumber(token);
+        case STRING_TOK:
+            postString(token);
+        case BOOLEAN:
+            postBoolean(token);
+        default:
+            ERROR_AND_RETURN(OTHER_ERROR, "Unknown error");
+   
+    //return generateInstruction(expected_type, list);
+}
+
+//todo
+void postNumber(tToken token)
+{
+    p_table_index index;
+
+    int operand_count = 0;
+    int operation_count = 0;
+    int parentals_count = 0;
+
+    while (getTerm(token, &index) && index != DOLAR_IN)
+    {
+        if (index == INT_IN || index == DOUBLE_IN)
+        {
+            operand_count++;
+            generateInstruction();
+        }
+
+    }
+}
+
+/*tList* getInfix(token_type expected_type) 
+{   
+     token;
+    getNextToken(&token, stdin);
 
     p_table_index index;
 
@@ -196,11 +140,12 @@ tList* getInfix(token_type expected_type)
     int left_parent_count = 0;
     int right_parent_count = 0;
 
-    getTerm(token, &index);
+   // getTerm(token, &index);
+  
 
     switch(expected_type)
     {
-        case INTEGER_TOK:                   // expected token is INTEGER or DOUBLE 
+        case INTEGER_TOK:      // expected token is INTEGER or DOUBLE 
         case FLOATING_POINT_TOK:
         {
             listInit(list_infix);
@@ -366,11 +311,11 @@ tList* getInfix(token_type expected_type)
             addError(OTHER_ERROR, "Unknown error");
             return list_infix;
     }   
-}
+}*/
 
 /****************************************************************************/
 
-tList* infixToPostfix(tList* list_infix)
+/*tList* infixToPostfix(tList* list_infix)
 {
     tList* list_postfix = NULL; //pointer to postfix_list
 
@@ -388,17 +333,9 @@ tList* infixToPostfix(tList* list_infix)
         {
 
         }
-
-
-
-
-
-
-
-
     }
     return list_postfix;
-}
+}*/
 
 void generateInstructions(token_type expected_type, tList* list)
 {
