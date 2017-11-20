@@ -57,12 +57,9 @@ void stackPush(tStack* stack, tTerm term)
 //delete item from the top of stack
 tTerm* stackPop(tStack* stack)
 {
-    //fprintf(stderr, "stackPop is called\n");
     if(!stackEmpty(stack)) 
     {
         (stack->top)--;
-        //fprintf(stderr, "stack top is %d\n", stack->top);
-        //fprintf(stderr, "vraciam index %d\n", stack->arr[(stack->top) + 1]);
         return &(stack->arr[(stack->top) + 1]);
     }   
     else 
