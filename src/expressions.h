@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 #include "scanner.h"
+#include "stack.h"
 
 //rows and cols in precedence table
 typedef enum p_table_index
@@ -29,7 +30,8 @@ typedef enum p_table_index
     DOLAR_IN
 } p_table_index;
 
-//structure sent to generateInstruction function
+//structure sent to generateInstruction
+//data of stack
 typedef struct tTerm
 {
     tToken token;
