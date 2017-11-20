@@ -3,7 +3,6 @@
 
 #include <stdbool.h>
 #include "scanner.h"
-#include "stack.h"
 
 //rows and cols in precedence table
 typedef enum p_table_index
@@ -42,8 +41,11 @@ typedef struct tTerm
 //                 can be INTEGER, DOUBLE, STRING, BOOL
 //                 or UNDEFINED_TOK = 0 (no specific type needed)
 bool expression(token_type expected_type);
-bool postNumber(token_type expected_type, tToken token);
+bool postNumber(token_type expected_type, token_type return_type, tToken token);
 bool getTerm(tToken token, p_table_index* index);
 bool generateInstruction(token_type return_type, tTerm term);
+
+//just for tests
+void printTerm(tTerm term);
 
 #endif

@@ -75,6 +75,10 @@ bool getTerm(tToken token, p_table_index* index)
             return false;
         }
     }
+    else if (token.type > 1 && token.type < 5)
+    {
+        *index = token.type + 11;
+    }
     //operators
     else if(token.type >= 10 && token.type <= 22)
     {
@@ -95,33 +99,35 @@ bool expression(token_type expected_type)
 
     token_type return_type = expected_type;
 
-    if (expected_type == UNDEFINED_TOK || expected_type = BOOLEAN ) // Undefined token set by first token type
-        return_type = token->type;
+    if (expected_type == UNDEFINED_TOK || expected_type == BOOLEAN ) // Undefined token set by first token type
+        return_type = token.type;
 
     switch (return_type)
+    {
         case INTEGER_TOK:
         case FLOATING_POINT_TOK:
-            postNumber(return_type, token);
+            postNumber(expected_type, return_type, token);
             break;
+            /*
         case STRING_TOK:
             postString(return_type, token);
             break;
+            */
         default:
             ERROR_AND_RETURN(OTHER_ERROR, "Unknown token type");
-   
+    }
     //return generateInstruction(return_type, list);
 }
 
 //todo
-bool postNumber(token_type return_type, tToken token)
+bool postNumber(token_type expected_type, token_type return_type, tToken token)
 {
     p_table_index index;
 
     tTerm term;
     tTerm* stack_term;
 
-    tStack stack;
-    stackInit(&stack);
+    tStack* stack = stackInit();
 
     int operand_count = 0;
     int operation_count = 0;
@@ -144,9 +150,9 @@ bool postNumber(token_type return_type, tToken token)
             term.token = token;
             term.index = index;
 
-            if (!stackEmpty(&stack))
+            if (stackEmpty(stack))
             {
-                stackPush(&stack, term);
+                stackPush(stack, term);
                 getNextToken(&token, stdin);
             }
             else
@@ -155,18 +161,22 @@ bool postNumber(token_type return_type, tToken token)
 
                 while (get_priority != '<')
                 {
-                    (*stack_term) = stackTop(&stack);
-                    get_priority = precedence_table[term.index][stack_term->index];
-    
-                    if (get_priority == '<')
+                    if (!stackEmpty(stack))
                     {
-                        stackPush(&stack, term);
+                        stack_term = stackTop(stack);
+                        get_priority = precedence_table[stack_term->index][term.index];
+                    }
+    
+                    if (get_priority == '<' || stackEmpty(stack))
+                    {
+                        stackPush(stack, term);
                         getNextToken(&token, stdin);
+                        break;
                     }
                     else
                     {
-                        (*stack_term) = stackPop(&stack);
-                        generateInstruction(return_type, (&stack_term));
+                        stack_term = stackPop(stack);
+                        generateInstruction(return_type, *stack_term);
                     }
                 }
             }
@@ -179,7 +189,7 @@ bool postNumber(token_type return_type, tToken token)
             if (index == LEFT_PARENT_IN)
             {
                 parentals_count++;
-                stackPush(&stack, term);
+                stackPush(stack, term);
                 getNextToken(&token, stdin);
             }
             else
@@ -187,12 +197,12 @@ bool postNumber(token_type return_type, tToken token)
                 if (parentals_count > 0)
                 {
                     parentals_count--;
-                    (*stack_term) = stackPop(&stack);
+                    stack_term = stackPop(stack);
 
                     while (stack_term->index != LEFT_PARENT_IN) 
                     {
-                        generateInstruction(return_type, (&stack_term));
-                        (*stack_term) = stackPop(&stack);                        
+                        generateInstruction(return_type, *stack_term);
+                        stack_term = stackPop(stack);                        
                     }
                     getNextToken(&token, stdin);
                 }
@@ -215,9 +225,9 @@ bool postNumber(token_type return_type, tToken token)
                 term.token = token;
                 term.index = index;
     
-                if (!stackEmpty(&stack))
+                if (stackEmpty(stack))
                 {
-                    stackPush(&stack, term);
+                    stackPush(stack, term);
                     getNextToken(&token, stdin);
                 }
                 else
@@ -226,18 +236,22 @@ bool postNumber(token_type return_type, tToken token)
     
                     while (get_priority != '<')
                     {
-                        (*stack_term) = stackTop(&stack);
-                        get_priority = precedence_table[term.index][stack_term->index];
-        
-                        if (get_priority == '<')
+                        if (!stackEmpty(stack))
                         {
-                            stackPush(&stack, term);
+                            stack_term = stackTop(stack);
+                            get_priority = precedence_table[stack_term->index][term.index];
+                        }
+                        
+                        if (get_priority == '<' || stackEmpty(stack))
+                        {
+                            stackPush(stack, term);
                             getNextToken(&token, stdin);
+                            break;
                         }
                         else
                         {
-                            (*stack_term) = stackPop(&stack);
-                            generateInstruction(return_type, (&stack_term));
+                            stack_term = stackPop(stack);
+                            generateInstruction(return_type, *stack_term);
                         }
                     }
                 }
@@ -247,14 +261,16 @@ bool postNumber(token_type return_type, tToken token)
         }
         else if (index == DOLAR_IN)
         {
-            if ((parentals_count == 0) && ((operation_count+1) == operand_count)) //
+            
+            if ((parentals_count == 0) && ((operation_count + 1) == operand_count)) //
             {
-                while (!stackEmpty(&stack))
+                while (!stackEmpty(stack))
                 {
-                    (*stack_term) = stackPop(&stack);
-                    generateInstruction(return_type, (&stack_term)); 
+                    stack_term = stackPop(stack);
+                    generateInstruction(return_type, *stack_term); 
                 }
-                stackFree(&stack);
+                free(stack);
+                return true;
             }
             else
             {
@@ -268,16 +284,34 @@ bool postNumber(token_type return_type, tToken token)
     }
 }
 
-//this global variable will be used if expected type is STRING
-
-bool generateInstruction(token_type expected_type, tTerm term)
+bool generateInstruction(token_type return_type, tTerm term)
 {
+    //just for testing
+    printTerm(term);
+
     //prepare string variables in Local Frame
-    if (string_flag == false && expected_type == STRING_TOK)
+    //term.index - expected type is bool but, that strings will be compared
+    if ((string_added == false) && (term.index == STRING_IN))
     {
         printf("DEFVAR LF@$tmp_string1\n");
         printf("DEFVAR LF@$tmp_string2\n");
         printf("DEFVAR LF@$tmp_string3\n");
+    }
+
+    //function calling, value after calling will be on the top of stack
+    if (term.token.type == IDENTIFIER_TOK)
+    {
+        tSymbol* symbol = htSearch(func_table, term.token.attribute.string_ptr);
+        if (symbol != NULL)
+        {
+            call(term.token.attribute.string_ptr);
+
+            //if return type is INT, convert to double
+            if (symbol->type == INTEGER_TOK)
+            {
+                printf("INT2FLOATS\n");
+            }
+        }
     }
 
     //main switch
@@ -293,7 +327,7 @@ bool generateInstruction(token_type expected_type, tTerm term)
             else
                 printf("PUSHS LF@%s\n", term.token.attribute.string_ptr);
             //convert to float
-            printf("INT2FLOAT\n");
+            printf("INT2FLOATS\n");
         }
             break;
         //push float to stack
@@ -311,7 +345,7 @@ bool generateInstruction(token_type expected_type, tTerm term)
         case PLUS_IN:
         {
             //if int or float, add
-            if (expected_type != STRING_TOK)
+            if (!string_added)
                 printf("ADDS\n");
 
             //if string, concatenate
@@ -319,7 +353,7 @@ bool generateInstruction(token_type expected_type, tTerm term)
             {
                 printf("CONCAT LF@$tmp_string3 LF@$tmp_string1 LF@$tmp_string2\n");
                 printf("MOVE LF@$tmp_string1 LF@$tmp_string3\n");
-            }   
+            }
         }
             break;
         //SUBS instruction
@@ -353,22 +387,22 @@ bool generateInstruction(token_type expected_type, tTerm term)
         {
             if (term.token.type == STRING_TOK)
             {
-                if (string_flag)
+                if (string_added)
                     printf("MOVE LF@$tmp_string2 string@%s\n", term.token.attribute.string_ptr);
                 else
                 {
                     printf("MOVE LF@$tmp_string1 string@%s\n", term.token.attribute.string_ptr);
-                    string_flag = true;
+                    string_added = true;
                 } 
             }
             else if (term.token.type == IDENTIFIER_TOK)
             {
-                if (string_flag)
+                if (string_added)
                     printf("MOVE LF@$tmp_string2 string@%s\n", term.token.attribute.string_ptr);
                 else
                 {
                     printf("MOVE LF@$tmp_string1 GF@%s\n", term.token.attribute.string_ptr);
-                    string_flag = true;
+                    string_added = true;
                 }
             }
         }
@@ -376,7 +410,7 @@ bool generateInstruction(token_type expected_type, tTerm term)
         //'<'- comparison by LTS instruction - automatically pops flag to stack
         case LESS_IN:
         {
-            printf("LTS\n");
+            printf("LTS\n");   
         }
             break;
         //'>' - comparison by GTS instruction - automatically pops flag to stack
@@ -420,33 +454,18 @@ bool generateInstruction(token_type expected_type, tTerm term)
             printf("NOTS\n");
         }
             break;
+        case DOLAR_IN:
+        {
+            if (return_type == INTEGER_TOK)
+            {
+                printf("FLOAT2R2EINTS LF\n");
+            }
+        }
+            break;
         default:
         {
-            addError(OTHER_ERROR, NULL);
+            ERROR_AND_RETURN(SEM_TYPE_ERROR, "Wrong expression");
         }
     }
+    return true;
 }
-/*
-    //convert to expected type
-    switch (expected_type)
-    {
-        case INTEGER_TOK:
-        {
-            printf("FLOAT2R2EINTS LF\n");
-        }
-            break;
-        case BOOLEAN:
-        {
-            if (final_bool)
-            {
-                printf("PUSHS GF@bool@true%s\n");  
-            }
-            else
-            {
-                printf("PUSHS GF@bool@false%s\n"); 
-            }
-            
-        }
-            break;
-}
-*/

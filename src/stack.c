@@ -38,6 +38,7 @@ bool stackEmpty(tStack* stack)
 //if the stack is full, is resized
 void stackPush(tStack* stack, tTerm term) 
 {
+    //fprintf(stderr, "stackPush is called\n");
     if (stack->size < (stack->top)) 
     {
         stack->arr = realloc(stack->arr, (sizeof(tToken) * (stack->size + 8)));
@@ -49,16 +50,19 @@ void stackPush(tStack* stack, tTerm term)
         }
         stack->size += 8;
     }
-    stack->arr[stack->top] = term;
     (stack->top)++;
+    stack->arr[stack->top] = term;
 }
 
 //delete item from the top of stack
-tTerm* stackPop(tStack* stack) 
+tTerm* stackPop(tStack* stack)
 {
+    //fprintf(stderr, "stackPop is called\n");
     if(!stackEmpty(stack)) 
     {
         (stack->top)--;
+        //fprintf(stderr, "stack top is %d\n", stack->top);
+        //fprintf(stderr, "vraciam index %d\n", stack->arr[(stack->top) + 1]);
         return &(stack->arr[(stack->top) + 1]);
     }   
     else 
@@ -85,5 +89,5 @@ void stackFree(tStack* stack)
 {
     free(stack->arr);
     stack->size = 0;
-    stack->top = 0;
+    stack->top = -1;
 }
