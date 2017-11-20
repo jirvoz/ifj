@@ -28,21 +28,12 @@ typedef enum p_table_index
     DOLAR_IN
 } p_table_index;
 
-/***********************LIST structures*****************************/
-
-typedef struct tList_item 
+//structure sent to generateInstruction function
+typedef struct tTerm
 {
     tToken token;
     p_table_index index;
-    struct tList_item* next;
-} tList_item;
-    
-typedef struct tList
-{
-    tList_item* first;       //pointer to first item
-    tList_item* last;        //pointer to last item
-    tList_item* active;      //pointer to active item
-} tList;
+} tTerm;
 
 // Parsing of expressions
 // expected_type - type of variable, that should end on the top of stack
@@ -50,20 +41,7 @@ typedef struct tList
 //                 or UNDEFINED_TOK = 0 (no specific type needed)
 bool expression(token_type expected_type);
 
-tList* getInfix(token_type expected_type);
 bool getTerm(tToken token, p_table_index* index);
-tList infixToPostfix(token_type expected_type, tList* list_infix);
-void generateInstructions(token_type expected_type, tList* list);
-
-/*********************LIST functions*******************************/
-
-void listInit(tList* list);
-void listFree(tList* list);
-void listInsertLast(tList* list, tToken token, p_table_index index);
-void listFirst(tList* list);
-void listNext(tList* list);
-void listGoTo(tList* list, tList_item* token);
-tList_item* listGetPointerLast(tList* list);
-tList_item* listGetData(tList* list);
+bool generateInstruction(token_type expected_type, tTerm term);
 
 #endif
