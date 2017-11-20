@@ -7,8 +7,11 @@
 #include "statements.h"
 #include "stack.h"
 
-bool generateInstruction(token_type expected_type, tTerm term)
+bool generateInstruction(token_type return_type, tTerm term)
 {
+    //just for testing
+    printTerm(term);
+
     //prepare string variables in Local Frame
     //term.index - expected type is bool but, that strings will be compared
     if ((string_added == false) && (term.index == STRING_IN))
@@ -176,7 +179,7 @@ bool generateInstruction(token_type expected_type, tTerm term)
             break;
         case DOLAR_IN:
         {
-            if (expected_type == INTEGER_TOK)
+            if (return_type == INTEGER_TOK)
             {
                 printf("FLOAT2R2EINTS LF\n");
             }
@@ -184,8 +187,7 @@ bool generateInstruction(token_type expected_type, tTerm term)
             break;
         default:
         {
-            addError(SEM_TYPE, "Wrong expression");
-            return false;
+            ERROR_AND_RETURN(SEM_TYPE, "Wrong expression")
         }
     }
     return true;
