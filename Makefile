@@ -8,7 +8,7 @@ VPATH=src:tests
 all: ifj
 
 ifj: main.o errors.o expressions.o functions.o parser.o scanner.o \
- statements.o strings.o symtable.o
+ stack.o statements.o strings.o symtable.o
 	$(CC) $(CFLAGS) $^ -o $@
 
 sctest: scanner_tests.o errors.o scanner.o strings.o
