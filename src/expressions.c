@@ -10,6 +10,8 @@
 //size of precedence table
 #define P_TAB_SIZE 19
 
+bool string_added;
+
 const int precedence_table[P_TAB_SIZE][P_TAB_SIZE] =
 {
 //exp'=' '<>' '<=' '>='  '<'  '>'  '+'  '-'  '*'  '/'  '\'  '('  ')' 'int''dob''str' com'=' un'-'  '$'
@@ -97,11 +99,14 @@ bool expression(token_type expected_type)
     switch (expected_type)
         case INTEGER_TOK:
         case FLOATING_POINT_TOK:
-            postNumber(token);
+            postNumber(expected_type, token);
+            break;
         case STRING_TOK:
-            postString(token);
+            postString(expected_type, token);
+            break;
         case BOOLEAN:
-            postBoolean(token);
+            postBoolean(expected_type, token);
+            break;
         default:
             ERROR_AND_RETURN(OTHER_ERROR, "Unknown error");
    
@@ -109,11 +114,12 @@ bool expression(token_type expected_type)
 }
 
 //todo
-void postNumber(tToken token)
+bool postNumber(token_type expected_type, tToken token)
 {
     p_table_index index;
 
     tTerm term;
+    tTerm* stack_term;
 
     tStack stack;
     stackInit(&stack);
@@ -122,7 +128,7 @@ void postNumber(tToken token)
     int operation_count = 0;
     int parentals_count = 0;
 
-    while (getTerm(token, &index) && index != DOLAR_IN)
+    while (getTerm(token, &index))
     {
         if (index == INT_IN || index == DOUBLE_IN)
         {
@@ -130,14 +136,84 @@ void postNumber(tToken token)
             term.token = token;
             term.index = index;
             generateInstruction(expected_type, term);
+            getNextToken(&token, stdin);
         }
         else if (index == PLUS_IN || index == MINUS_IN || index == MUL_IN || index == FLOAT_DIV_IN || index == INT_DIV_IN)  //Operands and operations allowed when expected type is INTEGER or DOUBLE      
         {
             operation_count++;
+            term.token = token;
+            term.index = index;
+
             if (!stackEmpty(&stack))
             {
-
+                stackPush(&stack, term);
+                getNextToken(&token, stdin);
             }
+            else
+            {   
+                int get_priority = '>'; //first state for start cycle
+
+                while (get_priority != '<')
+                {
+                    (*stack_term) = stackTop(&stack);
+                    get_priority = precedence_table[term.index][stack_term->index];
+    
+                    if (get_priority == '<')
+                    {
+                        stackPush(&stack, term);
+                        getNextToken(&token, stdin);
+                    }
+                    else
+                    {
+                        (*stack_term) = stackPop(&stack);
+                        generateInstruction(expected_type, (&stack_term));
+                    }
+                }
+            }
+        }
+        else if (index == LEFT_PARENT_IN || index == RIGHT_PARENT_IN)
+        {
+            term.token = token;
+            term.index = index;
+
+            if (index == LEFT_PARENT_IN)
+            {
+                parentals_count++;
+                stackPush(&stack, term);
+                getNextToken(&token, stdin);
+            }
+            else
+            {   if (parentals_count > 0)
+                {
+                    (*stack_term) = stackTop(&stack);
+
+                    while (stack_term->index != LEFT_PARENT_IN)     //change to DO WHILE
+                    {
+                        (*stack_term) = stackPop(&stack);
+                        generateInstruction(expected_type, (&stack_term));
+                    }
+                    getNextToken(&token, stdin);
+                }     
+            }
+        }
+        else if (index == DOLAR_IN)
+        {
+            if ((parentals_count == 0) && ((operation_count+1) == operand_count)) //
+            {
+                while (!stackEmpty(&stack))
+                {
+                    (*stack_term) = stackPop(&stack);
+                    generateInstruction(expected_type, (&stack_term)); 
+                }
+            }
+            else
+            {
+                ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad number of operation or operand in expression");  
+            }
+        }
+        else
+        {
+            ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad operation or operand in expression");
         }
     }
 }
