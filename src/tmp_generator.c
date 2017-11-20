@@ -10,11 +10,21 @@
 bool generateInstruction(token_type expected_type, tTerm term)
 {
     //prepare string variables in Local Frame
-    if (string_flag == false && expected_type == STRING_TOK)
+    //term.index - expected type is bool but, that strings will be compared
+    if ((string_added == false) && (term.index == STRING_IN))
     {
         printf("DEFVAR LF@$tmp_string1\n");
         printf("DEFVAR LF@$tmp_string2\n");
         printf("DEFVAR LF@$tmp_string3\n");
+    }
+
+    //function calling, value after calling will be on the top of stack
+    if (term.token.type == IDENTIFIER_TOK)
+    {
+        if ((htSearch(func_table, term.token.attribute.string_ptr)) != NULL)
+        {
+            call(term.token.attribute.string_ptr);
+        }
     }
 
     //main switch
@@ -48,7 +58,7 @@ bool generateInstruction(token_type expected_type, tTerm term)
         case PLUS_IN:
         {
             //if int or float, add
-            if (expected_type != STRING_TOK)
+            if (!string_term)
                 printf("ADDS\n");
 
             //if string, concatenate
@@ -56,7 +66,7 @@ bool generateInstruction(token_type expected_type, tTerm term)
             {
                 printf("CONCAT LF@$tmp_string3 LF@$tmp_string1 LF@$tmp_string2\n");
                 printf("MOVE LF@$tmp_string1 LF@$tmp_string3\n");
-            }   
+            }
         }
             break;
         //SUBS instruction
@@ -90,22 +100,22 @@ bool generateInstruction(token_type expected_type, tTerm term)
         {
             if (term.token.type == STRING_TOK)
             {
-                if (string_flag)
+                if (string_added)
                     printf("MOVE LF@$tmp_string2 string@%s\n", term.token.attribute.string_ptr);
                 else
                 {
                     printf("MOVE LF@$tmp_string1 string@%s\n", term.token.attribute.string_ptr);
-                    string_flag = true;
+                    string_added = true;
                 } 
             }
             else if (term.token.type == IDENTIFIER_TOK)
             {
-                if (string_flag)
+                if (string_added)
                     printf("MOVE LF@$tmp_string2 string@%s\n", term.token.attribute.string_ptr);
                 else
                 {
                     printf("MOVE LF@$tmp_string1 GF@%s\n", term.token.attribute.string_ptr);
-                    string_flag = true;
+                    string_added = true;
                 }
             }
         }
@@ -113,7 +123,7 @@ bool generateInstruction(token_type expected_type, tTerm term)
         //'<'- comparison by LTS instruction - automatically pops flag to stack
         case LESS_IN:
         {
-            printf("LTS\n");
+            printf("LTS\n");   
         }
             break;
         //'>' - comparison by GTS instruction - automatically pops flag to stack
