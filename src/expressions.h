@@ -26,7 +26,6 @@ typedef enum p_table_index
     STRING_IN,
     EQ_COMMAND_IN,
     UNARY_MINUS_IN,
-    FUNCTION_IN,
     DOLAR_IN
 } p_table_index;
 
@@ -45,6 +44,6 @@ typedef struct tTerm
 bool expression(token_type expected_type);
 bool postNumber(token_type expected_type, tToken token);
 bool getTerm(tToken token, p_table_index* index);
-bool generateInstruction(token_type expected_type, tTerm term);
+bool generateInstruction(token_type return_type, tTerm term);
 
 #endif
