@@ -1,6 +1,6 @@
 #include <malloc.h>
-#include "stack.h"
 #include "errors.h"
+#include "stack.h"
 
 //initialization of stack - size is 8
 //top index is -1 => stack is empty
@@ -36,7 +36,7 @@ bool stackEmpty(tStack* stack)
 
 //push item to the top of stack
 //if the stack is full, is resized
-void stackPush(tStack* stack, tToken token, p_table_index index) 
+void stackPush(tStack* stack, tTerm term) 
 {
     if (stack->size < (stack->top)) 
     {
@@ -49,13 +49,12 @@ void stackPush(tStack* stack, tToken token, p_table_index index)
         }
         stack->size += 8;
     }
-    stack->arr[stack->top].token = token;
-    stack->arr[stack->top].index = index;
+    stack->arr[stack->top] = term;
     (stack->top)++;
 }
 
 //delete item from the top of stack
-tStack_data* stackPop(tStack* stack) 
+tTerm* stackPop(tStack* stack) 
 {
     if(!stackEmpty(stack)) 
     {
@@ -69,7 +68,7 @@ tStack_data* stackPop(tStack* stack)
 }
 
 //save the pointer of the item from the top of stack
-tStack_data* stackTop(tStack* stack) 
+tTerm* stackTop(tStack* stack) 
 {
     if (!stackEmpty(stack)) 
     {

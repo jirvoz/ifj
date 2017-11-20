@@ -4,18 +4,11 @@
 #include <stdbool.h>
 #include "scanner.h"
 #include "expressions.h"
-
-typedef struct tStack_data
-{
-	tToken token;
-	p_table_index index;
-
-}tStack_data;
     
 //structure of Stack with dynamic size
 typedef struct tStack 
 {
-    tStack_data* arr;        //data
+    tTerm* arr;        //data
     int size;           //actual size of stack
     int top;            //index of item on the top of stack
 } tStack;
@@ -24,9 +17,9 @@ typedef struct tStack
 
 tStack* stackInit();
 bool stackEmpty(tStack* stack);
-void stackPush(tStack* stack, tToken token, p_table_index index);
-tStack_data* stackPop(tStack* stack);
-tStack_data* stackTop(tStack* stack);
+void stackPush(tStack* stack, tTerm term);
+tTerm* stackPop(tStack* stack);
+tTerm* stackTop(tStack* stack);
 void stackFree(tStack* stack);
 
 #endif
