@@ -21,9 +21,16 @@ bool generateInstruction(token_type expected_type, tTerm term)
     //function calling, value after calling will be on the top of stack
     if (term.token.type == IDENTIFIER_TOK)
     {
-        if ((htSearch(func_table, term.token.attribute.string_ptr)) != NULL)
+        tSymbol* symbol = htSearch(func_table, term.token.attribute.string_ptr);
+        if (symbol != NULL)
         {
             call(term.token.attribute.string_ptr);
+
+            //if return type is INT, convert to double
+            if (symbol->type == INTEGER_TOK)
+            {
+                printf("INT2FLOATS\n");
+            }
         }
     }
 
@@ -40,7 +47,7 @@ bool generateInstruction(token_type expected_type, tTerm term)
             else
                 printf("PUSHS LF@%s\n", term.token.attribute.string_ptr);
             //convert to float
-            printf("INT2FLOAT\n");
+            printf("INT2FLOATS\n");
         }
             break;
         //push float to stack
@@ -167,32 +174,19 @@ bool generateInstruction(token_type expected_type, tTerm term)
             printf("NOTS\n");
         }
             break;
+        case DOLAR_IN:
+        {
+            if (expected_type == INTEGER_TOK)
+            {
+                printf("FLOAT2R2EINTS LF\n");
+            }
+        }
+            break;
         default:
         {
-            addError(OTHER_ERROR, NULL);
+            addError(SEM_TYPE, "Wrong expression");
+            return false;
         }
     }
-}
-/*
-    //convert to expected type
-    switch (expected_type)
-    {
-        case INTEGER_TOK:
-        {
-            printf("FLOAT2R2EINTS LF\n");
-        }
-            break;
-        case BOOLEAN:
-        {
-            if (final_bool)
-            {
-                printf("PUSHS GF@bool@true%s\n");  
-            }
-            else
-            {
-                printf("PUSHS GF@bool@false%s\n"); 
-            }
-            
-        }
-            break;
+    return true;
 }
