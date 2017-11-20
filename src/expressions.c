@@ -208,17 +208,17 @@ bool generateInstruction(token_type expected_type, tTerm term)
     }
 
     //main switch
-    switch (term->index)
+    switch (term.index)
     {
         //push integer to stack
         case INT_IN:
         {
             //constant
-            if (term->token.type == INTEGER_TOK)
-                printf("PUSHS int@%d\n", term->token.attribute.number);
+            if (term.token.type == INTEGER_TOK)
+                printf("PUSHS int@%d\n", term.token.attribute.number);
             //identifier
             else
-                printf("PUSHS LF@%s\n", term->token.attribute.string_ptr);
+                printf("PUSHS LF@%s\n", term.token.attribute.string_ptr);
             //convert to float
             printf("INT2FLOAT\n");
         }
@@ -227,11 +227,11 @@ bool generateInstruction(token_type expected_type, tTerm term)
         case DOUBLE_IN:
         {
             //constant
-            if (term->token.type == FLOATING_POINT_TOK)
-                printf("PUSHS float@%g\n", term->token.attribute.float_number);
+            if (term.token.type == FLOATING_POINT_TOK)
+                printf("PUSHS float@%g\n", term.token.attribute.float_number);
             //identifier
             else
-                printf("PUSHS LF@%s\n", term->token.attribute.string_ptr);
+                printf("PUSHS LF@%s\n", term.token.attribute.string_ptr);
         }
             break;
         //ADDS instruction or STRING CONCANTENATION
@@ -278,23 +278,23 @@ bool generateInstruction(token_type expected_type, tTerm term)
         //strings
         case STRING_IN:
         {
-            if (term->token.type == STRING_TOK)
+            if (term.token.type == STRING_TOK)
             {
                 if (string_flag)
-                    printf("MOVE LF@$tmp_string2 string@%s\n", term->token.attribute.string_ptr);
+                    printf("MOVE LF@$tmp_string2 string@%s\n", term.token.attribute.string_ptr);
                 else
                 {
-                    printf("MOVE LF@$tmp_string1 string@%s\n", term->token.attribute.string_ptr);
+                    printf("MOVE LF@$tmp_string1 string@%s\n", term.token.attribute.string_ptr);
                     string_flag = true;
                 } 
             }
-            else if (term->token.type == IDENTIFIER_TOK)
+            else if (term.token.type == IDENTIFIER_TOK)
             {
                 if (string_flag)
-                    printf("MOVE LF@$tmp_string2 string@%s\n", term->token.attribute.string_ptr);
+                    printf("MOVE LF@$tmp_string2 string@%s\n", term.token.attribute.string_ptr);
                 else
                 {
-                    printf("MOVE LF@$tmp_string1 GF@%s\n", term->token.attribute.string_ptr);
+                    printf("MOVE LF@$tmp_string1 GF@%s\n", term.token.attribute.string_ptr);
                     string_flag = true;
                 }
             }
@@ -353,6 +353,7 @@ bool generateInstruction(token_type expected_type, tTerm term)
         }
     }
 }
+/*
     //convert to expected type
     switch (expected_type)
     {
@@ -375,3 +376,4 @@ bool generateInstruction(token_type expected_type, tTerm term)
         }
             break;
 }
+*/
