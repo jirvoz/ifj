@@ -121,7 +121,7 @@ bool program()
             case EOF_TOK:
                 ERROR_AND_RETURN(SYN_ERROR, "Missing main scope.");
             default:
-                ERROR_AND_RETURN(SYN_ERROR, "Wrong beginning of statement.");
+                ERROR_AND_RETURN(SYN_ERROR, "Wrong beginning of block of code.");
         }
     }
     while (true);
