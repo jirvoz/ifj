@@ -10,6 +10,7 @@
 //size of precedence table
 #define P_TAB_SIZE 19
 
+//this flag signalize if strings were created on the stack
 bool string_added;
 
 const int precedence_table[P_TAB_SIZE][P_TAB_SIZE] =
@@ -36,13 +37,13 @@ const int precedence_table[P_TAB_SIZE][P_TAB_SIZE] =
     {'<', '<', '<', '<', '<', '<', '<', '<', '<', '<', '<', '<', 'x', '<', '<', '<',    'x',  '<', 'x'}, //'$'
 };
 
-bool getTerm(tToken token, p_table_index* index)
+bool getTerm(p_table_index* index)
 {
     //token is identifier, figure out if var or func
-    if (token.type == IDENTIFIER_TOK)
+    if (last_token.type == IDENTIFIER_TOK)
     {
         //search in func_table
-        tSymbol* symbol = htSearch(func_table, token.attribute.string_ptr);
+        tSymbol* symbol = htSearch(func_table, last_token.attribute.string_ptr);
 
         if (symbol != NULL)
         {
@@ -61,7 +62,7 @@ bool getTerm(tToken token, p_table_index* index)
             return false;
         }
         //search in var_table
-        symbol = htSearch(var_table, token.attribute.string_ptr);
+        symbol = htSearch(var_table, last_token.attribute.string_ptr);
 
         if (symbol != NULL)
         {
@@ -75,16 +76,17 @@ bool getTerm(tToken token, p_table_index* index)
             return false;
         }
     }
-    else if (token.type > 1 && token.type < 5)
+    //int, float and string constants
+    else if (last_token.type > 1 && last_token.type < 5)
     {
-        *index = token.type + 11;
+        *index = last_token.type + 11;
     }
     //operators
-    else if(token.type >= 10 && token.type <= 22)
+    else if(last_token.type >= 10 && last_token.type <= 22)
     {
-        *index = token.type - 10;
+        *index = last_token.type - 10;
     }
-    //end of expression
+    //if other token_type, index is DOLAR - end of expression
     else
     {
         *index = DOLAR_IN;
@@ -92,21 +94,21 @@ bool getTerm(tToken token, p_table_index* index)
     return true;
 }
 
+//main expression function
 bool expression(token_type expected_type)
 {
-    tToken token;
-    getNextToken(&token, stdin);
+    UPDATE_LAST_TOKEN();
 
     token_type return_type = expected_type;
 
     if (expected_type == UNDEFINED_TOK || expected_type == BOOLEAN ) // Undefined token set by first token type
-        return_type = token.type;
+        return_type = last_token.type;
 
     switch (return_type)
     {
         case INTEGER_TOK:
         case FLOATING_POINT_TOK:
-            postNumber(expected_type, return_type, token);
+            return (postNumber(expected_type, return_type));
             break;
             /*
         case STRING_TOK:
@@ -119,8 +121,7 @@ bool expression(token_type expected_type)
     //return generateInstruction(return_type, list);
 }
 
-//todo
-bool postNumber(token_type expected_type, token_type return_type, tToken token)
+bool postNumber(token_type expected_type, token_type return_type)
 {
     p_table_index index;
 
@@ -134,26 +135,26 @@ bool postNumber(token_type expected_type, token_type return_type, tToken token)
     int parentals_count = 0;
     bool logic_allowed = true;
 
-    while (getTerm(token, &index))
+    while (getTerm(&index))
     {
         if (index == INT_IN || index == DOUBLE_IN)
         {
             operand_count++;
-            term.token = token;
+            term.token = last_token;
             term.index = index;
             generateInstruction(return_type, term);
-            getNextToken(&token, stdin);
+            UPDATE_LAST_TOKEN();
         }
         else if (index == PLUS_IN || index == MINUS_IN || index == MUL_IN || index == FLOAT_DIV_IN || index == INT_DIV_IN)  //Operands and operations allowed when expected type is INTEGER or DOUBLE      
         {
             operation_count++;
-            term.token = token;
+            term.token = last_token;
             term.index = index;
 
             if (stackEmpty(stack))
             {
                 stackPush(stack, term);
-                getNextToken(&token, stdin);
+                UPDATE_LAST_TOKEN();
             }
             else
             {   
@@ -170,7 +171,7 @@ bool postNumber(token_type expected_type, token_type return_type, tToken token)
                     if (get_priority == '<' || stackEmpty(stack))
                     {
                         stackPush(stack, term);
-                        getNextToken(&token, stdin);
+                        UPDATE_LAST_TOKEN();
                         break;
                     }
                     else
@@ -183,14 +184,14 @@ bool postNumber(token_type expected_type, token_type return_type, tToken token)
         }
         else if (index == LEFT_PARENT_IN || index == RIGHT_PARENT_IN)
         {
-            term.token = token;
+            term.token = last_token;
             term.index = index;
 
             if (index == LEFT_PARENT_IN)
             {
                 parentals_count++;
                 stackPush(stack, term);
-                getNextToken(&token, stdin);
+                UPDATE_LAST_TOKEN();
             }
             else
             {   
@@ -204,7 +205,7 @@ bool postNumber(token_type expected_type, token_type return_type, tToken token)
                         generateInstruction(return_type, *stack_term);
                         stack_term = stackPop(stack);                        
                     }
-                    getNextToken(&token, stdin);
+                    UPDATE_LAST_TOKEN();
                 }
                 else
                 {
@@ -218,17 +219,17 @@ bool postNumber(token_type expected_type, token_type return_type, tToken token)
         {
             if (logic_allowed) 
             {
-                return_type == BOOLEAN;
+                return_type = BOOLEAN;
                 logic_allowed = false;
     
                 operation_count++;
-                term.token = token;
+                term.token = last_token;
                 term.index = index;
     
                 if (stackEmpty(stack))
                 {
                     stackPush(stack, term);
-                    getNextToken(&token, stdin);
+                    UPDATE_LAST_TOKEN();
                 }
                 else
                 {   
@@ -241,11 +242,11 @@ bool postNumber(token_type expected_type, token_type return_type, tToken token)
                             stack_term = stackTop(stack);
                             get_priority = precedence_table[stack_term->index][term.index];
                         }
-                        
+
                         if (get_priority == '<' || stackEmpty(stack))
                         {
                             stackPush(stack, term);
-                            getNextToken(&token, stdin);
+                            UPDATE_LAST_TOKEN();
                             break;
                         }
                         else
@@ -287,7 +288,7 @@ bool postNumber(token_type expected_type, token_type return_type, tToken token)
 bool generateInstruction(token_type return_type, tTerm term)
 {
     //just for testing
-    printTerm(term);
+    //printTerm(term);
 
     //prepare string variables in Local Frame
     //term.index - expected type is bool but, that strings will be compared
