@@ -7,94 +7,6 @@
 #include "statements.h"
 #include "stack.h"
 
-/*****************************LIST-STUFF**************************/
-
-//list initialization
-void listInit(tList* list)
-{
-    list->first  = NULL;
-    list->last   = NULL;
-    list->active = NULL;
-}
-  
-//list dealocation
-void listFree(tList* list)
-{
-    tList_item* ptr;
-    while (list->first != NULL)
-    {
-        ptr = list->first;
-        list->first = list->first->next;
-
-        //free whole item
-        free(ptr);
-    }
-}
-
-//insert new item to end of the list
-void listInsertLast(tList* list, tToken token, p_table_index index)
-{
-    tList_item *new_item;
-    new_item = malloc(sizeof (tList_item));
-    new_item->token = token;
-    new_item->index = index;
-    new_item->next = NULL;
-
-    if (list->first == NULL)
-    {
-        list->first = new_item;
-    }
-    else
-    {
-        list->last->next = new_item;
-    }
-    list->last = new_item;
-}
-
-//activate first item
-void listFirst(tList* list)
-{
-    list->active = list->first;
-}
-
-//activate item after actual activated item
-void listNext(tList* list)
-{
-    if (list->active != NULL)
-    {
-        list->active = list->active->next;   
-    }
-}
-
-//activate token on pointer
-void listGoto(tList* list, tList_item* item)
-{
-    list->active = item;
-}
-
-//return pointer of last item 
-tList_item* listGetPointerLast(tList* list)
-{
-    return list->last;
-}
-
-//return active item
-tList_item* listGetData(tList* list)
-{
-    if (list->active == NULL)
-    {
-        addError(OTHER_ERROR, "Internal error");
-        return NULL;
-    }
-    else
-    {
-        return list->active;  
-    } 
-}
-
-/*************************END-OF-LIST-STUFF******************************/
-
-
 //size of precedence table
 #define P_TAB_SIZE 19
 
@@ -281,178 +193,160 @@ tList infixToPostfix(token_type expected_type, tList* list_infix)
     return list_postfix;
 }
 */
-bool generateInstructions(token_type expected_type, tList* list)
+
+//this global variable will be used if expected type is STRING
+bool string_flag;
+
+bool generateInstruction(token_type expected_type, tTerm term)
 {
-    if (list == NULL)
-    {
-        return false;
-    }
-
-    //activate first item
-    listFirst(list);
-    tList_item* item;
-
-    //will be used if expected type is STRING
-    bool string_flag = false;
-
-    
-
-    //create local frame
-    //TODO
-
-    //prepare bool variable
-    if (expected_type == BOOLEAN)
-    {
-        printf("DEFVAR LF@flag\n");
-    }
-
     //prepare string variables in Local Frame
-    if (expected_type == STRING_TOK)
+    if (string_flag == false && expected_type == STRING_TOK)
     {
-        printf("DEFVAR LF@tmp_string1\n");
-        printf("DEFVAR LF@tmp_string2\n");
-        printf("DEFVAR LF@tmp_string3\n");
+        printf("DEFVAR LF@$tmp_string1\n");
+        printf("DEFVAR LF@$tmp_string2\n");
+        printf("DEFVAR LF@$tmp_string3\n");
     }
 
-    while ((item = listGetData(list)) != NULL)
+    //main switch
+    switch (term->index)
     {
-        switch (item->index)
+        //push integer to stack
+        case INT_IN:
         {
-            //push integer to stack
-            case INT_IN:
-            {
-                if (item->token.type == INTEGER_TOK)
-                {
-                    printf("PUSHS LF@int@%d\n", item->token.attribute.number);
-                    printf("INT2FLOAT LF\n");
-                }
-                else if (item->token.type == IDENTIFIER_TOK)
-                {
-                    printf("DEFVAR LF@%s\n", item->token.attribute.string_ptr);
-                    printf("MOVE LF@%s GF@v%s\n", item->token.attribute.string_ptr, item->token.attribute.string_ptr);
-                    printf("PUSHS LF@%s\n", item->token.attribute.string_ptr);
-                    printf("INT2FLOAT LF\n");
-                }
-            }
-                break;
-            //push float to stack
-            case DOUBLE_IN:
-            {
-                if (item->token.type == FLOATING_POINT_TOK)
-                {
-                    printf("PUSHS LF@float@%g\n", item->token.attribute.float_number);
-                }
-                else if (item->token.type == IDENTIFIER_TOK)
-                {
-                    printf("DEFVAR LF@%s\n", item->token.attribute.string_ptr);
-                    printf("MOVE LF@%s GF@%s\n", item->token.attribute.string_ptr, item->token.attribute.string_ptr);
-                    printf("PUSHS LF@%s\n", item->token.attribute.string_ptr);
-                }
-            }
-                break;
-            //ADDS instruction
-            case PLUS_IN:
-            {
-                printf("ADDS LF\n");
-            }
-                break;
-            //SUBS instruction
-            case MINUS_IN:
-            {
-                printf("SUBS LF\n");
-            }
-                break;
-            //MULS instruction
-            case MUL_IN:
-            {
-                printf("MULS LF\n");
-            }
-                break;
-            //classic DIVS
-            case FLOAT_DIV_IN:
-            {
-                printf("SUBS LF\n");
-            }
-                break;
-            //'\' DIVS - integers
-            case INT_DIV_IN:
-            {
-                printf("SUBS LF\n");
-                printf("FLOAT2INTS LF\n");
-                printf("INT2FLOAT LF\n");
-            }
-                break;
-            //strings
-            case STRING_IN:
-            {
-                if (item->token.type == STRING_TOK)
-                {
-                    if (string_flag)
-                    {
-                        printf("MOVE LF@tmp_string2 string@%s\n", item->token.attribute.string_ptr);
-                        printf("CONCAT LF@tmp_string3 LF@tmp_string1 LF@tmp_string2\n");
-                        printf("PUSHS LF@tmp_string3\n");
-                        printf("MOVE LF@tmp_string1 LF@tmp_string3\n");
+            //constant
+            if (term->token.type == INTEGER_TOK)
+                printf("PUSHS int@%d\n", term->token.attribute.number);
+            //identifier
+            else
+                printf("PUSHS LF@%s\n", term->token.attribute.string_ptr);
+            //convert to float
+            printf("INT2FLOAT\n");
+        }
+            break;
+        //push float to stack
+        case DOUBLE_IN:
+        {
+            //constant
+            if (term->token.type == FLOATING_POINT_TOK)
+                printf("PUSHS float@%g\n", term->token.attribute.float_number);
+            //identifier
+            else
+                printf("PUSHS LF@%s\n", term->token.attribute.string_ptr);
+        }
+            break;
+        //ADDS instruction or STRING CONCANTENATION
+        case PLUS_IN:
+        {
+            //if int or float, add
+            if (expected_type != STRING_TOK)
+                printf("ADDS\n");
 
-                        if (item->next.index == PLUS_IN)
-                        {
-                            listNext(list);
-                        }
-                    }
-                    else
-                    {
-                        printf("MOVE LF@tmp_string1 string@%s\n", item->token.attribute.string_ptr);
-                        string_flag = true;
-                    }
-                    
-                }
-                else if (item->token.type == IDENTIFIER_TOK)
+            //if string, concatenate
+            else
+            {
+                printf("CONCAT LF@$tmp_string3 LF@$tmp_string1 LF@$tmp_string2\n");
+                printf("MOVE LF@$tmp_string1 LF@$tmp_string3\n");
+            }   
+        }
+            break;
+        //SUBS instruction
+        case MINUS_IN:
+        {
+            printf("SUBS\n");
+        }
+            break;
+        //MULS instruction
+        case MUL_IN:
+        {
+            printf("MULS\n");
+        }
+            break;
+        //classic DIVS
+        case FLOAT_DIV_IN:
+        {
+            printf("SUBS\n");
+        }
+            break;
+        //'\' DIVS - integers
+        case INT_DIV_IN:
+        {
+            printf("SUBS\n");
+            printf("FLOAT2INTS\n");
+            printf("INT2FLOATS\n");
+        }
+            break;
+        //strings
+        case STRING_IN:
+        {
+            if (term->token.type == STRING_TOK)
+            {
+                if (string_flag)
+                    printf("MOVE LF@$tmp_string2 string@%s\n", term->token.attribute.string_ptr);
+                else
                 {
-                    if (string_flag)
-                    {
-                        printf("MOVE LF@tmp_string2 string@%s\n", item->token.attribute.string_ptr);
-                        printf("CONCAT LF@tmp_string3 LF@tmp_string1 LF@tmp_string2\n");
-                        printf("PUSHS LF@tmp_string3\n");
-                        printf("MOVE LF@tmp_string1 LF@tmp_string3\n");
-
-                        if (item->next.index == PLUS_IN)
-                        {
-                            listNext(list);
-                        }
-                    }
-                    else
-                    {
-                        printf("MOVE LF@tmp_string1 GF@%s\n", item->token.attribute.string_ptr);
-                        string_flag = true;
-                    }
+                    printf("MOVE LF@$tmp_string1 string@%s\n", term->token.attribute.string_ptr);
+                    string_flag = true;
+                } 
+            }
+            else if (term->token.type == IDENTIFIER_TOK)
+            {
+                if (string_flag)
+                    printf("MOVE LF@$tmp_string2 string@%s\n", term->token.attribute.string_ptr);
+                else
+                {
+                    printf("MOVE LF@$tmp_string1 GF@%s\n", term->token.attribute.string_ptr);
+                    string_flag = true;
                 }
-            }
-                break;
-            case LESS_IN:
-            {
-                printf("LTS LF\n");
-                printf("POPS LF@flag\n");
-            }
-                break;
-            case MORE_IN:
-            {
-                printf("GTS LF\n");
-                printf("POPS LF@flag\n");
-            }
-                break;
-                /*
-            case LESS_EQ_IN:
-            {
-
-            }
-                break;*/
-            default:
-            {
-                addError(OTHER_ERROR, NULL);
             }
         }
-        listNext(list);
+            break;
+        //'<'- comparison by LTS instruction - automatically pops flag to stack
+        case LESS_IN:
+        {
+            printf("LTS\n");
+        }
+            break;
+        //'>' - comparison by GTS instruction - automatically pops flag to stack
+        case MORE_IN:
+        {
+            printf("GTS\n");
+        }
+            break;
+        // '<=' - it's necessary to use also ORS instructions
+        case LESS_EQ_IN:
+        {
+            printf("LTS\n");
+            printf("DEFVAR LF@$flag\n");
+            printf("POPS LF@$flag\n");
+            printf("EQS\n");
+            printf("PUSHS LF@$flag\n");
+            printf("ORS\n");
+        }
+            break;
+        //'>=' - it's necessary to use also ORS instructions
+        case MORE_EQ_IN:
+        {
+            printf("GTS\n");
+            printf("DEFVAR LF@$flag\n");
+            printf("POPS LF@$flag\n");
+            printf("EQS\n");
+            printf("PUSHS LF@$flag\n");
+            printf("ORS\n");  
+        }
+            break;
+        //'=' - use simple EQS instruction
+        case EQ_EXPR_IN:
+        {
+            printf("EQS\n"); 
+        }
+            break;
+        case
+        default:
+        {
+            addError(OTHER_ERROR, NULL);
+        }
     }
+}
     //convert to expected type
     switch (expected_type)
     {
@@ -474,5 +368,4 @@ bool generateInstructions(token_type expected_type, tList* list)
             
         }
             break;
-    }
 }
