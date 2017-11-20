@@ -7,17 +7,20 @@ FILE* test_file;
 int main(int argc, char const *argv[])
 {
 	test_file = fopen("./postfix_file", "w");
-	token_type expected_type = argv[0][0];
-	if (expressions(expected_type))
+	token_type expected_type = BOOLEAN;
+	if (expression(expected_type))
 	{
+		fclose(test_file);
 		return 0;
 	}
 	else
 	{
+		fclose(test_file);
 		return 1;
 	}
 }
 
+//this function prints term
 void printTerm(tTerm term)
 {
 	
