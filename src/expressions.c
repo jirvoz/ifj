@@ -88,14 +88,61 @@ bool getTerm(tToken token, p_table_index* index)
 
 bool expression(token_type expected_type)
 {
-	tList* list = getInfix(expected_type);
-    *list = infixToPostfix(expected_type, list);
+    tToken token;
+    getNextToken(&token, stdin);
 
-    generateInstructions(expected_type, list);
-    return true;
+    if (expected_type == UNDEFINED_TOK) // Undefined token set by first token type
+        expected_type = token->type;
+
+    switch (expected_type)
+        case INTEGER_TOK:
+        case FLOATING_POINT_TOK:
+            postNumber(token);
+        case STRING_TOK:
+            postString(token);
+        case BOOLEAN:
+            postBoolean(token);
+        default:
+            ERROR_AND_RETURN(OTHER_ERROR, "Unknown error");
+   
+    //return generateInstruction(expected_type, list);
 }
 
-tList* getInfix(token_type expected_type) 
+//todo
+void postNumber(tToken token)
+{
+    p_table_index index;
+
+    tTerm term;
+
+    tStack stack;
+    stackInit(&stack);
+
+    int operand_count = 0;
+    int operation_count = 0;
+    int parentals_count = 0;
+
+    while (getTerm(token, &index) && index != DOLAR_IN)
+    {
+        if (index == INT_IN || index == DOUBLE_IN)
+        {
+            operand_count++;
+            term.token = token;
+            term.index = index;
+            generateInstruction(expected_type, term);
+        }
+        else if (index == PLUS_IN || index == MINUS_IN || index == MUL_IN || index == FLOAT_DIV_IN || index == INT_DIV_IN)  //Operands and operations allowed when expected type is INTEGER or DOUBLE      
+        {
+            operation_count++;
+            if (!stackEmpty(&stack))
+            {
+
+            }
+        }
+    }
+}
+
+/*tList* getInfix(token_type expected_type) 
 {	
 	tToken token;
 	getNextToken(&token, stdin);
@@ -180,7 +227,7 @@ tList* getInfix(token_type expected_type)
             addError(OTHER_ERROR, "Unknown error");
             return list_infix;
 	}	
-}
+}*/
 
 
 /*
