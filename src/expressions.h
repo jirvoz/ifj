@@ -25,6 +25,7 @@ typedef enum p_table_index
     STRING_IN,
     EQ_COMMAND_IN,
     UNARY_MINUS_IN,
+    FUNCTION_IN,
     DOLAR_IN
 } p_table_index;
 

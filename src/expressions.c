@@ -340,7 +340,13 @@ bool generateInstruction(token_type expected_type, tTerm term)
             printf("EQS\n"); 
         }
             break;
-        case
+        //'<>' - compare and negate
+        case NOT_EQ_IN:
+        {
+            printf("EQS\n");
+            printf("NOTS\n");
+        }
+            break;
         default:
         {
             addError(OTHER_ERROR, NULL);
