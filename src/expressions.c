@@ -317,7 +317,7 @@ bool postNumber(token_type expected_type, token_type return_type)
 
 bool postString(token_type expected_type, token_type return_type)
 {
-    string_added = false;
+    string_added = true;
 
     tTerm* stack_term;
 
@@ -464,15 +464,6 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
     //just for testing
     //printTerm(sent_term);
 
-    //prepare string variables in Local Frame
-    //sent_term.index - expected type is bool but, that strings will be compared
-    if ((string_added == false) && (sent_term.index == STRING_IN))
-    {
-        printf("DEFVAR LF@$tmp_string1\n");
-        printf("DEFVAR LF@$tmp_string2\n");
-        printf("DEFVAR LF@$tmp_string3\n");
-    }
-
     //function calling, value after calling will be on the top of stack
     if (sent_term.token.type == IDENTIFIER_TOK)
     {
@@ -528,8 +519,14 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
             //if string, concatenate
             else
             {
-                printf("CONCAT LF@$tmp_string3 LF@$tmp_string1 LF@$tmp_string2\n");
-                printf("MOVE LF@$tmp_string1 LF@$tmp_string3\n");
+                printf("CREATEFRAME\n");
+                printf("DEFVAR TF@tmp1\n");
+                printf("DEFVAR TF@tmp2\n");
+                printf("DEFVAR TF@tmp3\n");
+                printf("POPS TF@tmp2\n");
+                printf("POPS TF@tmp1\n");
+                printf("CONCAT TF@tmp3 TF@tmp1 TF@tmp2\n");
+                printf("PUSHS TF@tmp3\n");
             }
         }
             break;
@@ -563,25 +560,9 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
         case STRING_IN:
         {
             if (sent_term.token.type == STRING_TOK)
-            {
-                if (string_added)
-                    printf("MOVE LF@$tmp_string2 string@%s\n", sent_term.token.attribute.string_ptr);
-                else
-                {
-                    printf("MOVE LF@$tmp_string1 string@%s\n", sent_term.token.attribute.string_ptr);
-                    string_added = true;
-                } 
-            }
+                printf("PUSHS string@%s\n", sent_term.token.attribute.string_ptr);
             else
-            {
-                if (string_added)
-                    printf("MOVE LF@$tmp_string2 LF@%s\n", sent_term.token.attribute.string_ptr);
-                else
-                {
-                    printf("MOVE LF@$tmp_string1 LF@%s\n", sent_term.token.attribute.string_ptr);
-                    string_added = true;
-                }
-            }
+                printf("PUSHS LF@%s\n", sent_term.token.attribute.string_ptr);
         }
             break;
         //'<'- comparison by LTS instruction - automatically pops flag to stack
@@ -636,10 +617,6 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
             if (return_type == INTEGER)
             {
                 printf("FLOAT2R2EINTS\n");
-            }
-            else if (return_type == STRING)
-            {
-                printf("PUSHS LF@$tmp_string1\n");
             }
         }
             break;
