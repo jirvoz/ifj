@@ -7,7 +7,7 @@ FILE* test_file;
 int main(int argc, char const *argv[])
 {
 	test_file = fopen("./postfix_file", "w");
-	token_type expected_type = BOOLEAN;
+	token_type expected_type = INTEGER;
 	if (expression(expected_type))
 	{
 		fclose(test_file);
