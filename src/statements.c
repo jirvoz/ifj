@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "errors.h"
 #include "expressions.h"
+#include "functions.h"
 #include "parser.h"
 #include "scanner.h"
 #include "statements.h"
@@ -289,15 +290,17 @@ bool return_stat()
 {
     // last_token.type is RETURN
 
-    // TODO Check if in function
+    // Check if in function
+    if (!actual_function)
+        ERROR_AND_RETURN(SYN_ERROR, "RETURN can't be used outside of function.");
 
-    UPDATE_LAST_TOKEN();
+    // Call expression parsing
+    tSymbol* func_symbol = htSearch(func_table, actual_function);
+    expression(func_symbol->type);
 
-    // Check for identifier token
-    if (last_token.type != IDENTIFIER_TOK)
-        ERROR_AND_RETURN(SYN_ERROR, "Expected expression after RETURN.");
-
-    // TODO call expression parsing
+    // Returned value is on the top of stack
+    printf("POPFRAME\n");
+    printf("RETURN\n");
 
     return skip_statement();
 }
