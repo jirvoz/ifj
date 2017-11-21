@@ -38,7 +38,6 @@ bool stackEmpty(tStack* stack)
 //if the stack is full, is resized
 void stackPush(tStack* stack, tTerm term) 
 {
-    //fprintf(stderr, "stackPush is called\n");
     if (stack->size < (stack->top)) 
     {
         stack->arr = realloc(stack->arr, (sizeof(tToken) * (stack->size + 8)));

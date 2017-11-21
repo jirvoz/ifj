@@ -632,6 +632,10 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
             {
                 printf("FLOAT2R2EINTS\n");
             }
+            else if (return_type == STRING)
+            {
+                printf("PUSHS LF@$tmp_string1\n");
+            }
         }
             break;
         default:

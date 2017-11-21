@@ -47,6 +47,6 @@ bool getTerm();
 bool generateInstruction(token_type return_type, tTerm sent_term);
 
 //just for tests
-void printTerm(tTerm term);
+//void printTerm(tTerm term);
 
 #endif
