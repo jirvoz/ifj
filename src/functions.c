@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "errors.h"
 #include "expressions.h"
 #include "functions.h"
@@ -46,7 +47,7 @@ bool addParamToSymbol(tSymbol* symbol, char* name, token_type type)
         symbol->arg_size += 8;
         symbol->arg_types = realloc(symbol->arg_types, symbol->arg_size * sizeof(token_type));
         // FIXME memory leak when arg_names lost
-        symbol->arg_names = realloc(symbol->arg_names, symbol->arg_size * sizeof(token_type));
+        symbol->arg_names = realloc(symbol->arg_names, symbol->arg_size * sizeof(char*));
 
         if (!symbol->arg_types || !symbol->arg_names)
             ERROR_AND_RETURN(OTHER_ERROR, "Memory allocation fail.");
@@ -88,14 +89,22 @@ bool function_params(tSymbol* symbol)
             case INTEGER:
             case DOUBLE:
             case STRING:
-                // Unless is function declared
+                // Unless is function declared add parameters to symbol in table
                 if (symbol->type == UNDEFINED_TOK)
                 {
                     if (!addParamToSymbol(symbol, var_name, last_token.type))
                         return false;
                 }
+                // Check if parameters are same
                 else
-                    ; // TODO check if param is same
+                {
+                    if (param_count > symbol->arg_count)
+                        ERROR_AND_RETURN(SEM_PROG_ERROR, "Different parmeter count at definition.");
+                    if (strcmp(var_name, symbol->arg_names[param_count]) != 0)
+                        ERROR_AND_RETURN(SEM_PROG_ERROR, "Different parmeter name at definition.");
+                    if (last_token.type != symbol->type)
+                        ERROR_AND_RETURN(SEM_TYPE_ERROR, "Different parmeter type at definition.");
+                }
                 break;
             default:
                 ERROR_AND_RETURN(SYN_ERROR, "Expected correct type of '%s' after AS.", var_name);
@@ -112,6 +121,10 @@ bool function_params(tSymbol* symbol)
         else if (last_token.type != RIGHT_PARENTH_OP)
             ERROR_AND_RETURN(SYN_ERROR, "Expected colon or right parenthesis after parameter.");
     }
+
+    // Check same number of parameters at declaration and definition
+    if (symbol->type == UNDEFINED_TOK && param_count != symbol->arg_count)
+        ERROR_AND_RETURN(SEM_PROG_ERROR, "Different parmeter count at definition.");
 
     // Check for right bracket after parameters
     if (last_token.type != RIGHT_PARENTH_OP)
