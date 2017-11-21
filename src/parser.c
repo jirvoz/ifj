@@ -108,7 +108,7 @@ bool program()
                     return false;
 
                 // Test the correct ending of code block
-                if (last_token.type == END)
+                if (last_token.type != END)
                     ERROR_AND_RETURN(SYN_ERROR, "Expected END at scope ending.");
 
                 UPDATE_LAST_TOKEN();

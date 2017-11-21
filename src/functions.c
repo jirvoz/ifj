@@ -246,7 +246,7 @@ bool function_def()
     htClearAll(var_table);
 
     // Test the correct ending of function block
-    if (last_token.type == END)
+    if (last_token.type != END)
         ERROR_AND_RETURN(SYN_ERROR, "Expected END at function ending.");
 
     printf("POPFRAME\n");
