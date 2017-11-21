@@ -72,14 +72,26 @@ bool assignment_stat()
 {
     // last_token.type is IDENTIFIER_TOK
 
+    char* identif_name = last_token.attribute.string_ptr;
+
+    // Check symtable if variable exists
+    tSymbol* symbol = htSearch(var_table, identif_name);
+    if (!symbol)
+        ERROR_AND_RETURN(SEM_PROG_ERROR, "Undefined variable after INPUT.");
+
     UPDATE_LAST_TOKEN();
 
+    // Check for equal sign
     if (last_token.type != EQUAL_SIGN_OP)
         ERROR_AND_RETURN(SYN_ERROR, "Expected assignment symbol '=' after identifier.");
     
-    // TODO call expression parsing
+    // Evaluate expression
+    if (!expression(symbol->type))
+        return false;
 
-    return skip_statement();
+    printf("POPS LF@%s\n", identif_name);
+
+    return true;
 }
 
 bool input_stat()
@@ -179,39 +191,38 @@ bool if_stat()
 
     unsigned if_line_number = line;
 
-    // TODO evaluate expression
-    if (!skip_statement())
+    // Evaluate condition
+    if (!expression(BOOLEAN))
         return false;
-    printf("PUSHS bool@true\n");
 
     // Write jump instruction
     printf("PUSHS bool@true\n");
     printf("JUMPIFNEQS &else%d\n", if_line_number);
 
-    // parse the inside of if
+    // Parse the inside of if
     if (!statement_list())
         return false;
 
     printf("JUMP &endif%d\n", if_line_number);
     printf("LABEL &else%d\n", if_line_number);
 
-    // test the correct ending of then block
+    // Test the correct ending of then block
     if (last_token.type != ELSE)
         ERROR_AND_RETURN(SYN_ERROR, "Expected ELSE after then block.");
 
     UPDATE_LAST_TOKEN();
 
-    // test the eol after else
+    // Test the eol after else
     if (last_token.type != EOL_TOK)
         ERROR_AND_RETURN(SYN_ERROR, "Expected end of line after ELSE.");
 
-    // parse the inside of else
+    // Parse the inside of else
     if (!statement_list())
         return false;
 
     printf("LABEL &endif%d\n", if_line_number);
 
-    // test the correct ending of if-else
+    // Test the correct ending of if-else
     if (last_token.type != END)
         ERROR_AND_RETURN(SYN_ERROR, "Bad ending of if block.");
 
@@ -243,23 +254,22 @@ bool while_stat()
     // Label beginning of while loop
     printf("LABEL &while%d\n", while_line_number);
 
-    // TODO evaluate expression
-    if (!skip_statement())
+    // Evaluate condition
+    if (!expression(BOOLEAN))
         return false;
-    printf("PUSHS bool@false\n");
 
     // Write jump instruction
     printf("PUSHS bool@true\n");
     printf("JUMPIFNEQS &loop%d\n", while_line_number);
 
-    // parse the inside of do while
+    // Parse the inside of do while
     if (!statement_list())
         return false;
 
     printf("JUMP &while%d\n", while_line_number);
     printf("LABEL &loop%d\n", while_line_number);
 
-    // test the LOOP and eol at the end of loop
+    // Test the LOOP and eol at the end of loop
     if (last_token.type != LOOP)
         ERROR_AND_RETURN(SYN_ERROR, "Expected LOOP after do while block.");
 
