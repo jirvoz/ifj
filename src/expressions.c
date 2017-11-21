@@ -115,7 +115,7 @@ bool expression(token_type expected_type)
 {
     UPDATE_LAST_TOKEN();
 
-    if (!getTerm())
+    if (!getTerm() || term.index == DOLAR_IN)
     {
         return false;
     }
@@ -476,6 +476,7 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
         tSymbol* symbol = htSearch(func_table, sent_term.token.attribute.string_ptr);
         if (symbol != NULL)
         {
+            UPDATE_LAST_TOKEN();
             call(sent_term.token.attribute.string_ptr);
 
             //if return type is INT, convert to double
