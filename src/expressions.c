@@ -52,14 +52,19 @@ bool getTerm(tTerm* term)
         {
             if (symbol->defined)
             {
-                //token type 2 == p_table term.index 13 etc.
-                if (symbol->type >= 2 && symbol->type <= 4)
+                switch (symbol->type)
                 {
-                    term->index = symbol->type + 11;
-                    return true;
+                    case INTEGER: term->index = INT_IN;
+                        break;
+                    case DOUBLE: term->index = DOUBLE_IN;
+                        break;
+                    case STRING: term->index = STRING_IN;
+                        break;
+                    default:
+                        addError(SEM_TYPE_ERROR, "Bad return type of function");
+                        return false;
                 }
-                addError(SEM_TYPE_ERROR, "Bad return type of function");
-                return false;
+                return true;
             }
             addError(SEM_PROG_ERROR, "Undefined function");
             return false;
@@ -69,23 +74,28 @@ bool getTerm(tTerm* term)
 
         if (symbol != NULL)
         {
-            if (symbol->type >= 2 && symbol->type <= 4)
-            {
-                //token type 2 == p_table term.index 13 etc.
-                term->index = symbol->type + 11;
-                return true;
-            }
-            addError(SEM_TYPE_ERROR, "Unknown variable type");
-            return false;
+           switch (symbol->type)
+                {
+                    case INTEGER: term->index = INT_IN;
+                        break;
+                    case DOUBLE: term->index = DOUBLE_IN;
+                        break;
+                    case STRING: term->index = STRING_IN;
+                        break;
+                    default:
+                        addError(SEM_TYPE_ERROR, "Unknown variable type");
+                        return false;
+                }
+            return true;
         }
     }
     //int, float and string constants
-    else if (last_token.type > 1 && last_token.type < 5)
+    else if (last_token.type >= INTEGER_TOK && last_token.type <= STRING_TOK)
     {
         term->index = last_token.type + 11;
     }
     //operators
-    else if(last_token.type >= 10 && last_token.type <= 22)
+    else if (last_token.type >= EQUAL_SIGN_OP && last_token.type <= RIGHT_PARENTH_OP)
     {
         term->index = last_token.type - 10;
     }
@@ -102,10 +112,13 @@ bool expression(token_type expected_type)
 {
     UPDATE_LAST_TOKEN();
 
-    token_type return_type = expected_type;
-
     if (expected_type == UNDEFINED_TOK || expected_type == BOOLEAN ) // Undefined token set by first token type
-        return_type = last_token.type;
+        switch (last_token.type)
+        {
+            case INTEGER_TOK:
+
+                return_type = last_token.type;
+        }
 
     switch (return_type)
     {
@@ -117,6 +130,7 @@ bool expression(token_type expected_type)
             return (postString(expected_type, return_type));
             break;
         default:
+            fprintf(stderr, "pada to v prvom switchi\n");
             ERROR_AND_RETURN(OTHER_ERROR, "Unknown token type");
     }
 }
@@ -135,6 +149,7 @@ bool postNumber(token_type expected_type, token_type return_type)
 
     while (getTerm(&term))
     {
+        fprintf(stderr, "Token type is: %d\n", last_token.type);
         if (term.index == INT_IN || term.index == DOUBLE_IN)
         {
             operand_count++;
@@ -262,6 +277,7 @@ bool postNumber(token_type expected_type, token_type return_type)
                     stack_term = stackPop(stack);
                     generateInstruction(return_type, *stack_term); 
                 }
+                generateInstruction(return_type, term);
                 free(stack);
                 return true;
             }
@@ -407,6 +423,7 @@ bool postString(token_type expected_type, token_type return_type)
                     stack_term = stackPop(stack);
                     generateInstruction(return_type, *stack_term); 
                 }
+                generateInstruction(return_type, term); 
                 free(stack);
                 return true;
             }
@@ -600,7 +617,7 @@ bool generateInstruction(token_type return_type, tTerm term)
         {
             if (return_type == INTEGER_TOK)
             {
-                printf("FLOAT2R2EINTS LF\n");
+                printf("FLOAT2R2EINTS\n");
             }
         }
             break;
