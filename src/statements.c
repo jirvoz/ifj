@@ -38,35 +38,56 @@ bool dim_stat()
 
     UPDATE_LAST_TOKEN();
 
-    switch (last_token.type)
-    {
-        case INTEGER:
-            printf("MOVE LF@%s int@0\n", identif_name);
-            break;
-        case DOUBLE:
-            printf("MOVE LF@%s float@0\n", identif_name);
-            break;
-        case STRING:
-            printf("MOVE LF@%s string@\n", identif_name);
-            break;
-        default:
-            ERROR_AND_RETURN(SYN_ERROR, "Expected variable type after AS.");
-    }
-
-    htInsert(var_table, identif_name,
-        (tSymbol){ .type=last_token.type, .defined = true, .arg_count = 0 });
+    token_type type = last_token.type;
 
     UPDATE_LAST_TOKEN();
 
+    // If there is no declaration
     if (last_token.type == EOL_TOK)
+    {
+        switch (type)
+        {
+            case INTEGER:
+                printf("MOVE LF@%s int@0\n", identif_name);
+                break;
+            case DOUBLE:
+                printf("MOVE LF@%s float@0\n", identif_name);
+                break;
+            case STRING:
+                printf("MOVE LF@%s string@\n", identif_name);
+                break;
+            default:
+                ERROR_AND_RETURN(SYN_ERROR, "Expected variable type after AS.");
+        }
+
+        htInsert(var_table, identif_name,
+            (tSymbol){ .type=type, .defined = true, .arg_count = 0 });
+
         return true;
-    else if (last_token.type != EQUAL_SIGN_OP)
+    }
+    // Check for optional assignment
+    else if (last_token.type == EQUAL_SIGN_OP)
+    {
+        // Evaluate expression
+        UPDATE_LAST_TOKEN();
+        if (!expression(type))
+            return false;
+
+        printf("POPS LF@%s\n", identif_name);
+
+        // Add record to symbol table
+        htInsert(var_table, identif_name,
+            (tSymbol){ .type=type, .defined = true, .arg_count = 0 });
+
+        // Check for EOL at the end of expression
+        if (last_token.type != EOL_TOK)
+            ERROR_AND_RETURN(SYN_ERROR, "Expected end of line after assignment.");
+
+        return true;
+    }
+    else
         ERROR_AND_RETURN(SYN_ERROR, "Expected assignment symbol '=' ",
             "or end of line after declaration.");
-
-    // TODO value assignment
-
-    return skip_statement();
 }
 
 bool assignment_stat()
@@ -87,6 +108,7 @@ bool assignment_stat()
         ERROR_AND_RETURN(SYN_ERROR, "Expected assignment symbol '=' after identifier.");
     
     // Evaluate expression
+    UPDATE_LAST_TOKEN();
     if (!expression(symbol->type))
         return false;
 
@@ -154,38 +176,23 @@ bool print_stat()
     UPDATE_LAST_TOKEN();
     do
     {
-        // TODO add printing of expressions
+        if (!expression(UNDEFINED_TOK))
+            return false;
 
-        switch (last_token.type)
-        {
-            case INTEGER_TOK:
-                printf("WRITE int@%d\n", last_token.attribute.number);
-                break;
-            case FLOATING_POINT_TOK:
-                printf("WRITE float@%f\n", last_token.attribute.float_number);
-                break;
-            case STRING_TOK:
-                printf("WRITE string@%s\n", last_token.attribute.string_ptr);
-                break;
-            case IDENTIFIER_TOK:
-                printf("WRITE LF@%s\n", last_token.attribute.string_ptr);
-                break;
-            default:
-                ERROR_AND_RETURN(SYN_ERROR, "Can print only constants and single variables.");
-        }
-
-        // Read semicolon after expression
-        UPDATE_LAST_TOKEN();
-
+        // Check semicolon after expression
         if (last_token.type != SEMICOLON_OP)
             ERROR_AND_RETURN(SYN_ERROR, "Expected semicolon after print value.");
+
+        printf("CREATEFRAME\n");
+        printf("DEFVAR TF@write\n");
+        printf("POPS TF@write\n");
+        printf("WRITE TF@write\n");
 
         // Read next expression or EOL after semicolon
         UPDATE_LAST_TOKEN();
 
         if (last_token.type == EOL_TOK)
             return true;
-
     }
     while (true);
 }
@@ -197,6 +204,7 @@ bool if_stat()
     unsigned if_line_number = line;
 
     // Evaluate condition
+    UPDATE_LAST_TOKEN();
     if (!expression(BOOLEAN))
         return false;
 
@@ -260,6 +268,7 @@ bool while_stat()
     printf("LABEL &while%d\n", while_line_number);
 
     // Evaluate condition
+    UPDATE_LAST_TOKEN();
     if (!expression(BOOLEAN))
         return false;
 
@@ -296,6 +305,7 @@ bool return_stat()
 
     // Call expression parsing
     tSymbol* func_symbol = htSearch(func_table, actual_function);
+    UPDATE_LAST_TOKEN();
     expression(func_symbol->type);
 
     // Returned value is on the top of stack
