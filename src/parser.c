@@ -29,7 +29,8 @@ bool skip_statement()
 bool statement()
 {
     UPDATE_LAST_TOKEN();
-    // TODO evaluate statements
+
+    // Evaluate statement
     switch (last_token.type)
     {
         case DIM:
@@ -37,7 +38,6 @@ bool statement()
             break;
         case IDENTIFIER_TOK:
             return assignment_stat();
-            // assignment
             break;
         case INPUT:
             return input_stat();
@@ -52,7 +52,7 @@ bool statement()
             return while_stat();
             break; 
         case RETURN:
-            return skip_statement();
+            return return_stat();
             break; 
         case EOL_TOK:
         case END:
@@ -107,9 +107,13 @@ bool program()
                 if (!statement_list())
                     return false;
 
+                // Test the correct ending of code block
+                if (last_token.type != END)
+                    ERROR_AND_RETURN(SYN_ERROR, "Expected END at scope ending.");
+
                 UPDATE_LAST_TOKEN();
 
-                // test the correct ending of scope
+                // Test the correct ending of scope
                 if (last_token.type == SCOPE)
                     return true;
                 else
