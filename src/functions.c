@@ -26,6 +26,7 @@ bool call(char* name)
     for (int i = 0; i < symbol->arg_count; i++)
     {
         // Call expression evaluation
+        UPDATE_LAST_TOKEN();
         expression(symbol->arg_types[i]);
 
         // Check for colon between parameters

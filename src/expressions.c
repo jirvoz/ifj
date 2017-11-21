@@ -116,7 +116,7 @@ bool getTerm()
 //main expression function
 bool expression(token_type expected_type)
 {
-    UPDATE_LAST_TOKEN();
+    // last_token is first token of expression
 
     if (!getTerm() || term.index == DOLAR_IN)
     {
