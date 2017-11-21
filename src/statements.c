@@ -38,35 +38,55 @@ bool dim_stat()
 
     UPDATE_LAST_TOKEN();
 
-    switch (last_token.type)
-    {
-        case INTEGER:
-            printf("MOVE LF@%s int@0\n", identif_name);
-            break;
-        case DOUBLE:
-            printf("MOVE LF@%s float@0\n", identif_name);
-            break;
-        case STRING:
-            printf("MOVE LF@%s string@\n", identif_name);
-            break;
-        default:
-            ERROR_AND_RETURN(SYN_ERROR, "Expected variable type after AS.");
-    }
-
-    htInsert(var_table, identif_name,
-        (tSymbol){ .type=last_token.type, .defined = true, .arg_count = 0 });
+    token_type type = last_token.type;
 
     UPDATE_LAST_TOKEN();
 
+    // If there is no declaration
     if (last_token.type == EOL_TOK)
+    {
+        switch (type)
+        {
+            case INTEGER:
+                printf("MOVE LF@%s int@0\n", identif_name);
+                break;
+            case DOUBLE:
+                printf("MOVE LF@%s float@0\n", identif_name);
+                break;
+            case STRING:
+                printf("MOVE LF@%s string@\n", identif_name);
+                break;
+            default:
+                ERROR_AND_RETURN(SYN_ERROR, "Expected variable type after AS.");
+        }
+
+        htInsert(var_table, identif_name,
+            (tSymbol){ .type=type, .defined = true, .arg_count = 0 });
+
         return true;
-    else if (last_token.type != EQUAL_SIGN_OP)
+    }
+    // Check for optional assignment
+    else if (last_token.type == EQUAL_SIGN_OP)
+    {
+        // Evaluate expression
+        if (!expression(type))
+            return false;
+
+        printf("POPS LF@%s\n", identif_name);
+
+        // Add record to symbol table
+        htInsert(var_table, identif_name,
+            (tSymbol){ .type=type, .defined = true, .arg_count = 0 });
+
+        // Check for EOL at the end of expression
+        if (last_token.type != EOL_TOK)
+            ERROR_AND_RETURN(SYN_ERROR, "Expected end of line after assignment.");
+
+        return true;
+    }
+    else
         ERROR_AND_RETURN(SYN_ERROR, "Expected assignment symbol '=' ",
             "or end of line after declaration.");
-
-    // TODO value assignment
-
-    return skip_statement();
 }
 
 bool assignment_stat()
