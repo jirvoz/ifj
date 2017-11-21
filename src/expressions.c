@@ -64,13 +64,11 @@ bool getTerm()
                     case STRING: term.index = STRING_IN;
                         break;
                     default:
-                        addError(SEM_TYPE_ERROR, "Bad return type of function");
-                        return false;
+                        ERROR_AND_RETURN(SEM_TYPE_ERROR, "Bad return type of function");
                 }
                 return true;
             }
-            addError(SEM_PROG_ERROR, "Undefined function");
-            return false;
+            ERROR_AND_RETURN(SEM_PROG_ERROR, "Undefined function");
         }
         //search in var_table
         symbol = htSearch(var_table, last_token.attribute.string_ptr);
@@ -91,6 +89,11 @@ bool getTerm()
                 }
             return true;
         }
+        UPDATE_LAST_TOKEN();
+        if (last_token.type == LEFT_PARENTH_OP)
+            ERROR_AND_RETURN(SEM_PROG_ERROR, "Undeclared function");
+        else
+            ERROR_AND_RETURN(SEM_PROG_ERROR, "Undeclared variable");   
     }
     //int, float and string constants
     else if (last_token.type >= INTEGER_TOK && last_token.type <= STRING_TOK)
@@ -115,7 +118,7 @@ bool expression(token_type expected_type)
 {
     UPDATE_LAST_TOKEN();
 
-    if (!getTerm())
+    if (!getTerm() || term.index == DOLAR_IN)
     {
         return false;
     }
@@ -476,7 +479,9 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
         tSymbol* symbol = htSearch(func_table, sent_term.token.attribute.string_ptr);
         if (symbol != NULL)
         {
-            call(sent_term.token.attribute.string_ptr);
+            UPDATE_LAST_TOKEN();
+            if (!call(sent_term.token.attribute.string_ptr))
+                return false;
 
             //if return type is INT, convert to double
             if (symbol->type == INTEGER)
@@ -631,6 +636,10 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
             if (return_type == INTEGER)
             {
                 printf("FLOAT2R2EINTS\n");
+            }
+            else if (return_type == STRING)
+            {
+                printf("PUSHS LF@$tmp_string1\n");
             }
         }
             break;
