@@ -116,7 +116,6 @@ bool expression(token_type expected_type)
         default:
             ERROR_AND_RETURN(OTHER_ERROR, "Unknown token type");
     }
-    //return generateInstruction(return_type, list);
 }
 
 bool postNumber(token_type expected_type, token_type return_type)
@@ -308,7 +307,7 @@ bool postString(token_type expected_type, token_type return_type)
 
     while (getTerm(&index))
     {
-        if (index == STRING_TOK)
+        if (index == STRING_IN)
         {
             string_count++;
             term.token = last_token;
