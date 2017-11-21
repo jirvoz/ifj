@@ -13,6 +13,9 @@
 //this flag signalize if strings were created on the stack
 bool string_added;
 
+//global variable for expressions
+tTerm term;
+
 const int precedence_table[P_TAB_SIZE][P_TAB_SIZE] =
 {
 //exp'=' '<>' '<=' '>='  '<'  '>'  '+'  '-'  '*'  '/'  '\'  '('  ')' 'int''dob''str' com'=' un'-'  '$'
@@ -37,10 +40,10 @@ const int precedence_table[P_TAB_SIZE][P_TAB_SIZE] =
     {'<', '<', '<', '<', '<', '<', '<', '<', '<', '<', '<', '<', 'x', '<', '<', '<',    'x',  '<', 'x'}, //'$'
 };
 
-bool getTerm(tTerm* term)
+bool getTerm()
 {
     //set token in term
-    term->token = last_token;
+    term.token = last_token;
 
     //token is identifier, figure out if var or func
     if (last_token.type == IDENTIFIER_TOK)
@@ -54,11 +57,11 @@ bool getTerm(tTerm* term)
             {
                 switch (symbol->type)
                 {
-                    case INTEGER: term->index = INT_IN;
+                    case INTEGER: term.index = INT_IN;
                         break;
-                    case DOUBLE: term->index = DOUBLE_IN;
+                    case DOUBLE: term.index = DOUBLE_IN;
                         break;
-                    case STRING: term->index = STRING_IN;
+                    case STRING: term.index = STRING_IN;
                         break;
                     default:
                         addError(SEM_TYPE_ERROR, "Bad return type of function");
@@ -76,11 +79,11 @@ bool getTerm(tTerm* term)
         {
            switch (symbol->type)
                 {
-                    case INTEGER: term->index = INT_IN;
+                    case INTEGER: term.index = INT_IN;
                         break;
-                    case DOUBLE: term->index = DOUBLE_IN;
+                    case DOUBLE: term.index = DOUBLE_IN;
                         break;
-                    case STRING: term->index = STRING_IN;
+                    case STRING: term.index = STRING_IN;
                         break;
                     default:
                         addError(SEM_TYPE_ERROR, "Unknown variable type");
@@ -92,17 +95,17 @@ bool getTerm(tTerm* term)
     //int, float and string constants
     else if (last_token.type >= INTEGER_TOK && last_token.type <= STRING_TOK)
     {
-        term->index = last_token.type + 11;
+        term.index = last_token.type + 11;
     }
     //operators
     else if (last_token.type >= EQUAL_SIGN_OP && last_token.type <= RIGHT_PARENTH_OP)
     {
-        term->index = last_token.type - 10;
+        term.index = last_token.type - 10;
     }
     //if other token_type, term.index is DOLAR - end of expression
     else
     {
-        term->index = DOLAR_IN;
+        term.index = DOLAR_IN;
     }
     return true;
 }
@@ -112,24 +115,40 @@ bool expression(token_type expected_type)
 {
     UPDATE_LAST_TOKEN();
 
-    if (expected_type == UNDEFINED_TOK || expected_type == BOOLEAN ) // Undefined token set by first token type
-        switch (last_token.type)
-        {
-            case INTEGER_TOK:
+    if (!getTerm())
+    {
+        return false;
+    }
 
-                return_type = last_token.type;
+    token_type return_type = expected_type;
+
+    if (expected_type == UNDEFINED_TOK || expected_type == BOOLEAN ) // Undefined token set by first token type
+    {
+        switch (term.index)
+        {
+            case INT_IN: return_type = INTEGER;
+                break;
+            case DOUBLE_IN: return_type = DOUBLE;
+                break;
+            case STRING_IN: return_type = STRING;
+                break;
+            default:
+                addError(SEM_TYPE_ERROR, "Wrong expression");
+                return false;
         }
+    }
 
     switch (return_type)
     {
-        case INTEGER_TOK:
-        case FLOATING_POINT_TOK:
+        case INTEGER:
+        case DOUBLE:
             return (postNumber(expected_type, return_type));
             break;
-        case STRING_TOK:
+        case STRING:
             return (postString(expected_type, return_type));
             break;
         default:
+            fprintf(stderr, "return_type je: %d\n",return_type );
             fprintf(stderr, "pada to v prvom switchi\n");
             ERROR_AND_RETURN(OTHER_ERROR, "Unknown token type");
     }
@@ -137,7 +156,6 @@ bool expression(token_type expected_type)
 
 bool postNumber(token_type expected_type, token_type return_type)
 {
-    tTerm term;
     tTerm* stack_term;
 
     tStack* stack = stackInit();
@@ -147,9 +165,8 @@ bool postNumber(token_type expected_type, token_type return_type)
     int parentals_count = 0;
     bool logic_allowed = true;
 
-    while (getTerm(&term))
+    while (getTerm())
     {
-        fprintf(stderr, "Token type is: %d\n", last_token.type);
         if (term.index == INT_IN || term.index == DOUBLE_IN)
         {
             operand_count++;
@@ -301,8 +318,6 @@ bool postString(token_type expected_type, token_type return_type)
 {
     string_added = false;
 
-
-    tTerm term;
     tTerm* stack_term;
 
     tStack* stack = stackInit();
@@ -312,7 +327,7 @@ bool postString(token_type expected_type, token_type return_type)
     int parentals_count = 0;
     bool logic_allowed = true;
 
-    while (getTerm(&term))
+    while (getTerm())
     {
         if (term.index == STRING_IN)
         {
@@ -443,10 +458,10 @@ bool postString(token_type expected_type, token_type return_type)
     return false;
 }
 
-bool generateInstruction(token_type return_type, tTerm term)
+bool generateInstruction(token_type return_type, tTerm sent_term)
 {
     //just for testing
-    //printTerm(term);
+    printTerm(term);
 
     //prepare string variables in Local Frame
     //term.term.index - expected type is bool but, that strings will be compared
@@ -466,7 +481,7 @@ bool generateInstruction(token_type return_type, tTerm term)
             call(term.token.attribute.string_ptr);
 
             //if return type is INT, convert to double
-            if (symbol->type == INTEGER_TOK)
+            if (symbol->type == INTEGER)
             {
                 printf("INT2FLOATS\n");
             }
@@ -554,13 +569,13 @@ bool generateInstruction(token_type return_type, tTerm term)
                     string_added = true;
                 } 
             }
-            else if (term.token.type == IDENTIFIER_TOK)
+            else
             {
                 if (string_added)
-                    printf("MOVE LF@$tmp_string2 string@%s\n", term.token.attribute.string_ptr);
+                    printf("MOVE LF@$tmp_string2 LF@%s\n", term.token.attribute.string_ptr);
                 else
                 {
-                    printf("MOVE LF@$tmp_string1 GF@%s\n", term.token.attribute.string_ptr);
+                    printf("MOVE LF@$tmp_string1 LF@%s\n", term.token.attribute.string_ptr);
                     string_added = true;
                 }
             }
@@ -615,7 +630,7 @@ bool generateInstruction(token_type return_type, tTerm term)
             break;
         case DOLAR_IN:
         {
-            if (return_type == INTEGER_TOK)
+            if (return_type == INTEGER)
             {
                 printf("FLOAT2R2EINTS\n");
             }

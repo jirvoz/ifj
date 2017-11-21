@@ -43,10 +43,10 @@ typedef struct tTerm
 bool expression(token_type expected_type);
 bool postNumber(token_type expected_type, token_type return_type);
 bool postString(token_type expected_type, token_type return_type);
-bool getTerm(tTerm* term);
-bool generateInstruction(token_type return_type, tTerm term);
+bool getTerm();
+bool generateInstruction(token_type return_type, tTerm sent_term);
 
 //just for tests
-//void printTerm(tTerm term);
+void printTerm(tTerm term);
 
 #endif
