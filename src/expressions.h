@@ -42,6 +42,7 @@ typedef struct tTerm
 //                 or UNDEFINED_TOK = 0 (no specific type needed)
 bool expression(token_type expected_type);
 bool postNumber(token_type expected_type, token_type return_type);
+bool postString(token_type expected_type, token_type return_type);
 bool getTerm(p_table_index* index);
 bool generateInstruction(token_type return_type, tTerm term);
 
