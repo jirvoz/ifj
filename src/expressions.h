@@ -43,7 +43,7 @@ typedef struct tTerm
 bool expression(token_type expected_type);
 bool postNumber(token_type expected_type, token_type return_type);
 bool postString(token_type expected_type, token_type return_type);
-bool getTerm(p_table_index* index);
+bool getTerm(tTerm* term);
 bool generateInstruction(token_type return_type, tTerm term);
 
 //just for tests
