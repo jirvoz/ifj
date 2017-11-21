@@ -110,11 +110,9 @@ bool expression(token_type expected_type)
         case FLOATING_POINT_TOK:
             return (postNumber(expected_type, return_type));
             break;
-            /*
         case STRING_TOK:
-            postString(return_type, token);
+            return (postString(expected_type, return_type));
             break;
-            */
         default:
             ERROR_AND_RETURN(OTHER_ERROR, "Unknown token type");
     }
@@ -209,6 +207,7 @@ bool postNumber(token_type expected_type, token_type return_type)
                 }
                 else
                 {
+                    free(stack);
                     ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad number of parentals in expression");
                 }     
             }
@@ -258,11 +257,13 @@ bool postNumber(token_type expected_type, token_type return_type)
                 }
             }
             else
+            {
+                free(stack);
                 ERROR_AND_RETURN(SEM_TYPE_ERROR,"More than one relation operation in expression");
+            }
         }
         else if (index == DOLAR_IN)
         {
-            
             if ((parentals_count == 0) && ((operation_count + 1) == operand_count)) //
             {
                 while (!stackEmpty(stack))
@@ -275,14 +276,173 @@ bool postNumber(token_type expected_type, token_type return_type)
             }
             else
             {
-                ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad number of operation or operand in expression");  
+                free(stack);
+                ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad number of operations or operands in expression");  
             }
         }
         else
         {
+            free(stack);
             ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad operation or operand in expression");
         }
     }
+
+    return false;
+}
+
+bool postString(token_type expected_type, token_type return_type)
+{
+    string_added = false;
+
+    p_table_index index;
+
+    tTerm term;
+    tTerm* stack_term;
+
+    tStack* stack = stackInit();
+
+    int string_count = 0;
+    int operation_count = 0;
+    int parentals_count = 0;
+    bool logic_allowed = true;
+
+    while (getTerm(&index))
+    {
+        if (index == STRING_TOK)
+        {
+            string_count++;
+            term.token = last_token;
+            term.index = index;
+            generateInstruction(return_type, term);
+            UPDATE_LAST_TOKEN();
+        }
+        else if (index == PLUS_IN)
+        {
+            operation_count++;
+            term.token = last_token;
+            term.index = index;
+
+            if (stackEmpty(stack))
+            {
+                stackPush(stack, term);
+                UPDATE_LAST_TOKEN();
+            }
+            else
+            {
+                stack_term = stackPop(stack);
+                generateInstruction(return_type, *stack_term);
+                stackPush(stack, term);
+                UPDATE_LAST_TOKEN();
+            }
+        }
+        else if (index == LEFT_PARENT_IN || index == RIGHT_PARENT_IN)
+        {
+            term.token = last_token;
+            term.index = index;
+
+            if (index == LEFT_PARENT_IN)
+            {
+                parentals_count++;
+                stackPush(stack, term);
+                UPDATE_LAST_TOKEN();
+            }
+            else
+            {   
+                if (parentals_count > 0)
+                {
+                    parentals_count--;
+                    stack_term = stackPop(stack);
+
+                    while (stack_term->index != LEFT_PARENT_IN) 
+                    {
+                        generateInstruction(return_type, *stack_term);
+                        stack_term = stackPop(stack);                        
+                    }
+                    UPDATE_LAST_TOKEN();
+                }
+                else
+                {
+                    free(stack);
+                    ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad number of parentals in expression");
+                }     
+            }
+        }
+        else if((index == EQ_EXPR_IN || index == NOT_EQ_IN || index == LESS_EQ_IN ||
+                 index == MORE_EQ_IN || index == LESS_IN || index == MORE_IN) && 
+                (expected_type == BOOLEAN || expected_type == UNDEFINED_TOK))
+        {
+            if (logic_allowed) 
+            {
+                return_type = BOOLEAN;
+                logic_allowed = false;
+    
+                operation_count++;
+                term.token = last_token;
+                term.index = index;
+    
+                if (stackEmpty(stack))
+                {
+                    stackPush(stack, term);
+                    UPDATE_LAST_TOKEN();
+                }
+                else
+                {   
+                    int get_priority = '>'; //first state for start cycle
+    
+                    while (get_priority != '<')
+                    {
+                        if (!stackEmpty(stack))
+                        {
+                            stack_term = stackTop(stack);
+                            get_priority = precedence_table[stack_term->index][term.index];
+                        }
+
+                        if (get_priority == '<' || stackEmpty(stack))
+                        {
+                            stackPush(stack, term);
+                            UPDATE_LAST_TOKEN();
+                            break;
+                        }
+                        else
+                        {
+                            stack_term = stackPop(stack);
+                            generateInstruction(return_type, *stack_term);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                free(stack);
+                ERROR_AND_RETURN(SEM_TYPE_ERROR,"More than one relation operation in expression");
+            }
+        }
+        else if (index == DOLAR_IN)
+        {
+            if ((parentals_count == 0) && ((operation_count + 1) == string_count)) //
+            {
+                while (!stackEmpty(stack))
+                {
+                    stack_term = stackPop(stack);
+                    generateInstruction(return_type, *stack_term); 
+                }
+                free(stack);
+                return true;
+            }
+            else
+            {
+                free(stack);
+                ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad number of operations or strings in expression");  
+            }
+        }
+        else
+        {
+            free(stack);
+            ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad operation or operand in expression");
+        }
+    }
+
+    return false;
 }
 
 bool generateInstruction(token_type return_type, tTerm term)
