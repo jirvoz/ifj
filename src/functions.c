@@ -22,8 +22,8 @@ bool call(char* name)
 
     for (int i = 0; i < symbol->arg_count; i++)
     {
-        // TODO call expression evaluation
-        // expression(symbol->arg_types[i]);
+        // Call expression evaluation
+        expression(symbol->arg_types[i]);
 
         // Check for colon between parameters
         if (i < symbol->arg_count - 1 && last_token.type != COLON_OP)
