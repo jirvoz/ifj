@@ -22,8 +22,8 @@ bool call(char* name)
 
     for (int i = 0; i < symbol->arg_count; i++)
     {
-        // TODO call expression evaluation
-        // expression(symbol->arg_types[i]);
+        // Call expression evaluation
+        expression(symbol->arg_types[i]);
 
         // Check for colon between parameters
         if (i < symbol->arg_count - 1 && last_token.type != COLON_OP)
@@ -39,9 +39,25 @@ bool call(char* name)
     return true;
 }
 
-void addParamToSymbol(tSymbol* symbol, char* name, token_type type)
+bool addParamToSymbol(tSymbol* symbol, char* name, token_type type)
 {
+    if (symbol->arg_count + 1 >= symbol->arg_size)
+    {
+        symbol->arg_size += 8;
+        symbol->arg_types = realloc(symbol->arg_types, symbol->arg_size * sizeof(token_type));
+        // FIXME memory leak when arg_names lost
+        symbol->arg_names = realloc(symbol->arg_names, symbol->arg_size * sizeof(token_type));
 
+        if (!symbol->arg_types || !symbol->arg_names)
+            ERROR_AND_RETURN(OTHER_ERROR, "Memory allocation fail.");
+    }
+
+    symbol->arg_types[symbol->arg_count] = type;
+    symbol->arg_names[symbol->arg_count] = name;
+
+    symbol->arg_count++;
+
+    return true;
 }
 
 bool function_params(tSymbol* symbol)
@@ -72,7 +88,10 @@ bool function_params(tSymbol* symbol)
             case STRING:
                 // Unless is function declared
                 if (symbol->type == UNDEFINED_TOK)
-                    addParamToSymbol(symbol, var_name, last_token.type);
+                {
+                    if (!addParamToSymbol(symbol, var_name, last_token.type))
+                        return false;
+                }
                 else
                     ; // TODO check if param is same
                 break;
@@ -136,9 +155,13 @@ bool function_header(bool define)
         symbol = malloc(sizeof(tSymbol));
         symbol->type = UNDEFINED_TOK;
         symbol->defined = false;
+
+        // Insert symbol to table of functions,
+        // the pointer still points to same symbol in table
+        htInsert(func_table, identif_name, *symbol);
     }
 
-    // read function params
+    // Read function parameters
     if (!function_params(symbol))
         return false;
     // last_token.type is right bracket
@@ -168,10 +191,6 @@ bool function_header(bool define)
         default:
             ERROR_AND_RETURN(SYN_ERROR, "Expected correct return type after AS.");
     }
-
-    // FIXME defined is still false
-    if (!symbol->defined)
-        htInsert(func_table, identif_name, *symbol);
 
     if (define)
     {
@@ -208,7 +227,8 @@ bool function_def()
     if (!statement_list())
         return false;
 
-    // TODO clear var_table
+    // Clear table of function variables
+    htClearAll(var_table);
 
     printf("POPFRAME\n");
     printf("RETURN\n");
