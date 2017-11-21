@@ -91,6 +91,10 @@ bool assignment_stat()
 
     printf("POPS LF@%s\n", identif_name);
 
+    // Check for EOL at the end of expression
+    if (last_token.type != EOL_TOK)
+        ERROR_AND_RETURN(SYN_ERROR, "Expected end of line after assignment.");
+
     return true;
 }
 

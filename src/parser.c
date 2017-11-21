@@ -107,9 +107,13 @@ bool program()
                 if (!statement_list())
                     return false;
 
+                // Test the correct ending of code block
+                if (last_token.type == END)
+                    ERROR_AND_RETURN(SYN_ERROR, "Expected END at scope ending.");
+
                 UPDATE_LAST_TOKEN();
 
-                // test the correct ending of scope
+                // Test the correct ending of scope
                 if (last_token.type == SCOPE)
                     return true;
                 else

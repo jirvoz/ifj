@@ -64,11 +64,13 @@ bool function_params(tSymbol* symbol)
 {
     // last_token.type is left bracket
 
+    int param_count = 0;
+
     UPDATE_LAST_TOKEN();
 
     while (last_token.type == IDENTIFIER_TOK)
     {
-        symbol->arg_count++;
+        param_count++;
 
         // Get parameter name
         char* var_name = last_token.attribute.string_ptr;
@@ -229,6 +231,10 @@ bool function_def()
 
     // Clear table of function variables
     htClearAll(var_table);
+
+    // Test the correct ending of function block
+    if (last_token.type == END)
+        ERROR_AND_RETURN(SYN_ERROR, "Expected END at function ending.");
 
     printf("POPFRAME\n");
     printf("RETURN\n");
