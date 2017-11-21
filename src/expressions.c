@@ -477,7 +477,8 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
         if (symbol != NULL)
         {
             UPDATE_LAST_TOKEN();
-            call(sent_term.token.attribute.string_ptr);
+            if (!call(sent_term.token.attribute.string_ptr))
+                return false;
 
             //if return type is INT, convert to double
             if (symbol->type == INTEGER)
