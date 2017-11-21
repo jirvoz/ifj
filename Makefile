@@ -22,14 +22,13 @@ expressions.o: expressions.c errors.h expressions.h scanner.h strings.h \
  functions.h symtable.h parser.h statements.h
 functions.o: functions.c errors.h expressions.h scanner.h strings.h \
  functions.h symtable.h parser.h statements.h
-inst_list.o: inst_list.c inst_list.h errors.h scanner.h strings.h
 main.o: main.c errors.h parser.h scanner.h strings.h symtable.h
 parser.o: parser.c errors.h functions.h symtable.h scanner.h strings.h \
  parser.h statements.h
 scanner.o: scanner.c scanner.h strings.h errors.h
 stack.o: stack.c stack.h scanner.h strings.h errors.h
 statements.o: statements.c errors.h expressions.h scanner.h strings.h \
- parser.h symtable.h statements.h
+ functions.h symtable.h parser.h statements.h
 strings.o: strings.c strings.h
 symtable.o: symtable.c symtable.h scanner.h strings.h errors.h
 
