@@ -2,7 +2,7 @@
 # Author: Jiri Vozar
 
 CC=gcc
-CFLAGS=-std=c99 -Wall -pedantic -g
+CFLAGS=-std=c99 -Wall -Wextra -pedantic -g
 VPATH=src:tests
 
 all: ifj
