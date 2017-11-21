@@ -148,8 +148,6 @@ bool expression(token_type expected_type)
             return (postString(expected_type, return_type));
             break;
         default:
-            fprintf(stderr, "return_type je: %d\n",return_type );
-            fprintf(stderr, "pada to v prvom switchi\n");
             ERROR_AND_RETURN(OTHER_ERROR, "Unknown token type");
     }
 }
@@ -461,11 +459,11 @@ bool postString(token_type expected_type, token_type return_type)
 bool generateInstruction(token_type return_type, tTerm sent_term)
 {
     //just for testing
-    printTerm(term);
+    //printTerm(sent_term);
 
     //prepare string variables in Local Frame
-    //term.term.index - expected type is bool but, that strings will be compared
-    if ((string_added == false) && (term.index == STRING_IN))
+    //sent_term.index - expected type is bool but, that strings will be compared
+    if ((string_added == false) && (sent_term.index == STRING_IN))
     {
         printf("DEFVAR LF@$tmp_string1\n");
         printf("DEFVAR LF@$tmp_string2\n");
@@ -473,12 +471,12 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
     }
 
     //function calling, value after calling will be on the top of stack
-    if (term.token.type == IDENTIFIER_TOK)
+    if (sent_term.token.type == IDENTIFIER_TOK)
     {
-        tSymbol* symbol = htSearch(func_table, term.token.attribute.string_ptr);
+        tSymbol* symbol = htSearch(func_table, sent_term.token.attribute.string_ptr);
         if (symbol != NULL)
         {
-            call(term.token.attribute.string_ptr);
+            call(sent_term.token.attribute.string_ptr);
 
             //if return type is INT, convert to double
             if (symbol->type == INTEGER)
@@ -489,17 +487,17 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
     }
 
     //main switch
-    switch (term.index)
+    switch (sent_term.index)
     {
         //push integer to stack
         case INT_IN:
         {
             //constant
-            if (term.token.type == INTEGER_TOK)
-                printf("PUSHS int@%d\n", term.token.attribute.number);
+            if (sent_term.token.type == INTEGER_TOK)
+                printf("PUSHS int@%d\n", sent_term.token.attribute.number);
             //identifier
             else
-                printf("PUSHS LF@%s\n", term.token.attribute.string_ptr);
+                printf("PUSHS LF@%s\n", sent_term.token.attribute.string_ptr);
             //convert to float
             printf("INT2FLOATS\n");
         }
@@ -508,11 +506,11 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
         case DOUBLE_IN:
         {
             //constant
-            if (term.token.type == FLOATING_POINT_TOK)
-                printf("PUSHS float@%g\n", term.token.attribute.float_number);
+            if (sent_term.token.type == FLOATING_POINT_TOK)
+                printf("PUSHS float@%g\n", sent_term.token.attribute.float_number);
             //identifier
             else
-                printf("PUSHS LF@%s\n", term.token.attribute.string_ptr);
+                printf("PUSHS LF@%s\n", sent_term.token.attribute.string_ptr);
         }
             break;
         //ADDS instruction or STRING CONCANTENATION
@@ -559,23 +557,23 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
         //strings
         case STRING_IN:
         {
-            if (term.token.type == STRING_TOK)
+            if (sent_term.token.type == STRING_TOK)
             {
                 if (string_added)
-                    printf("MOVE LF@$tmp_string2 string@%s\n", term.token.attribute.string_ptr);
+                    printf("MOVE LF@$tmp_string2 string@%s\n", sent_term.token.attribute.string_ptr);
                 else
                 {
-                    printf("MOVE LF@$tmp_string1 string@%s\n", term.token.attribute.string_ptr);
+                    printf("MOVE LF@$tmp_string1 string@%s\n", sent_term.token.attribute.string_ptr);
                     string_added = true;
                 } 
             }
             else
             {
                 if (string_added)
-                    printf("MOVE LF@$tmp_string2 LF@%s\n", term.token.attribute.string_ptr);
+                    printf("MOVE LF@$tmp_string2 LF@%s\n", sent_term.token.attribute.string_ptr);
                 else
                 {
-                    printf("MOVE LF@$tmp_string1 LF@%s\n", term.token.attribute.string_ptr);
+                    printf("MOVE LF@$tmp_string1 LF@%s\n", sent_term.token.attribute.string_ptr);
                     string_added = true;
                 }
             }
