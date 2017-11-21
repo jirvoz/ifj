@@ -1,6 +1,6 @@
 #include <malloc.h>
-#include "stack.h"
 #include "errors.h"
+#include "stack.h"
 
 //initialization of stack - size is 8
 //top index is -1 => stack is empty
@@ -11,14 +11,14 @@ tStack* stackInit()
 
     if (stack == NULL) 
     {
-        addError(OTHER_ERROR, NULL);
+        addError(OTHER_ERROR, "Memmory allocation error");
         return NULL;
     }
 
     stack->arr = malloc(sizeof(tToken) * 8);
     if (stack->arr == NULL) 
     {
-        addError(OTHER_ERROR, NULL);
+        addError(OTHER_ERROR, "Memmory allocation error");
         free(stack);
         return NULL;
     }
@@ -36,25 +36,26 @@ bool stackEmpty(tStack* stack)
 
 //push item to the top of stack
 //if the stack is full, is resized
-void stackPush(tStack* stack, tToken* token) 
+void stackPush(tStack* stack, tTerm term) 
 {
+    //fprintf(stderr, "stackPush is called\n");
     if (stack->size < (stack->top)) 
     {
         stack->arr = realloc(stack->arr, (sizeof(tToken) * (stack->size + 8)));
         if (stack->arr == NULL) 
         {
-            addError(OTHER_ERROR, NULL);
+            addError(OTHER_ERROR, "Memmory allocation error");
             free(stack);
             return;
         }
         stack->size += 8;
     }
-    stack->arr[stack->top] = *token;
     (stack->top)++;
+    stack->arr[stack->top] = term;
 }
 
 //delete item from the top of stack
-tToken* stackPop(tStack* stack) 
+tTerm* stackPop(tStack* stack)
 {
     if(!stackEmpty(stack)) 
     {
@@ -68,7 +69,7 @@ tToken* stackPop(tStack* stack)
 }
 
 //save the pointer of the item from the top of stack
-tToken* stackTop(tStack* stack) 
+tTerm* stackTop(tStack* stack) 
 {
     if (!stackEmpty(stack)) 
     {
@@ -85,5 +86,5 @@ void stackFree(tStack* stack)
 {
     free(stack->arr);
     stack->size = 0;
-    stack->top = 0;
+    stack->top = -1;
 }
