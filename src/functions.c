@@ -1,11 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "errors.h"
 #include "expressions.h"
 #include "functions.h"
 #include "parser.h"
 #include "statements.h"
 #include "symtable.h"
+
+char* actual_function;
 
 bool call(char* name)
 {
@@ -41,12 +44,12 @@ bool call(char* name)
 
 bool addParamToSymbol(tSymbol* symbol, char* name, token_type type)
 {
-    if (symbol->arg_count + 1 >= symbol->arg_size)
+    if (symbol->arg_count >= symbol->arg_size)
     {
         symbol->arg_size += 8;
         symbol->arg_types = realloc(symbol->arg_types, symbol->arg_size * sizeof(token_type));
         // FIXME memory leak when arg_names lost
-        symbol->arg_names = realloc(symbol->arg_names, symbol->arg_size * sizeof(token_type));
+        symbol->arg_names = realloc(symbol->arg_names, symbol->arg_size * sizeof(char*));
 
         if (!symbol->arg_types || !symbol->arg_names)
             ERROR_AND_RETURN(OTHER_ERROR, "Memory allocation fail.");
@@ -64,11 +67,13 @@ bool function_params(tSymbol* symbol)
 {
     // last_token.type is left bracket
 
+    int param_count = 0;
+
     UPDATE_LAST_TOKEN();
 
     while (last_token.type == IDENTIFIER_TOK)
     {
-        symbol->arg_count++;
+        param_count++;
 
         // Get parameter name
         char* var_name = last_token.attribute.string_ptr;
@@ -86,21 +91,26 @@ bool function_params(tSymbol* symbol)
             case INTEGER:
             case DOUBLE:
             case STRING:
-                // Unless is function declared
+                // Unless is function declared add parameters to symbol in table
                 if (symbol->type == UNDEFINED_TOK)
                 {
                     if (!addParamToSymbol(symbol, var_name, last_token.type))
                         return false;
                 }
+                // Check if parameters are same
                 else
-                    ; // TODO check if param is same
+                {
+                    if (param_count > symbol->arg_count)
+                        ERROR_AND_RETURN(SEM_PROG_ERROR, "Different parmeter count at definition.");
+                    if (strcmp(var_name, symbol->arg_names[param_count]) != 0)
+                        ERROR_AND_RETURN(SEM_PROG_ERROR, "Different parmeter name at definition.");
+                    if (last_token.type != symbol->type)
+                        ERROR_AND_RETURN(SEM_TYPE_ERROR, "Different parmeter type at definition.");
+                }
                 break;
             default:
                 ERROR_AND_RETURN(SYN_ERROR, "Expected correct type of '%s' after AS.", var_name);
         }
-
-        // FIXME wrong place
-        printf("DEFVAR LF@%s\n", var_name);
 
         UPDATE_LAST_TOKEN();
 
@@ -110,6 +120,10 @@ bool function_params(tSymbol* symbol)
         else if (last_token.type != RIGHT_PARENTH_OP)
             ERROR_AND_RETURN(SYN_ERROR, "Expected colon or right parenthesis after parameter.");
     }
+
+    // Check same number of parameters at declaration and definition
+    if (symbol->type == UNDEFINED_TOK && param_count != symbol->arg_count)
+        ERROR_AND_RETURN(SEM_PROG_ERROR, "Different parmeter count at definition.");
 
     // Check for right bracket after parameters
     if (last_token.type != RIGHT_PARENTH_OP)
@@ -129,6 +143,8 @@ bool function_header(bool define)
         ERROR_AND_RETURN(SYN_ERROR, "Expected function name after FUNCTION.");
 
     char* identif_name = last_token.attribute.string_ptr;
+    // Set global variable that we are in this function
+    actual_function = identif_name;
 
     // Check symtable if variable exists
     tSymbol* symbol = htSearch(func_table, last_token.attribute.string_ptr);
@@ -194,9 +210,6 @@ bool function_header(bool define)
 
     if (define)
     {
-        printf("LABEL $%s\n", identif_name);
-        printf("CREATEFRAME\n");
-        printf("PUSHFRAME\n");
     }
 
     return true;
@@ -223,12 +236,48 @@ bool function_def()
         return false;
     // last_token.type is EOL_TOK
 
+    // Get function data
+    if (!actual_function)
+        ERROR_AND_RETURN(OTHER_ERROR, "Can't get actual function name.");
+    tSymbol* func_symbol = htSearch(func_table, actual_function);
+
+    printf("LABEL $%s\n", actual_function);
+    printf("CREATEFRAME\n");
+    printf("PUSHFRAME\n");
+
+    // Declare function parameters as variables
+    for (int i = func_symbol->arg_count - 1; i >= 0; i--)
+    {
+        printf("DEFVAR LF@%s\n", func_symbol->arg_names[i]);
+        switch (func_symbol->arg_types[i])
+        {
+            case INTEGER:
+                printf("MOVE LF@%s int@0\n", func_symbol->arg_names[i]);
+                break;
+            case DOUBLE:
+                printf("MOVE LF@%s float@0\n", func_symbol->arg_names[i]);
+                break;
+            case STRING:
+                printf("MOVE LF@%s string@\n", func_symbol->arg_names[i]);
+                break;
+            default:
+                ERROR_AND_RETURN(OTHER_ERROR, "Bad type of function parameter.");
+        }
+        htInsert(var_table, func_symbol->arg_names[i],
+            (tSymbol){ .type=func_symbol->arg_types[i], .defined = true, .arg_count = 0 });
+    }
+
     // Parse the inside of function
     if (!statement_list())
         return false;
 
     // Clear table of function variables
     htClearAll(var_table);
+    actual_function = NULL;
+
+    // Test the correct ending of function block
+    if (last_token.type != END)
+        ERROR_AND_RETURN(SYN_ERROR, "Expected END at function ending.");
 
     printf("POPFRAME\n");
     printf("RETURN\n");
