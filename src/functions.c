@@ -8,6 +8,8 @@
 #include "statements.h"
 #include "symtable.h"
 
+char* actual_function;
+
 bool call(char* name)
 {
     // last_token.type is left bracket
@@ -42,7 +44,7 @@ bool call(char* name)
 
 bool addParamToSymbol(tSymbol* symbol, char* name, token_type type)
 {
-    if (symbol->arg_count + 1 >= symbol->arg_size)
+    if (symbol->arg_count >= symbol->arg_size)
     {
         symbol->arg_size += 8;
         symbol->arg_types = realloc(symbol->arg_types, symbol->arg_size * sizeof(token_type));
@@ -110,9 +112,6 @@ bool function_params(tSymbol* symbol)
                 ERROR_AND_RETURN(SYN_ERROR, "Expected correct type of '%s' after AS.", var_name);
         }
 
-        // FIXME wrong place
-        printf("DEFVAR LF@%s\n", var_name);
-
         UPDATE_LAST_TOKEN();
 
         // Check for correct parameter ending
@@ -144,6 +143,8 @@ bool function_header(bool define)
         ERROR_AND_RETURN(SYN_ERROR, "Expected function name after FUNCTION.");
 
     char* identif_name = last_token.attribute.string_ptr;
+    // Set global variable that we are in this function
+    actual_function = identif_name;
 
     // Check symtable if variable exists
     tSymbol* symbol = htSearch(func_table, last_token.attribute.string_ptr);
@@ -209,9 +210,6 @@ bool function_header(bool define)
 
     if (define)
     {
-        printf("LABEL $%s\n", identif_name);
-        printf("CREATEFRAME\n");
-        printf("PUSHFRAME\n");
     }
 
     return true;
@@ -238,12 +236,44 @@ bool function_def()
         return false;
     // last_token.type is EOL_TOK
 
+    // Get function data
+    if (!actual_function)
+        ERROR_AND_RETURN(OTHER_ERROR, "Can't get actual function name.");
+    tSymbol* func_symbol = htSearch(func_table, actual_function);
+
+    printf("LABEL $%s\n", actual_function);
+    printf("CREATEFRAME\n");
+    printf("PUSHFRAME\n");
+
+    // Declare function parameters as variables
+    for (int i = func_symbol->arg_count - 1; i >= 0; i--)
+    {
+        printf("DEFVAR LF@%s\n", func_symbol->arg_names[i]);
+        switch (func_symbol->arg_types[i])
+        {
+            case INTEGER:
+                printf("MOVE LF@%s int@0\n", func_symbol->arg_names[i]);
+                break;
+            case DOUBLE:
+                printf("MOVE LF@%s float@0\n", func_symbol->arg_names[i]);
+                break;
+            case STRING:
+                printf("MOVE LF@%s string@\n", func_symbol->arg_names[i]);
+                break;
+            default:
+                ERROR_AND_RETURN(OTHER_ERROR, "Bad type of function parameter.");
+        }
+        htInsert(var_table, func_symbol->arg_names[i],
+            (tSymbol){ .type=func_symbol->arg_types[i], .defined = true, .arg_count = 0 });
+    }
+
     // Parse the inside of function
     if (!statement_list())
         return false;
 
     // Clear table of function variables
     htClearAll(var_table);
+    actual_function = NULL;
 
     // Test the correct ending of function block
     if (last_token.type != END)
