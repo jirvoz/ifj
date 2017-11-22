@@ -46,13 +46,16 @@ const int precedence_table[P_TAB_SIZE][P_TAB_SIZE] =
 //main expression function
 bool expression(token_type expected_type)
 {
-    // last_token is first token of expression
+    stack = stackInit();
 
+    // last_token is first token of expression
     if (!getTerm() || term.index == DOLAR_IN)
     {
+        stackFree(stack);
+        free(stack);
         ERROR_AND_RETURN(SYN_ERROR, "Empty expression");
     }
-    stack = stackInit();
+    
     token_type return_type = expected_type;
 
     if (expected_type == UNDEFINED_TOK || expected_type == BOOLEAN ) // Undefined token set by first token type
@@ -100,7 +103,6 @@ bool expression(token_type expected_type)
 
 bool getTerm()
 {
-    fprintf(stderr, "# getTerm, token is: %d\n", last_token.type);
     //set token in term
     term.token = last_token;
 
@@ -140,6 +142,7 @@ bool getTerm()
             free(stack);
             ERROR_AND_RETURN(SEM_PROG_ERROR, "Undefined function");
         }
+
         //search in var_table
         symbol = htSearch(var_table, last_token.attribute.string_ptr);
 
@@ -289,7 +292,6 @@ bool postNumber(token_type expected_type, token_type return_type)
             }
             else
             {
-                fprintf(stderr, "#brac count: %d\n", brackets_count);
                 if (brackets_count > 0)
                 {
                     brackets_count--;
