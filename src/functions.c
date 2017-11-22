@@ -13,6 +13,8 @@ char* actual_function;
 bool call(char* name)
 {
     // last_token.type is left bracket
+    if (last_token.type != LEFT_PARENTH_OP)
+        ERROR_AND_RETURN(SYN_ERROR, "Expected left parenthesis at the beginning of function.");
 
     // Check symtable if function exists
     tSymbol* symbol = htSearch(func_table, name);
@@ -58,7 +60,12 @@ bool addParamToSymbol(tSymbol* symbol, char* name, token_type type)
     }
 
     symbol->arg_types[symbol->arg_count] = type;
-    symbol->arg_names[symbol->arg_count] = name;
+
+    // Allocate space for copy of function name including space for '\0'
+    char* new_name = malloc((strlen(name) + 1) * sizeof(char));
+    new_name = strcpy(new_name, name);
+
+    symbol->arg_names[symbol->arg_count] = new_name;
 
     symbol->arg_count++;
 
@@ -173,9 +180,13 @@ bool function_header(bool define)
         symbol = malloc(sizeof(tSymbol));
         symbol->type = UNDEFINED_TOK;
 
+        // Allocate space for copy of function name including space for '\0'
+        char* new_name = malloc((strlen(identif_name) + 1) * sizeof(char));
+        new_name = strcpy(new_name, identif_name);
+
         // Insert symbol to table of functions,
         // the pointer still points to same symbol in table
-        htInsert(func_table, identif_name, *symbol);
+        htInsert(func_table, new_name, *symbol);
     }
 
     symbol->defined = define;
@@ -248,6 +259,7 @@ bool function_def()
     for (int i = func_symbol->arg_count - 1; i >= 0; i--)
     {
         printf("DEFVAR LF@%s\n", func_symbol->arg_names[i]);
+
         switch (func_symbol->arg_types[i])
         {
             case INTEGER:
@@ -262,7 +274,12 @@ bool function_def()
             default:
                 ERROR_AND_RETURN(OTHER_ERROR, "Bad type of function parameter.");
         }
-        htInsert(var_table, func_symbol->arg_names[i],
+
+        // Allocate space for copy of variable name including space for '\0'
+        char* new_name = malloc((strlen(func_symbol->arg_names[i]) + 1) * sizeof(char));
+        new_name = strcpy(new_name, func_symbol->arg_names[i]);
+
+        htInsert(var_table, new_name,
             (tSymbol){ .type=func_symbol->arg_types[i], .defined = true, .arg_count = 0 });
     }
 
@@ -279,7 +296,7 @@ bool function_def()
         ERROR_AND_RETURN(SYN_ERROR, "Expected END at function ending.");
 
     printf("POPFRAME\n");
-    printf("RETURN\n");
+    printf("RETURN\n\n");
 
     UPDATE_LAST_TOKEN();
 
