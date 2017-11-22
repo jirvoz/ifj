@@ -40,7 +40,7 @@ void stackPush(tStack* stack, tTerm term)
 {
     if (stack->size < (stack->top)) 
     {
-        stack->arr = realloc(stack->arr, (sizeof(tToken) * (stack->size + 8)));
+        stack->arr = realloc(stack->arr, (sizeof(tTerm) * (stack->size + 8)));
         if (stack->arr == NULL) 
         {
             addError(OTHER_ERROR, "Memmory allocation error");

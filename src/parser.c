@@ -30,6 +30,8 @@ bool statement()
 {
     UPDATE_LAST_TOKEN();
 
+    printf("\n");
+
     // Evaluate statement
     switch (last_token.type)
     {
@@ -135,7 +137,7 @@ bool program()
 bool parse()
 {
     printf(".IFJcode17\n");
-    printf("JUMP $$main\n");
+    printf("JUMP $$main\n\n");
 
     func_table = malloc(sizeof(tHtitem) * HTSIZE);
     var_table = malloc(sizeof(tHtitem) * HTSIZE);

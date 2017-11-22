@@ -302,7 +302,7 @@ bool postNumber(token_type expected_type, token_type return_type)
             else
             {
                 free(stack);
-                ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad number of operations or operands in expression");  
+                ERROR_AND_RETURN(SYN_ERROR,"Bad number of operations or operands in expression");  
             }
         }
         else
@@ -446,7 +446,7 @@ bool postString(token_type expected_type, token_type return_type)
             else
             {
                 free(stack);
-                ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad number of operations or strings in expression");  
+                ERROR_AND_RETURN(SYN_ERROR,"Bad number of operations or strings in expression");  
             }
         }
         else

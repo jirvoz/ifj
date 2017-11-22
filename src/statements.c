@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "errors.h"
 #include "expressions.h"
 #include "functions.h"
@@ -60,7 +61,11 @@ bool dim_stat()
                 ERROR_AND_RETURN(SYN_ERROR, "Expected variable type after AS.");
         }
 
-        htInsert(var_table, identif_name,
+        // Allocate space for copy of variable name including space for '\0'
+        char* new_name = malloc((strlen(identif_name) + 1) * sizeof(char));
+        new_name = strcpy(new_name, identif_name);
+
+        htInsert(var_table, new_name,
             (tSymbol){ .type=type, .defined = true, .arg_count = 0 });
 
         return true;
@@ -75,8 +80,12 @@ bool dim_stat()
 
         printf("POPS LF@%s\n", identif_name);
 
+        // Allocate space for copy of variable name including space for '\0'
+        char* new_name = malloc((strlen(identif_name) + 1) * sizeof(char));
+        new_name = strcpy(new_name, identif_name);
+
         // Add record to symbol table
-        htInsert(var_table, identif_name,
+        htInsert(var_table, new_name,
             (tSymbol){ .type=type, .defined = true, .arg_count = 0 });
 
         // Check for EOL at the end of expression
