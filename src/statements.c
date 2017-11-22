@@ -108,7 +108,7 @@ bool assignment_stat()
     // Check symtable if variable exists
     tSymbol* symbol = htSearch(var_table, identif_name);
     if (!symbol)
-        ERROR_AND_RETURN(SEM_PROG_ERROR, "Undefined variable after INPUT.");
+        ERROR_AND_RETURN(SEM_PROG_ERROR, "Undefined variable at assignment.");
 
     UPDATE_LAST_TOKEN();
 

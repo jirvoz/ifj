@@ -27,8 +27,10 @@ bool call(char* name)
 
     for (int i = 0; i < symbol->arg_count; i++)
     {
-        // Call expression evaluation
         UPDATE_LAST_TOKEN();
+        if (last_token.type == RIGHT_PARENTH_OP)
+            ERROR_AND_RETURN(SYN_ERROR, "Expected more parameters for function '%s'.", name);
+        // Call expression evaluation
         if(!expression(symbol->arg_types[i]))
             return false;
 

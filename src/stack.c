@@ -15,7 +15,7 @@ tStack* stackInit()
         return NULL;
     }
 
-    stack->arr = malloc(sizeof(tToken) * 8);
+    stack->arr = malloc(sizeof(tTerm) * 8);
     if (stack->arr == NULL) 
     {
         addError(OTHER_ERROR, "Memmory allocation error");
@@ -38,7 +38,7 @@ bool stackEmpty(tStack* stack)
 //if the stack is full, is resized
 void stackPush(tStack* stack, tTerm term) 
 {
-    if (stack->size < (stack->top)) 
+    if (stack->top + 1 <= stack->size)
     {
         stack->arr = realloc(stack->arr, (sizeof(tTerm) * (stack->size + 8)));
         if (stack->arr == NULL) 
@@ -49,7 +49,7 @@ void stackPush(tStack* stack, tTerm term)
         }
         stack->size += 8;
     }
-    (stack->top)++;
+    stack->top++;
     stack->arr[stack->top] = term;
 }
 
