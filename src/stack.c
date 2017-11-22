@@ -83,7 +83,10 @@ tTerm* stackTop(tStack* stack)
 //free alocated memory and set size to 0
 void stackFree(tStack* stack) 
 {
-    free(stack->arr);
+    if (stack->arr != NULL)
+    {
+        free(stack->arr);  
+    }
     stack->size = 0;
     stack->top = -1;
 }
