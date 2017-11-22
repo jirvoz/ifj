@@ -304,6 +304,20 @@ bool function_def()
     if (last_token.type != END)
         ERROR_AND_RETURN(SYN_ERROR, "Expected END at function ending.");
 
+    switch (func_symbol->type)
+    {
+        case INTEGER:
+            printf("PUSHS int@0\n");
+            break;
+        case DOUBLE:
+            printf("PUSHS float@0\n");
+            break;
+        case STRING:
+            printf("PUSHS string@\n");
+            break;
+        default:
+            ERROR_AND_RETURN(OTHER_ERROR, "Unknown function return type.");
+    }
     printf("POPFRAME\n");
     printf("RETURN\n\n");
 
