@@ -15,7 +15,7 @@ bool call(char* name)
     // last_token.type is left bracket
 
     // Check symtable if function exists
-    tSymbol* symbol = htSearch(var_table, name);
+    tSymbol* symbol = htSearch(func_table, name);
     if (!symbol)
         ERROR_AND_RETURN(SEM_PROG_ERROR, "Calling function '%s' that doesn't exist.", name);
     
@@ -27,7 +27,8 @@ bool call(char* name)
     {
         // Call expression evaluation
         UPDATE_LAST_TOKEN();
-        expression(symbol->arg_types[i]);
+        if(!expression(symbol->arg_types[i]))
+            return false;
 
         // Check for colon between parameters
         if (i < symbol->arg_count - 1 && last_token.type != COLON_OP)
@@ -103,9 +104,9 @@ bool function_params(tSymbol* symbol)
                 {
                     if (param_count > symbol->arg_count)
                         ERROR_AND_RETURN(SEM_PROG_ERROR, "Different parmeter count at definition.");
-                    if (strcmp(var_name, symbol->arg_names[param_count]) != 0)
+                    if (strcmp(var_name, symbol->arg_names[param_count - 1]) != 0)
                         ERROR_AND_RETURN(SEM_PROG_ERROR, "Different parmeter name at definition.");
-                    if (last_token.type != symbol->type)
+                    if (last_token.type != symbol->arg_types[param_count - 1])
                         ERROR_AND_RETURN(SEM_TYPE_ERROR, "Different parmeter type at definition.");
                 }
                 break;
@@ -171,12 +172,13 @@ bool function_header(bool define)
     {
         symbol = malloc(sizeof(tSymbol));
         symbol->type = UNDEFINED_TOK;
-        symbol->defined = false;
 
         // Insert symbol to table of functions,
         // the pointer still points to same symbol in table
         htInsert(func_table, identif_name, *symbol);
     }
+
+    symbol->defined = define;
 
     // Read function parameters
     if (!function_params(symbol))
@@ -207,10 +209,6 @@ bool function_header(bool define)
             break;
         default:
             ERROR_AND_RETURN(SYN_ERROR, "Expected correct return type after AS.");
-    }
-
-    if (define)
-    {
     }
 
     return true;
