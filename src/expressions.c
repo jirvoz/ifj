@@ -50,7 +50,7 @@ bool expression(token_type expected_type)
 
     if (!getTerm() || term.index == DOLAR_IN)
     {
-        return false;
+        ERROR_AND_RETURN(SYN_ERROR, "Empty expression");
     }
     stack = stackInit();
     token_type return_type = expected_type;
@@ -100,6 +100,7 @@ bool expression(token_type expected_type)
 
 bool getTerm()
 {
+    fprintf(stderr, "# getTerm, token is: %d\n", last_token.type);
     //set token in term
     term.token = last_token;
 
@@ -287,7 +288,8 @@ bool postNumber(token_type expected_type, token_type return_type)
                 UPDATE_LAST_TOKEN();
             }
             else
-            {   
+            {
+                fprintf(stderr, "#brac count: %d\n", brackets_count);
                 if (brackets_count > 0)
                 {
                     brackets_count--;
