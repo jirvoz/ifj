@@ -155,7 +155,8 @@ bool function_header(bool define)
 
     char* identif_name = last_token.attribute.string_ptr;
     // Set global variable that we are in this function
-    actual_function = identif_name;
+    if (define)
+        actual_function = identif_name;
 
     // Check symtable if variable exists
     tSymbol* symbol = htSearch(func_table, last_token.attribute.string_ptr);
@@ -176,11 +177,15 @@ bool function_header(bool define)
     if (last_token.type != LEFT_PARENTH_OP)
         ERROR_AND_RETURN(SYN_ERROR, "Expected left parenthesis after function name.");
 
-    // Read params and return value
+    // Create new symbol if it doesn't exist
     if (!symbol)
     {
-        symbol = malloc(sizeof(tSymbol));
-        symbol->type = UNDEFINED_TOK;
+        tSymbol new_symbol;
+        new_symbol.type = UNDEFINED_TOK;
+        new_symbol.arg_count = 0;
+        new_symbol.arg_size = 0;
+        new_symbol.arg_types = NULL;
+        new_symbol.arg_names = NULL;
 
         // Allocate space for copy of function name including space for '\0'
         char* new_name = malloc((strlen(identif_name) + 1) * sizeof(char));
@@ -188,7 +193,9 @@ bool function_header(bool define)
 
         // Insert symbol to table of functions,
         // the pointer still points to same symbol in table
-        htInsert(func_table, new_name, *symbol);
+        htInsert(func_table, new_name, new_symbol);
+        // Update pointer to symbol
+        symbol = htSearch(func_table, last_token.attribute.string_ptr);
     }
 
     symbol->defined = define;

@@ -111,6 +111,9 @@ bool getTerm()
                     default:
                         ERROR_AND_RETURN(SEM_TYPE_ERROR, "Bad return type of function");
                 }
+                UPDATE_LAST_TOKEN();
+                if (last_token.type != LEFT_PARENTH_OP)
+                    ERROR_AND_RETURN(SEM_TYPE_ERROR, "Expected '(' after function");
                 return true;
             }
             ERROR_AND_RETURN(SEM_PROG_ERROR, "Undefined function");
@@ -170,7 +173,7 @@ bool postNumber(token_type expected_type, token_type return_type)
     bool logic_allowed = true;
     bool unary = false;
 
-    while (getTerm())
+    do
     {
         if (term.index == INT_IN || term.index == DOUBLE_IN)
         {
@@ -199,7 +202,7 @@ bool postNumber(token_type expected_type, token_type return_type)
                 tTerm tmp_term;
                 tmp_term.index = DOUBLE_IN;
                 tmp_term.token.type = FLOATING_POINT_TOK;
-                tmp_term.token.float_number = 0.0;
+                tmp_term.token.attribute.float_number = 0.0;
 
                 generateInstruction(return_type, tmp_term);
             }
@@ -322,7 +325,7 @@ bool postNumber(token_type expected_type, token_type return_type)
                     stack_term = stackPop(stack);
                     generateInstruction(return_type, *stack_term); 
                 }
-                if (logic_allowed)
+                if (logic_allowed && expected_type == BOOLEAN)
                 {
                     simple_bool = true; 
                 }
@@ -341,7 +344,7 @@ bool postNumber(token_type expected_type, token_type return_type)
             free(stack);
             ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad operation or operand in expression");
         }
-    }
+    } while (getTerm());
 
     return false;
 }
@@ -359,7 +362,7 @@ bool postString(token_type expected_type, token_type return_type)
     int parentals_count = 0;
     bool logic_allowed = true;
 
-    while (getTerm())
+    do
     {
         if (term.index == STRING_IN)
         {
@@ -485,7 +488,7 @@ bool postString(token_type expected_type, token_type return_type)
             free(stack);
             ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad operation or operand in expression");
         }
-    }
+    } while (getTerm());
 
     return false;
 }
@@ -647,6 +650,12 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
             if (return_type == INTEGER)
             {
                 printf("FLOAT2R2EINTS\n");
+            }
+            if (simple_bool)
+            {
+                printf("PUSHS float@0.0\n");
+                printf("EQS\n");
+                printf("NOT\n");
             }
         }
             break;
