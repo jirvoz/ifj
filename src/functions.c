@@ -296,7 +296,7 @@ bool function_def()
         ERROR_AND_RETURN(SYN_ERROR, "Expected END at function ending.");
 
     printf("POPFRAME\n");
-    printf("RETURN\n");
+    printf("RETURN\n\n");
 
     UPDATE_LAST_TOKEN();
 
