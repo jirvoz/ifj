@@ -128,9 +128,11 @@ bool getTerm()
                 }
                 UPDATE_LAST_TOKEN();
                 if (last_token.type != LEFT_PARENTH_OP)
+                {
                     stackFree(stack);
                     free(stack);
                     ERROR_AND_RETURN(SEM_TYPE_ERROR, "Expected '(' after function");
+                }
                 return true;
             }
             stackFree(stack);
@@ -159,13 +161,17 @@ bool getTerm()
         }
         UPDATE_LAST_TOKEN();
         if (last_token.type == LEFT_PARENTH_OP)
+        {
             stackFree(stack);
             free(stack);
             ERROR_AND_RETURN(SEM_PROG_ERROR, "Undeclared function");
+        }
         else
+        {
             stackFree(stack);
             free(stack);
-            ERROR_AND_RETURN(SEM_PROG_ERROR, "Undeclared variable");   
+            ERROR_AND_RETURN(SEM_PROG_ERROR, "Undeclared variable");
+        } 
     }
     //int, float and string constants
     else if (last_token.type >= INTEGER_TOK && last_token.type <= STRING_TOK)
@@ -213,7 +219,7 @@ bool postNumber(token_type expected_type, token_type return_type)
 
             if ((expected_type == UNDEFINED_TOK) && (term.index == DOUBLE_IN)) //if is in undefined expression Double whole expression convert to Double
             {
-                return_type == DOUBLE;
+                return_type = DOUBLE;
             }
 
             operand_count++;
