@@ -13,7 +13,7 @@
 //this flag signalize if strings were created on the stack
 bool string_added = false;
 bool simple_bool = false;
-int parentals_count = 0;
+int brackets_count = 0;
 tStack* stack;
 
 //global variable for expressions
@@ -57,9 +57,9 @@ bool expression(token_type expected_type)
 
     if (expected_type == UNDEFINED_TOK || expected_type == BOOLEAN ) // Undefined token set by first token type
     {
-        while (term.index == LEFT_PARENT_IN)    //first left parentals push on stack
+        while (term.index == LEFT_PARENT_IN)    //first left brackets push on stack
         {
-            parentals_count++;
+            brackets_count++;
             stackPush(stack, term);
             UPDATE_LAST_TOKEN();
             getTerm();
@@ -276,15 +276,15 @@ bool postNumber(token_type expected_type, token_type return_type)
         {
             if (term.index == LEFT_PARENT_IN)
             {
-                parentals_count++;
+                brackets_count++;
                 stackPush(stack, term);
                 UPDATE_LAST_TOKEN();
             }
             else
             {   
-                if (parentals_count > 0)
+                if (brackets_count > 0)
                 {
-                    parentals_count--;
+                    brackets_count--;
                     stack_term = stackPop(stack);
 
                     while (stack_term->index != LEFT_PARENT_IN) 
@@ -297,7 +297,7 @@ bool postNumber(token_type expected_type, token_type return_type)
                 else
                 {
                     free(stack);
-                    ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad number of parentals in expression");
+                    ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad number of brackets in expression");
                 }     
             }
         }
@@ -352,7 +352,7 @@ bool postNumber(token_type expected_type, token_type return_type)
         }
         else if (term.index == DOLAR_IN)
         {
-            if ((parentals_count == 0) && ((operation_count + 1) == operand_count)) //
+            if ((brackets_count == 0) && ((operation_count + 1) == operand_count)) //
             {
                 while (!stackEmpty(stack))
                 {
@@ -427,15 +427,15 @@ bool postString(token_type expected_type, token_type return_type)
         {
             if (term.index == LEFT_PARENT_IN)
             {
-                parentals_count++;
+                brackets_count++;
                 stackPush(stack, term);
                 UPDATE_LAST_TOKEN();
             }
             else
             {   
-                if (parentals_count > 0)
+                if (brackets_count > 0)
                 {
-                    parentals_count--;
+                    brackets_count--;
                     stack_term = stackPop(stack);
 
                     while (stack_term->index != LEFT_PARENT_IN) 
@@ -449,7 +449,7 @@ bool postString(token_type expected_type, token_type return_type)
                 {
                     stackFree(stack);
                     free(stack);
-                    ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad number of parentals in expression");
+                    ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad number of brackets in expression");
                 }     
             }
         }
@@ -504,7 +504,7 @@ bool postString(token_type expected_type, token_type return_type)
         }
         else if (term.index == DOLAR_IN)
         {
-            if ((parentals_count == 0) && ((operation_count + 1) == string_count)) //
+            if ((brackets_count == 0) && ((operation_count + 1) == string_count)) //
             {
                 while (!stackEmpty(stack))
                 {
