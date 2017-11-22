@@ -1,13 +1,16 @@
 #include <stdio.h>
 #include "../src/scanner.h"
 #include "../src/expressions.h"
+#include "../src/parser.h"
 
 FILE* test_file;
 
 int main(int argc, char const *argv[])
 {
+	fprintf(stderr, "main\n");
 	test_file = fopen("./postfix_file", "w");
 	token_type expected_type = INTEGER;
+	UPDATE_LAST_TOKEN();
 	if (expression(expected_type))
 	{
 		fclose(test_file);
