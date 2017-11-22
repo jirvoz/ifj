@@ -122,7 +122,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
 
     automata_state state = BEGIN_STATE;         //first state is BEGIN_STATE
     int c;                                      //lexem
-    int int_tmp = 10;                                //tmp int for identifiers and numbers BASE
+    int int_tmp = 10;                           //tmp int for identifiers and numbers BASE
 
     do
     {
@@ -881,34 +881,73 @@ int getNextToken (tToken* next_token, FILE* source_file)
 
             case BASE_STATE:
             {
-                if (isdigit(c) || (c >= 'a' && c <= 'f'))
+                bool base_ok = true;
+                switch (int_tmp)
                 {
-                    if (!stringAddChar(c, &tmp_string))
+                    case 10:
                     {
-                        return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
+                        if (isdigit(c))
+                        {
+                            if (!stringAddChar(c, &tmp_string))
+                            {
+                                return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
+                            }
+                        }
+                        else
+                            base_ok = false;
                     }
+                        break;
+                    case 2:
+                    {
+                        if (c == '0' || c == '1')
+                        {
+                            if (!stringAddChar(c, &tmp_string))
+                            {
+                                return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
+                            }
+                        }
+                        else
+                            base_ok = false;    
+                    }
+                        break;
+                    case 8:
+                    {
+                        if (c >= '0' && c <= '7')
+                        {
+                            if (!stringAddChar(c, &tmp_string))
+                            {
+                                return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
+                            }
+                        }
+                        else
+                            base_ok = false;
+                    }
+                        break;
+                    case 16:
+                    {
+                        if (isdigit(c) || (c >= 'a' && c <= 'f'))
+                        {
+                            if (!stringAddChar(c, &tmp_string))
+                            {
+                                return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
+                            }
+                        }
+                        else
+                            base_ok = false;
+                    }
+                        break;
                 }
-                else
+
+                if (!base_ok)
                 {
                     ungetc(c, source_file);
-                    char* err_string;
-                    next_token->attribute.number = (int) strtol(tmp_string.str, &err_string, int_tmp);
-
-                    //test if number is correct
-                    if (*err_string == '\0')
-                    {
-                        stringFree(&tmp_string);
-                        next_token->type = INTEGER_TOK;
-                        return true;
-                    }
-                    else
-                    {
-                        return returnFalse(LEX_ERROR, "Wrong number", &tmp_string);
-                    }
+                    next_token->attribute.number = (int) strtol(tmp_string.str, NULL, int_tmp);
+                    stringFree(&tmp_string);
+                    next_token->type = INTEGER_TOK;
+                    return true;
                 }
             }
                 break;
-
             default: return returnFalse(OTHER_ERROR, "Unknown error", &tmp_string);
         }
     } while (1);
