@@ -578,13 +578,13 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
         //classic DIVS
         case FLOAT_DIV_IN:
         {
-            printf("SUBS\n");
+            printf("DIVS\n");
         }
             break;
         //'\' DIVS - integers
         case INT_DIV_IN:
         {
-            printf("SUBS\n");
+            printf("DIVS\n");
             printf("FLOAT2INTS\n");
             printf("INT2FLOATS\n");
         }
