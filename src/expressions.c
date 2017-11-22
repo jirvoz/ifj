@@ -393,6 +393,8 @@ bool postNumber(token_type expected_type, token_type return_type)
         }
     } while (getTerm());
 
+    stackFree(stack);
+    free(stack);  
     return false;
 }
 
@@ -541,6 +543,8 @@ bool postString(token_type expected_type, token_type return_type)
         }
     } while (getTerm());
 
+    stackFree(stack);
+    free(stack);  
     return false;
 }
 
@@ -563,6 +567,7 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
             {
                 printf("INT2FLOATS\n");
             }
+            return true;
         }
     }
 
