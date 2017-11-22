@@ -13,6 +13,8 @@
 //this flag signalize if strings were created on the stack
 bool string_added = false;
 bool simple_bool = false;
+int parentals_count = 0;
+tStack* stack;
 
 //global variable for expressions
 tTerm term;
@@ -50,11 +52,19 @@ bool expression(token_type expected_type)
     {
         return false;
     }
-
+    stack = stackInit();
     token_type return_type = expected_type;
 
     if (expected_type == UNDEFINED_TOK || expected_type == BOOLEAN ) // Undefined token set by first token type
     {
+        while (term.index == LEFT_PARENT_IN)    //first left parentals push on stack
+        {
+            parentals_count++;
+            stackPush(stack, term);
+            UPDATE_LAST_TOKEN();
+            getTerm();
+        }
+
         switch (term.index)
         {
             case INT_IN: return_type = INTEGER;
@@ -66,8 +76,9 @@ bool expression(token_type expected_type)
             case STRING_IN: return_type = STRING;
                 break;
             default:
-                addError(SEM_TYPE_ERROR, "Wrong expression");
-                return false;
+                stackFree(stack);
+                free(stack);
+                ERROR_AND_RETURN(SEM_TYPE_ERROR, "Wrong expression");
         }
     }
 
@@ -81,6 +92,8 @@ bool expression(token_type expected_type)
             return (postString(expected_type, return_type));
             break;
         default:
+            stackFree(stack);
+            free(stack);
             ERROR_AND_RETURN(OTHER_ERROR, "Unknown token type");
     }
 }
@@ -109,13 +122,19 @@ bool getTerm()
                     case STRING: term.index = STRING_IN;
                         break;
                     default:
+                        stackFree(stack);
+                        free(stack);
                         ERROR_AND_RETURN(SEM_TYPE_ERROR, "Bad return type of function");
                 }
                 UPDATE_LAST_TOKEN();
                 if (last_token.type != LEFT_PARENTH_OP)
+                    stackFree(stack);
+                    free(stack);
                     ERROR_AND_RETURN(SEM_TYPE_ERROR, "Expected '(' after function");
                 return true;
             }
+            stackFree(stack);
+            free(stack);
             ERROR_AND_RETURN(SEM_PROG_ERROR, "Undefined function");
         }
         //search in var_table
@@ -132,15 +151,20 @@ bool getTerm()
                     case STRING: term.index = STRING_IN;
                         break;
                     default:
-                        addError(SEM_TYPE_ERROR, "Unknown variable type");
-                        return false;
+                        stackFree(stack);
+                        free(stack);
+                        ERROR_AND_RETURN(SEM_TYPE_ERROR, "Unknown variable type");
                 }
             return true;
         }
         UPDATE_LAST_TOKEN();
         if (last_token.type == LEFT_PARENTH_OP)
+            stackFree(stack);
+            free(stack);
             ERROR_AND_RETURN(SEM_PROG_ERROR, "Undeclared function");
         else
+            stackFree(stack);
+            free(stack);
             ERROR_AND_RETURN(SEM_PROG_ERROR, "Undeclared variable");   
     }
     //int, float and string constants
@@ -165,11 +189,8 @@ bool postNumber(token_type expected_type, token_type return_type)
 {
     tTerm* stack_term;
 
-    tStack* stack = stackInit();
-
     int operand_count = 0;
     int operation_count = 0;
-    int parentals_count = 0;
     bool logic_allowed = true;
     bool negative_number = false;
 
@@ -324,6 +345,7 @@ bool postNumber(token_type expected_type, token_type return_type)
             }
             else
             {
+                stackFree(stack);
                 free(stack);
                 ERROR_AND_RETURN(SEM_TYPE_ERROR,"More than one relation operation in expression");
             }
@@ -342,17 +364,20 @@ bool postNumber(token_type expected_type, token_type return_type)
                     simple_bool = true; 
                 }
                 generateInstruction(return_type, term);
+                stackFree(stack);
                 free(stack);
                 return true;
             }
             else
             {
+                stackFree(stack);
                 free(stack);
                 ERROR_AND_RETURN(SYN_ERROR,"Bad number of operations or operands in expression");  
             }
         }
         else
         {
+            stackFree(stack);
             free(stack);
             ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad operation or operand in expression");
         }
@@ -371,7 +396,6 @@ bool postString(token_type expected_type, token_type return_type)
 
     int string_count = 0;
     int operation_count = 0;
-    int parentals_count = 0;
     bool logic_allowed = true;
 
     do
@@ -423,6 +447,7 @@ bool postString(token_type expected_type, token_type return_type)
                 }
                 else
                 {
+                    stackFree(stack);
                     free(stack);
                     ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad number of parentals in expression");
                 }     
@@ -472,6 +497,7 @@ bool postString(token_type expected_type, token_type return_type)
             }
             else
             {
+                stackFree(stack);
                 free(stack);
                 ERROR_AND_RETURN(SEM_TYPE_ERROR,"More than one relation operation in expression");
             }
@@ -486,17 +512,20 @@ bool postString(token_type expected_type, token_type return_type)
                     generateInstruction(return_type, *stack_term); 
                 }
                 generateInstruction(return_type, term); 
+                stackFree(stack);
                 free(stack);
                 return true;
             }
             else
             {
+                stackFree(stack);
                 free(stack);
                 ERROR_AND_RETURN(SYN_ERROR,"Bad number of operations or strings in expression");  
             }
         }
         else
         {
+            stackFree(stack);
             free(stack);
             ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad operation or operand in expression");
         }
