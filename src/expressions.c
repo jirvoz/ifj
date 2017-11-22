@@ -171,13 +171,13 @@ bool postNumber(token_type expected_type, token_type return_type)
     int operation_count = 0;
     int parentals_count = 0;
     bool logic_allowed = true;
-    bool unary = false;
+    bool negative_number = false;
 
     do
     {
         if (term.index == INT_IN || term.index == DOUBLE_IN)
         {
-            if(unary)
+            if(negative_number)                 //if first in expresion is sign + or -
             {
                 if (term.index == INT_IN)
                 {
@@ -187,17 +187,23 @@ bool postNumber(token_type expected_type, token_type return_type)
                 {
                     return_type = DOUBLE;
                 }
-                unary = false;
+                negative_number = false;
             }
+
+            if ((expected_type == UNDEFINED_TOK) && (term.index == DOUBLE_IN)) //if is in undefined expression Double whole expression convert to Double
+            {
+                return_type == DOUBLE;
+            }
+
             operand_count++;
             generateInstruction(return_type, term);
             UPDATE_LAST_TOKEN();
         }
         else if (term.index == PLUS_IN || term.index == MINUS_IN || term.index == MUL_IN || term.index == FLOAT_DIV_IN || term.index == INT_DIV_IN)  //Operands and operations allowed when expected type is INTEGER or DOUBLE      
         {
-            if (operand_count == 0)     //unary + or - solved ... firstly push 0.0
+            if (operand_count == 0)     //negative_number + or - solved ... firstly push 0.0
             {
-                unary = true;
+                negative_number = true;
                 operand_count++;
                 tTerm tmp_term;
                 tmp_term.index = DOUBLE_IN;
@@ -206,6 +212,12 @@ bool postNumber(token_type expected_type, token_type return_type)
 
                 generateInstruction(return_type, tmp_term);
             }
+
+            if ((expected_type == UNDEFINED_TOK) && (term.index == FLOAT_DIV_IN))   //if in undefined expression is float div then convert to double
+            {
+                return_type = DOUBLE;
+            }
+
             operation_count++;
 
             if (stackEmpty(stack))
