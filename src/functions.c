@@ -112,9 +112,7 @@ bool function_params(tSymbol* symbol)
                 else
                 {
                     if (param_count > symbol->arg_count)
-                        ERROR_AND_RETURN(SEM_PROG_ERROR, "Different parmeter count at definition.");
-                    if (strcmp(var_name, symbol->arg_names[param_count - 1]) != 0)
-                        ERROR_AND_RETURN(SEM_PROG_ERROR, "Different parmeter name at definition.");
+                        ERROR_AND_RETURN(SEM_TYPE_ERROR, "Different parmeter count at definition.");
                     if (last_token.type != symbol->arg_types[param_count - 1])
                         ERROR_AND_RETURN(SEM_TYPE_ERROR, "Different parmeter type at definition.");
                 }
