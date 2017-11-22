@@ -501,7 +501,6 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
         tSymbol* symbol = htSearch(func_table, sent_term.token.attribute.string_ptr);
         if (symbol != NULL)
         {
-            UPDATE_LAST_TOKEN();
             if (!call(sent_term.token.attribute.string_ptr))
                 return false;
 
