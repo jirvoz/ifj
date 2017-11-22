@@ -11,7 +11,8 @@
 #define P_TAB_SIZE 19
 
 //this flag signalize if strings were created on the stack
-bool string_added;
+bool string_added = false;
+bool simple_bool = false;
 
 //global variable for expressions
 tTerm term;
@@ -39,6 +40,50 @@ const int precedence_table[P_TAB_SIZE][P_TAB_SIZE] =
     {'>', '>', '>', '>', '>', '>', '>', '>', '>', '>', '>', '<', 'x', '<', '<', 'x',    'x',  '>', '>'}, //un'-'
     {'<', '<', '<', '<', '<', '<', '<', '<', '<', '<', '<', '<', 'x', '<', '<', '<',    'x',  '<', 'x'}, //'$'
 };
+
+//main expression function
+bool expression(token_type expected_type)
+{
+    // last_token is first token of expression
+
+    if (!getTerm() || term.index == DOLAR_IN)
+    {
+        return false;
+    }
+
+    token_type return_type = expected_type;
+
+    if (expected_type == UNDEFINED_TOK || expected_type == BOOLEAN ) // Undefined token set by first token type
+    {
+        switch (term.index)
+        {
+            case INT_IN: return_type = INTEGER;
+                break;
+            case MINUS_IN:
+            case PLUS_IN:
+            case DOUBLE_IN: return_type = DOUBLE;
+                break;
+            case STRING_IN: return_type = STRING;
+                break;
+            default:
+                addError(SEM_TYPE_ERROR, "Wrong expression");
+                return false;
+        }
+    }
+
+    switch (return_type)
+    {
+        case INTEGER:
+        case DOUBLE:
+            return (postNumber(expected_type, return_type));
+            break;
+        case STRING:
+            return (postString(expected_type, return_type));
+            break;
+        default:
+            ERROR_AND_RETURN(OTHER_ERROR, "Unknown token type");
+    }
+}
 
 bool getTerm()
 {
@@ -113,48 +158,6 @@ bool getTerm()
     return true;
 }
 
-//main expression function
-bool expression(token_type expected_type)
-{
-    // last_token is first token of expression
-
-    if (!getTerm() || term.index == DOLAR_IN)
-    {
-        return false;
-    }
-
-    token_type return_type = expected_type;
-
-    if (expected_type == UNDEFINED_TOK || expected_type == BOOLEAN ) // Undefined token set by first token type
-    {
-        switch (term.index)
-        {
-            case INT_IN: return_type = INTEGER;
-                break;
-            case DOUBLE_IN: return_type = DOUBLE;
-                break;
-            case STRING_IN: return_type = STRING;
-                break;
-            default:
-                addError(SEM_TYPE_ERROR, "Wrong expression");
-                return false;
-        }
-    }
-
-    switch (return_type)
-    {
-        case INTEGER:
-        case DOUBLE:
-            return (postNumber(expected_type, return_type));
-            break;
-        case STRING:
-            return (postString(expected_type, return_type));
-            break;
-        default:
-            ERROR_AND_RETURN(OTHER_ERROR, "Unknown token type");
-    }
-}
-
 bool postNumber(token_type expected_type, token_type return_type)
 {
     tTerm* stack_term;
@@ -165,17 +168,41 @@ bool postNumber(token_type expected_type, token_type return_type)
     int operation_count = 0;
     int parentals_count = 0;
     bool logic_allowed = true;
+    bool unary = false;
 
     while (getTerm())
     {
         if (term.index == INT_IN || term.index == DOUBLE_IN)
         {
+            if(unary)
+            {
+                if (term.index == INT_IN)
+                {
+                    return_type = INTEGER;
+                }
+                else
+                {
+                    return_type = DOUBLE;
+                }
+                unary = false;
+            }
             operand_count++;
             generateInstruction(return_type, term);
             UPDATE_LAST_TOKEN();
         }
         else if (term.index == PLUS_IN || term.index == MINUS_IN || term.index == MUL_IN || term.index == FLOAT_DIV_IN || term.index == INT_DIV_IN)  //Operands and operations allowed when expected type is INTEGER or DOUBLE      
         {
+            if (operand_count == 0)     //unary + or - solved ... firstly push 0.0
+            {
+                unary = true;
+                operand_count++;
+                tTerm tmp_term;
+                tmp_term.index = DOUBLE_IN;
+                tmp_term.token.type = FLOATING_POINT_TOK;
+                tmp_term.token.float_number = 0.0;
+
+                generateInstruction(return_type, tmp_term);
+            }
             operation_count++;
 
             if (stackEmpty(stack))
@@ -294,6 +321,10 @@ bool postNumber(token_type expected_type, token_type return_type)
                 {
                     stack_term = stackPop(stack);
                     generateInstruction(return_type, *stack_term); 
+                }
+                if (logic_allowed)
+                {
+                    simple_bool = true; 
                 }
                 generateInstruction(return_type, term);
                 free(stack);
