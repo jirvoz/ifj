@@ -103,6 +103,7 @@ bool getTerm()
                 switch (symbol->type)
                 {
                     case INTEGER: term.index = INT_IN;
+                        fprintf(stderr, "nastavujem int_in na %d\n", term.index);
                         break;
                     case DOUBLE: term.index = DOUBLE_IN;
                         break;
@@ -114,7 +115,9 @@ bool getTerm()
                 UPDATE_LAST_TOKEN();
                 if (last_token.type != LEFT_PARENTH_OP)
                     ERROR_AND_RETURN(SEM_TYPE_ERROR, "Expected '(' after function");
+                fprintf(stderr, "vraciam true, index je: %d\n", term.index);
                 return true;
+                fprintf(stderr, "som za true\n");
             }
             ERROR_AND_RETURN(SEM_PROG_ERROR, "Undefined function");
         }
@@ -173,10 +176,12 @@ bool postNumber(token_type expected_type, token_type return_type)
     bool logic_allowed = true;
     bool unary = false;
 
-    while (getTerm())
+    do
     {
+        fprintf(stderr, "term.index: %d\n", term.index);
         if (term.index == INT_IN || term.index == DOUBLE_IN)
         {
+            fprintf(stderr, "IS INT\n");
             if(unary)
             {
                 if (term.index == INT_IN)
@@ -336,6 +341,7 @@ bool postNumber(token_type expected_type, token_type return_type)
             else
             {
                 free(stack);
+                fprintf(stderr, "operators: %d, operand: %d \n", operation_count, operand_count);
                 ERROR_AND_RETURN(SYN_ERROR,"Bad number of operations or operands in expression");  
             }
         }
@@ -344,7 +350,7 @@ bool postNumber(token_type expected_type, token_type return_type)
             free(stack);
             ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad operation or operand in expression");
         }
-    }
+    } while (getTerm());
 
     return false;
 }
@@ -362,7 +368,7 @@ bool postString(token_type expected_type, token_type return_type)
     int parentals_count = 0;
     bool logic_allowed = true;
 
-    while (getTerm())
+    do
     {
         if (term.index == STRING_IN)
         {
@@ -488,7 +494,7 @@ bool postString(token_type expected_type, token_type return_type)
             free(stack);
             ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad operation or operand in expression");
         }
-    }
+    } while (getTerm());
 
     return false;
 }
