@@ -112,9 +112,7 @@ bool function_params(tSymbol* symbol)
                 else
                 {
                     if (param_count > symbol->arg_count)
-                        ERROR_AND_RETURN(SEM_PROG_ERROR, "Different parmeter count at definition.");
-                    if (strcmp(var_name, symbol->arg_names[param_count - 1]) != 0)
-                        ERROR_AND_RETURN(SEM_PROG_ERROR, "Different parmeter name at definition.");
+                        ERROR_AND_RETURN(SEM_TYPE_ERROR, "Different parmeter count at definition.");
                     if (last_token.type != symbol->arg_types[param_count - 1])
                         ERROR_AND_RETURN(SEM_TYPE_ERROR, "Different parmeter type at definition.");
                 }
@@ -304,6 +302,20 @@ bool function_def()
     if (last_token.type != END)
         ERROR_AND_RETURN(SYN_ERROR, "Expected END at function ending.");
 
+    switch (func_symbol->type)
+    {
+        case INTEGER:
+            printf("PUSHS int@0\n");
+            break;
+        case DOUBLE:
+            printf("PUSHS float@0\n");
+            break;
+        case STRING:
+            printf("PUSHS string@\n");
+            break;
+        default:
+            ERROR_AND_RETURN(OTHER_ERROR, "Unknown function return type.");
+    }
     printf("POPFRAME\n");
     printf("RETURN\n\n");
 
