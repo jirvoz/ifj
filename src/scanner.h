@@ -109,5 +109,6 @@ int getNextToken(tToken*, FILE*);       //main functions of scanner
 int operatorTest(char);                 //this functions tests, if next token is operator(+,-,...)
 int identifierTest(string*, char**);    //this functions tests, if identifier is keyword
 bool returnFalse(err_code, const char*, string*);   //this functions is called is error occured
+bool returnClean(string* str);           //this function is called when OK
 
 #endif
