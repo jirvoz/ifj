@@ -101,6 +101,7 @@ bool expression(token_type expected_type)
 
 bool getTerm()
 {
+    fprintf(stderr, "getTerm, token is: %d\n", last_token.type);
     //set token in term
     term.token = last_token;
 
@@ -389,8 +390,6 @@ bool postString(token_type expected_type, token_type return_type)
     string_added = true;
 
     tTerm* stack_term;
-
-    tStack* stack = stackInit();
 
     int string_count = 0;
     int operation_count = 0;
