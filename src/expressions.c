@@ -168,25 +168,25 @@ bool getTerm(tTerm* term)
     {
         term->index = INT_IN;
         term->token.type = IDENTIFIER_TOK;
-        term->token.attribute.tmp_string = "asc\0";
+        term->token.attribute.string_ptr = "asc\0";
     }
     else if(last_token.type == CHR)
     {
         term->index = STRING_IN;
         term->token.type = IDENTIFIER_TOK;
-        term->token.attribute.tmp_string = "chr\0";
+        term->token.attribute.string_ptr = "chr\0";
     }
     else if(last_token.type == LENGTH)
     {
         term->index = INT_IN;
         term->token.type = IDENTIFIER_TOK;
-        term->token.attribute.tmp_string = "length\0";
+        term->token.attribute.string_ptr = "length\0";
     }
     else if(last_token.type == SUBSTR)
     {
         term->index = STRING_IN;
         term->token.type = IDENTIFIER_TOK;
-        term->token.attribute.tmp_string = "substr\0";
+        term->token.attribute.string_ptr = "substr\0";
     }
     //int, float and string constants
     else if (last_token.type >= INTEGER_TOK && last_token.type <= STRING_TOK)
