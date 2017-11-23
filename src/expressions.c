@@ -46,16 +46,14 @@ const int precedence_table[P_TAB_SIZE][P_TAB_SIZE] =
 //main expression function
 bool expression(token_type expected_type)
 {
-    stack = stackInit();
 
     // last_token is first token of expression
     if (!getTerm() || term.index == DOLAR_IN)
     {
-        stackFree(stack);
-        free(stack);
         ERROR_AND_RETURN(SYN_ERROR, "Empty expression");
     }
-    
+    stack = stackInit();
+
     token_type return_type = expected_type;
 
     if (expected_type == UNDEFINED_TOK || expected_type == BOOLEAN ) // Undefined token set by first token type
@@ -125,21 +123,15 @@ bool getTerm()
                     case STRING: term.index = STRING_IN;
                         break;
                     default:
-                        stackFree(stack);
-                        free(stack);
                         ERROR_AND_RETURN(SEM_TYPE_ERROR, "Bad return type of function");
                 }
                 UPDATE_LAST_TOKEN();
                 if (last_token.type != LEFT_PARENTH_OP)
                 {
-                    stackFree(stack);
-                    free(stack);
                     ERROR_AND_RETURN(SEM_TYPE_ERROR, "Expected '(' after function");
                 }
                 return true;
             }
-            stackFree(stack);
-            free(stack);
             ERROR_AND_RETURN(SEM_PROG_ERROR, "Undefined function");
         }
 
@@ -157,8 +149,6 @@ bool getTerm()
                     case STRING: term.index = STRING_IN;
                         break;
                     default:
-                        stackFree(stack);
-                        free(stack);
                         ERROR_AND_RETURN(SEM_TYPE_ERROR, "Unknown variable type");
                 }
             return true;
@@ -166,14 +156,10 @@ bool getTerm()
         UPDATE_LAST_TOKEN();
         if (last_token.type == LEFT_PARENTH_OP)
         {
-            stackFree(stack);
-            free(stack);
             ERROR_AND_RETURN(SEM_PROG_ERROR, "Undeclared function");
         }
         else
         {
-            stackFree(stack);
-            free(stack);
             ERROR_AND_RETURN(SEM_PROG_ERROR, "Undeclared variable");
         } 
     }
