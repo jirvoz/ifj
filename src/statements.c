@@ -217,6 +217,10 @@ bool if_stat()
     if (!expression(BOOLEAN))
         return false;
 
+    // Test token THEN after expression in if
+    if (last_token.type != THEN)
+        ERROR_AND_RETURN(SYN_ERROR, "Expected THEN after if expression.");
+
     // Write jump instruction
     printf("PUSHS bool@true\n");
     printf("JUMPIFNEQS &else%d\n", if_line_number);
@@ -281,6 +285,10 @@ bool while_stat()
     if (!expression(BOOLEAN))
         return false;
 
+    // Check if expression ends with EOL
+    if (last_token.type != EOL_TOK)
+        ERROR_AND_RETURN(SYN_ERROR, "Expected end of line after while expression.");
+
     // Write jump instruction
     printf("PUSHS bool@true\n");
     printf("JUMPIFNEQS &loop%d\n", while_line_number);
@@ -314,8 +322,14 @@ bool return_stat()
 
     // Call expression parsing
     tSymbol* func_symbol = htSearch(func_table, actual_function);
+
     UPDATE_LAST_TOKEN();
-    expression(func_symbol->type);
+    if (!expression(func_symbol->type))
+        return false;
+
+    // Check if return expression ends with EOL
+    if (last_token.type != EOL_TOK)
+        ERROR_AND_RETURN(SYN_ERROR, "Expected end of line after while expression.");
 
     // Returned value is on the top of stack
     printf("POPFRAME\n");
