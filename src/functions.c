@@ -89,6 +89,11 @@ bool function_params(tSymbol* symbol)
         // Get parameter name
         char* var_name = last_token.attribute.string_ptr;
 
+        // Check for same parameter names
+        for (int i = 0; i < param_count - 1; i++)
+            if (strcmp(var_name, symbol->arg_names[i]) == 0)
+                ERROR_AND_RETURN(SEM_PROG_ERROR, "Duplicit name of function parameter.");
+
         UPDATE_LAST_TOKEN();
 
         // Check for AS after identifier
@@ -111,10 +116,18 @@ bool function_params(tSymbol* symbol)
                 // Check if parameters are same
                 else
                 {
+                    // Check parameter count
                     if (param_count > symbol->arg_count)
-                        ERROR_AND_RETURN(SEM_TYPE_ERROR, "Different parmeter count at definition.");
+                        ERROR_AND_RETURN(SEM_TYPE_ERROR, "Higher parmeter count at definition.");
+                    // Check same type of parameter
                     if (last_token.type != symbol->arg_types[param_count - 1])
-                        ERROR_AND_RETURN(SEM_TYPE_ERROR, "Different parmeter type at definition.");
+                        ERROR_AND_RETURN(SEM_PROG_ERROR, "Different parmeter type at definition.");
+
+                    // Update parameter name
+                    free(symbol->arg_names[param_count - 1]);
+                    char* new_name = malloc((strlen(var_name) + 1) * sizeof(char));
+                    new_name = strcpy(new_name, var_name);
+                    symbol->arg_names[param_count - 1] = new_name;
                 }
                 break;
             default:
@@ -131,8 +144,8 @@ bool function_params(tSymbol* symbol)
     }
 
     // Check same number of parameters at declaration and definition
-    if (symbol->type == UNDEFINED_TOK && param_count != symbol->arg_count)
-        ERROR_AND_RETURN(SEM_PROG_ERROR, "Different parmeter count at definition.");
+    if (symbol->type != UNDEFINED_TOK && param_count != symbol->arg_count)
+        ERROR_AND_RETURN(SEM_TYPE_ERROR, "Lower parmeter count at definition.");
 
     // Check for right bracket after parameters
     if (last_token.type != RIGHT_PARENTH_OP)
