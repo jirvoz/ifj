@@ -13,7 +13,6 @@
 //this flag signalize if strings were created on the stack
 bool string_added = false;
 bool simple_bool = false;
-//int brackets_count = 0;
 tStack* stack;
 
 //global variable for expressions
@@ -60,7 +59,6 @@ bool expression(token_type expected_type)
     {
         while (term.index == LEFT_PARENT_IN)    //first left brackets push on stack
         {
-            //brackets_count++;
             stackPush(stack, term);
             UPDATE_LAST_TOKEN();
             getTerm();
@@ -273,24 +271,29 @@ bool postNumber(token_type expected_type, token_type return_type)
         {
             if (term.index == LEFT_PARENT_IN)
             {
-                //brackets_count++;
                 stackPush(stack, term);
                 UPDATE_LAST_TOKEN();
             }
             else
-            {   
-               //if (brackets_count > 0)
-                //{
-                    //brackets_count--;
-                    stack_term = stackTop(stack);
+            {
+                if (stackEmpty(stack))
+                {  
+                    stack_term->index = DOLAR_IN;
+                    generateInstruction(return_type, *stack_term);
+                    stackFree(stack);
+                    free(stack);
+                    return true;
+                }
 
-                    while ((stack_term->index != LEFT_PARENT_IN) && !(stackEmpty(stack))) 
-                    {
-                        stack_term = stackPop(stack);  
-                        generateInstruction(return_type, *stack_term);
-                        stack_term = stackTop(stack);                        
-                    }
-               // }
+                stack_term = stackTop(stack);
+
+                while (!(stackEmpty(stack)) && (stack_term->index != LEFT_PARENT_IN))
+                {
+                    stack_term = stackPop(stack);  
+                    generateInstruction(return_type, *stack_term);
+                    stack_term = stackTop(stack);                        
+                }
+
                 if (stackEmpty(stack))
                 {  
                     stack_term->index = DOLAR_IN;
@@ -442,24 +445,29 @@ bool postString(token_type expected_type, token_type return_type)
         {
             if (term.index == LEFT_PARENT_IN)
             {
-                //brackets_count++;
                 stackPush(stack, term);
                 UPDATE_LAST_TOKEN();
             }
             else
-            {   
-               //if (brackets_count > 0)
-                //{
-                    //brackets_count--;
-                    stack_term = stackTop(stack);
+            {
+                if (stackEmpty(stack))
+                {  
+                    stack_term->index = DOLAR_IN;
+                    generateInstruction(return_type, *stack_term);
+                    stackFree(stack);
+                    free(stack);
+                    return true;
+                }
 
-                    while ((stack_term->index != LEFT_PARENT_IN) && !(stackEmpty(stack))) 
-                    {
-                        stack_term = stackPop(stack);  
-                        generateInstruction(return_type, *stack_term);
-                        stack_term = stackTop(stack);                        
-                    }
-               // }
+                stack_term = stackTop(stack);
+
+                while ((stack_term->index != LEFT_PARENT_IN) && !(stackEmpty(stack))) 
+                {
+                    stack_term = stackPop(stack);  
+                    generateInstruction(return_type, *stack_term);
+                    stack_term = stackTop(stack);                        
+                }
+
                 if (stackEmpty(stack))
                 {  
                     stack_term->index = DOLAR_IN;
