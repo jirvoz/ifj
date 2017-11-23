@@ -363,7 +363,7 @@ bool postNumber(token_type expected_type, token_type return_type)
                 {
                     stack_term = stackPop(stack);
 
-                    if (stack_term.index == LEFT_PARENT_IN)
+                    if (stack_term->index == LEFT_PARENT_IN)
                     {
                         stackFree(stack);
                         free(stack);
@@ -532,7 +532,7 @@ bool postString(token_type expected_type, token_type return_type)
                 {
                     stack_term = stackPop(stack);
 
-                    if (stack_term.index == LEFT_PARENT_IN)
+                    if (stack_term->index == LEFT_PARENT_IN)
                     {
                         stackFree(stack);
                         free(stack);
