@@ -89,6 +89,11 @@ bool function_params(tSymbol* symbol)
         // Get parameter name
         char* var_name = last_token.attribute.string_ptr;
 
+        // Check for same parameter names
+        for (int i = 0; i < param_count - 1; i++)
+            if (strcmp(var_name, symbol->arg_names[i]) == 0)
+                ERROR_AND_RETURN(SEM_PROG_ERROR, "Duplicit name of function parameter.");
+
         UPDATE_LAST_TOKEN();
 
         // Check for AS after identifier
