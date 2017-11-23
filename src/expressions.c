@@ -13,7 +13,7 @@
 //this flag signalize if strings were created on the stack
 bool string_added = false;
 bool simple_bool = false;
-int brackets_count = 0;
+//int brackets_count = 0;
 tStack* stack;
 
 //global variable for expressions
@@ -46,23 +46,22 @@ const int precedence_table[P_TAB_SIZE][P_TAB_SIZE] =
 //main expression function
 bool expression(token_type expected_type)
 {
-    stack = stackInit();
-
+    
     // last_token is first token of expression
     if (!getTerm() || term.index == DOLAR_IN)
     {
-        stackFree(stack);
-        free(stack);
         ERROR_AND_RETURN(SYN_ERROR, "Empty expression");
     }
     
     token_type return_type = expected_type;
 
+    stack = stackInit();
+
     if (expected_type == UNDEFINED_TOK || expected_type == BOOLEAN ) // Undefined token set by first token type
     {
         while (term.index == LEFT_PARENT_IN)    //first left brackets push on stack
         {
-            brackets_count++;
+            //brackets_count++;
             stackPush(stack, term);
             UPDATE_LAST_TOKEN();
             getTerm();
@@ -125,21 +124,15 @@ bool getTerm()
                     case STRING: term.index = STRING_IN;
                         break;
                     default:
-                        stackFree(stack);
-                        free(stack);
                         ERROR_AND_RETURN(SEM_TYPE_ERROR, "Bad return type of function");
                 }
                 UPDATE_LAST_TOKEN();
                 if (last_token.type != LEFT_PARENTH_OP)
                 {
-                    stackFree(stack);
-                    free(stack);
                     ERROR_AND_RETURN(SEM_TYPE_ERROR, "Expected '(' after function");
                 }
                 return true;
             }
-            stackFree(stack);
-            free(stack);
             ERROR_AND_RETURN(SEM_PROG_ERROR, "Undefined function");
         }
 
@@ -157,8 +150,6 @@ bool getTerm()
                     case STRING: term.index = STRING_IN;
                         break;
                     default:
-                        stackFree(stack);
-                        free(stack);
                         ERROR_AND_RETURN(SEM_TYPE_ERROR, "Unknown variable type");
                 }
             return true;
@@ -166,14 +157,10 @@ bool getTerm()
         UPDATE_LAST_TOKEN();
         if (last_token.type == LEFT_PARENTH_OP)
         {
-            stackFree(stack);
-            free(stack);
             ERROR_AND_RETURN(SEM_PROG_ERROR, "Undeclared function");
         }
         else
         {
-            stackFree(stack);
-            free(stack);
             ERROR_AND_RETURN(SEM_PROG_ERROR, "Undeclared variable");
         } 
     }
@@ -286,28 +273,34 @@ bool postNumber(token_type expected_type, token_type return_type)
         {
             if (term.index == LEFT_PARENT_IN)
             {
-                brackets_count++;
+                //brackets_count++;
                 stackPush(stack, term);
                 UPDATE_LAST_TOKEN();
             }
             else
-            {
-                if (brackets_count > 0)
-                {
-                    brackets_count--;
-                    stack_term = stackPop(stack);
+            {   
+               //if (brackets_count > 0)
+                //{
+                    //rackets_count--;
+                    stack_term = stackTop(stack);
 
-                    while (stack_term->index != LEFT_PARENT_IN) 
+                    while ((stack_term->index != LEFT_PARENT_IN) && !(stackEmpty(stack))) 
                     {
+                        stack_term = stackPop(stack);  
                         generateInstruction(return_type, *stack_term);
-                        stack_term = stackPop(stack);                        
+                        stack_term = stackTop(stack);                        
                     }
-                    UPDATE_LAST_TOKEN();
+               // }
+                if (stackEmpty(stack))
+                {
+                    stackFree(stack);
+                    free(stack);
+                    ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad number of brackets in expression");
                 }
                 else
                 {
-                    free(stack);
-                    ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad number of brackets in expression");
+                    stackPop(stack);
+                    UPDATE_LAST_TOKEN();
                 }     
             }
         }
@@ -362,7 +355,7 @@ bool postNumber(token_type expected_type, token_type return_type)
         }
         else if (term.index == DOLAR_IN)
         {
-            if ((brackets_count == 0) && ((operation_count + 1) == operand_count)) //
+            if ((operation_count + 1) == operand_count) //
             {
                 while (!stackEmpty(stack))
                 {
@@ -404,8 +397,6 @@ bool postString(token_type expected_type, token_type return_type)
 
     tTerm* stack_term;
 
-    tStack* stack = stackInit();
-
     int string_count = 0;
     int operation_count = 0;
     bool logic_allowed = true;
@@ -439,29 +430,34 @@ bool postString(token_type expected_type, token_type return_type)
         {
             if (term.index == LEFT_PARENT_IN)
             {
-                brackets_count++;
+                //brackets_count++;
                 stackPush(stack, term);
                 UPDATE_LAST_TOKEN();
             }
             else
             {   
-                if (brackets_count > 0)
-                {
-                    brackets_count--;
-                    stack_term = stackPop(stack);
+               //if (brackets_count > 0)
+                //{
+                    //rackets_count--;
+                    stack_term = stackTop(stack);
 
-                    while (stack_term->index != LEFT_PARENT_IN) 
+                    while ((stack_term->index != LEFT_PARENT_IN) && !(stackEmpty(stack))) 
                     {
+                        stack_term = stackPop(stack);  
                         generateInstruction(return_type, *stack_term);
-                        stack_term = stackPop(stack);                        
+                        stack_term = stackTop(stack);                        
                     }
-                    UPDATE_LAST_TOKEN();
-                }
-                else
+               // }
+                if (stackEmpty(stack))
                 {
                     stackFree(stack);
                     free(stack);
                     ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad number of brackets in expression");
+                }
+                else
+                {
+                    stackPop(stack);
+                    UPDATE_LAST_TOKEN();
                 }     
             }
         }
@@ -516,7 +512,7 @@ bool postString(token_type expected_type, token_type return_type)
         }
         else if (term.index == DOLAR_IN)
         {
-            if ((brackets_count == 0) && ((operation_count + 1) == string_count)) //
+            if ((operation_count + 1) == string_count) //
             {
                 while (!stackEmpty(stack))
                 {
