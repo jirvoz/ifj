@@ -110,27 +110,23 @@ bool getTerm(tTerm* term)
 
         if (symbol != NULL)
         {
-            if (symbol->defined)
+            switch (symbol->type)
             {
-                switch (symbol->type)
-                {
-                    case INTEGER: term->index = INT_IN;
-                        break;
-                    case DOUBLE: term->index = DOUBLE_IN;
-                        break;
-                    case STRING: term->index = STRING_IN;
-                        break;
-                    default:
-                        ERROR_AND_RETURN(SEM_PROG_ERROR, "Bad return type of function");
-                }
-                UPDATE_LAST_TOKEN();
-                if (last_token.type != LEFT_PARENTH_OP)
-                {
-                    ERROR_AND_RETURN(SEM_TYPE_ERROR, "Expected '(' after function");
-                }
-                return true;
+                case INTEGER: term->index = INT_IN;
+                    break;
+                case DOUBLE: term->index = DOUBLE_IN;
+                    break;
+                case STRING: term->index = STRING_IN;
+                    break;
+                default:
+                    ERROR_AND_RETURN(SEM_PROG_ERROR, "Bad return type of function");
             }
-            ERROR_AND_RETURN(SEM_PROG_ERROR, "Undefined function");
+            UPDATE_LAST_TOKEN();
+            if (last_token.type != LEFT_PARENTH_OP)
+            {
+                ERROR_AND_RETURN(SEM_TYPE_ERROR, "Expected '(' after function");
+            }
+            return true; 
         }
 
         //search in var_table
