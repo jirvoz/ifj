@@ -281,13 +281,13 @@ bool function_def()
         switch (func_symbol->arg_types[i])
         {
             case INTEGER:
-                printf("MOVE LF@%s int@0\n", func_symbol->arg_names[i]);
+                printf("POPS LF@%s\n", func_symbol->arg_names[i]);
                 break;
             case DOUBLE:
-                printf("MOVE LF@%s float@0\n", func_symbol->arg_names[i]);
+                printf("POPS LF@%s\n", func_symbol->arg_names[i]);
                 break;
             case STRING:
-                printf("MOVE LF@%s string@\n", func_symbol->arg_names[i]);
+                printf("POPS LF@%s\n", func_symbol->arg_names[i]);
                 break;
             default:
                 ERROR_AND_RETURN(OTHER_ERROR, "Bad type of function parameter.");
