@@ -156,76 +156,36 @@ bool callSubstr()
 
     ////////////////base function
     printf("CREATEFRAME\n");
-    printf("DEFVAR TF@$ret\n");
-    //base str
-    printf("DEFVAR TF@$bstr\n");
-    //start pos
-    printf("DEFVAR TF@$spos\n");
     //length of sub str
     printf("DEFVAR TF@$length\n");
-    //int vars
-    printf("DEFVAR TF@$plus1\n");
-    printf("DEFVAR TF@$count\n");
-    //sub string
-    printf("DEFVAR TF@$sstr\n");
-    //base str length
-    printf("DEFVAR TF@$bsl\n");
-    //bool var
-    printf("DEFVAR TF@$bool1\n");
-    printf("DEFVAR TF@$bool2\n");
-    //find out base str length
-    printf("STRLEN TF@$bsl TF@bstr\n");
-    //bsl minus start position
-    printf("DEFVAR TF@$bmsp\n");
-
-    printf("MOVE TF@$bool2 bool@true\n");
-    printf("MOVE TF@$plus1 int@1\n");
-    printf("MOVE TF@$count int@0\n");
-
     printf("POPS TF@$length\n");
-    printf("POPS TF@$spos\n");
-    printf("POPS TF@$bstr\n");
-    //if bsl == 0 jump to return empty str (res)
-    printf("JUMPIFEQ $res TF@$bsl TF@$count\n");
-    //if start pos of subs == 0 jump to return empty str (res)
-    printf("JUMPIFEQ $res TF@$spos TF@$count\n");
-    //check if start pos isn't negative
-    printf("LT TF@$bool1 TF@$spos TF@$count\n");
-    printf("JUMPIFEQ $res TF@$bool1 TF@$bool2\n");
-    //check if length of sub str isn't negative
-    printf("LT TF@$bool1 TF@$length TF@$count\n");
-    printf("JUMPIFEQ $refsp TF@$bool1 TF@$bool2\n");
-    //length of base str minus start position
-    printf("SUB TF@$bmsp TF@$bsl TF@$spos\n");
-    //check if length isn't greather than bmsp
-    printf("GT TF@$bool1 TF@$length TF@$bmsp\n");
-    printf("JUMPIFEQ $refsp TF@$bool1 TF@$bool2\n");
-    printf("JUMP $cycle\n");
-
-    ////////////////////return everting from strart position (refsp)
-    printf("LABEL $refsp\n");
-    //we must change length to bmsp
-    printf("MOVE TF@$length TF@$bmsp\n");
-    printf("JUMP $cycle\n");
+    //start pos
+    printf("DEFVAR TF@$start_pos\n");
+    printf("POPS TF@$start_pos\n");
+    printf("SUB TF@$start_pos TF@$start_pos int@1\n");
+    //input str
+    printf("DEFVAR TF@$in_str\n");
+    printf("POPS TF@$in_str\n");
+    //int vars
+    printf("DEFVAR TF@$count\n");
+    printf("MOVE TF@$count int@0\n");
+    //character
+    printf("DEFVAR TF@$char\n");
+    //output string
+    printf("DEFVAR TF@$ret\n");
+    printf("MOVE TF@$ret string@\n");
 
     ////////////////////cycle
-    printf("LABEL $cycle\n");
-    printf("GETCHAR TF@$sstr TF@$bstr TF@$spos\n");
+    printf("LABEL &cycle\n");
+    printf("GETCHAR TF@$char TF@$in_str TF@$start_pos\n");
     //conect pieces of return value
-    printf("CONCAT TF@$ret TF@$bret TF@$sstr\n");
-    printf("ADD TF@$count TF@$count TF@$plus1\n");
+    printf("CONCAT TF@$ret TF@$ret TF@$char\n");
+    printf("ADD TF@$count TF@$count int@1\n");
+    printf("ADD TF@$start_pos TF@$start_pos int@1\n");
+
     //if counter == length i jump to end label
-    printf("JUMPIFEQ $ssend TF@$count TF@$length\n");
-    printf("JUMP $cycle\n");
+    printf("JUMPIFNEQ &cycle TF@$count TF@$length\n");
 
-    ////////////////////return empty str
-    printf("LABEL $res\n");
-    //move to return empty str
-    printf("MOVE TF@$ret string@\n");
-    printf("JUMP $ssend\n");
-
-    //////////////////////substring end
-    printf("LABEL $ssend\n");
     printf("PUSHS TF@$ret\n");
 
     return true;
