@@ -8,7 +8,7 @@ VPATH=src:tests
 all: ifj
 
 ifj: main.o errors.o expressions.o functions.o parser.o scanner.o \
- stack.o statements.o strings.o symtable.o
+ stack.o statements.o strings.o symtable.o ifunc.o
 	$(CC) $(CFLAGS) $^ -o $@
 
 sctest: scanner_tests.o errors.o scanner.o strings.o
@@ -33,6 +33,7 @@ strings.o: strings.c strings.h
 symtable.o: symtable.c symtable.h scanner.h strings.h errors.h
 
 scanner_tests.o: scanner_tests.c strings.h scanner.h strings.h
+ifunc.o: ifunc.c errors.h parser.h scanner.h symtable.h functions.h expressions.h
 
 tags: src/*
 	ctags -R .

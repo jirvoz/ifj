@@ -168,24 +168,44 @@ bool getTerm(tTerm* term)
         {
             term->index = INT_IN;
             term->token.type = ASC;
+            UPDATE_LAST_TOKEN();
+            if (last_token.type != LEFT_PARENTH_OP)
+            {
+                ERROR_AND_RETURN(SEM_TYPE_ERROR, "Expected '(' after function");
+            }
         }
             break;
         case CHR:
         {
             term->index = STRING_IN;
             term->token.type = CHR;
+            UPDATE_LAST_TOKEN();
+            if (last_token.type != LEFT_PARENTH_OP)
+            {
+                ERROR_AND_RETURN(SEM_TYPE_ERROR, "Expected '(' after function");
+            }
         }
             break;
         case LENGTH:
         {
             term->index = INT_IN;
             term->token.type = LENGTH;
+            UPDATE_LAST_TOKEN();
+            if (last_token.type != LEFT_PARENTH_OP)
+            {
+                ERROR_AND_RETURN(SEM_TYPE_ERROR, "Expected '(' after function");
+            }
         }
             break;
         case SUBSTR:
         {
             term->index = STRING_IN;
             term->token.type = SUBSTR;
+            UPDATE_LAST_TOKEN();
+            if (last_token.type != LEFT_PARENTH_OP)
+            {
+                ERROR_AND_RETURN(SEM_TYPE_ERROR, "Expected '(' after function");
+            }
         }
             break;
         default:
