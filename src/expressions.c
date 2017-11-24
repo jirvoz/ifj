@@ -5,7 +5,6 @@
 #include "functions.h"
 #include "parser.h"
 #include "statements.h"
-#include "stack.h"
 
 //size of precedence table
 #define P_TAB_SIZE 19
@@ -13,7 +12,6 @@
 //this flag signalize if strings were created on the stack
 bool string_added = false;
 bool simple_bool = false;
-tStack* stack;
 
 const int precedence_table[P_TAB_SIZE][P_TAB_SIZE] =
 {
@@ -53,7 +51,7 @@ bool expression(token_type expected_type)
     {
         ERROR_AND_RETURN(SYN_ERROR, "Empty expression");
     }
-    stack = stackInit();
+    tStack* stack = stackInit();
 
     token_type return_type = expected_type;
 
@@ -87,10 +85,10 @@ bool expression(token_type expected_type)
     {
         case INTEGER:
         case DOUBLE:
-            return (postNumber(expected_type, return_type, term));
+            return (postNumber(expected_type, return_type, term, stack));
             break;
         case STRING:
-            return (postString(expected_type, return_type, term));
+            return (postString(expected_type, return_type, term, stack));
             break;
         default:
             stackFree(stack);
@@ -206,7 +204,7 @@ bool getTerm(tTerm* term)
     return true;
 }
 
-bool postNumber(token_type expected_type, token_type return_type, tTerm* term)
+bool postNumber(token_type expected_type, token_type return_type, tTerm* term, tStack* stack)
 {
     tTerm* stack_term;
 
@@ -303,9 +301,11 @@ bool postNumber(token_type expected_type, token_type return_type, tTerm* term)
             else
             {
                 if (stackEmpty(stack))
-                {  
-                    stack_term->index = DOLAR_IN;
-                    generateInstruction(return_type, *stack_term);
+                {   
+                    tTerm tmp_term; 
+                    tmp_term.index = DOLAR_IN;
+                    tmp_term.token.type = EOL_TOK; //token_type musn't be empty
+                    generateInstruction(return_type, tmp_term);
                     stackFree(stack);
                     free(stack);
                     return true;
@@ -321,9 +321,11 @@ bool postNumber(token_type expected_type, token_type return_type, tTerm* term)
                 }
 
                 if (stackEmpty(stack))
-                {  
-                    stack_term->index = DOLAR_IN;
-                    generateInstruction(return_type, *stack_term);
+                {
+                    tTerm tmp_term; 
+                    tmp_term.index = DOLAR_IN;
+                    tmp_term.token.type = EOL_TOK; //token_type musn't be empty
+                    generateInstruction(return_type, tmp_term);
                     stackFree(stack);
                     free(stack);
                     return true;
@@ -432,7 +434,7 @@ bool postNumber(token_type expected_type, token_type return_type, tTerm* term)
     return false;
 }
 
-bool postString(token_type expected_type, token_type return_type, tTerm* term)
+bool postString(token_type expected_type, token_type return_type, tTerm* term, tStack* stack)
 {
     string_added = true;
 
@@ -478,8 +480,10 @@ bool postString(token_type expected_type, token_type return_type, tTerm* term)
             {
                 if (stackEmpty(stack))
                 {  
-                    stack_term->index = DOLAR_IN;
-                    generateInstruction(return_type, *stack_term);
+                    tTerm tmp_term; 
+                    tmp_term.index = DOLAR_IN;
+                    tmp_term.token.type = EOL_TOK; //token_type musn't be empty
+                    generateInstruction(return_type, tmp_term);
                     stackFree(stack);
                     free(stack);
                     return true;
@@ -496,8 +500,10 @@ bool postString(token_type expected_type, token_type return_type, tTerm* term)
 
                 if (stackEmpty(stack))
                 {  
-                    stack_term->index = DOLAR_IN;
-                    generateInstruction(return_type, *stack_term);
+                    tTerm tmp_term; 
+                    tmp_term.index = DOLAR_IN;
+                    tmp_term.token.type = EOL_TOK; //token_type musn't be empty
+                    generateInstruction(return_type, tmp_term);
                     stackFree(stack);
                     free(stack);
                     return true;
