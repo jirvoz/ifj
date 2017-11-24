@@ -335,3 +335,25 @@ bool function_def()
     // Test the correct ending of function
     return last_token.type == FUNCTION;
 }
+
+// Inbuild functions
+
+bool callAsc()
+{
+    return true;
+}
+
+bool callChr()
+{
+    return true;
+}
+
+bool callLength()
+{
+    return true;
+}
+
+bool callSubstr()
+{
+    return true;
+}

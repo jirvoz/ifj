@@ -18,4 +18,10 @@ bool function_decl();
 // Parse definition of function
 bool function_def();
 
+// Inbuild functions 
+bool callAsc();
+bool callChr();
+bool callLength();
+bool callSubstr();
+
 #endif
