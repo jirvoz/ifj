@@ -638,9 +638,21 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
 
     switch(sent_term.token.type)
     {
-        case ASC: return callAsc() ? true : false;
+        case ASC: 
+        {
+            if (!callAsc())
+                return false;
+            printf("INT2FLOATS\n");
+            return true;
+        }
         case CHR: return callChr() ? true : false;
-        case LENGTH: return callLength() ? true : false;
+        case LENGTH: 
+        {
+            if (!callLength())
+                return false;
+            printf("INT2FLOATS\n");
+            return true;
+        }
         case SUBSTR: return callSubstr() ? true : false;
         default:
             break;
@@ -658,9 +670,7 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
 
             //if return type is INT, convert to double
             if (symbol->type == INTEGER)
-            {
                 printf("INT2FLOATS\n");
-            }
             return true;
         }
     }
