@@ -13,8 +13,6 @@ char* actual_function;
 bool call(char* name)
 {
     // last_token.type is left bracket
-    if (last_token.type != LEFT_PARENTH_OP)
-        ERROR_AND_RETURN(SYN_ERROR, "Expected left parenthesis at the beginning of function.");
 
     // Check symtable if function exists
     tSymbol* symbol = htSearch(func_table, name);
