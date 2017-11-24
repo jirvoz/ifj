@@ -151,6 +151,12 @@ bool getTerm(tTerm* term)
                 }
             return true;
         }
+
+        if (term->index >= INT_IN && term->index <= STRING_IN)
+        {
+            ERROR_AND_RETURN(SYN_ERROR, "Unexpected operand in expression"); 
+        }
+
         UPDATE_LAST_TOKEN();
         if (last_token.type == LEFT_PARENTH_OP)
         {
