@@ -121,7 +121,7 @@ bool getTerm(tTerm* term)
                     case STRING: term->index = STRING_IN;
                         break;
                     default:
-                        ERROR_AND_RETURN(SEM_TYPE_ERROR, "Bad return type of function");
+                        ERROR_AND_RETURN(SEM_PROG_ERROR, "Bad return type of function");
                 }
                 UPDATE_LAST_TOKEN();
                 if (last_token.type != LEFT_PARENTH_OP)
@@ -151,6 +151,12 @@ bool getTerm(tTerm* term)
                 }
             return true;
         }
+
+        if (term->index >= INT_IN && term->index <= STRING_IN)
+        {
+            ERROR_AND_RETURN(SYN_ERROR, "Unexpected operand in expression"); 
+        }
+
         UPDATE_LAST_TOKEN();
         if (last_token.type == LEFT_PARENTH_OP)
         {
@@ -729,23 +735,15 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
         // '<=' - it's necessary to use also ORS instructions
         case LESS_EQ_IN:
         {
-            printf("LTS\n");
-            printf("DEFVAR LF@$flag\n");
-            printf("POPS LF@$flag\n");
-            printf("EQS\n");
-            printf("PUSHS LF@$flag\n");
-            printf("ORS\n");
+            printf("GTS\n");
+            printf("NOTS\n");
         }
             break;
         //'>=' - it's necessary to use also ORS instructions
         case MORE_EQ_IN:
         {
-            printf("GTS\n");
-            printf("DEFVAR LF@$flag\n");
-            printf("POPS LF@$flag\n");
-            printf("EQS\n");
-            printf("PUSHS LF@$flag\n");
-            printf("ORS\n");  
+            printf("LTS\n");
+            printf("NOTS\n"); 
         }
             break;
         //'=' - use simple EQS instruction
