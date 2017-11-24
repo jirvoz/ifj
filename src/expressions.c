@@ -5,6 +5,7 @@
 #include "functions.h"
 #include "parser.h"
 #include "statements.h"
+#include "ifunc.h"
 
 //size of precedence table
 #define P_TAB_SIZE 19
