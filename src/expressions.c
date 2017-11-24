@@ -735,23 +735,15 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
         // '<=' - it's necessary to use also ORS instructions
         case LESS_EQ_IN:
         {
-            printf("LTS\n");
-            printf("DEFVAR LF@$flag\n");
-            printf("POPS LF@$flag\n");
-            printf("EQS\n");
-            printf("PUSHS LF@$flag\n");
-            printf("ORS\n");
+            printf("GTS\n");
+            printf("NOTS\n");
         }
             break;
         //'>=' - it's necessary to use also ORS instructions
         case MORE_EQ_IN:
         {
-            printf("GTS\n");
-            printf("DEFVAR LF@$flag\n");
-            printf("POPS LF@$flag\n");
-            printf("EQS\n");
-            printf("PUSHS LF@$flag\n");
-            printf("ORS\n");  
+            printf("LTS\n");
+            printf("NOTS\n"); 
         }
             break;
         //'=' - use simple EQS instruction
