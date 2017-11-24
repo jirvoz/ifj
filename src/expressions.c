@@ -9,8 +9,6 @@
 //size of precedence table
 #define P_TAB_SIZE 19
 
-//this flag signalize if strings were created on the stack
-bool string_added = false;
 bool simple_bool = false;
 
 const int precedence_table[P_TAB_SIZE][P_TAB_SIZE] =
@@ -438,8 +436,6 @@ bool postNumber(token_type expected_type, token_type return_type, tTerm* term, t
 
 bool postString(token_type expected_type, token_type return_type, tTerm* term, tStack* stack)
 {
-    string_added = true;
-
     tTerm* stack_term;
 
     int string_count = 0;
@@ -664,7 +660,7 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
         case PLUS_IN:
         {
             //if int or float, add
-            if (!string_added)
+            if (return_type != STRING)
                 printf("ADDS\n");
 
             //if string, concatenate
