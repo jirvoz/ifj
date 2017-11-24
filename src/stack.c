@@ -1,6 +1,6 @@
 #include <malloc.h>
 #include "errors.h"
-#include "stack.h"
+#include "expressions.h"
 
 //initialization of stack - size is 8
 //top index is -1 => stack is empty
