@@ -121,7 +121,7 @@ bool getTerm(tTerm* term)
                     case STRING: term->index = STRING_IN;
                         break;
                     default:
-                        ERROR_AND_RETURN(SEM_TYPE_ERROR, "Bad return type of function");
+                        ERROR_AND_RETURN(SEM_PROG_ERROR, "Bad return type of function");
                 }
                 UPDATE_LAST_TOKEN();
                 if (last_token.type != LEFT_PARENTH_OP)
