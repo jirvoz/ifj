@@ -5,7 +5,6 @@
 #include "functions.h"
 #include "parser.h"
 #include "statements.h"
-#include "stack.h"
 
 //size of precedence table
 #define P_TAB_SIZE 19
@@ -13,11 +12,6 @@
 //this flag signalize if strings were created on the stack
 bool string_added = false;
 bool simple_bool = false;
-int brackets_count = 0;
-tStack* stack;
-
-//global variable for expressions
-tTerm term;
 
 const int precedence_table[P_TAB_SIZE][P_TAB_SIZE] =
 {
@@ -46,29 +40,31 @@ const int precedence_table[P_TAB_SIZE][P_TAB_SIZE] =
 //main expression function
 bool expression(token_type expected_type)
 {
-    stack = stackInit();
+    tTerm* term = malloc(sizeof(tTerm));
+    if (term == NULL)
+    {
+        ERROR_AND_RETURN(OTHER_ERROR, "Memmory allocation error");
+    }
 
     // last_token is first token of expression
-    if (!getTerm() || term.index == DOLAR_IN)
+    if (!getTerm(term) || term->index == DOLAR_IN)
     {
-        stackFree(stack);
-        free(stack);
         ERROR_AND_RETURN(SYN_ERROR, "Empty expression");
     }
-    
+    tStack* stack = stackInit();
+
     token_type return_type = expected_type;
 
     if (expected_type == UNDEFINED_TOK || expected_type == BOOLEAN ) // Undefined token set by first token type
     {
-        while (term.index == LEFT_PARENT_IN)    //first left brackets push on stack
+        while (term->index == LEFT_PARENT_IN)    //first left brackets push on stack
         {
-            brackets_count++;
-            stackPush(stack, term);
+            stackPush(stack, *term);
             UPDATE_LAST_TOKEN();
-            getTerm();
+            getTerm(term);
         }
 
-        switch (term.index)
+        switch (term->index)
         {
             case INT_IN: return_type = INTEGER;
                 break;
@@ -89,10 +85,10 @@ bool expression(token_type expected_type)
     {
         case INTEGER:
         case DOUBLE:
-            return (postNumber(expected_type, return_type));
+            return (postNumber(expected_type, return_type, term, stack));
             break;
         case STRING:
-            return (postString(expected_type, return_type));
+            return (postString(expected_type, return_type, term, stack));
             break;
         default:
             stackFree(stack);
@@ -101,10 +97,10 @@ bool expression(token_type expected_type)
     }
 }
 
-bool getTerm()
+bool getTerm(tTerm* term)
 {
     //set token in term
-    term.token = last_token;
+    term->token = last_token;
 
     //token is identifier, figure out if var or func
     if (last_token.type == IDENTIFIER_TOK)
@@ -118,28 +114,22 @@ bool getTerm()
             {
                 switch (symbol->type)
                 {
-                    case INTEGER: term.index = INT_IN;
+                    case INTEGER: term->index = INT_IN;
                         break;
-                    case DOUBLE: term.index = DOUBLE_IN;
+                    case DOUBLE: term->index = DOUBLE_IN;
                         break;
-                    case STRING: term.index = STRING_IN;
+                    case STRING: term->index = STRING_IN;
                         break;
                     default:
-                        stackFree(stack);
-                        free(stack);
                         ERROR_AND_RETURN(SEM_TYPE_ERROR, "Bad return type of function");
                 }
                 UPDATE_LAST_TOKEN();
                 if (last_token.type != LEFT_PARENTH_OP)
                 {
-                    stackFree(stack);
-                    free(stack);
                     ERROR_AND_RETURN(SEM_TYPE_ERROR, "Expected '(' after function");
                 }
                 return true;
             }
-            stackFree(stack);
-            free(stack);
             ERROR_AND_RETURN(SEM_PROG_ERROR, "Undefined function");
         }
 
@@ -150,15 +140,13 @@ bool getTerm()
         {
            switch (symbol->type)
                 {
-                    case INTEGER: term.index = INT_IN;
+                    case INTEGER: term->index = INT_IN;
                         break;
-                    case DOUBLE: term.index = DOUBLE_IN;
+                    case DOUBLE: term->index = DOUBLE_IN;
                         break;
-                    case STRING: term.index = STRING_IN;
+                    case STRING: term->index = STRING_IN;
                         break;
                     default:
-                        stackFree(stack);
-                        free(stack);
                         ERROR_AND_RETURN(SEM_TYPE_ERROR, "Unknown variable type");
                 }
             return true;
@@ -166,36 +154,57 @@ bool getTerm()
         UPDATE_LAST_TOKEN();
         if (last_token.type == LEFT_PARENTH_OP)
         {
-            stackFree(stack);
-            free(stack);
             ERROR_AND_RETURN(SEM_PROG_ERROR, "Undeclared function");
         }
         else
         {
-            stackFree(stack);
-            free(stack);
             ERROR_AND_RETURN(SEM_PROG_ERROR, "Undeclared variable");
         } 
+    }
+    //inbuild function
+    else if (last_token.type == ASC)
+    {
+        term->index = INT_IN;
+        term->token.type = IDENTIFIER_TOK;
+        term->token.attribute.string_ptr = "asc\0";
+    }
+    else if(last_token.type == CHR)
+    {
+        term->index = STRING_IN;
+        term->token.type = IDENTIFIER_TOK;
+        term->token.attribute.string_ptr = "chr\0";
+    }
+    else if(last_token.type == LENGTH)
+    {
+        term->index = INT_IN;
+        term->token.type = IDENTIFIER_TOK;
+        term->token.attribute.string_ptr = "length\0";
+    }
+    else if(last_token.type == SUBSTR)
+    {
+        term->index = STRING_IN;
+        term->token.type = IDENTIFIER_TOK;
+        term->token.attribute.string_ptr = "substr\0";
     }
     //int, float and string constants
     else if (last_token.type >= INTEGER_TOK && last_token.type <= STRING_TOK)
     {
-        term.index = last_token.type + 11;
+        term->index = last_token.type + 11;
     }
     //operators
     else if (last_token.type >= EQUAL_SIGN_OP && last_token.type <= RIGHT_PARENTH_OP)
     {
-        term.index = last_token.type - 10;
+        term->index = last_token.type - 10;
     }
-    //if other token_type, term.index is DOLAR - end of expression
+    //if other token_type, term->index is DOLAR - end of expression
     else
     {
-        term.index = DOLAR_IN;
+        term->index = DOLAR_IN;
     }
     return true;
 }
 
-bool postNumber(token_type expected_type, token_type return_type)
+bool postNumber(token_type expected_type, token_type return_type, tTerm* term, tStack* stack)
 {
     tTerm* stack_term;
 
@@ -206,11 +215,11 @@ bool postNumber(token_type expected_type, token_type return_type)
 
     do
     {
-        if (term.index == INT_IN || term.index == DOUBLE_IN)
+        if (term->index == INT_IN || term->index == DOUBLE_IN)
         {
             if(negative_number)                 //if first in expresion is sign + or -
             {
-                if (term.index == INT_IN)
+                if (term->index == INT_IN)
                 {
                     return_type = INTEGER;
                 }
@@ -221,16 +230,16 @@ bool postNumber(token_type expected_type, token_type return_type)
                 negative_number = false;
             }
 
-            if ((expected_type == UNDEFINED_TOK) && (term.index == DOUBLE_IN)) //if is in undefined expression Double whole expression convert to Double
+            if ((expected_type == UNDEFINED_TOK) && (term->index == DOUBLE_IN)) //if is in undefined expression Double whole expression convert to Double
             {
                 return_type = DOUBLE;
             }
 
             operand_count++;
-            generateInstruction(return_type, term);
+            generateInstruction(return_type, *term);
             UPDATE_LAST_TOKEN();
         }
-        else if (term.index == PLUS_IN || term.index == MINUS_IN || term.index == MUL_IN || term.index == FLOAT_DIV_IN || term.index == INT_DIV_IN)  //Operands and operations allowed when expected type is INTEGER or DOUBLE      
+        else if (term->index == PLUS_IN || term->index == MINUS_IN || term->index == MUL_IN || term->index == FLOAT_DIV_IN || term->index == INT_DIV_IN)  //Operands and operations allowed when expected type is INTEGER or DOUBLE      
         {
             if (operand_count == 0)     //negative_number + or - solved ... firstly push 0.0
             {
@@ -244,7 +253,7 @@ bool postNumber(token_type expected_type, token_type return_type)
                 generateInstruction(return_type, tmp_term);
             }
 
-            if ((expected_type == UNDEFINED_TOK) && (term.index == FLOAT_DIV_IN))   //if in undefined expression is float div then convert to double
+            if ((expected_type == UNDEFINED_TOK) && (term->index == FLOAT_DIV_IN))   //if in undefined expression is float div then convert to double
             {
                 return_type = DOUBLE;
             }
@@ -253,7 +262,7 @@ bool postNumber(token_type expected_type, token_type return_type)
 
             if (stackEmpty(stack))
             {
-                stackPush(stack, term);
+                stackPush(stack, *term);
                 UPDATE_LAST_TOKEN();
             }
             else
@@ -265,12 +274,12 @@ bool postNumber(token_type expected_type, token_type return_type)
                     if (!stackEmpty(stack))
                     {
                         stack_term = stackTop(stack);
-                        get_priority = precedence_table[stack_term->index][term.index];
+                        get_priority = precedence_table[stack_term->index][term->index];
                     }
     
                     if (get_priority == '<' || stackEmpty(stack))
                     {
-                        stackPush(stack, term);
+                        stackPush(stack, *term);
                         UPDATE_LAST_TOKEN();
                         break;
                     }
@@ -282,37 +291,54 @@ bool postNumber(token_type expected_type, token_type return_type)
                 }
             }
         }
-        else if (term.index == LEFT_PARENT_IN || term.index == RIGHT_PARENT_IN)
+        else if (term->index == LEFT_PARENT_IN || term->index == RIGHT_PARENT_IN)
         {
-            if (term.index == LEFT_PARENT_IN)
+            if (term->index == LEFT_PARENT_IN)
             {
-                brackets_count++;
-                stackPush(stack, term);
+                stackPush(stack, *term);
                 UPDATE_LAST_TOKEN();
             }
             else
             {
-                if (brackets_count > 0)
-                {
-                    brackets_count--;
-                    stack_term = stackPop(stack);
+                if (stackEmpty(stack))
+                {   
+                    tTerm tmp_term; 
+                    tmp_term.index = DOLAR_IN;
+                    tmp_term.token.type = EOL_TOK; //token_type musn't be empty
+                    generateInstruction(return_type, tmp_term);
+                    stackFree(stack);
+                    free(stack);
+                    return true;
+                }
 
-                    while (stack_term->index != LEFT_PARENT_IN) 
-                    {
-                        generateInstruction(return_type, *stack_term);
-                        stack_term = stackPop(stack);                        
-                    }
-                    UPDATE_LAST_TOKEN();
+                stack_term = stackTop(stack);
+
+                while (!(stackEmpty(stack)) && (stack_term->index != LEFT_PARENT_IN))
+                {
+                    stack_term = stackPop(stack);  
+                    generateInstruction(return_type, *stack_term);
+                    stack_term = stackTop(stack);                        
+                }
+
+                if (stackEmpty(stack))
+                {
+                    tTerm tmp_term; 
+                    tmp_term.index = DOLAR_IN;
+                    tmp_term.token.type = EOL_TOK; //token_type musn't be empty
+                    generateInstruction(return_type, tmp_term);
+                    stackFree(stack);
+                    free(stack);
+                    return true;
                 }
                 else
                 {
-                    free(stack);
-                    ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad number of brackets in expression");
+                    stackPop(stack);
+                    UPDATE_LAST_TOKEN();
                 }     
             }
         }
-        else if((term.index == EQ_EXPR_IN || term.index == NOT_EQ_IN || term.index == LESS_EQ_IN ||
-                 term.index == MORE_EQ_IN || term.index == LESS_IN || term.index == MORE_IN) && 
+        else if((term->index == EQ_EXPR_IN || term->index == NOT_EQ_IN || term->index == LESS_EQ_IN ||
+                 term->index == MORE_EQ_IN || term->index == LESS_IN || term->index == MORE_IN) && 
                 (expected_type == BOOLEAN || expected_type == UNDEFINED_TOK))
         {
             if (logic_allowed) 
@@ -324,7 +350,7 @@ bool postNumber(token_type expected_type, token_type return_type)
     
                 if (stackEmpty(stack))
                 {
-                    stackPush(stack, term);
+                    stackPush(stack, *term);
                     UPDATE_LAST_TOKEN();
                 }
                 else
@@ -336,12 +362,12 @@ bool postNumber(token_type expected_type, token_type return_type)
                         if (!stackEmpty(stack))
                         {
                             stack_term = stackTop(stack);
-                            get_priority = precedence_table[stack_term->index][term.index];
+                            get_priority = precedence_table[stack_term->index][term->index];
                         }
 
                         if (get_priority == '<' || stackEmpty(stack))
                         {
-                            stackPush(stack, term);
+                            stackPush(stack, *term);
                             UPDATE_LAST_TOKEN();
                             break;
                         }
@@ -360,20 +386,30 @@ bool postNumber(token_type expected_type, token_type return_type)
                 ERROR_AND_RETURN(SEM_TYPE_ERROR,"More than one relation operation in expression");
             }
         }
-        else if (term.index == DOLAR_IN)
+        else if (term->index == DOLAR_IN)
         {
-            if ((brackets_count == 0) && ((operation_count + 1) == operand_count)) //
+            if (((operation_count + 1) == operand_count)) //
             {
                 while (!stackEmpty(stack))
                 {
                     stack_term = stackPop(stack);
-                    generateInstruction(return_type, *stack_term); 
+
+                    if (stack_term->index == LEFT_PARENT_IN)
+                    {
+                        stackFree(stack);
+                        free(stack);
+                        ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad number of brackets in expression");
+                    }
+                    else
+                    {
+                       generateInstruction(return_type, *stack_term);  
+                    }
                 }
                 if (logic_allowed && expected_type == BOOLEAN)
                 {
                     simple_bool = true; 
                 }
-                generateInstruction(return_type, term);
+                generateInstruction(return_type, *term);
                 stackFree(stack);
                 free(stack);
                 return true;
@@ -391,20 +427,18 @@ bool postNumber(token_type expected_type, token_type return_type)
             free(stack);
             ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad operation or operand in expression");
         }
-    } while (getTerm());
+    } while (getTerm(term));
 
     stackFree(stack);
     free(stack);  
     return false;
 }
 
-bool postString(token_type expected_type, token_type return_type)
+bool postString(token_type expected_type, token_type return_type, tTerm* term, tStack* stack)
 {
     string_added = true;
 
     tTerm* stack_term;
-
-    tStack* stack = stackInit();
 
     int string_count = 0;
     int operation_count = 0;
@@ -412,61 +446,77 @@ bool postString(token_type expected_type, token_type return_type)
 
     do
     {
-        if (term.index == STRING_IN)
+        if (term->index == STRING_IN)
         {
             string_count++;
-            generateInstruction(return_type, term);
+            generateInstruction(return_type, *term);
             UPDATE_LAST_TOKEN();
         }
-        else if (term.index == PLUS_IN)
+        else if (term->index == PLUS_IN)
         {
             operation_count++;
 
             if (stackEmpty(stack))
             {
-                stackPush(stack, term);
+                stackPush(stack, *term);
                 UPDATE_LAST_TOKEN();
             }
             else
             {
                 stack_term = stackPop(stack);
                 generateInstruction(return_type, *stack_term);
-                stackPush(stack, term);
+                stackPush(stack, *term);
                 UPDATE_LAST_TOKEN();
             }
         }
-        else if (term.index == LEFT_PARENT_IN || term.index == RIGHT_PARENT_IN)
+        else if (term->index == LEFT_PARENT_IN || term->index == RIGHT_PARENT_IN)
         {
-            if (term.index == LEFT_PARENT_IN)
+            if (term->index == LEFT_PARENT_IN)
             {
-                brackets_count++;
-                stackPush(stack, term);
+                stackPush(stack, *term);
                 UPDATE_LAST_TOKEN();
             }
             else
-            {   
-                if (brackets_count > 0)
-                {
-                    brackets_count--;
-                    stack_term = stackPop(stack);
+            {
+                if (stackEmpty(stack))
+                {  
+                    tTerm tmp_term; 
+                    tmp_term.index = DOLAR_IN;
+                    tmp_term.token.type = EOL_TOK; //token_type musn't be empty
+                    generateInstruction(return_type, tmp_term);
+                    stackFree(stack);
+                    free(stack);
+                    return true;
+                }
 
-                    while (stack_term->index != LEFT_PARENT_IN) 
-                    {
-                        generateInstruction(return_type, *stack_term);
-                        stack_term = stackPop(stack);                        
-                    }
-                    UPDATE_LAST_TOKEN();
+                stack_term = stackTop(stack);
+
+                while ((stack_term->index != LEFT_PARENT_IN) && !(stackEmpty(stack))) 
+                {
+                    stack_term = stackPop(stack);  
+                    generateInstruction(return_type, *stack_term);
+                    stack_term = stackTop(stack);                        
+                }
+
+                if (stackEmpty(stack))
+                {  
+                    tTerm tmp_term; 
+                    tmp_term.index = DOLAR_IN;
+                    tmp_term.token.type = EOL_TOK; //token_type musn't be empty
+                    generateInstruction(return_type, tmp_term);
+                    stackFree(stack);
+                    free(stack);
+                    return true;
                 }
                 else
                 {
-                    stackFree(stack);
-                    free(stack);
-                    ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad number of brackets in expression");
+                    stackPop(stack);
+                    UPDATE_LAST_TOKEN();
                 }     
             }
         }
-        else if((term.index == EQ_EXPR_IN || term.index == NOT_EQ_IN || term.index == LESS_EQ_IN ||
-                 term.index == MORE_EQ_IN || term.index == LESS_IN || term.index == MORE_IN) && 
+        else if((term->index == EQ_EXPR_IN || term->index == NOT_EQ_IN || term->index == LESS_EQ_IN ||
+                 term->index == MORE_EQ_IN || term->index == LESS_IN || term->index == MORE_IN) && 
                 (expected_type == BOOLEAN || expected_type == UNDEFINED_TOK))
         {
             if (logic_allowed) 
@@ -478,7 +528,7 @@ bool postString(token_type expected_type, token_type return_type)
     
                 if (stackEmpty(stack))
                 {
-                    stackPush(stack, term);
+                    stackPush(stack, *term);
                     UPDATE_LAST_TOKEN();
                 }
                 else
@@ -490,12 +540,12 @@ bool postString(token_type expected_type, token_type return_type)
                         if (!stackEmpty(stack))
                         {
                             stack_term = stackTop(stack);
-                            get_priority = precedence_table[stack_term->index][term.index];
+                            get_priority = precedence_table[stack_term->index][term->index];
                         }
 
                         if (get_priority == '<' || stackEmpty(stack))
                         {
-                            stackPush(stack, term);
+                            stackPush(stack, *term);
                             UPDATE_LAST_TOKEN();
                             break;
                         }
@@ -514,16 +564,26 @@ bool postString(token_type expected_type, token_type return_type)
                 ERROR_AND_RETURN(SEM_TYPE_ERROR,"More than one relation operation in expression");
             }
         }
-        else if (term.index == DOLAR_IN)
+        else if (term->index == DOLAR_IN)
         {
-            if ((brackets_count == 0) && ((operation_count + 1) == string_count)) //
+            if (((operation_count + 1) == string_count)) //
             {
                 while (!stackEmpty(stack))
                 {
                     stack_term = stackPop(stack);
-                    generateInstruction(return_type, *stack_term); 
+
+                    if (stack_term->index == LEFT_PARENT_IN)
+                    {
+                        stackFree(stack);
+                        free(stack);
+                        ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad number of brackets in expression");
+                    }
+                    else
+                    {
+                       generateInstruction(return_type, *stack_term);  
+                    }
                 }
-                generateInstruction(return_type, term); 
+                generateInstruction(return_type, *term); 
                 stackFree(stack);
                 free(stack);
                 return true;
@@ -541,7 +601,7 @@ bool postString(token_type expected_type, token_type return_type)
             free(stack);
             ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad operation or operand in expression");
         }
-    } while (getTerm());
+    } while (getTerm(term));
 
     stackFree(stack);
     free(stack);  

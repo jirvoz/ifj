@@ -1,4 +1,4 @@
-#ifndef _STACK_H_
+/*#ifndef _STACK_H_
 #define _STACK_H_
 
 #include <stdbool.h>
@@ -8,7 +8,7 @@
 //structure of Stack with dynamic size
 typedef struct tStack 
 {
-    tTerm* arr;        //data
+    struct tTerm* arr;        //data
     int size;           //actual size of stack
     int top;            //index of item on the top of stack
 } tStack;
@@ -17,9 +17,10 @@ typedef struct tStack
 
 tStack* stackInit();
 bool stackEmpty(tStack* stack);
-void stackPush(tStack* stack, tTerm term);
-tTerm* stackPop(tStack* stack);
-tTerm* stackTop(tStack* stack);
+void stackPush(tStack* stack, struct tTerm term);
+struct tTerm* stackPop(tStack* stack);
+struct tTerm* stackTop(tStack* stack);
 void stackFree(tStack* stack);
 
 #endif
+*/
