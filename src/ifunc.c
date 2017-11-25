@@ -50,16 +50,35 @@ bool callAsc()
     if (last_token.type != RIGHT_PARENTH_OP)
         ERROR_AND_RETURN(SYN_ERROR, "Expected right parenthesis after function parameters.");
 
+    static int name0 = 0;
+    name0++;
+
      ////////////////////Asc function
     printf("CREATEFRAME\n");
     printf("DEFVAR TF@$ret\n");
+    printf("MOVE TF@$ret int@0\n");
+
     printf("DEFVAR TF@$pos\n");
     printf("POPS TF@$pos\n");
-    printf("SUB TF@$pos TF@$pos int@1\n");
+
     printf("DEFVAR TF@$str1\n");
     printf("POPS TF@$str1\n");
+
+    printf("DEFVAR TF@$tmp_len\n");
+    printf("STRLEN TF@$tmp_len TF@$str1\n");
+
+    printf("DEFVAR TF@$tmp_bool\n");
+    printf("GT TF@$tmp_bool TF@$pos TF@$tmp_len\n");
+
+    printf("JUMPIFEQ &ret0%d TF@$tmp_bool bool@true\n", name0);
+
+    printf("LT TF@$tmp_bool TF@$pos int@1\n");
+    printf("JUMPIFEQ &ret0%d TF@$tmp_bool bool@true\n", name0);
     
+    printf("SUB TF@$pos TF@$pos int@1\n");
     printf("STRI2INT TF@$ret TF@$str1 TF@$pos\n");
+
+    printf("LABEL &ret0%d\n", name0);
     printf("PUSHS TF@$ret\n");
 
     return true;
