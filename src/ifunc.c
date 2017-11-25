@@ -154,6 +154,11 @@ bool callSubstr()
     if (last_token.type != RIGHT_PARENTH_OP)
         ERROR_AND_RETURN(SYN_ERROR, "Expected right parenthesis after function parameters.");
 
+    static int name = 1;
+    name++;
+
+
+
     ////////////////base function
     printf("CREATEFRAME\n");
     //length of sub str
@@ -175,8 +180,26 @@ bool callSubstr()
     printf("DEFVAR TF@$ret\n");
     printf("MOVE TF@$ret string@\n");
 
-    ////////////////////cycle
-    printf("LABEL &cycle\n");
+
+    //if empty string or i <=0
+    printf("DEFVAR TF@$tmp_len\n");
+    printf("STRLEN TF@$tmp_len TF@$in_str\n");
+    printf("JUMPIFEQ &end%d TF@$tmp_len int@0\n", name);
+
+    printf("DEFVAR TF@$tmp_bool\n");
+    printf("GT TF@$tmp_bool TF@$start_pos int@-1\n");
+    printf("JUMPIFNEQ &end%d TF@$tmp_bool bool@true\n", name);
+    
+    //if n < 0 or n > length(string)
+    printf("LT TF@$tmp_bool TF@$length int@0\n");
+    printf("JUMPIFEQ &cycle2%d TF@$tmp_bool bool@true\n", name);
+
+    printf("GT TF@$tmp_bool TF@$length TF@$tmp_len\n");
+    printf("JUMPIFEQ &cycle2%d TF@$tmp_bool bool@true\n", name);
+
+
+    ////////////////////cycle1
+    printf("LABEL &cycle1%d\n", name);
     printf("GETCHAR TF@$char TF@$in_str TF@$start_pos\n");
     //conect pieces of return value
     printf("CONCAT TF@$ret TF@$ret TF@$char\n");
@@ -184,8 +207,15 @@ bool callSubstr()
     printf("ADD TF@$start_pos TF@$start_pos int@1\n");
 
     //if counter == length i jump to end label
-    printf("JUMPIFNEQ &cycle TF@$count TF@$length\n");
+    printf("JUMPIFNEQ &cycle1%d TF@$count TF@$length\n", name);
+    printf("JUMP &end%d\n", name);
 
+    printf("LABEL &cycle2%d\n", name);
+    printf("SUB TF@$length TF@$tmp_len TF@$start_pos\n");
+    printf("JUMP &cycle1%d\n", name);
+    
+
+    printf("LABEL &end%d\n", name);
     printf("PUSHS TF@$ret\n");
 
     return true;
