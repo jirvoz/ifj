@@ -807,7 +807,7 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
 
 void memory_clear(tTerm* term, tStack* stack)
 {
-    if (stack != NULL);
+    if (stack != NULL)
     {
         stackFree(stack);
         free(stack);
