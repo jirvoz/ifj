@@ -42,14 +42,14 @@ bool expression(token_type expected_type)
     tTerm* term = malloc(sizeof(tTerm));
     if (term == NULL)
     {
-        free(term);
+        memory_clear(term, NULL);
         ERROR_AND_RETURN(OTHER_ERROR, "Memmory allocation error");
     }
 
     // last_token is first token of expression
     if (!getTerm(term) || term->index == DOLAR_IN)
     {
-        free(term);
+        memory_clear(term, NULL);
         ERROR_AND_RETURN(SYN_ERROR, "Empty expression");
     }
     tStack* stack = stackInit();
@@ -76,9 +76,7 @@ bool expression(token_type expected_type)
             case STRING_IN: return_type = STRING;
                 break;
             default:
-                stackFree(stack);
-                free(stack);
-                free(term);
+                memory_clear(term, stack);
                 ERROR_AND_RETURN(SEM_TYPE_ERROR, "Wrong expression");
         }
     }
@@ -93,9 +91,7 @@ bool expression(token_type expected_type)
             return (postString(expected_type, return_type, term, stack));
             break;
         default:
-            stackFree(stack);
-            free(stack);
-            free(term);
+            memory_clear(term, stack);
             ERROR_AND_RETURN(OTHER_ERROR, "Unknown token type");
     }
 }
@@ -336,9 +332,7 @@ bool postNumber(token_type expected_type, token_type return_type, tTerm* term, t
                     tmp_term.index = DOLAR_IN;
                     tmp_term.token.type = EOL_TOK; //token_type musn't be empty
                     generateInstruction(return_type, tmp_term);
-                    stackFree(stack);
-                    free(stack);
-                    free(term);
+                    memory_clear(term, stack);
                     return true;
                 }
 
@@ -357,9 +351,7 @@ bool postNumber(token_type expected_type, token_type return_type, tTerm* term, t
                     tmp_term.index = DOLAR_IN;
                     tmp_term.token.type = EOL_TOK; //token_type musn't be empty
                     generateInstruction(return_type, tmp_term);
-                    stackFree(stack);
-                    free(stack);
-                    free(term);
+                    memory_clear(term, stack);
                     return true;
                 }
                 else
@@ -413,9 +405,7 @@ bool postNumber(token_type expected_type, token_type return_type, tTerm* term, t
             }
             else
             {
-                stackFree(stack);
-                free(stack);
-                free(term);
+                memory_clear(term, stack);
                 ERROR_AND_RETURN(SEM_TYPE_ERROR,"More than one relation operation in expression");
             }
         }
@@ -429,9 +419,7 @@ bool postNumber(token_type expected_type, token_type return_type, tTerm* term, t
 
                     if (stack_term->index == LEFT_PARENT_IN)
                     {
-                        stackFree(stack);
-                        free(stack);
-                        free(term);
+                        memory_clear(term, stack);
                         ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad number of brackets in expression");
                     }
                     else
@@ -444,31 +432,23 @@ bool postNumber(token_type expected_type, token_type return_type, tTerm* term, t
                     simple_bool = true; 
                 }
                 generateInstruction(return_type, *term);
-                stackFree(stack);
-                free(stack);
-                free(term);
+                memory_clear(term, stack);
                 return true;
             }
             else
             {
-                stackFree(stack);
-                free(stack);
-                free(term);
+                memory_clear(term, stack);
                 ERROR_AND_RETURN(SYN_ERROR,"Bad number of operations or operands in expression");  
             }
         }
         else
         {
-            stackFree(stack);
-            free(stack);
-            free(term);
+            memory_clear(term, stack);;
             ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad operation or operand in expression");
         }
     } while (getTerm(term));
 
-    stackFree(stack);
-    free(stack);  
-    free(term);
+    memory_clear(term, stack);
     return false;
 }
 
@@ -520,9 +500,7 @@ bool postString(token_type expected_type, token_type return_type, tTerm* term, t
                     tmp_term.index = DOLAR_IN;
                     tmp_term.token.type = EOL_TOK; //token_type musn't be empty
                     generateInstruction(return_type, tmp_term);
-                    stackFree(stack);
-                    free(stack);
-                    free(term);
+                    void memory_clear(term, stack);
                     return true;
                 }
 
@@ -541,9 +519,7 @@ bool postString(token_type expected_type, token_type return_type, tTerm* term, t
                     tmp_term.index = DOLAR_IN;
                     tmp_term.token.type = EOL_TOK; //token_type musn't be empty
                     generateInstruction(return_type, tmp_term);
-                    stackFree(stack);
-                    free(stack);
-                    free(term);
+                    void memory_clear(term, stack);
                     return true;
                 }
                 else
@@ -597,9 +573,7 @@ bool postString(token_type expected_type, token_type return_type, tTerm* term, t
             }
             else
             {
-                stackFree(stack);
-                free(stack);
-                free(term);
+                void memory_clear(term, stack);
                 ERROR_AND_RETURN(SEM_TYPE_ERROR,"More than one relation operation in expression");
             }
         }
@@ -613,9 +587,7 @@ bool postString(token_type expected_type, token_type return_type, tTerm* term, t
 
                     if (stack_term->index == LEFT_PARENT_IN)
                     {
-                        stackFree(stack);
-                        free(stack);
-                        free(term);
+                        void memory_clear(term, stack);
                         ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad number of brackets in expression");
                     }
                     else
@@ -624,31 +596,23 @@ bool postString(token_type expected_type, token_type return_type, tTerm* term, t
                     }
                 }
                 generateInstruction(return_type, *term); 
-                stackFree(stack);
-                free(stack);
-                free(term);
+                void memory_clear(term, stack);
                 return true;
             }
             else
             {
-                stackFree(stack);
-                free(stack);
-                free(term);
+                void memory_clear(term, stack);
                 ERROR_AND_RETURN(SYN_ERROR,"Bad number of operations or strings in expression");  
             }
         }
         else
         {
-            stackFree(stack);
-            free(stack);
-            free(term);
+            void memory_clear(term, stack);
             ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad operation or operand in expression");
         }
     } while (getTerm(term));
 
-    stackFree(stack);
-    free(stack);  
-    free(term);
+    void memory_clear(term, stack);
     return false;
 }
 
@@ -841,10 +805,17 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
 }
 
 
-/*void memory_clear(tTerm* term, tStack* stack)
+void memory_clear(tTerm* term, tStack* stack)
 {
-    stackFree(stack);
-    free(stack);
+    if (stack != NULL);
+    {
+        stackFree(stack);
+        free(stack);
+    }
 
-    free(term);
-}*/
+    if (term != NULL)
+    {
+        free(term);    
+    }
+    
+}

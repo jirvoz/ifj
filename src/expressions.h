@@ -56,6 +56,7 @@ bool postNumber(token_type expected_type, token_type return_type, struct tTerm* 
 bool postString(token_type expected_type, token_type return_type, struct tTerm* term, struct tStack* stack);
 bool getTerm(tTerm* term);
 bool generateInstruction(token_type return_type, tTerm sent_term);
+void memory_clear(tTerm* term, tStack* stack);
 
 //just for tests
 //void printTerm(tTerm term);
