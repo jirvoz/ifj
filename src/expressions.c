@@ -500,7 +500,7 @@ bool postString(token_type expected_type, token_type return_type, tTerm* term, t
                     tmp_term.index = DOLAR_IN;
                     tmp_term.token.type = EOL_TOK; //token_type musn't be empty
                     generateInstruction(return_type, tmp_term);
-                    void memory_clear(term, stack);
+                    memory_clear(term, stack);
                     return true;
                 }
 
@@ -519,7 +519,7 @@ bool postString(token_type expected_type, token_type return_type, tTerm* term, t
                     tmp_term.index = DOLAR_IN;
                     tmp_term.token.type = EOL_TOK; //token_type musn't be empty
                     generateInstruction(return_type, tmp_term);
-                    void memory_clear(term, stack);
+                    memory_clear(term, stack);
                     return true;
                 }
                 else
@@ -573,7 +573,7 @@ bool postString(token_type expected_type, token_type return_type, tTerm* term, t
             }
             else
             {
-                void memory_clear(term, stack);
+                memory_clear(term, stack);
                 ERROR_AND_RETURN(SEM_TYPE_ERROR,"More than one relation operation in expression");
             }
         }
@@ -587,7 +587,7 @@ bool postString(token_type expected_type, token_type return_type, tTerm* term, t
 
                     if (stack_term->index == LEFT_PARENT_IN)
                     {
-                        void memory_clear(term, stack);
+                        memory_clear(term, stack);
                         ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad number of brackets in expression");
                     }
                     else
@@ -596,23 +596,23 @@ bool postString(token_type expected_type, token_type return_type, tTerm* term, t
                     }
                 }
                 generateInstruction(return_type, *term); 
-                void memory_clear(term, stack);
+                memory_clear(term, stack);
                 return true;
             }
             else
             {
-                void memory_clear(term, stack);
+                memory_clear(term, stack);
                 ERROR_AND_RETURN(SYN_ERROR,"Bad number of operations or strings in expression");  
             }
         }
         else
         {
-            void memory_clear(term, stack);
+            memory_clear(term, stack);
             ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad operation or operand in expression");
         }
     } while (getTerm(term));
 
-    void memory_clear(term, stack);
+    memory_clear(term, stack);
     return false;
 }
 
