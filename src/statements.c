@@ -335,5 +335,5 @@ bool return_stat()
     printf("POPFRAME\n");
     printf("RETURN\n");
 
-    return skip_statement();
+    return true;
 }

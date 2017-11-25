@@ -5,12 +5,11 @@
 #include "functions.h"
 #include "parser.h"
 #include "statements.h"
+#include "ifunc.h"
 
 //size of precedence table
 #define P_TAB_SIZE 19
 
-//this flag signalize if strings were created on the stack
-bool string_added = false;
 bool simple_bool = false;
 
 const int precedence_table[P_TAB_SIZE][P_TAB_SIZE] =
@@ -102,15 +101,14 @@ bool getTerm(tTerm* term)
     //set token in term
     term->token = last_token;
 
-    //token is identifier, figure out if var or func
-    if (last_token.type == IDENTIFIER_TOK)
-    {
-        //search in func_table
-        tSymbol* symbol = htSearch(func_table, last_token.attribute.string_ptr);
-
-        if (symbol != NULL)
+    switch(last_token.type)
+    {   //token is identifier, figure out if var or func
+        case IDENTIFIER_TOK:
         {
-            if (symbol->defined)
+            //search in func_table
+            tSymbol* symbol = htSearch(func_table, last_token.attribute.string_ptr);
+
+            if (symbol != NULL)
             {
                 switch (symbol->type)
                 {
@@ -121,85 +119,113 @@ bool getTerm(tTerm* term)
                     case STRING: term->index = STRING_IN;
                         break;
                     default:
-                        ERROR_AND_RETURN(SEM_TYPE_ERROR, "Bad return type of function");
+                        ERROR_AND_RETURN(SEM_PROG_ERROR, "Bad return type of function");
                 }
                 UPDATE_LAST_TOKEN();
                 if (last_token.type != LEFT_PARENTH_OP)
                 {
                     ERROR_AND_RETURN(SEM_TYPE_ERROR, "Expected '(' after function");
                 }
+                return true; 
+            }
+
+            //search in var_table
+            symbol = htSearch(var_table, last_token.attribute.string_ptr);
+
+            if (symbol != NULL)
+            {
+               switch (symbol->type)
+                    {
+                        case INTEGER: term->index = INT_IN;
+                            break;
+                        case DOUBLE: term->index = DOUBLE_IN;
+                            break;
+                        case STRING: term->index = STRING_IN;
+                            break;
+                        default:
+                            ERROR_AND_RETURN(SEM_TYPE_ERROR, "Unknown variable type");
+                    }
                 return true;
             }
-            ERROR_AND_RETURN(SEM_PROG_ERROR, "Undefined function");
-        }
 
-        //search in var_table
-        symbol = htSearch(var_table, last_token.attribute.string_ptr);
+            if (term->index >= INT_IN && term->index <= STRING_IN)
+            {
+                ERROR_AND_RETURN(SYN_ERROR, "Unexpected operand in expression"); 
+            }
 
-        if (symbol != NULL)
-        {
-           switch (symbol->type)
-                {
-                    case INTEGER: term->index = INT_IN;
-                        break;
-                    case DOUBLE: term->index = DOUBLE_IN;
-                        break;
-                    case STRING: term->index = STRING_IN;
-                        break;
-                    default:
-                        ERROR_AND_RETURN(SEM_TYPE_ERROR, "Unknown variable type");
-                }
-            return true;
+            UPDATE_LAST_TOKEN();
+            if (last_token.type == LEFT_PARENTH_OP)
+            {
+                ERROR_AND_RETURN(SEM_PROG_ERROR, "Undeclared function");
+            }
+            else
+            {
+                ERROR_AND_RETURN(SEM_PROG_ERROR, "Undeclared variable");
+            } 
         }
-        UPDATE_LAST_TOKEN();
-        if (last_token.type == LEFT_PARENTH_OP)
+            break;
+        //inbuild functions
+        case ASC:
         {
-            ERROR_AND_RETURN(SEM_PROG_ERROR, "Undeclared function");
+            term->index = INT_IN;
+            term->token.type = ASC;
+            UPDATE_LAST_TOKEN();
+            if (last_token.type != LEFT_PARENTH_OP)
+            {
+                ERROR_AND_RETURN(SEM_TYPE_ERROR, "Expected '(' after function");
+            }
         }
-        else
+            break;
+        case CHR:
         {
-            ERROR_AND_RETURN(SEM_PROG_ERROR, "Undeclared variable");
-        } 
-    }
-    //inbuild function
-    else if (last_token.type == ASC)
-    {
-        term->index = INT_IN;
-        term->token.type = IDENTIFIER_TOK;
-        term->token.attribute.string_ptr = "asc\0";
-    }
-    else if(last_token.type == CHR)
-    {
-        term->index = STRING_IN;
-        term->token.type = IDENTIFIER_TOK;
-        term->token.attribute.string_ptr = "chr\0";
-    }
-    else if(last_token.type == LENGTH)
-    {
-        term->index = INT_IN;
-        term->token.type = IDENTIFIER_TOK;
-        term->token.attribute.string_ptr = "length\0";
-    }
-    else if(last_token.type == SUBSTR)
-    {
-        term->index = STRING_IN;
-        term->token.type = IDENTIFIER_TOK;
-        term->token.attribute.string_ptr = "substr\0";
-    }
-    //int, float and string constants
-    else if (last_token.type >= INTEGER_TOK && last_token.type <= STRING_TOK)
-    {
-        term->index = last_token.type + 11;
-    }
-    //operators
-    else if (last_token.type >= EQUAL_SIGN_OP && last_token.type <= RIGHT_PARENTH_OP)
-    {
-        term->index = last_token.type - 10;
-    }
-    //if other token_type, term->index is DOLAR - end of expression
-    else
-    {
-        term->index = DOLAR_IN;
+            term->index = STRING_IN;
+            term->token.type = CHR;
+            UPDATE_LAST_TOKEN();
+            if (last_token.type != LEFT_PARENTH_OP)
+            {
+                ERROR_AND_RETURN(SEM_TYPE_ERROR, "Expected '(' after function");
+            }
+        }
+            break;
+        case LENGTH:
+        {
+            term->index = INT_IN;
+            term->token.type = LENGTH;
+            UPDATE_LAST_TOKEN();
+            if (last_token.type != LEFT_PARENTH_OP)
+            {
+                ERROR_AND_RETURN(SEM_TYPE_ERROR, "Expected '(' after function");
+            }
+        }
+            break;
+        case SUBSTR:
+        {
+            term->index = STRING_IN;
+            term->token.type = SUBSTR;
+            UPDATE_LAST_TOKEN();
+            if (last_token.type != LEFT_PARENTH_OP)
+            {
+                ERROR_AND_RETURN(SEM_TYPE_ERROR, "Expected '(' after function");
+            }
+        }
+            break;
+        default:
+        {   //int, float and string constants
+            if (last_token.type >= INTEGER_TOK && last_token.type <= STRING_TOK)
+            {
+                term->index = last_token.type + 11;
+            }
+            //operators
+            else if (last_token.type >= EQUAL_SIGN_OP && last_token.type <= RIGHT_PARENTH_OP)
+            {
+                term->index = last_token.type - 10;
+            }
+            //if other token_type, term->index is DOLAR - end of expression
+            else
+            {
+                term->index = DOLAR_IN;
+            } 
+        }
     }
     return true;
 }
@@ -436,8 +462,6 @@ bool postNumber(token_type expected_type, token_type return_type, tTerm* term, t
 
 bool postString(token_type expected_type, token_type return_type, tTerm* term, tStack* stack)
 {
-    string_added = true;
-
     tTerm* stack_term;
 
     int string_count = 0;
@@ -613,6 +637,29 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
     //just for testing
     //printTerm(sent_term);
 
+    switch(sent_term.token.type)
+    {
+        case ASC: 
+        {
+            if (!callAsc())
+                return false;
+            printf("INT2FLOATS\n");
+            return true;
+        }
+        case CHR: return callChr() ? true : false;
+        case LENGTH: 
+        {
+            if (!callLength())
+                return false;
+            printf("INT2FLOATS\n");
+            return true;
+        }
+        case SUBSTR: return callSubstr() ? true : false;
+        default:
+            break;
+    }
+
+
     //function calling, value after calling will be on the top of stack
     if (sent_term.token.type == IDENTIFIER_TOK)
     {
@@ -624,9 +671,7 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
 
             //if return type is INT, convert to double
             if (symbol->type == INTEGER)
-            {
                 printf("INT2FLOATS\n");
-            }
             return true;
         }
     }
@@ -662,7 +707,7 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
         case PLUS_IN:
         {
             //if int or float, add
-            if (!string_added)
+            if (return_type != STRING)
                 printf("ADDS\n");
 
             //if string, concatenate
@@ -729,23 +774,15 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
         // '<=' - it's necessary to use also ORS instructions
         case LESS_EQ_IN:
         {
-            printf("LTS\n");
-            printf("DEFVAR LF@$flag\n");
-            printf("POPS LF@$flag\n");
-            printf("EQS\n");
-            printf("PUSHS LF@$flag\n");
-            printf("ORS\n");
+            printf("GTS\n");
+            printf("NOTS\n");
         }
             break;
         //'>=' - it's necessary to use also ORS instructions
         case MORE_EQ_IN:
         {
-            printf("GTS\n");
-            printf("DEFVAR LF@$flag\n");
-            printf("POPS LF@$flag\n");
-            printf("EQS\n");
-            printf("PUSHS LF@$flag\n");
-            printf("ORS\n");  
+            printf("LTS\n");
+            printf("NOTS\n"); 
         }
             break;
         //'=' - use simple EQS instruction
