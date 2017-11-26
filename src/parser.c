@@ -59,6 +59,7 @@ bool statement()
         case EOL_TOK:
         case END:
         case ELSE:
+        case ELSEIF:
         case LOOP:
             return true;
             break;
@@ -74,6 +75,7 @@ bool statement_list()
     {
         case END:
         case ELSE:
+        case ELSEIF:
         case LOOP:
             // stop when hitted the end of block of code
             return true;
