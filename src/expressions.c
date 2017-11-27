@@ -124,7 +124,7 @@ bool getTerm(tTerm* term)
                 UPDATE_LAST_TOKEN();
                 if (last_token.type != LEFT_PARENTH_OP)
                 {
-                    ERROR_AND_RETURN(SEM_TYPE_ERROR, "Expected '(' after function");
+                    ERROR_AND_RETURN(SEM_PROG_ERROR, "Expected '(' after function");
                 }
                 return true; 
             }
