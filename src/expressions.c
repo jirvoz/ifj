@@ -25,7 +25,7 @@ const int precedence_table[P_TAB_SIZE][P_TAB_SIZE] =
     {'>', '>', '>', '>', '>', '>', '>', '>', '<', '<', '<', '<', '>', '<', '<', 'x',    'x',  '<', '>'}, //'-'
     {'>', '>', '>', '>', '>', '>', '>', '>', '>', '>', '>', '<', '>', '<', '<', 'x',    'x',  '<', '>'}, //'*'
     {'>', '>', '>', '>', '>', '>', '>', '>', '>', '>', '>', '<', '>', '<', '<', 'x',    'x',  '<', '>'}, //'/'
-    {'>', '>', '>', '>', '>', '>', '<', '<', '>', '<', '<', '<', '>', '<', 'x', 'x',    'x',  '<', '>'}, //'\'
+    {'>', '>', '>', '>', '>', '>', '<', '<', '<', '<', '>', '<', '>', '<', 'x', 'x',    'x',  '<', '>'}, //'\'
     {'<', '<', '<', '<', '<', '<', '<', '<', '<', '<', '<', '<', '=', '<', '<', '<',    'x',  '<', 'x'}, //'('
     {'>', '>', '>', '>', '>', '>', '>', '>', '>', '>', '>', 'x', '>', 'x', 'x', 'x',    '>',  'x', '>'}, //')'
     {'>', '>', '>', '>', '>', '>', '>', '>', '>', '>', '>', 'x', '>', 'x', 'x', 'x',    '=',  'x', '>'}, //'int'
@@ -698,13 +698,13 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
             else
             {
                 printf("CREATEFRAME\n");
-                printf("DEFVAR TF@tmp1\n");
-                printf("DEFVAR TF@tmp2\n");
-                printf("DEFVAR TF@tmp3\n");
-                printf("POPS TF@tmp2\n");
-                printf("POPS TF@tmp1\n");
-                printf("CONCAT TF@tmp3 TF@tmp1 TF@tmp2\n");
-                printf("PUSHS TF@tmp3\n");
+                printf("DEFVAR TF@$tmp1\n");
+                printf("DEFVAR TF@$tmp2\n");
+                printf("DEFVAR TF@$tmp3\n");
+                printf("POPS TF@$tmp2\n");
+                printf("POPS TF@$tmp1\n");
+                printf("CONCAT TF@$tmp3 TF@$tmp1 TF@$tmp2\n");
+                printf("PUSHS TF@$tmp3\n");
             }
         }
             break;
@@ -728,8 +728,22 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
             break;
         //'\' DIVS - integers
         case INT_DIV_IN:
-        {
-            printf("DIVS\n");
+        {   
+            printf("CREATEFRAME\n");
+
+            printf("FLOAT2R2EINTS\n");
+            printf("INT2FLOATS\n");
+            printf("DEFVAR TF@$tmp2\n");
+            printf("POPS TF@$tmp2\n");
+
+            printf("FLOAT2R2EINTS\n");
+            printf("INT2FLOATS\n");
+            printf("DEFVAR TF@$tmp1\n");
+            printf("POPS TF@$tmp1\n");
+
+            printf("DIV TF@$tmp1 TF@$tmp1 TF@$tmp2\n");
+            printf("PUSHS TF@$tmp1\n");
+
             printf("FLOAT2INTS\n");
             printf("INT2FLOATS\n");
         }
