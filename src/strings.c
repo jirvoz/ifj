@@ -8,7 +8,7 @@
 
 int stringInit(string* str_1)   //function initialize new str
 {
-    str_1->str = malloc(STR_LEN_INC);
+    str_1->str = (char*) malloc(STR_LEN_INC);
 
     if (str_1->str != NULL)
     {
@@ -18,6 +18,7 @@ int stringInit(string* str_1)   //function initialize new str
        
         return true;
     }
+
     else
        return false;
 }
@@ -38,11 +39,15 @@ int stringAddChar(char c, string *str_1) //function to add new char to the end o
     if (str_1->length + 1 >= str_1->allocatedSize)
     {
         str_1->str = (char*) realloc(str_1->str, (str_1->length + STR_LEN_INC));
-
         if (str_1->str != NULL)
+        {
             str_1->allocatedSize = str_1->length + STR_LEN_INC;
+        }
         else
-            return false;
+        {
+            return false;  
+        }
+              
     }
     
     str_1->str[str_1->length] = c;
@@ -55,17 +60,22 @@ int stringConcat(const char* str_2, string* str_1)
 {
     int str_2_length = strlen(str_2);
 
-    if ((str_2_length  + str_1->length + 1) >= str_1->allocatedSize)
+    if (str_2_length  + str_1->length >= str_1->allocatedSize)
     {
-        str_1->str = (char*) realloc(str_1->str, (str_1->length + str_2_length + STR_LEN_INC));
+        // Don't forget the null byte at the end (len1 + len2 + 1)
+        str_1->str = (char*) realloc(str_1->str, (str_1->length + str_2_length + 1));
 
         if (str_1->str != NULL)
-            str_1->allocatedSize = str_1->length + str_2_length + STR_LEN_INC;
+        {
+            str_1->allocatedSize = str_2_length  + str_1->length + 1;
+        }
         else
-            return false;
+        {
+            return false;  
+        }
     }
-
     strcat(str_1->str, str_2);
     str_1->length = str_1->length + str_2_length;
+
     return true;
 }
