@@ -59,27 +59,35 @@ bool statement()
         case EOL_TOK:
         case END:
         case ELSE:
+        case ELSEIF:
         case LOOP:
             return true;
             break;
         default:
             ERROR_AND_RETURN(SYN_ERROR, "Wrong beginning of statement.");
     }
-
 }
 
 bool statement_list()
 {
-    switch (last_token.type)
+    // Read statements until keyword, that end statement block
+    // This should be: return statement() && statement_list();
+    // but it's written in while loop to lower recursion
+    while (true)
     {
-        case END:
-        case ELSE:
-        case LOOP:
-            // stop when hitted the end of block of code
-            return true;
-        default:
-            // parse the actual statements
-            return statement() && statement_list();
+        switch (last_token.type)
+        {
+            case END:
+            case ELSE:
+            case ELSEIF:
+            case LOOP:
+                // Stop when hit the end of block of statements
+                return true;
+            default:
+                // Parse the actual statements
+                if (!statement())
+                    return false;
+        }
     }
 }
 
@@ -157,7 +165,9 @@ bool parse()
                 continue;
             case EOF_TOK:
                 htClearAll(func_table);
+                free(func_table);
                 htClearAll(var_table);
+                free(var_table);
                 return true;
             default:
                 ERROR_AND_RETURN(SYN_ERROR, "There is something after main scope.");

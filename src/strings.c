@@ -60,13 +60,14 @@ int stringConcat(const char* str_2, string* str_1)
 {
     int str_2_length = strlen(str_2);
 
-    if (str_2_length  + str_1->length > str_1->allocatedSize)
+    if (str_2_length  + str_1->length >= str_1->allocatedSize)
     {
-        str_1->str = (char*) realloc(str_1->str, (str_1->length + str_2_length));
+        // Don't forget the null byte at the end (len1 + len2 + 1)
+        str_1->str = (char*) realloc(str_1->str, (str_1->length + str_2_length + 1));
 
         if (str_1->str != NULL)
         {
-            str_1->allocatedSize = str_2_length  + str_1->length;
+            str_1->allocatedSize = str_2_length  + str_1->length + 1;
         }
         else
         {

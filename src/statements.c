@@ -211,6 +211,7 @@ bool if_stat()
     // last_token.type is IF
 
     unsigned if_line_number = line;
+    unsigned end_line_number = line;
 
     // Evaluate condition
     UPDATE_LAST_TOKEN();
@@ -225,44 +226,69 @@ bool if_stat()
     printf("PUSHS bool@true\n");
     printf("JUMPIFNEQS &else%d\n", if_line_number);
 
-    // Parse the inside of if
-    if (!statement_list())
-        return false;
+    // Do we expect also &else label at the end of conditions block?
+    bool else_label = true;
+    do
+    {
+        // Parse the statements inside of if block
+        if (!statement_list())
+            return false;
 
-    printf("JUMP &endif%d\n", if_line_number);
-    printf("LABEL &else%d\n", if_line_number);
+        // Handle endings of if block
+        switch (last_token.type)
+        {
+            case ELSE:
+                else_label = false;
+                printf("JUMP &endif%d\n", end_line_number);
+                printf("LABEL &else%d\n", if_line_number);
 
-    // Test the correct ending of then block
-    if (last_token.type != ELSE)
-        ERROR_AND_RETURN(SYN_ERROR, "Expected ELSE after then block.");
+                // Check the eol after else
+                UPDATE_LAST_TOKEN();
+                if (last_token.type != EOL_TOK)
+                    ERROR_AND_RETURN(SYN_ERROR, "Expected end of line after ELSE.");
+                break;
 
-    UPDATE_LAST_TOKEN();
+            case ELSEIF:
+                else_label = true;
+                printf("JUMP &endif%d\n", end_line_number);
+                printf("LABEL &else%d\n", if_line_number);
 
-    // Test the eol after else
-    if (last_token.type != EOL_TOK)
-        ERROR_AND_RETURN(SYN_ERROR, "Expected end of line after ELSE.");
+                // Evaluate next condition
+                UPDATE_LAST_TOKEN();
+                if (!expression(BOOLEAN))
+                    return false;
 
-    // Parse the inside of else
-    if (!statement_list())
-        return false;
+                // Test token THEN after expression in if
+                if (last_token.type != THEN)
+                    ERROR_AND_RETURN(SYN_ERROR, "Expected THEN after elseif expression.");
 
-    printf("LABEL &endif%d\n", if_line_number);
+                // Write jump instruction
+                if_line_number = line;
+                printf("PUSHS bool@true\n");
+                printf("JUMPIFNEQS &else%d\n", if_line_number);
+                break;
 
-    // Test the correct ending of if-else
-    if (last_token.type != END)
-        ERROR_AND_RETURN(SYN_ERROR, "Bad ending of if block.");
+            case END:
+                if (else_label)
+                    printf("LABEL &else%d\n", if_line_number);
+                printf("LABEL &endif%d\n", end_line_number);
 
-    UPDATE_LAST_TOKEN();
+                // Check correct ending of if block
+                UPDATE_LAST_TOKEN();
+                if (last_token.type != IF)
+                    ERROR_AND_RETURN(SYN_ERROR, "Bad ending of if block.");
 
-    if (last_token.type != IF)
-        ERROR_AND_RETURN(SYN_ERROR, "Bad ending of if block.");
+                UPDATE_LAST_TOKEN();
+                if (last_token.type != EOL_TOK)
+                    ERROR_AND_RETURN(SYN_ERROR, "Expected end of line after END IF.");
 
-    UPDATE_LAST_TOKEN();
+                return true;
 
-    if (last_token.type != EOL_TOK)
-        ERROR_AND_RETURN(SYN_ERROR, "Expected end of line after END IF.");
-
-    return true;
+            default:
+                ERROR_AND_RETURN(SYN_ERROR, "Wrong ending of condition block.");
+        }
+    }
+    while (true);
 }
 
 bool while_stat()
