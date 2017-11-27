@@ -157,7 +157,9 @@ bool parse()
                 continue;
             case EOF_TOK:
                 htClearAll(func_table);
+                free(func_table);
                 htClearAll(var_table);
+                free(var_table);
                 return true;
             default:
                 ERROR_AND_RETURN(SYN_ERROR, "There is something after main scope.");
