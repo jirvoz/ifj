@@ -176,9 +176,6 @@ bool callSubstr()
     static int name = 1;
     name++;
 
-
-
-    ////////////////base function
     printf("CREATEFRAME\n");
     //length of sub str
     printf("DEFVAR TF@$length\n");
@@ -199,7 +196,6 @@ bool callSubstr()
     printf("DEFVAR TF@$ret\n");
     printf("MOVE TF@$ret string@\n");
 
-
     //if empty string or i <=0
     printf("DEFVAR TF@$tmp_len\n");
     printf("STRLEN TF@$tmp_len TF@$in_str\n");
@@ -209,10 +205,12 @@ bool callSubstr()
     printf("GT TF@$tmp_bool TF@$start_pos int@-1\n");
     printf("JUMPIFNEQ &end%d TF@$tmp_bool bool@true\n", name);
     
-    //if n < 0 or n > length(string)
+    //if n < 0
     printf("LT TF@$tmp_bool TF@$length int@0\n");
     printf("JUMPIFEQ &cycle2%d TF@$tmp_bool bool@true\n", name);
 
+    //if n > rest of length(string)
+    printf("SUB TF@$tmp_len TF@$tmp_len TF@$start_pos\n");
     printf("GT TF@$tmp_bool TF@$length TF@$tmp_len\n");
     printf("JUMPIFEQ &cycle2%d TF@$tmp_bool bool@true\n", name);
 
@@ -230,7 +228,7 @@ bool callSubstr()
     printf("JUMP &end%d\n", name);
 
     printf("LABEL &cycle2%d\n", name);
-    printf("SUB TF@$length TF@$tmp_len TF@$start_pos\n");
+    printf("MOVE TF@$length TF@$tmp_len\n");
     printf("JUMP &cycle1%d\n", name);
     
 

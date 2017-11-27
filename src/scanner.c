@@ -704,6 +704,10 @@ int getNextToken (tToken* next_token, FILE* source_file)
                         return returnFalse(OTHER_ERROR, memory_err, &tmp_string);
                     } 
                 }
+                else if (!isdigit(tmp_string.str[tmp_string.length - 1]))
+                {
+                    return returnFalse(LEX_ERROR, "Exponent can't be empty", &tmp_string);
+                }
                 else
                 {
                     ungetc(c, source_file);
