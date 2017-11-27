@@ -226,6 +226,8 @@ bool if_stat()
     printf("PUSHS bool@true\n");
     printf("JUMPIFNEQS &else%d\n", if_line_number);
 
+    // Do we expect also &else label at the end of conditions block?
+    bool else_label = true;
     do
     {
         // Parse the statements inside of if block
@@ -236,6 +238,7 @@ bool if_stat()
         switch (last_token.type)
         {
             case ELSE:
+                else_label = false;
                 printf("JUMP &endif%d\n", end_line_number);
                 printf("LABEL &else%d\n", if_line_number);
 
@@ -246,6 +249,7 @@ bool if_stat()
                 break;
 
             case ELSEIF:
+                else_label = true;
                 printf("JUMP &endif%d\n", end_line_number);
                 printf("LABEL &else%d\n", if_line_number);
 
@@ -265,6 +269,8 @@ bool if_stat()
                 break;
 
             case END:
+                if (else_label)
+                    printf("LABEL &else%d\n", if_line_number);
                 printf("LABEL &endif%d\n", end_line_number);
 
                 // Check correct ending of if block
