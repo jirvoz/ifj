@@ -738,8 +738,11 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
         case STRING_IN:
         {
             if (sent_term.token.type == STRING_TOK)
+            {
                 printf("PUSHS string@%s\n", sent_term.token.attribute.string_ptr);
-            else
+            	free(sent_term.token.attribute.string_ptr);
+            }
+	       else
                 printf("PUSHS LF@%s\n", sent_term.token.attribute.string_ptr);
         }
             break;
