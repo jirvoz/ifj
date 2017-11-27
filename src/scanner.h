@@ -16,13 +16,16 @@
 #include "strings.h"
 #include "errors.h"
 
-//codes from ASCII table
+// Codes from ASCII table
 #define APOSTROPHE 39
 #define BACKSLASH 92
 #define QUOTE 34
 
-//Other constants
+// Other constants
 #define KWD_COUNT 35            //number of keywords
+
+// Shortcut for cleaning string and return
+#define FREE_AND_RETURN(string) { stringFree(&string); return true; }
 
 extern unsigned line;           //extern variable - line counter
 
@@ -105,10 +108,9 @@ typedef struct tToken
     
 //Declarations of functions
 
-int getNextToken(tToken*, FILE*);       //main functions of scanner
-int operatorTest(char);                 //this functions tests, if next token is operator(+,-,...)
-int identifierTest(string*, char**);    //this functions tests, if identifier is keyword
-bool returnFalse(err_code, const char*, string*);   //this functions is called is error occured
-bool returnClean(string* str);           //this function is called when OK
+int getNextToken(tToken* next_token, FILE* source_file);           // Main functions of scanner
+int operatorTest(char c);                   // This function tests, if next token is operator(+,-,...)
+int identifierTest(string* identifier);     // This function tests, if identifier is keyword
+bool returnFalse(err_code code, const char* message, string* str);   //this functions is called is error occured
 
 #endif
