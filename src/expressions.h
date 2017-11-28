@@ -52,11 +52,11 @@ typedef struct tStack
 bool expression(token_type expected_type);
 
 //other functions
-bool postNumber(token_type expected_type, token_type return_type, struct tTerm* term, struct tStack* stack);
-bool postString(token_type expected_type, token_type return_type, struct tTerm* term, struct tStack* stack);
+bool postfix(token_type expected_type, token_type return_type, struct tTerm* term, struct tStack* stack);
 bool getTerm(tTerm* term);
+bool getPriority (tTerm* term, tStack* stack, token_type return_type);
 bool generateInstruction(token_type return_type, tTerm sent_term);
-void memory_clear(tTerm* term, tStack* stack);
+void memoryClear(tTerm* term, tStack* stack);
 
 //just for tests
 //void printTerm(tTerm term);

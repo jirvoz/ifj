@@ -42,14 +42,14 @@ bool expression(token_type expected_type)
     tTerm* term = malloc(sizeof(tTerm));
     if (term == NULL)
     {
-        memory_clear(term, NULL);
+        memoryClear(term, NULL);
         ERROR_AND_RETURN(OTHER_ERROR, "Memmory allocation error");
     }
 
     // last_token is first token of expression
     if (!getTerm(term) || term->index == DOLAR_IN)
     {
-        memory_clear(term, NULL);
+        memoryClear(term, NULL);
         ERROR_AND_RETURN(SYN_ERROR, "Empty expression");
     }
     tStack* stack = stackInit();
@@ -76,7 +76,7 @@ bool expression(token_type expected_type)
             case STRING_IN: return_type = STRING;
                 break;
             default:
-                memory_clear(term, stack);
+                memoryClear(term, stack);
                 ERROR_AND_RETURN(SEM_TYPE_ERROR, "Wrong expression");
         }
     }
@@ -85,13 +85,11 @@ bool expression(token_type expected_type)
     {
         case INTEGER:
         case DOUBLE:
-            return (postNumber(expected_type, return_type, term, stack));
-            break;
         case STRING:
-            return (postString(expected_type, return_type, term, stack));
+            return (postfix(expected_type, return_type, term, stack));
             break;
         default:
-            memory_clear(term, stack);
+            memoryClear(term, stack);
             ERROR_AND_RETURN(OTHER_ERROR, "Unknown token type");
     }
 }
@@ -230,7 +228,34 @@ bool getTerm(tTerm* term)
     return true;
 }
 
-bool postNumber(token_type expected_type, token_type return_type, tTerm* term, tStack* stack)
+bool getPriority (tTerm* term, tStack* stack, token_type return_type)
+{
+    int get_priority = '>'; //first state for start cycle
+    tTerm* tmp_term;
+
+    while (get_priority != '<')
+    {
+        if (!stackEmpty(stack))
+        {
+            tmp_term = stackTop(stack);
+            get_priority = precedence_table[tmp_term->index][term->index];
+        }
+            
+        if (get_priority == '<' || stackEmpty(stack))
+        {
+            stackPush(stack, *term);
+            break;
+        }
+        else
+        {
+            tmp_term = stackPop(stack);
+            generateInstruction(return_type, *tmp_term);
+        }
+    }
+    return true;
+}
+
+bool postfix(token_type expected_type, token_type return_type, tTerm* term, tStack* stack)
 {
     tTerm* stack_term;
 
@@ -241,9 +266,10 @@ bool postNumber(token_type expected_type, token_type return_type, tTerm* term, t
 
     do
     {
-        if (term->index == INT_IN || term->index == DOUBLE_IN)
+        if ((((term->index == INT_IN) || (term->index == DOUBLE_IN)) && (return_type != STRING)) ||
+            ((term->index == STRING_IN) && (return_type == STRING)))
         {
-            if(negative_number)                 //if first in expresion is sign + or -
+            if(negative_number && return_type != STRING)        //if first in expresion is sign + or -
             {
                 if (term->index == INT_IN)
                 {
@@ -265,7 +291,8 @@ bool postNumber(token_type expected_type, token_type return_type, tTerm* term, t
             generateInstruction(return_type, *term);
             UPDATE_LAST_TOKEN();
         }
-        else if (term->index == PLUS_IN || term->index == MINUS_IN || term->index == MUL_IN || term->index == FLOAT_DIV_IN || term->index == INT_DIV_IN)  //Operands and operations allowed when expected type is INTEGER or DOUBLE      
+        else if (((term->index == PLUS_IN || term->index == MINUS_IN || term->index == MUL_IN || term->index == FLOAT_DIV_IN || term->index == INT_DIV_IN) && return_type != STRING) ||
+                ((term->index == PLUS_IN) && (return_type == STRING)))  //Operands and operations allowed when expected type is INTEGER or DOUBLE      
         {
             if (operand_count == 0)     //negative_number + or - solved ... firstly push 0.0
             {
@@ -293,28 +320,8 @@ bool postNumber(token_type expected_type, token_type return_type, tTerm* term, t
             }
             else
             {   
-                int get_priority = '>'; //first state for start cycle
-
-                while (get_priority != '<')
-                {
-                    if (!stackEmpty(stack))
-                    {
-                        stack_term = stackTop(stack);
-                        get_priority = precedence_table[stack_term->index][term->index];
-                    }
-    
-                    if (get_priority == '<' || stackEmpty(stack))
-                    {
-                        stackPush(stack, *term);
-                        UPDATE_LAST_TOKEN();
-                        break;
-                    }
-                    else
-                    {
-                        stack_term = stackPop(stack);
-                        generateInstruction(return_type, *stack_term);
-                    }
-                }
+                if (getPriority (term, stack, return_type))
+                    UPDATE_LAST_TOKEN();
             }
         }
         else if (term->index == LEFT_PARENT_IN || term->index == RIGHT_PARENT_IN)
@@ -332,13 +339,13 @@ bool postNumber(token_type expected_type, token_type return_type, tTerm* term, t
                     tmp_term.index = DOLAR_IN;
                     tmp_term.token.type = EOL_TOK; //token_type musn't be empty
                     generateInstruction(return_type, tmp_term);
-                    memory_clear(term, stack);
+                    memoryClear(term, stack);
                     return true;
                 }
 
                 stack_term = stackTop(stack);
 
-                while (!(stackEmpty(stack)) && (stack_term->index != LEFT_PARENT_IN))
+                while (!(stackEmpty(stack)) && (stack_term->index != LEFT_PARENT_IN)) // in strings weird
                 {
                     stack_term = stackPop(stack);  
                     generateInstruction(return_type, *stack_term);
@@ -351,7 +358,7 @@ bool postNumber(token_type expected_type, token_type return_type, tTerm* term, t
                     tmp_term.index = DOLAR_IN;
                     tmp_term.token.type = EOL_TOK; //token_type musn't be empty
                     generateInstruction(return_type, tmp_term);
-                    memory_clear(term, stack);
+                    memoryClear(term, stack);
                     return true;
                 }
                 else
@@ -379,33 +386,13 @@ bool postNumber(token_type expected_type, token_type return_type, tTerm* term, t
                 }
                 else
                 {   
-                    int get_priority = '>'; //first state for start cycle
-    
-                    while (get_priority != '<')
-                    {
-                        if (!stackEmpty(stack))
-                        {
-                            stack_term = stackTop(stack);
-                            get_priority = precedence_table[stack_term->index][term->index];
-                        }
-
-                        if (get_priority == '<' || stackEmpty(stack))
-                        {
-                            stackPush(stack, *term);
-                            UPDATE_LAST_TOKEN();
-                            break;
-                        }
-                        else
-                        {
-                            stack_term = stackPop(stack);
-                            generateInstruction(return_type, *stack_term);
-                        }
-                    }
+                    if (getPriority (term, stack, return_type))
+                        UPDATE_LAST_TOKEN();
                 }
             }
             else
             {
-                memory_clear(term, stack);
+                memoryClear(term, stack);
                 ERROR_AND_RETURN(SEM_TYPE_ERROR,"More than one relation operation in expression");
             }
         }
@@ -419,7 +406,7 @@ bool postNumber(token_type expected_type, token_type return_type, tTerm* term, t
 
                     if (stack_term->index == LEFT_PARENT_IN)
                     {
-                        memory_clear(term, stack);
+                        memoryClear(term, stack);
                         ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad number of brackets in expression");
                     }
                     else
@@ -429,190 +416,27 @@ bool postNumber(token_type expected_type, token_type return_type, tTerm* term, t
                 }
                 if (logic_allowed && expected_type == BOOLEAN)
                 {
-                    simple_bool = true; 
+                    memoryClear(term, stack);
+                    ERROR_AND_RETURN(SEM_TYPE_ERROR,"Expected equality operation"); 
                 }
                 generateInstruction(return_type, *term);
-                memory_clear(term, stack);
+                memoryClear(term, stack);
                 return true;
             }
             else
             {
-                memory_clear(term, stack);
+                memoryClear(term, stack);
                 ERROR_AND_RETURN(SYN_ERROR,"Bad number of operations or operands in expression");  
             }
         }
         else
         {
-            memory_clear(term, stack);;
+            memoryClear(term, stack);;
             ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad operation or operand in expression");
         }
     } while (getTerm(term));
 
-    memory_clear(term, stack);
-    return false;
-}
-
-bool postString(token_type expected_type, token_type return_type, tTerm* term, tStack* stack)
-{
-    tTerm* stack_term;
-
-    int string_count = 0;
-    int operation_count = 0;
-    bool logic_allowed = true;
-
-    do
-    {
-        if (term->index == STRING_IN)
-        {
-            string_count++;
-            generateInstruction(return_type, *term);
-            UPDATE_LAST_TOKEN();
-        }
-        else if (term->index == PLUS_IN)
-        {
-            operation_count++;
-
-            if (stackEmpty(stack))
-            {
-                stackPush(stack, *term);
-                UPDATE_LAST_TOKEN();
-            }
-            else
-            {
-                stack_term = stackPop(stack);
-                generateInstruction(return_type, *stack_term);
-                stackPush(stack, *term);
-                UPDATE_LAST_TOKEN();
-            }
-        }
-        else if (term->index == LEFT_PARENT_IN || term->index == RIGHT_PARENT_IN)
-        {
-            if (term->index == LEFT_PARENT_IN)
-            {
-                stackPush(stack, *term);
-                UPDATE_LAST_TOKEN();
-            }
-            else
-            {
-                if (stackEmpty(stack))
-                {  
-                    tTerm tmp_term; 
-                    tmp_term.index = DOLAR_IN;
-                    tmp_term.token.type = EOL_TOK; //token_type musn't be empty
-                    generateInstruction(return_type, tmp_term);
-                    memory_clear(term, stack);
-                    return true;
-                }
-
-                stack_term = stackTop(stack);
-
-                while ((stack_term->index != LEFT_PARENT_IN) && !(stackEmpty(stack))) 
-                {
-                    stack_term = stackPop(stack);  
-                    generateInstruction(return_type, *stack_term);
-                    stack_term = stackTop(stack);                        
-                }
-
-                if (stackEmpty(stack))
-                {  
-                    tTerm tmp_term; 
-                    tmp_term.index = DOLAR_IN;
-                    tmp_term.token.type = EOL_TOK; //token_type musn't be empty
-                    generateInstruction(return_type, tmp_term);
-                    memory_clear(term, stack);
-                    return true;
-                }
-                else
-                {
-                    stackPop(stack);
-                    UPDATE_LAST_TOKEN();
-                }     
-            }
-        }
-        else if((term->index == EQ_EXPR_IN || term->index == NOT_EQ_IN || term->index == LESS_EQ_IN ||
-                 term->index == MORE_EQ_IN || term->index == LESS_IN || term->index == MORE_IN) && 
-                (expected_type == BOOLEAN || expected_type == UNDEFINED_TOK))
-        {
-            if (logic_allowed) 
-            {
-                return_type = BOOLEAN;
-                logic_allowed = false;
-    
-                operation_count++;
-    
-                if (stackEmpty(stack))
-                {
-                    stackPush(stack, *term);
-                    UPDATE_LAST_TOKEN();
-                }
-                else
-                {   
-                    int get_priority = '>'; //first state for start cycle
-    
-                    while (get_priority != '<')
-                    {
-                        if (!stackEmpty(stack))
-                        {
-                            stack_term = stackTop(stack);
-                            get_priority = precedence_table[stack_term->index][term->index];
-                        }
-
-                        if (get_priority == '<' || stackEmpty(stack))
-                        {
-                            stackPush(stack, *term);
-                            UPDATE_LAST_TOKEN();
-                            break;
-                        }
-                        else
-                        {
-                            stack_term = stackPop(stack);
-                            generateInstruction(return_type, *stack_term);
-                        }
-                    }
-                }
-            }
-            else
-            {
-                memory_clear(term, stack);
-                ERROR_AND_RETURN(SEM_TYPE_ERROR,"More than one relation operation in expression");
-            }
-        }
-        else if (term->index == DOLAR_IN)
-        {
-            if (((operation_count + 1) == string_count)) //
-            {
-                while (!stackEmpty(stack))
-                {
-                    stack_term = stackPop(stack);
-
-                    if (stack_term->index == LEFT_PARENT_IN)
-                    {
-                        memory_clear(term, stack);
-                        ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad number of brackets in expression");
-                    }
-                    else
-                    {
-                       generateInstruction(return_type, *stack_term);  
-                    }
-                }
-                generateInstruction(return_type, *term); 
-                memory_clear(term, stack);
-                return true;
-            }
-            else
-            {
-                memory_clear(term, stack);
-                ERROR_AND_RETURN(SYN_ERROR,"Bad number of operations or strings in expression");  
-            }
-        }
-        else
-        {
-            memory_clear(term, stack);
-            ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad operation or operand in expression");
-        }
-    } while (getTerm(term));
-
-    memory_clear(term, stack);
+    memoryClear(term, stack);
     return false;
 }
 
@@ -821,8 +645,7 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
     return true;
 }
 
-
-void memory_clear(tTerm* term, tStack* stack)
+void memoryClear(tTerm* term, tStack* stack)
 {
     if (stack != NULL)
     {
@@ -833,6 +656,5 @@ void memory_clear(tTerm* term, tStack* stack)
     if (term != NULL)
     {
         free(term);    
-    }
-    
+    }  
 }
