@@ -8,11 +8,11 @@ typedef struct
     int allocatedSize;    // size of allocated memory for string
 } string;
 
-int stringInit(string*);
-void stringFree(string*);
-void stringClear(string*);
+int stringInit(string* str_1);
+void stringFree(string* str_1);
+void stringClear(string* str_1);
 
-int stringAddChar(char, string*);
-int stringConcat(const char*, string*);
+int stringAddChar(char c, string* str_1);
+int stringConcat(const char* str_2, string* str_1);
 
 #endif
