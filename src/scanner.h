@@ -24,8 +24,12 @@
 // Other constants
 #define KWD_COUNT 35            //number of keywords
 
-// Shortcut for cleaning string and return
-#define FREE_AND_RETURN(string) { stringFree(&string); return true; }
+// Shortcut for cleaning string and successful return
+#define RETURN_TRUE(string) do { stringFree(&string); return true; } while (0)
+
+// Shortcut for cleaning string and printing error message, unsuccess
+#define RETURN_FALSE(string, err_code, ...) do { stringFree(&string); addError(err_code, __VA_ARGS__); \
+                                        return false; } while (0)
 
 extern unsigned line;           //extern variable - line counter
 
