@@ -39,7 +39,7 @@ typedef enum token_type
     UNDEFINED_TOK = 0,          //non-existent token for functions in parser
     IDENTIFIER_TOK,
     INTEGER_TOK,
-    FLOATING_POINT_TOK,
+    DOUBLE_TOK,
     STRING_TOK,
     EOL_TOK,
     EOF_TOK,

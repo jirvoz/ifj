@@ -299,7 +299,7 @@ bool postfix(token_type expected_type, token_type return_type, tTerm* term, tSta
                 operand_count++;
                 tTerm tmp_term;
                 tmp_term.index = DOUBLE_IN;
-                tmp_term.token.type = FLOATING_POINT_TOK;
+                tmp_term.token.type = DOUBLE_TOK;
                 tmp_term.token.attribute.float_number = 0.0;
 
                 generateInstruction(return_type, tmp_term);
@@ -507,7 +507,7 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
         case DOUBLE_IN:
         {
             //constant
-            if (sent_term.token.type == FLOATING_POINT_TOK)
+            if (sent_term.token.type == DOUBLE_TOK)
                 printf("PUSHS float@%g\n", sent_term.token.attribute.float_number);
             //identifier
             else

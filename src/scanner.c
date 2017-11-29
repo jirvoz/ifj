@@ -565,7 +565,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 {
                     ungetc(c, source_file);
                     next_token->attribute.float_number = strtod(tmp_string.str, NULL);
-                    next_token->type = FLOATING_POINT_TOK;
+                    next_token->type = DOUBLE_TOK;
                     RETURN_TRUE(tmp_string);
                 }
             }
@@ -616,7 +616,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 {
                     ungetc(c, source_file);
                     next_token->attribute.float_number = strtod(tmp_string.str, NULL);
-                    next_token->type = FLOATING_POINT_TOK;
+                    next_token->type = DOUBLE_TOK;
                     RETURN_TRUE(tmp_string);
                 }
             }
