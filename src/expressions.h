@@ -8,25 +8,25 @@
 //rows and cols in precedence table
 typedef enum p_table_index
 {
-    EQ_EXPR_IN,
+    EQ_IN,
     NOT_EQ_IN,
-    LESS_EQ_IN,
-    MORE_EQ_IN,
-    LESS_IN,
-    MORE_IN,
+    LOWER_EQ_IN,
+    HIGHER_EQ_IN,
+    LOWER_IN,
+    HIGHER_IN,
     PLUS_IN,
     MINUS_IN,
     MUL_IN,
     FLOAT_DIV_IN,
     INT_DIV_IN,
-    LEFT_PARENT_IN,
-    RIGHT_PARENT_IN,
-    INT_IN,                 //13
+    LEFT_PARENTH_IN,
+    RIGHT_PARENTH_IN,
+    DOLAR_IN,
+
+    // Only for internal communication in expressions.c, not included in precedence table
+    INT_IN,                
     DOUBLE_IN,
-    STRING_IN,
-    EQ_COMMAND_IN,
-    UNARY_MINUS_IN,
-    DOLAR_IN
+    STRING_IN
 } p_table_index;
 
 //structure sent to generateInstruction

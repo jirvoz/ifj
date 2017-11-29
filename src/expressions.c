@@ -8,31 +8,26 @@
 #include "ifunc.h"
 
 //size of precedence table
-#define P_TAB_SIZE 19
+#define P_TAB_SIZE 14
 
 
 const int precedence_table[P_TAB_SIZE][P_TAB_SIZE] =
 {
-//exp'=' '<>' '<=' '>='  '<'  '>'  '+'  '-'  '*'  '/'  '\'  '('  ')' 'int''dob''str' com'=' un'-'  '$'
-    {'>', '>', '>', '>', '>', '>', '<', '<', '<', '<', '<', '<', '>', '<', '<', '<',    'x',  '<', '>'}, //exp'='
-    {'>', '>', '>', '>', '>', '>', '<', '<', '<', '<', '<', '<', '>', '<', '<', '<',    'x',  '<', '>'}, //'<>'
-    {'>', '>', '>', '>', '>', '>', '<', '<', '<', '<', '<', '<', '>', '<', '<', '<',    'x',  '<', '>'}, //'<='
-    {'>', '>', '>', '>', '>', '>', '<', '<', '<', '<', '<', '<', '>', '<', '<', '<',    'x',  '<', '>'}, //'>='
-    {'>', '>', '>', '>', '>', '>', '<', '<', '<', '<', '<', '<', '>', '<', '<', '<',    'x',  '<', '>'}, //'<'
-    {'>', '>', '>', '>', '>', '>', '<', '<', '<', '<', '<', '<', '>', '<', '<', '<',    'x',  '<', '>'}, //'>'
-    {'>', '>', '>', '>', '>', '>', '>', '>', '<', '<', '<', '<', '>', '<', '<', '<',    'x',  '<', '>'}, //'+'
-    {'>', '>', '>', '>', '>', '>', '>', '>', '<', '<', '<', '<', '>', '<', '<', 'x',    'x',  '<', '>'}, //'-'
-    {'>', '>', '>', '>', '>', '>', '>', '>', '>', '>', '>', '<', '>', '<', '<', 'x',    'x',  '<', '>'}, //'*'
-    {'>', '>', '>', '>', '>', '>', '>', '>', '>', '>', '>', '<', '>', '<', '<', 'x',    'x',  '<', '>'}, //'/'
-    {'>', '>', '>', '>', '>', '>', '<', '<', '<', '<', '>', '<', '>', '<', 'x', 'x',    'x',  '<', '>'}, //'\'
-    {'<', '<', '<', '<', '<', '<', '<', '<', '<', '<', '<', '<', '=', '<', '<', '<',    'x',  '<', 'x'}, //'('
-    {'>', '>', '>', '>', '>', '>', '>', '>', '>', '>', '>', 'x', '>', 'x', 'x', 'x',    '>',  'x', '>'}, //')'
-    {'>', '>', '>', '>', '>', '>', '>', '>', '>', '>', '>', 'x', '>', 'x', 'x', 'x',    '=',  'x', '>'}, //'int'
-    {'>', '>', '>', '>', '>', '>', '>', '>', '>', '>', 'x', 'x', '>', 'x', 'x', 'x',    '=',  'x', '>'}, //'dob'
-    {'>', '>', '>', '>', '>', '>', '>', 'x', 'x', 'x', 'x', 'x', '>', 'x', 'x', 'x',    '=',  'x', '>'}, //'str'
-    {'<', '<', '<', '<', '<', '<', '<', '<', '<', '<', '<', '<', 'x', '<', '<', '<',    'x',  '<', '>'}, //com'='
-    {'>', '>', '>', '>', '>', '>', '>', '>', '>', '>', '>', '<', 'x', '<', '<', 'x',    'x',  '>', '>'}, //un'-'
-    {'<', '<', '<', '<', '<', '<', '<', '<', '<', '<', '<', '<', 'x', '<', '<', '<',    'x',  '<', 'x'}, //'$'
+//'=' '<>' '<=' '>='  '<'  '>'  '+'  '-'  '*'  '/'  '\'  '('  ')'  '$'
+ {'>', '>', '>', '>', '>', '>', '<', '<', '<', '<', '<', '<', '>', '>'}, //'='
+ {'>', '>', '>', '>', '>', '>', '<', '<', '<', '<', '<', '<', '>', '>'}, //'<>'
+ {'>', '>', '>', '>', '>', '>', '<', '<', '<', '<', '<', '<', '>', '>'}, //'<='
+ {'>', '>', '>', '>', '>', '>', '<', '<', '<', '<', '<', '<', '>', '>'}, //'>='
+ {'>', '>', '>', '>', '>', '>', '<', '<', '<', '<', '<', '<', '>', '>'}, //'<'
+ {'>', '>', '>', '>', '>', '>', '<', '<', '<', '<', '<', '<', '>', '>'}, //'>'
+ {'>', '>', '>', '>', '>', '>', '>', '>', '<', '<', '<', '<', '>', '>'}, //'+'
+ {'>', '>', '>', '>', '>', '>', '>', '>', '<', '<', '<', '<', '>', '>'}, //'-'
+ {'>', '>', '>', '>', '>', '>', '>', '>', '>', '>', '>', '<', '>', '>'}, //'*'
+ {'>', '>', '>', '>', '>', '>', '>', '>', '>', '>', '>', '<', '>', '>'}, //'/'
+ {'>', '>', '>', '>', '>', '>', '<', '<', '<', '<', '>', '<', '>', '>'}, //'\'
+ {'<', '<', '<', '<', '<', '<', '<', '<', '<', '<', '<', '<', '=', 'x'}, //'('
+ {'>', '>', '>', '>', '>', '>', '>', '>', '>', '>', '>', 'x', '>', '>'}, //')'
+ {'<', '<', '<', '<', '<', '<', '<', '<', '<', '<', '<', '<', 'x', 'x'}, //'$'
 };
 
 //main expression function
@@ -57,7 +52,7 @@ bool expression(token_type expected_type)
 
     if (expected_type == UNDEFINED_TOK || expected_type == BOOLEAN ) // Undefined token set by first token type
     {
-        while (term->index == LEFT_PARENT_IN)    //first left brackets push on stack
+        while (term->index == LEFT_PARENTH_IN)    //first left brackets push on stack
         {
             stackPush(stack, *term);
             UPDATE_LAST_TOKEN();
@@ -210,7 +205,7 @@ bool getTerm(tTerm* term)
         {   //int, float and string constants
             if (last_token.type >= INTEGER_TOK && last_token.type <= STRING_TOK)
             {
-                term->index = last_token.type + 11;
+                term->index = last_token.type + 12;
             }
             //operators
             else if (last_token.type >= EQUAL_SIGN_OP && last_token.type <= RIGHT_PARENTH_OP)
@@ -323,9 +318,9 @@ bool postfix(token_type expected_type, token_type return_type, tTerm* term, tSta
                     UPDATE_LAST_TOKEN();
             }
         }
-        else if (term->index == LEFT_PARENT_IN || term->index == RIGHT_PARENT_IN)
+        else if (term->index == LEFT_PARENTH_IN || term->index == RIGHT_PARENTH_IN)
         {
-            if (term->index == LEFT_PARENT_IN)
+            if (term->index == LEFT_PARENTH_IN)
             {
                 stackPush(stack, *term);
                 UPDATE_LAST_TOKEN();
@@ -344,7 +339,7 @@ bool postfix(token_type expected_type, token_type return_type, tTerm* term, tSta
 
                 stack_term = stackTop(stack);
 
-                while (!(stackEmpty(stack)) && (stack_term->index != LEFT_PARENT_IN)) // in strings weird
+                while (!(stackEmpty(stack)) && (stack_term->index != LEFT_PARENTH_IN)) // in strings weird
                 {
                     stack_term = stackPop(stack);  
                     generateInstruction(return_type, *stack_term);
@@ -367,8 +362,8 @@ bool postfix(token_type expected_type, token_type return_type, tTerm* term, tSta
                 }     
             }
         }
-        else if((term->index == EQ_EXPR_IN || term->index == NOT_EQ_IN || term->index == LESS_EQ_IN ||
-                 term->index == MORE_EQ_IN || term->index == LESS_IN || term->index == MORE_IN) && 
+        else if((term->index == EQ_IN || term->index == NOT_EQ_IN || term->index == LOWER_EQ_IN ||
+                 term->index == HIGHER_EQ_IN || term->index == LOWER_IN || term->index == HIGHER_IN) && 
                 (expected_type == BOOLEAN || expected_type == UNDEFINED_TOK))
         {
             if (logic_allowed) 
@@ -403,7 +398,7 @@ bool postfix(token_type expected_type, token_type return_type, tTerm* term, tSta
                 {
                     stack_term = stackPop(stack);
 
-                    if (stack_term->index == LEFT_PARENT_IN)
+                    if (stack_term->index == LEFT_PARENTH_IN)
                     {
                         memoryClear(term, stack);
                         ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad number of brackets in expression");
@@ -588,33 +583,33 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
         }
             break;
         //'<'- comparison by LTS instruction - automatically pops flag to stack
-        case LESS_IN:
+        case LOWER_IN:
         {
             printf("LTS\n");   
         }
             break;
         //'>' - comparison by GTS instruction - automatically pops flag to stack
-        case MORE_IN:
+        case HIGHER_IN:
         {
             printf("GTS\n");
         }
             break;
         // '<=' - it's necessary to use also ORS instructions
-        case LESS_EQ_IN:
+        case LOWER_EQ_IN:
         {
             printf("GTS\n");
             printf("NOTS\n");
         }
             break;
         //'>=' - it's necessary to use also ORS instructions
-        case MORE_EQ_IN:
+        case HIGHER_EQ_IN:
         {
             printf("LTS\n");
             printf("NOTS\n"); 
         }
             break;
         //'=' - use simple EQS instruction
-        case EQ_EXPR_IN:
+        case EQ_IN:
         {
             printf("EQS\n"); 
         }
