@@ -15,7 +15,9 @@ typedef struct tSymbol
     //for function only
     bool defined;               //function defined flag
     int arg_count;              //function arguments count
-    token_type* args;          	//array of function arguments
+    int arg_size;               //size of arrays of function arguments
+    token_type* arg_types;      //types of function arguments
+    char** arg_names;           //names of function arguments
 } tSymbol;
 
 //this structure represent symbol in hash table

@@ -14,14 +14,18 @@
 
 #include <stdio.h>
 #include "strings.h"
+#include "errors.h"
 
-//codes from ASCII table
+// Codes from ASCII table
 #define APOSTROPHE 39
 #define BACKSLASH 92
 #define QUOTE 34
 
-//Other constants
+// Other constants
 #define KWD_COUNT 35            //number of keywords
+
+// Shortcut for cleaning string and return
+#define FREE_AND_RETURN(string) { stringFree(&string); return true; }
 
 extern unsigned line;           //extern variable - line counter
 
@@ -30,18 +34,18 @@ typedef enum token_type
 {
     UNDEFINED_TOK = 0,          //non-existent token for functions in parser
     IDENTIFIER_TOK,
-    STRING_TOK,
     INTEGER_TOK,
     FLOATING_POINT_TOK,
+    STRING_TOK,
     EOL_TOK,
     EOF_TOK,
     //------------OPERATORS-------------//
-    LOWER_OP = 10,              //starting at 10
-    HIGHER_OP,
-    EQUAL_SIGN_OP,
+    EQUAL_SIGN_OP = 10,         //operators starting at 10
     NO_EQUAL_OP,
     LOWER_EQUAL_OP,
     HIGHER_EQUAL_OP,
+    LOWER_OP,
+    HIGHER_OP,
     PLUS_OP,
     MINUS_OP,
     STAR_OP,
@@ -52,41 +56,41 @@ typedef enum token_type
     COLON_OP,
     SEMICOLON_OP,
     //------------KEYWORDS-------------//
-    AS = 30,                    //starting at 30
+    AND = 30,                   //keywords starting at 30
+    AS,
     ASC,
+    BOOLEAN,
+    CHR,
+    CONTINUE,
     DECLARE,
     DIM,
     DO,
     DOUBLE,
     ELSE,
+    ELSEIF,
     END,
-    CHR,
+    EXIT,
+    FALSE,
+    FOR,
     FUNCTION,
     IF,
     INPUT,
     INTEGER,
     LENGTH,
     LOOP,
-    PRINT,
-    RETURN,
-    SCOPE,
-    STRING,
-    SUBSTR,
-    THEN,
-    WHILE,
-    AND,                          
-    BOOLEAN,
-    CONTINUE,
-    ELSEIF,
-    EXIT,
-    FALSE,
-    FOR,
     NEXT,
     NOT,
     OR,
+    PRINT,
+    RETURN,
+    SCOPE,
     SHARED,
     STATIC,
-    TRUE
+    STRING,
+    SUBSTR,
+    THEN,
+    TRUE,
+    WHILE
 } token_type;
 
 typedef union tToken_attribute
@@ -104,7 +108,9 @@ typedef struct tToken
     
 //Declarations of functions
 
-int getNextToken (tToken*, FILE*);                  //main functions of scanner
-int operatorTest (char);                            //this functions tests, if next token is operator(+,-,...)
+int getNextToken(tToken* next_token, FILE* source_file);           // Main functions of scanner
+int operatorTest(char c);                   // This function tests, if next token is operator(+,-,...)
+int identifierTest(string* identifier);     // This function tests, if identifier is keyword
+bool returnFalse(err_code code, const char* message, string* str);   //this functions is called is error occured
 
 #endif

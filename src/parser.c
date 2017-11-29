@@ -29,7 +29,10 @@ bool skip_statement()
 bool statement()
 {
     UPDATE_LAST_TOKEN();
-    // TODO evaluate statements
+
+    printf("\n");
+
+    // Evaluate statement
     switch (last_token.type)
     {
         case DIM:
@@ -37,7 +40,6 @@ bool statement()
             break;
         case IDENTIFIER_TOK:
             return assignment_stat();
-            // assignment
             break;
         case INPUT:
             return input_stat();
@@ -46,34 +48,47 @@ bool statement()
             return print_stat();
             break; 
         case IF:
-            return skip_statement();
+            return if_stat();
             break; 
         case DO:
-            return skip_statement();
+            return while_stat();
             break; 
         case RETURN:
-            return skip_statement();
+            return return_stat();
             break; 
         case EOL_TOK:
         case END:
         case ELSE:
+        case ELSEIF:
         case LOOP:
             return true;
             break;
         default:
             ERROR_AND_RETURN(SYN_ERROR, "Wrong beginning of statement.");
     }
-
 }
 
 bool statement_list()
 {
-    // stop when hitted the end of block of code
-    if (last_token.type == END)
-        return true;
-
-    // parse the actual statements
-    return statement() && statement_list();
+    // Read statements until keyword, that end statement block
+    // This should be: return statement() && statement_list();
+    // but it's written in while loop to lower recursion
+    while (true)
+    {
+        switch (last_token.type)
+        {
+            case END:
+            case ELSE:
+            case ELSEIF:
+            case LOOP:
+                // Stop when hit the end of block of statements
+                return true;
+            default:
+                // Parse the actual statements
+                if (!statement())
+                    return false;
+        }
+    }
 }
 
 bool program()
@@ -102,13 +117,17 @@ bool program()
                 if (!statement_list())
                     return false;
 
+                // Test the correct ending of code block
+                if (last_token.type != END)
+                    ERROR_AND_RETURN(SYN_ERROR, "Expected END at scope ending.");
+
                 UPDATE_LAST_TOKEN();
 
-                // test the correct ending of scope
+                // Test the correct ending of scope
                 if (last_token.type == SCOPE)
                     return true;
                 else
-                    return false;
+                    ERROR_AND_RETURN(SYN_ERROR, "Bad ending of scope.");
                 break;
             case EOL_TOK:
                 // spare EOL is fine
@@ -116,7 +135,7 @@ bool program()
             case EOF_TOK:
                 ERROR_AND_RETURN(SYN_ERROR, "Missing main scope.");
             default:
-                ERROR_AND_RETURN(SYN_ERROR, "Wrong beginning of statement.");
+                ERROR_AND_RETURN(SYN_ERROR, "Wrong beginning of block of code.");
         }
     }
     while (true);
@@ -126,14 +145,32 @@ bool program()
 bool parse()
 {
     printf(".IFJcode17\n");
-    printf("JUMP $$main\n");
+    printf("JUMP $$main\n\n");
 
     func_table = malloc(sizeof(tHtitem) * HTSIZE);
     var_table = malloc(sizeof(tHtitem) * HTSIZE);
     htInit(func_table);
     htInit(var_table);
 
-    return program();
+    if (!program())
+        return false;
 
-    // TODO make sure there isn't anything after "end scope"
+    // Make sure there isn't anything after "end scope"
+    while (true)
+    {
+        UPDATE_LAST_TOKEN();
+        switch (last_token.type)
+        {
+            case EOL_TOK:
+                continue;
+            case EOF_TOK:
+                htClearAll(func_table);
+                free(func_table);
+                htClearAll(var_table);
+                free(var_table);
+                return true;
+            default:
+                ERROR_AND_RETURN(SYN_ERROR, "There is something after main scope.");
+        }
+    }
 }

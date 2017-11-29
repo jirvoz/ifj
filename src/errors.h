@@ -1,8 +1,7 @@
 #ifndef _ERRORS_H_
 #define _ERRORS_H_
 
-#define SUCCESS 0               //bash style
-#define FAILURE 1               //bash style
+#include <stdbool.h>
 
 extern int exit_code;
 

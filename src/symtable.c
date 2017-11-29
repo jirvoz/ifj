@@ -30,7 +30,7 @@ tSymbol* htSearch ( tHtable* ptrht, char* name )
 
     while (ptr != NULL)
     {
-        if (!strcmp(ptr->name, name))
+        if (strcmp(ptr->name, name) == 0)
         {
             return &ptr->symbol;
         }
@@ -64,9 +64,14 @@ void htDelete (tHtable* ptrht, char* name)
 
     if (ptr != NULL)
     {
-        if (!strcmp(ptr->name, name))
+        if (strcmp(ptr->name, name) == 0)
         {
             tmp = ptr->next;
+            free(ptr->name);
+            free(ptr->symbol.arg_types);
+            for (int j = 0; j < ptr->symbol.arg_count; j++)
+                free(ptr->symbol.arg_names[j]);
+            free(ptr->symbol.arg_names);
             free(ptr);
             ptrht[code] = tmp;
             return;
@@ -77,6 +82,11 @@ void htDelete (tHtable* ptrht, char* name)
             {
                 tmp = ptr->next;
                 ptr->next = ptr->next->next;
+                free(tmp->name);
+                free(tmp->symbol.arg_types);
+                for (int j = 0; j < tmp->symbol.arg_count; j++)
+                    free(tmp->symbol.arg_names[j]);
+                free(tmp->symbol.arg_names);
                 free(tmp);
                 tmp = NULL;
             }
@@ -98,7 +108,10 @@ void htClearAll (tHtable* ptrht)
                 ptr = ptrht[i];
                 ptrht[i] = ptr->next;
                 free(ptr->name);
-                free(ptr->symbol.args);
+                free(ptr->symbol.arg_types);
+                for (int j = 0; j < ptr->symbol.arg_count; j++)
+                    free(ptr->symbol.arg_names[j]);
+                free(ptr->symbol.arg_names);
                 free(ptr);
                 ptr = NULL;
             }
