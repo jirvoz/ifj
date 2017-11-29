@@ -10,7 +10,6 @@
 //size of precedence table
 #define P_TAB_SIZE 19
 
-bool simple_bool = false;
 
 const int precedence_table[P_TAB_SIZE][P_TAB_SIZE] =
 {
@@ -374,7 +373,7 @@ bool postfix(token_type expected_type, token_type return_type, tTerm* term, tSta
         {
             if (logic_allowed) 
             {
-                return_type = BOOLEAN;
+                //return_type = BOOLEAN;
                 logic_allowed = false;
     
                 operation_count++;
@@ -418,6 +417,10 @@ bool postfix(token_type expected_type, token_type return_type, tTerm* term, tSta
                 {
                     memoryClear(term, stack);
                     ERROR_AND_RETURN(SEM_TYPE_ERROR,"Expected equality operation"); 
+                }
+                if (expected_type == BOOLEAN && return_type != BOOLEAN)
+                {
+                    return_type = BOOLEAN;
                 }
                 generateInstruction(return_type, *term);
                 memoryClear(term, stack);
@@ -628,12 +631,6 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
             if (return_type == INTEGER)
             {
                 printf("FLOAT2R2EINTS\n");
-            }
-            if (simple_bool)
-            {
-                printf("PUSHS float@0.0\n");
-                printf("EQS\n");
-                printf("NOT\n");
             }
         }
             break;
