@@ -10,7 +10,6 @@
 //size of precedence table
 #define P_TAB_SIZE 14
 
-
 const int precedence_table[P_TAB_SIZE][P_TAB_SIZE] =
 {
 //'=' '<>' '<=' '>='  '<'  '>'  '+'  '-'  '*'  '/'  '\'  '('  ')'  '$'
@@ -71,7 +70,7 @@ bool expression(token_type expected_type)
                 break;
             default:
                 memoryClear(term, stack);
-                ERROR_AND_RETURN(SEM_TYPE_ERROR, "Wrong expression");
+                ERROR_AND_RETURN(SYN_ERROR, "Wrong expression");
         }
     }
 
@@ -164,7 +163,7 @@ bool getTerm(tTerm* term)
             UPDATE_LAST_TOKEN();
             if (last_token.type != LEFT_PARENTH_OP)
             {
-                ERROR_AND_RETURN(SEM_TYPE_ERROR, "Expected '(' after function");
+                ERROR_AND_RETURN(SEM_PROG_ERROR, "Expected '(' after function");
             }
         }
             break;
@@ -175,7 +174,7 @@ bool getTerm(tTerm* term)
             UPDATE_LAST_TOKEN();
             if (last_token.type != LEFT_PARENTH_OP)
             {
-                ERROR_AND_RETURN(SEM_TYPE_ERROR, "Expected '(' after function");
+                ERROR_AND_RETURN(SEM_PROG_ERROR, "Expected '(' after function");
             }
         }
             break;
@@ -186,7 +185,7 @@ bool getTerm(tTerm* term)
             UPDATE_LAST_TOKEN();
             if (last_token.type != LEFT_PARENTH_OP)
             {
-                ERROR_AND_RETURN(SEM_TYPE_ERROR, "Expected '(' after function");
+                ERROR_AND_RETURN(SEM_PROG_ERROR, "Expected '(' after function");
             }
         }
             break;
@@ -401,7 +400,7 @@ bool postfix(token_type expected_type, token_type return_type, tTerm* term, tSta
                     if (stack_term->index == LEFT_PARENTH_IN)
                     {
                         memoryClear(term, stack);
-                        ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad number of brackets in expression");
+                        ERROR_AND_RETURN(SYN_ERROR,"Bad number of brackets in expression");
                     }
                     else
                     {
