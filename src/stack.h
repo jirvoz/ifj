@@ -16,8 +16,8 @@ typedef struct tStack
 tStack* stackInit();
 bool stackEmpty(tStack* stack);
 void stackPush(tStack* stack, struct tTerm term);
-struct tTerm* stackPop(tStack* stack);
-struct tTerm* stackTop(tStack* stack);
+struct tTerm stackPop(tStack* stack);
+struct tTerm stackTop(tStack* stack);
 void stackFree(tStack* stack);
 
 #endif

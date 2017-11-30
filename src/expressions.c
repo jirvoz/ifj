@@ -32,33 +32,26 @@ const int precedence_table[P_TAB_SIZE][P_TAB_SIZE] =
 //main expression function
 bool expression(token_type expected_type)
 {
-    tTerm* term = malloc(sizeof(tTerm));
-    if (term == NULL)
-    {
-        memoryClear(term, NULL);
-        ERROR_AND_RETURN(OTHER_ERROR, "Memmory allocation error");
-    }
+    tTerm term;
 
     // last_token is first token of expression
-    if (!getTerm(term) || term->index == DOLAR_IN)
-    {
-        memoryClear(term, NULL);
+    if (!getTerm(&term) || term.index == DOLAR_IN)
         ERROR_AND_RETURN(SYN_ERROR, "Empty expression");
-    }
+
     tStack* stack = stackInit();
 
     token_type return_type = expected_type;
 
     if (expected_type == UNDEFINED_TOK || expected_type == BOOLEAN ) // Undefined token set by first token type
     {
-        while (term->index == LEFT_PARENTH_IN)    //first left brackets push on stack
+        while (term.index == LEFT_PARENTH_IN)    //first left brackets push on stack
         {
-            stackPush(stack, *term);
+            stackPush(stack, term);
             UPDATE_LAST_TOKEN();
-            getTerm(term);
+            getTerm(&term);
         }
 
-        switch (term->index)
+        switch (term.index)
         {
             case INT_IN: return_type = INTEGER;
                 break;
@@ -69,7 +62,7 @@ bool expression(token_type expected_type)
             case STRING_IN: return_type = STRING;
                 break;
             default:
-                memoryClear(term, stack);
+                stackFree(stack);
                 ERROR_AND_RETURN(SYN_ERROR, "Wrong expression");
         }
     }
@@ -82,21 +75,23 @@ bool expression(token_type expected_type)
             return (postfix(expected_type, return_type, term, stack));
             break;
         default:
-            memoryClear(term, stack);
+            stackFree(stack);
             ERROR_AND_RETURN(OTHER_ERROR, "Unknown token type");
     }
 }
 
+
+// This function set the type of token and index in precedence table
 bool getTerm(tTerm* term)
 {
-    //set token in term
+    // Set token in term
     term->token = last_token;
 
     switch(last_token.type)
-    {   //token is identifier, figure out if var or func
+    {   // Token is identifier, figure out if var or func
         case IDENTIFIER_TOK:
         {
-            //search in func_table
+            // Search in func_table
             tSymbol* symbol = htSearch(func_table, last_token.attribute.string_ptr);
 
             if (symbol != NULL)
@@ -114,13 +109,12 @@ bool getTerm(tTerm* term)
                 }
                 UPDATE_LAST_TOKEN();
                 if (last_token.type != LEFT_PARENTH_OP)
-                {
                     ERROR_AND_RETURN(SEM_PROG_ERROR, "Expected '(' after function");
-                }
+
                 return true; 
             }
 
-            //search in var_table
+            // Search in var_table
             symbol = htSearch(var_table, last_token.attribute.string_ptr);
 
             if (symbol != NULL)
@@ -140,31 +134,24 @@ bool getTerm(tTerm* term)
             }
 
             if (term->index >= INT_IN && term->index <= STRING_IN)
-            {
                 ERROR_AND_RETURN(SYN_ERROR, "Unexpected operand in expression"); 
-            }
 
             UPDATE_LAST_TOKEN();
+
             if (last_token.type == LEFT_PARENTH_OP)
-            {
                 ERROR_AND_RETURN(SEM_PROG_ERROR, "Undeclared function");
-            }
             else
-            {
                 ERROR_AND_RETURN(SEM_PROG_ERROR, "Undeclared variable");
-            } 
         }
             break;
-        //inbuild functions
+        // Inbuild functions calling
         case ASC:
         {
             term->index = INT_IN;
             term->token.type = ASC;
             UPDATE_LAST_TOKEN();
             if (last_token.type != LEFT_PARENTH_OP)
-            {
                 ERROR_AND_RETURN(SEM_PROG_ERROR, "Expected '(' after function");
-            }
         }
             break;
         case CHR:
@@ -173,9 +160,7 @@ bool getTerm(tTerm* term)
             term->token.type = CHR;
             UPDATE_LAST_TOKEN();
             if (last_token.type != LEFT_PARENTH_OP)
-            {
                 ERROR_AND_RETURN(SEM_PROG_ERROR, "Expected '(' after function");
-            }
         }
             break;
         case LENGTH:
@@ -184,9 +169,7 @@ bool getTerm(tTerm* term)
             term->token.type = LENGTH;
             UPDATE_LAST_TOKEN();
             if (last_token.type != LEFT_PARENTH_OP)
-            {
                 ERROR_AND_RETURN(SEM_PROG_ERROR, "Expected '(' after function");
-            }
         }
             break;
         case SUBSTR:
@@ -195,62 +178,58 @@ bool getTerm(tTerm* term)
             term->token.type = SUBSTR;
             UPDATE_LAST_TOKEN();
             if (last_token.type != LEFT_PARENTH_OP)
-            {
                 ERROR_AND_RETURN(SEM_TYPE_ERROR, "Expected '(' after function");
-            }
         }
             break;
         default:
-        {   //int, float and string constants
+        {   // Int, float and string constants
             if (last_token.type >= INTEGER_TOK && last_token.type <= STRING_TOK)
             {
                 term->index = last_token.type + 12;
             }
-            //operators
+            // Operators
             else if (last_token.type >= EQUAL_SIGN_OP && last_token.type <= RIGHT_PARENTH_OP)
             {
                 term->index = last_token.type - 10;
             }
-            //if other token_type, term->index is DOLAR - end of expression
+            // If other token_type, term->index is DOLAR - end of expression
             else
-            {
                 term->index = DOLAR_IN;
-            } 
         }
     }
     return true;
 }
 
-bool getPriority (tTerm* term, tStack* stack, token_type return_type)
+bool getPriority (tTerm term, tStack* stack, token_type return_type)
 {
     int get_priority = '>'; //first state for start cycle
-    tTerm* tmp_term;
+    tTerm tmp_term;
 
     while (get_priority != '<')
     {
         if (!stackEmpty(stack))
         {
             tmp_term = stackTop(stack);
-            get_priority = precedence_table[tmp_term->index][term->index];
+            get_priority = precedence_table[tmp_term.index][term.index];
         }
             
         if (get_priority == '<' || stackEmpty(stack))
         {
-            stackPush(stack, *term);
+            stackPush(stack, term);
             break;
         }
         else
         {
             tmp_term = stackPop(stack);
-            generateInstruction(return_type, *tmp_term);
+            generateInstruction(return_type, tmp_term);
         }
     }
     return true;
 }
 
-bool postfix(token_type expected_type, token_type return_type, tTerm* term, tStack* stack)
+bool postfix(token_type expected_type, token_type return_type, tTerm term, tStack* stack)
 {
-    tTerm* stack_term;
+    tTerm stack_term;
 
     int operand_count = 0;
     int operation_count = 0;
@@ -259,33 +238,28 @@ bool postfix(token_type expected_type, token_type return_type, tTerm* term, tSta
 
     do
     {
-        if ((((term->index == INT_IN) || (term->index == DOUBLE_IN)) && (return_type != STRING)) ||
-            ((term->index == STRING_IN) && (return_type == STRING)))
+        if ((((term.index == INT_IN) || (term.index == DOUBLE_IN)) && (return_type != STRING)) ||
+            ((term.index == STRING_IN) && (return_type == STRING)))
         {
             if(negative_number && return_type != STRING)        //if first in expresion is sign + or -
             {
-                if (term->index == INT_IN)
-                {
+                if (term.index == INT_IN)
                     return_type = INTEGER;
-                }
                 else
-                {
                     return_type = DOUBLE;
-                }
+
                 negative_number = false;
             }
 
-            if ((expected_type == UNDEFINED_TOK) && (term->index == DOUBLE_IN)) //if is in undefined expression Double whole expression convert to Double
-            {
+            if ((expected_type == UNDEFINED_TOK) && (term.index == DOUBLE_IN)) //if is in undefined expression Double whole expression convert to Double
                 return_type = DOUBLE;
-            }
 
             operand_count++;
-            generateInstruction(return_type, *term);
+            generateInstruction(return_type, term);
             UPDATE_LAST_TOKEN();
         }
-        else if (((term->index == PLUS_IN || term->index == MINUS_IN || term->index == MUL_IN || term->index == FLOAT_DIV_IN || term->index == INT_DIV_IN) && return_type != STRING) ||
-                ((term->index == PLUS_IN) && (return_type == STRING)))  //Operands and operations allowed when expected type is INTEGER or DOUBLE      
+        else if (((term.index == PLUS_IN || term.index == MINUS_IN || term.index == MUL_IN || term.index == FLOAT_DIV_IN || term.index == INT_DIV_IN) && return_type != STRING) ||
+                ((term.index == PLUS_IN) && (return_type == STRING)))  //Operands and operations allowed when expected type is INTEGER or DOUBLE      
         {
             if (operand_count == 0)     //negative_number + or - solved ... firstly push 0.0
             {
@@ -299,7 +273,7 @@ bool postfix(token_type expected_type, token_type return_type, tTerm* term, tSta
                 generateInstruction(return_type, tmp_term);
             }
 
-            if ((expected_type == UNDEFINED_TOK) && (term->index == FLOAT_DIV_IN))   //if in undefined expression is float div then convert to double
+            if ((expected_type == UNDEFINED_TOK) && (term.index == FLOAT_DIV_IN))   //if in undefined expression is float div then convert to double
             {
                 return_type = DOUBLE;
             }
@@ -308,7 +282,7 @@ bool postfix(token_type expected_type, token_type return_type, tTerm* term, tSta
 
             if (stackEmpty(stack))
             {
-                stackPush(stack, *term);
+                stackPush(stack, term);
                 UPDATE_LAST_TOKEN();
             }
             else
@@ -317,11 +291,11 @@ bool postfix(token_type expected_type, token_type return_type, tTerm* term, tSta
                     UPDATE_LAST_TOKEN();
             }
         }
-        else if (term->index == LEFT_PARENTH_IN || term->index == RIGHT_PARENTH_IN)
+        else if (term.index == LEFT_PARENTH_IN || term.index == RIGHT_PARENTH_IN)
         {
-            if (term->index == LEFT_PARENTH_IN)
+            if (term.index == LEFT_PARENTH_IN)
             {
-                stackPush(stack, *term);
+                stackPush(stack, term);
                 UPDATE_LAST_TOKEN();
             }
             else
@@ -332,17 +306,17 @@ bool postfix(token_type expected_type, token_type return_type, tTerm* term, tSta
                     tmp_term.index = DOLAR_IN;
                     tmp_term.token.type = EOL_TOK; //token_type musn't be empty
                     generateInstruction(return_type, tmp_term);
-                    memoryClear(term, stack);
+                    stackFree(stack);
                     return true;
                 }
 
                 stack_term = stackTop(stack);
 
-                while (!(stackEmpty(stack)) && (stack_term->index != LEFT_PARENTH_IN)) // in strings weird
+                while (!(stackEmpty(stack)) && (stack_term.index != LEFT_PARENTH_IN)) // in strings weird
                 {
-                    stack_term = stackPop(stack);  
-                    generateInstruction(return_type, *stack_term);
-                    stack_term = stackTop(stack);                        
+                    stack_term = stackPop(stack);
+                    generateInstruction(return_type, stack_term);
+                    stack_term = stackTop(stack);                    
                 }
 
                 if (stackEmpty(stack))
@@ -351,7 +325,7 @@ bool postfix(token_type expected_type, token_type return_type, tTerm* term, tSta
                     tmp_term.index = DOLAR_IN;
                     tmp_term.token.type = EOL_TOK; //token_type musn't be empty
                     generateInstruction(return_type, tmp_term);
-                    memoryClear(term, stack);
+                    stackFree(stack);
                     return true;
                 }
                 else
@@ -361,8 +335,8 @@ bool postfix(token_type expected_type, token_type return_type, tTerm* term, tSta
                 }     
             }
         }
-        else if((term->index == EQ_IN || term->index == NOT_EQ_IN || term->index == LOWER_EQ_IN ||
-                 term->index == HIGHER_EQ_IN || term->index == LOWER_IN || term->index == HIGHER_IN) && 
+        else if((term.index == EQ_IN || term.index == NOT_EQ_IN || term.index == LOWER_EQ_IN ||
+                 term.index == HIGHER_EQ_IN || term.index == LOWER_IN || term.index == HIGHER_IN) && 
                 (expected_type == BOOLEAN || expected_type == UNDEFINED_TOK))
         {
             if (logic_allowed) 
@@ -374,7 +348,7 @@ bool postfix(token_type expected_type, token_type return_type, tTerm* term, tSta
     
                 if (stackEmpty(stack))
                 {
-                    stackPush(stack, *term);
+                    stackPush(stack, term);
                     UPDATE_LAST_TOKEN();
                 }
                 else
@@ -385,11 +359,11 @@ bool postfix(token_type expected_type, token_type return_type, tTerm* term, tSta
             }
             else
             {
-                memoryClear(term, stack);
+                stackFree(stack);
                 ERROR_AND_RETURN(SEM_TYPE_ERROR,"More than one relation operation in expression");
             }
         }
-        else if (term->index == DOLAR_IN)
+        else if (term.index == DOLAR_IN)
         {
             if (((operation_count + 1) == operand_count)) //
             {
@@ -397,57 +371,52 @@ bool postfix(token_type expected_type, token_type return_type, tTerm* term, tSta
                 {
                     stack_term = stackPop(stack);
 
-                    if (stack_term->index == LEFT_PARENTH_IN)
+                    if (stack_term.index == LEFT_PARENTH_IN)
                     {
-                        memoryClear(term, stack);
+                        stackFree(stack);
                         ERROR_AND_RETURN(SYN_ERROR,"Bad number of brackets in expression");
                     }
                     else
-                    {
-                       generateInstruction(return_type, *stack_term);  
-                    }
+                       generateInstruction(return_type, stack_term);  
                 }
                 if (logic_allowed && expected_type == BOOLEAN)
                 {
-                    memoryClear(term, stack);
+                    stackFree(stack);
                     ERROR_AND_RETURN(SEM_TYPE_ERROR,"Expected equality operation"); 
                 }
                 if (expected_type == BOOLEAN && return_type != BOOLEAN)
-                {
                     return_type = BOOLEAN;
-                }
-                generateInstruction(return_type, *term);
-                memoryClear(term, stack);
+
+                generateInstruction(return_type, term);
+                stackFree(stack);
                 return true;
             }
             else
             {
-                memoryClear(term, stack);
+                stackFree(stack);
                 ERROR_AND_RETURN(SYN_ERROR,"Bad number of operations or operands in expression");  
             }
         }
         else
         {
-            memoryClear(term, stack);;
+            stackFree(stack);
             ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad operation or operand in expression");
         }
-    } while (getTerm(term));
+    } while (getTerm(&term));
 
-    memoryClear(term, stack);
+    stackFree(stack);
     return false;
 }
 
 bool generateInstruction(token_type return_type, tTerm sent_term)
 {
-    //just for testing
-    //printTerm(sent_term);
-
     switch(sent_term.token.type)
     {
         case ASC: 
         {
             if (!callAsc())
                 return false;
+
             printf("INT2FLOATS\n");
             return true;
         }
@@ -456,6 +425,7 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
         {
             if (!callLength())
                 return false;
+
             printf("INT2FLOATS\n");
             return true;
         }
@@ -465,7 +435,7 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
     }
 
 
-    //function calling, value after calling will be on the top of stack
+    // User function calling, value after calling will be on the top of stack
     if (sent_term.token.type == IDENTIFIER_TOK)
     {
         tSymbol* symbol = htSearch(func_table, sent_term.token.attribute.string_ptr);
@@ -530,22 +500,13 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
         }
             break;
         //SUBS instruction
-        case MINUS_IN:
-        {
-            printf("SUBS\n");
-        }
+        case MINUS_IN: printf("SUBS\n");
             break;
         //MULS instruction
-        case MUL_IN:
-        {
-            printf("MULS\n");
-        }
+        case MUL_IN: printf("MULS\n");
             break;
         //classic DIVS
-        case FLOAT_DIV_IN:
-        {
-            printf("DIVS\n");
-        }
+        case FLOAT_DIV_IN: printf("DIVS\n");
             break;
         //'\' DIVS - integers
         case INT_DIV_IN:
@@ -582,16 +543,11 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
         }
             break;
         //'<'- comparison by LTS instruction - automatically pops flag to stack
-        case LOWER_IN:
-        {
-            printf("LTS\n");   
-        }
+        case LOWER_IN: printf("LTS\n");   
             break;
         //'>' - comparison by GTS instruction - automatically pops flag to stack
         case HIGHER_IN:
-        {
             printf("GTS\n");
-        }
             break;
         // '<=' - it's necessary to use also ORS instructions
         case LOWER_EQ_IN:
@@ -608,10 +564,7 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
         }
             break;
         //'=' - use simple EQS instruction
-        case EQ_IN:
-        {
-            printf("EQS\n"); 
-        }
+        case EQ_IN: printf("EQS\n");
             break;
         //'<>' - compare and negate
         case NOT_EQ_IN:
@@ -623,29 +576,10 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
         case DOLAR_IN:
         {
             if (return_type == INTEGER)
-            {
                 printf("FLOAT2R2EINTS\n");
-            }
         }
             break;
-        default:
-        {
-            ERROR_AND_RETURN(SEM_TYPE_ERROR, "Wrong expression");
-        }
+        default: ERROR_AND_RETURN(SEM_TYPE_ERROR, "Wrong expression");
     }
     return true;
-}
-
-void memoryClear(tTerm* term, tStack* stack)
-{
-    if (stack != NULL)
-    {
-        stackFree(stack);
-        free(stack);
-    }
-
-    if (term != NULL)
-    {
-        free(term);    
-    }  
 }
