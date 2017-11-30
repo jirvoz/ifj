@@ -145,6 +145,24 @@ bool program()
 bool parse()
 {
     printf(".IFJcode17\n");
+    // String variables
+    printf("DEFVAR GF@$str1\n");
+    printf("DEFVAR GF@$str2\n");
+
+    // Number variables
+    printf("DEFVAR GF@$num1\n");
+    printf("DEFVAR GF@$num2\n");
+    printf("DEFVAR GF@$num3\n");
+
+    // Boolean variable
+    printf("DEFVAR GF@$bool1\n");
+
+    // Cycle counter
+    printf("DEFVAR GF@$counter\n");
+
+    // Variable for character
+    printf("DEFVAR GF@$char\n");
+
     printf("JUMP $$main\n\n");
 
     func_table = malloc(sizeof(tHtitem) * HTSIZE);

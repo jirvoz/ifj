@@ -119,17 +119,17 @@ bool getTerm(tTerm* term)
 
             if (symbol != NULL)
             {
-               switch (symbol->type)
-                    {
-                        case INTEGER: term->index = INT_IN;
-                            break;
-                        case DOUBLE: term->index = DOUBLE_IN;
-                            break;
-                        case STRING: term->index = STRING_IN;
-                            break;
-                        default:
-                            ERROR_AND_RETURN(SEM_TYPE_ERROR, "Unknown variable type");
-                    }
+                switch (symbol->type)
+                {
+                    case INTEGER: term->index = INT_IN;
+                        break;
+                    case DOUBLE: term->index = DOUBLE_IN;
+                        break;
+                    case STRING: term->index = STRING_IN;
+                        break;
+                    default:
+                        ERROR_AND_RETURN(SEM_TYPE_ERROR, "Unknown variable type");
+                }
                 return true;
             }
 
@@ -488,14 +488,11 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
             //if string, concatenate
             else
             {
-                printf("CREATEFRAME\n");
-                printf("DEFVAR TF@$tmp1\n");
-                printf("DEFVAR TF@$tmp2\n");
-                printf("DEFVAR TF@$tmp3\n");
-                printf("POPS TF@$tmp2\n");
-                printf("POPS TF@$tmp1\n");
-                printf("CONCAT TF@$tmp3 TF@$tmp1 TF@$tmp2\n");
-                printf("PUSHS TF@$tmp3\n");
+
+                printf("POPS GF@$str2\n"
+                       "POPS GF@$str1\n"
+                       "CONCAT GF@$str1 GF@$str1 GF@$str2\n"
+                       "PUSHS GF@$str1\n");
             }
         }
             break;
@@ -511,23 +508,16 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
         //'\' DIVS - integers
         case INT_DIV_IN:
         {   
-            printf("CREATEFRAME\n");
+            printf("POPS GF@$num1\n"
+                   "FLOAT2R2EINTS\n"
+                   "INT2FLOATS\n"
+                   "PUSHS GF@$num1\n"
+                   "FLOAT2R2EINTS\n"
+                   "INT2FLOATS\n");
 
-            printf("FLOAT2R2EINTS\n");
-            printf("INT2FLOATS\n");
-            printf("DEFVAR TF@$tmp2\n");
-            printf("POPS TF@$tmp2\n");
-
-            printf("FLOAT2R2EINTS\n");
-            printf("INT2FLOATS\n");
-            printf("DEFVAR TF@$tmp1\n");
-            printf("POPS TF@$tmp1\n");
-
-            printf("DIV TF@$tmp1 TF@$tmp1 TF@$tmp2\n");
-            printf("PUSHS TF@$tmp1\n");
-
-            printf("FLOAT2INTS\n");
-            printf("INT2FLOATS\n");
+            printf("DIVS\n"
+                   "FLOAT2INTS\n"
+                   "INT2FLOATS\n");
         }
             break;
         //strings
