@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <malloc.h>
+#include <stdlib.h>
 #include "errors.h"
 #include "expressions.h"
 #include "functions.h"
