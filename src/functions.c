@@ -8,7 +8,7 @@
 #include "statements.h"
 #include "symtable.h"
 
-char* actual_function;
+char* actual_function = NULL;
 
 bool call(char* name)
 {
@@ -86,6 +86,10 @@ bool function_params(tSymbol* symbol)
 
         // Get parameter name
         char* var_name = last_token.attribute.string_ptr;
+
+        // Check for collision with functions name
+        if (htSearch(func_table, var_name))
+            ERROR_AND_RETURN(SEM_PROG_ERROR, "There is already function named '%s'.", var_name);
 
         // Check for same parameter names
         for (int i = 0; i < param_count - 1; i++)
