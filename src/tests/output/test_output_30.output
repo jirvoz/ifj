@@ -1,0 +1,52 @@
+.IFJcode17
+DEFVAR GF@$str1
+DEFVAR GF@$str2
+DEFVAR GF@$num1
+DEFVAR GF@$num2
+DEFVAR GF@$num3
+DEFVAR GF@$bool1
+DEFVAR GF@$counter
+DEFVAR GF@$char
+JUMP $$main
+
+LABEL $$main
+CREATEFRAME
+PUSHFRAME
+
+DEFVAR LF@a
+MOVE LF@a float@0
+
+PUSHS int@0
+INT2FLOATS
+PUSHS int@5
+INT2FLOATS
+SUBS
+PUSHS int@0
+INT2FLOATS
+PUSHS int@6
+INT2FLOATS
+SUBS
+MULS
+PUSHS int@0
+INT2FLOATS
+PUSHS int@7
+INT2FLOATS
+SUBS
+MULS
+FLOAT2R2EINTS
+CREATEFRAME
+DEFVAR TF@write
+POPS TF@write
+WRITE TF@write
+
+
+/******************************Error Code******************************\
+
+
+/******************************Input Code******************************\
+
+scope
+    dim a as double
+    print ((0-5)*(0-6))*(0-7);
+
+end scope

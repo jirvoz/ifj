@@ -1,0 +1,41 @@
+.IFJcode17
+DEFVAR GF@$str1
+DEFVAR GF@$str2
+DEFVAR GF@$num1
+DEFVAR GF@$num2
+DEFVAR GF@$num3
+DEFVAR GF@$bool1
+DEFVAR GF@$counter
+DEFVAR GF@$char
+JUMP $$main
+
+LABEL $$main
+CREATEFRAME
+PUSHFRAME
+
+DEFVAR LF@ass
+PUSHS int@42
+INT2FLOATS
+PUSHS int@66
+INT2FLOATS
+ADDS
+FLOAT2R2EINTS
+POPS LF@ass
+
+PUSHS LF@ass
+INT2FLOATS
+FLOAT2R2EINTS
+CREATEFRAME
+DEFVAR TF@write
+POPS TF@write
+WRITE TF@write
+
+/******************************Error Code******************************\
+
+
+/******************************Input Code******************************\
+
+scope
+	dim ass as integer = 42 + 66
+	print ass;
+end scope

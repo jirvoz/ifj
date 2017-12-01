@@ -1,0 +1,48 @@
+.IFJcode17
+DEFVAR GF@$str1
+DEFVAR GF@$str2
+DEFVAR GF@$num1
+DEFVAR GF@$num2
+DEFVAR GF@$num3
+DEFVAR GF@$bool1
+DEFVAR GF@$counter
+DEFVAR GF@$char
+JUMP $$main
+
+LABEL $$main
+CREATEFRAME
+PUSHFRAME
+
+PUSHS int@1234567
+INT2FLOATS
+PUSHS int@9876
+INT2FLOATS
+PUSHS int@13579
+INT2FLOATS
+PUSHS int@246
+INT2FLOATS
+DIVS
+PUSHS int@864
+INT2FLOATS
+DIVS
+PUSHS int@52578
+INT2FLOATS
+MULS
+ADDS
+DIVS
+PUSHS int@42
+INT2FLOATS
+MULS
+CREATEFRAME
+DEFVAR TF@write
+POPS TF@write
+WRITE TF@write
+
+/******************************Error Code******************************\
+
+
+/******************************Input Code******************************\
+
+scope
+    print 1234567/(9876+(13579/246/864*52578)) * 42;
+end scope

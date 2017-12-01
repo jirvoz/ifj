@@ -1,0 +1,70 @@
+.IFJcode17
+DEFVAR GF@$str1
+DEFVAR GF@$str2
+DEFVAR GF@$num1
+DEFVAR GF@$num2
+DEFVAR GF@$num3
+DEFVAR GF@$bool1
+DEFVAR GF@$counter
+DEFVAR GF@$char
+JUMP $$main
+
+LABEL $dsfs_666
+CREATEFRAME
+PUSHFRAME
+
+
+DEFVAR LF@a
+PUSHS int@10
+INT2FLOATS
+FLOAT2R2EINTS
+POPS LF@a
+
+PUSHS LF@a
+INT2FLOATS
+FLOAT2R2EINTS
+POPFRAME
+RETURN
+
+PUSHS int@0
+POPFRAME
+RETURN
+
+LABEL $$main
+CREATEFRAME
+PUSHFRAME
+
+DEFVAR LF@a
+PUSHS int@12
+INT2FLOATS
+FLOAT2R2EINTS
+POPS LF@a
+
+CALL $dsfs_666
+INT2FLOATS
+FLOAT2R2EINTS
+POPS LF@a
+
+PUSHS LF@a
+INT2FLOATS
+FLOAT2R2EINTS
+CREATEFRAME
+DEFVAR TF@write
+POPS TF@write
+WRITE TF@write
+
+/******************************Error Code******************************\
+
+
+/******************************Input Code******************************\
+
+function dsfs_666() as integer
+	dim a as integer = 10
+	return a
+end function
+
+scope
+	dim a as integer = 12
+	a = dsfs_666()
+	print a;
+end scope

@@ -1,0 +1,63 @@
+.IFJcode17
+DEFVAR GF@$str1
+DEFVAR GF@$str2
+DEFVAR GF@$num1
+DEFVAR GF@$num2
+DEFVAR GF@$num3
+DEFVAR GF@$bool1
+DEFVAR GF@$counter
+DEFVAR GF@$char
+JUMP $$main
+
+LABEL $$main
+CREATEFRAME
+PUSHFRAME
+
+DEFVAR LF@lol
+PUSHS int@2
+INT2FLOATS
+FLOAT2R2EINTS
+POPS LF@lol
+
+DEFVAR LF@bad
+PUSHS int@16
+INT2FLOATS
+FLOAT2R2EINTS
+POPS LF@bad
+
+PUSHS LF@bad
+INT2FLOATS
+PUSHS LF@lol
+INT2FLOATS
+DIVS
+PUSHS LF@lol
+INT2FLOATS
+ADDS
+PUSHS LF@bad
+INT2FLOATS
+SUBS
+PUSHS int@98
+INT2FLOATS
+ADDS
+FLOAT2R2EINTS
+POPS LF@lol
+
+PUSHS LF@lol
+INT2FLOATS
+FLOAT2R2EINTS
+CREATEFRAME
+DEFVAR TF@write
+POPS TF@write
+WRITE TF@write
+
+/******************************Error Code******************************\
+
+
+/******************************Input Code******************************\
+
+scope
+    dim lol as integer = 02
+    dim bad as integer = 016
+    lol = bad / lol + lol - bad + 0098
+    print lol;
+end scope

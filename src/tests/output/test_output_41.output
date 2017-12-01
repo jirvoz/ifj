@@ -1,0 +1,37 @@
+.IFJcode17
+DEFVAR GF@$str1
+DEFVAR GF@$str2
+DEFVAR GF@$num1
+DEFVAR GF@$num2
+DEFVAR GF@$num3
+DEFVAR GF@$bool1
+DEFVAR GF@$counter
+DEFVAR GF@$char
+JUMP $$main
+
+LABEL $$main
+CREATEFRAME
+PUSHFRAME
+
+
+DEFVAR LF@a
+MOVE LF@a int@0
+
+PUSHS int@10
+INT2FLOATS
+FLOAT2R2EINTS
+POPS LF@a
+
+/******************************Error Code******************************\
+
+Line 5: Syntax error: RETURN can't be used outside of function.
+
+/******************************Input Code******************************\
+
+SCOPE
+
+	dim a as integer
+	a = 10
+	return a
+
+END SCOPE

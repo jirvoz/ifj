@@ -1,0 +1,86 @@
+.IFJcode17
+DEFVAR GF@$str1
+DEFVAR GF@$str2
+DEFVAR GF@$num1
+DEFVAR GF@$num2
+DEFVAR GF@$num3
+DEFVAR GF@$bool1
+DEFVAR GF@$counter
+DEFVAR GF@$char
+JUMP $$main
+
+LABEL $fun
+CREATEFRAME
+PUSHFRAME
+DEFVAR LF@a
+POPS LF@a
+
+
+PUSHS LF@a
+INT2FLOATS
+FLOAT2R2EINTS
+POPFRAME
+RETURN
+
+PUSHS int@0
+POPFRAME
+RETURN
+
+LABEL $$main
+CREATEFRAME
+PUSHFRAME
+
+DEFVAR LF@a
+MOVE LF@a int@0
+
+PUSHS int@5
+INT2FLOATS
+FLOAT2R2EINTS
+POPS LF@a
+
+DEFVAR LF@b
+MOVE LF@b int@0
+
+PUSHS int@5
+INT2FLOATS
+FLOAT2R2EINTS
+CALL $fun
+INT2FLOATS
+FLOAT2R2EINTS
+POPS LF@b
+
+
+PUSHS LF@a
+INT2FLOATS
+FLOAT2R2EINTS
+CREATEFRAME
+DEFVAR TF@write
+POPS TF@write
+WRITE TF@write
+PUSHS LF@b
+INT2FLOATS
+FLOAT2R2EINTS
+CREATEFRAME
+DEFVAR TF@write
+POPS TF@write
+WRITE TF@write
+
+
+/******************************Error Code******************************\
+
+
+/******************************Input Code******************************\
+
+function fun(a as integer) as integer
+	return a
+end function
+
+scope
+    dim a as integer
+    A = 5
+    dim b as integer
+    b = FuN(5)
+    
+    print a; b;
+
+end scope
