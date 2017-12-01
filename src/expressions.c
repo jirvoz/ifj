@@ -34,7 +34,7 @@ bool expression(token_type expected_type)
 {
     tTerm term;
 
-    // last_token is first token of expression
+    // Last_token is first token of expression
     if (!getTerm(&term) || term.index == DOLAR_IN)
         ERROR_AND_RETURN(SYN_ERROR, "Empty expression");
 
@@ -44,7 +44,7 @@ bool expression(token_type expected_type)
 
     if (expected_type == UNDEFINED_TOK || expected_type == BOOLEAN ) // Undefined token set by first token type
     {
-        while (term.index == LEFT_PARENTH_IN)    //first left brackets push on stack
+        while (term.index == LEFT_PARENTH_IN)    // First left brackets push on stack
         {
             stackPush(stack, term);
             UPDATE_LAST_TOKEN();
@@ -88,7 +88,8 @@ bool getTerm(tTerm* term)
     term->token = last_token;
 
     switch(last_token.type)
-    {   // Token is identifier, figure out if var or func
+    {   
+        // Token is identifier, figure out if var or func
         case IDENTIFIER_TOK:
         {
             // Search in func_table
@@ -108,6 +109,7 @@ bool getTerm(tTerm* term)
                         ERROR_AND_RETURN(SEM_PROG_ERROR, "Bad return type of function");
                 }
                 UPDATE_LAST_TOKEN();
+                // After function name has to be '('
                 if (last_token.type != LEFT_PARENTH_OP)
                     ERROR_AND_RETURN(SEM_PROG_ERROR, "Expected '(' after function");
 
@@ -132,12 +134,12 @@ bool getTerm(tTerm* term)
                 }
                 return true;
             }
-
+            // If last term was operator, next has to be operand 
             if (term->index >= INT_IN && term->index <= STRING_IN)
                 ERROR_AND_RETURN(SYN_ERROR, "Unexpected operand in expression"); 
 
             UPDATE_LAST_TOKEN();
-
+            // Someting undeclared, figure out what
             if (last_token.type == LEFT_PARENTH_OP)
                 ERROR_AND_RETURN(SEM_PROG_ERROR, "Undeclared function");
             else
@@ -182,7 +184,8 @@ bool getTerm(tTerm* term)
         }
             break;
         default:
-        {   // Int, float and string constants
+        {   
+            // Int, float and string constants
             if (last_token.type >= INTEGER_TOK && last_token.type <= STRING_TOK)
             {
                 term->index = last_token.type + 12;
@@ -202,7 +205,7 @@ bool getTerm(tTerm* term)
 
 bool getPriority (tTerm term, tStack* stack, token_type return_type)
 {
-    int get_priority = '>'; //first state for start cycle
+    int get_priority = '>'; // First state for start cycle
     tTerm tmp_term;
 
     while (get_priority != '<')
@@ -410,6 +413,7 @@ bool postfix(token_type expected_type, token_type return_type, tTerm term, tStac
 
 bool generateInstruction(token_type return_type, tTerm sent_term)
 {
+    // Inbuild function calling
     switch(sent_term.token.type)
     {
         case ASC: 
@@ -451,10 +455,10 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
         }
     }
 
-    //main switch
+    // Main switch
     switch (sent_term.index)
     {
-        //push integer to stack
+        // Push integer to stack
         case INT_IN:
         {
             //constant
@@ -467,7 +471,7 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
             printf("INT2FLOATS\n");
         }
             break;
-        //push float to stack
+        // Push float to stack
         case DOUBLE_IN:
         {
             //constant
@@ -478,17 +482,16 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
                 printf("PUSHS LF@%s\n", sent_term.token.attribute.string_ptr);
         }
             break;
-        //ADDS instruction or STRING CONCANTENATION
+        // ADDS instruction or STRING CONCANTENATION
         case PLUS_IN:
         {
-            //if int or float, add
+            // If int or float, add
             if (return_type != STRING)
                 printf("ADDS\n");
 
-            //if string, concatenate
+            // If string, concatenate
             else
             {
-
                 printf("POPS GF@$str2\n"
                        "POPS GF@$str1\n"
                        "CONCAT GF@$str1 GF@$str1 GF@$str2\n"
@@ -496,16 +499,16 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
             }
         }
             break;
-        //SUBS instruction
+        // SUBS instruction
         case MINUS_IN: printf("SUBS\n");
             break;
-        //MULS instruction
+        // MULS instruction
         case MUL_IN: printf("MULS\n");
             break;
-        //classic DIVS
+        // Classic DIVS
         case FLOAT_DIV_IN: printf("DIVS\n");
             break;
-        //'\' DIVS - integers
+        // '\' DIVS - integers
         case INT_DIV_IN:
         {   
             printf("POPS GF@$num1\n"
@@ -520,7 +523,7 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
                    "INT2FLOATS\n");
         }
             break;
-        //strings
+        // Push String to stack
         case STRING_IN:
         {
             if (sent_term.token.type == STRING_TOK)
@@ -532,10 +535,10 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
                 printf("PUSHS LF@%s\n", sent_term.token.attribute.string_ptr);
         }
             break;
-        //'<'- comparison by LTS instruction - automatically pops flag to stack
+        // '<'- comparison by LTS instruction - automatically pops flag to stack
         case LOWER_IN: printf("LTS\n");   
             break;
-        //'>' - comparison by GTS instruction - automatically pops flag to stack
+        // '>' - comparison by GTS instruction - automatically pops flag to stack
         case HIGHER_IN:
             printf("GTS\n");
             break;
@@ -546,17 +549,17 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
             printf("NOTS\n");
         }
             break;
-        //'>=' - it's necessary to use also ORS instructions
+        // '>=' - it's necessary to use also ORS instructions
         case HIGHER_EQ_IN:
         {
             printf("LTS\n");
             printf("NOTS\n"); 
         }
             break;
-        //'=' - use simple EQS instruction
+        // '=' - use simple EQS instruction
         case EQ_IN: printf("EQS\n");
             break;
-        //'<>' - compare and negate
+        // '<>' - compare and negate
         case NOT_EQ_IN:
         {
             printf("EQS\n");
@@ -565,6 +568,7 @@ bool generateInstruction(token_type return_type, tTerm sent_term)
             break;
         case DOLAR_IN:
         {
+            // If return type is integer, convert
             if (return_type == INTEGER)
                 printf("FLOAT2R2EINTS\n");
         }
