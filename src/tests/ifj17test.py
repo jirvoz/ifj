@@ -6,10 +6,10 @@ from pathlib import Path
 import os
 
 #Defined colors
-GREEN = '\x1b[0;32;40m'
-RED = '\x1b[0;31;40m'
-YELLOW = '\x1b[0;33;40m'
-MAGENTA = '\x1b[0;35;40m'
+GREEN = '\x1b[0;32m'
+RED = '\x1b[0;31m'
+YELLOW = '\x1b[0;33m'
+MAGENTA = '\x1b[0;35m'
 COLOR_END = '\x1b[0m'
 
 #deifned list
