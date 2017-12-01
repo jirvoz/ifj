@@ -136,6 +136,8 @@ bool function_params(tSymbol* symbol)
                 ERROR_AND_RETURN(SYN_ERROR, "Expected correct type of '%s' after AS.", var_name);
         }
 
+        free(var_name);
+
         UPDATE_LAST_TOKEN();
 
         // Check for correct parameter ending
@@ -212,6 +214,8 @@ bool function_header(bool define)
     }
 
     symbol->defined = define;
+    if (actual_function != identif_name)
+        free(identif_name);
 
     // Read function parameters
     if (!function_params(symbol))
@@ -311,6 +315,7 @@ bool function_def()
 
     // Clear table of function variables
     htClearAll(var_table);
+    free(actual_function);
     actual_function = NULL;
 
     // Test the correct ending of function block

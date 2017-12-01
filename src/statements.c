@@ -68,6 +68,7 @@ bool dim_stat()
         htInsert(var_table, new_name,
             (tSymbol){ .type=type, .defined = true, .arg_count = 0 });
 
+        free(identif_name);
         return true;
     }
     // Check for optional assignment
@@ -88,6 +89,8 @@ bool dim_stat()
         htInsert(var_table, new_name,
             (tSymbol){ .type=type, .defined = true, .arg_count = 0 });
 
+        free(identif_name);
+
         // Check for EOL at the end of expression
         if (last_token.type != EOL_TOK)
             ERROR_AND_RETURN(SYN_ERROR, "Expected end of line after assignment.");
@@ -95,8 +98,11 @@ bool dim_stat()
         return true;
     }
     else
+    {
+        free(identif_name);
         ERROR_AND_RETURN(SYN_ERROR, "Expected assignment symbol '=' ",
             "or end of line after declaration.");
+    }
 }
 
 bool assignment_stat()
@@ -122,6 +128,7 @@ bool assignment_stat()
         return false;
 
     printf("POPS LF@%s\n", identif_name);
+    free(identif_name);
 
     // Check for EOL at the end of expression
     if (last_token.type != EOL_TOK)
@@ -168,6 +175,8 @@ bool input_stat()
         default:
             ERROR_AND_RETURN(OTHER_ERROR, "Unknown type of variable at input.");
     }
+
+    free(last_token.attribute.string_ptr);
 
     // EOL after input statement
     UPDATE_LAST_TOKEN();
