@@ -27,19 +27,19 @@ bool call(char* name)
     {
         UPDATE_LAST_TOKEN();
         if (last_token.type == RIGHT_PARENTH_OP)
-            ERROR_AND_RETURN(SYN_ERROR, "Expected more parameters for function '%s'.", name);
+            ERROR_AND_RETURN(SEM_TYPE_ERROR, "Expected more parameters for function '%s'.", name);
         // Call expression evaluation
         if(!expression(symbol->arg_types[i]))
             return false;
 
         // Check for colon between parameters
         if (i < symbol->arg_count - 1 && last_token.type != COLON_OP)
-            ERROR_AND_RETURN(SYN_ERROR, "Expected colon between parameters.");
+            ERROR_AND_RETURN(SEM_TYPE_ERROR, "Expected more parameters.");
     }
 
     // Check for right bracket after parameters
     if (last_token.type != RIGHT_PARENTH_OP)
-        ERROR_AND_RETURN(SYN_ERROR, "Expected right parenthesis after function parameters.");
+        ERROR_AND_RETURN(SEM_TYPE_ERROR, "Expected right parenthesis after function parameters.");
 
     printf("CALL $%s\n", name);
 
@@ -149,7 +149,7 @@ bool function_params(tSymbol* symbol)
 
     // Check same number of parameters at declaration and definition
     if (symbol->type != UNDEFINED_TOK && param_count != symbol->arg_count)
-        ERROR_AND_RETURN(SEM_TYPE_ERROR, "Lower parmeter count at definition.");
+        ERROR_AND_RETURN(SEM_PROG_ERROR, "Lower parmeter count at definition.");
 
     // Check for right bracket after parameters
     if (last_token.type != RIGHT_PARENTH_OP)
@@ -241,7 +241,7 @@ bool function_header(bool define)
                 symbol->type = last_token.type;
             // Different return types at declaration and definition
             else if (symbol->type != last_token.type)
-                ERROR_AND_RETURN(SEM_TYPE_ERROR,
+                ERROR_AND_RETURN(SEM_PROG_ERROR,
                     "Different return types at declaration and definition.");
             break;
         default:
