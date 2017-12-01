@@ -1,7 +1,6 @@
 #ifndef _SYMTABLE_H_
 #define _SYMTABLE_H_
 
-#include <stdbool.h>
 #include "scanner.h"
 
 //size of hash table
@@ -31,19 +30,13 @@ typedef struct tHtitem
 //hash table
 typedef tHtitem* tHtable;
 
-
 //Declarations of functions
 
 int hashCode(char* name);
-
 void htInit(tHtable* ptrht);
-
 tSymbol* htSearch(tHtable* ptrht, char* name);
-
 void htInsert(tHtable* ptrht, char* name, tSymbol symbol);
-
 void htDelete(tHtable* ptrht, char* name);
-
 void htClearAll(tHtable* ptrht);
 
 #endif

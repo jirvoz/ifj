@@ -48,6 +48,5 @@ bool postfix(token_type expected_type, token_type return_type, struct tTerm term
 bool getTerm(tTerm* term);
 bool getPriority (tTerm term, tStack* stack, token_type return_type);
 bool generateInstruction(token_type return_type, tTerm sent_term);
-void memoryClear(tTerm* term, tStack* stack);
 
 #endif

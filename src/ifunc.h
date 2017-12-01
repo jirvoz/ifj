@@ -1,3 +1,6 @@
+#ifndef _IFUNC_H_
+#define _IFUNC_H_
+
 // Inbuild functions
 
 //function gets int and on stack returns chr from ASCII table
@@ -13,3 +16,5 @@ bool callLength();
 //func gets one string and two ints. First int is start position in string
 //second is length of substring which i return to top of stack
 bool callSubstr();
+
+#endif

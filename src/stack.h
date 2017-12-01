@@ -7,7 +7,7 @@
 // Structure of Stack with dynamic size
 typedef struct tStack 
 {
-    struct tTerm* arr;        //data
+    struct tTerm* arr; 	//data
     int size;           //actual size of stack
     int top;            //index of item on the top of stack
 } tStack;

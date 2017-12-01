@@ -10,12 +10,10 @@
 
 #include <stdio.h>
 #include <stdbool.h>
+#include "ifunc.h"
 #include "errors.h"
 #include "parser.h"
-#include "scanner.h"
-#include "symtable.h"
 #include "expressions.h"
-#include "ifunc.h"
 
 bool callAsc()
 {//function gets str and postion in it and returns int related to chars position

@@ -1,8 +1,7 @@
-#include "strings.h"
-#include "stdlib.h"
+#include <stdlib.h>
 #include <string.h>
-#include <stdio.h>
 #include <stdbool.h>
+#include "strings.h"
 
 #define STR_LEN_INC 8           //the basic size of the allocated space for the str, relocating will be multiples of this number
 
@@ -40,14 +39,9 @@ int stringAddChar(char c, string *str_1) //function to add new char to the end o
     {
         str_1->str = (char*) realloc(str_1->str, (str_1->length + STR_LEN_INC));
         if (str_1->str != NULL)
-        {
             str_1->allocatedSize = str_1->length + STR_LEN_INC;
-        }
         else
-        {
             return false;  
-        }
-              
     }
     
     str_1->str[str_1->length] = c;
@@ -66,13 +60,9 @@ int stringConcat(const char* str_2, string* str_1)
         str_1->str = (char*) realloc(str_1->str, (str_1->length + str_2_length + 1));
 
         if (str_1->str != NULL)
-        {
             str_1->allocatedSize = str_2_length  + str_1->length + 1;
-        }
         else
-        {
-            return false;  
-        }
+            return false;
     }
     strcat(str_1->str, str_2);
     str_1->length = str_1->length + str_2_length;
