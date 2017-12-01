@@ -109,6 +109,11 @@ bool program()
                     return false;
                 break;
             case SCOPE:
+                UPDATE_LAST_TOKEN();
+                // Test end of line after SCOPE
+                if (last_token.type != EOL_TOK)
+                    ERROR_AND_RETURN(SYN_ERROR, "Expected end of line after SCOPE.");
+
                 printf("LABEL $$main\n");
                 printf("CREATEFRAME\n");
                 printf("PUSHFRAME\n");
