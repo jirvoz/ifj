@@ -1,0 +1,86 @@
+.IFJcode17
+DEFVAR GF@$str1
+DEFVAR GF@$str2
+DEFVAR GF@$num1
+DEFVAR GF@$num2
+DEFVAR GF@$num3
+DEFVAR GF@$bool1
+DEFVAR GF@$counter
+DEFVAR GF@$char
+JUMP $$main
+
+LABEL $$main
+CREATEFRAME
+PUSHFRAME
+
+DEFVAR LF@str
+PUSHS string@hello\032hello\032hello
+POPS LF@str
+
+PUSHS LF@str
+PUSHS int@6
+INT2FLOATS
+FLOAT2R2EINTS
+PUSHS int@10
+INT2FLOATS
+FLOAT2R2EINTS
+POPS GF@$num1
+POPS GF@$num2
+SUB GF@$num2 GF@$num2 int@1
+POPS GF@$str2
+MOVE GF@$counter int@0
+MOVE GF@$str1 string@
+STRLEN GF@$num3 GF@$str2
+JUMPIFEQ &sub_end1 GF@$num3 int@0
+GT GF@$bool1 GF@$num2 int@-1
+JUMPIFNEQ &sub_end1 GF@$bool1 bool@true
+LT GF@$bool1 GF@$num1 int@0
+JUMPIFEQ &cycle21 GF@$bool1 bool@true
+SUB GF@$num3 GF@$num3 GF@$num2
+GT GF@$bool1 GF@$num1 GF@$num3
+JUMPIFEQ &cycle21 GF@$bool1 bool@true
+LABEL &cycle11
+GETCHAR GF@$char GF@$str2 GF@$num2
+CONCAT GF@$str1 GF@$str1 GF@$char
+ADD GF@$counter GF@$counter int@1
+ADD GF@$num2 GF@$num2 int@1
+JUMPIFNEQ &cycle11 GF@$counter GF@$num1
+JUMP &sub_end1
+LABEL &cycle21
+MOVE GF@$num1 GF@$num3
+JUMP &cycle11
+LABEL &sub_end1
+PUSHS GF@$str1
+POPS LF@str
+
+DEFVAR LF@a
+MOVE LF@a int@0
+
+PUSHS LF@str
+POPS GF@$str2
+STRLEN GF@$num1 GF@$str2
+PUSHS GF@$num1
+INT2FLOATS
+FLOAT2R2EINTS
+POPS LF@a
+
+PUSHS LF@a
+INT2FLOATS
+FLOAT2R2EINTS
+CREATEFRAME
+DEFVAR TF@write
+POPS TF@write
+WRITE TF@write
+
+/******************************Error Code******************************\
+
+
+/******************************Input Code******************************\
+
+scope 
+	dim str as string = !"hello hello hello"
+	str = substr(str, 6, 10)
+	dim a as integer
+	a = length(str)
+	print a;
+end scope

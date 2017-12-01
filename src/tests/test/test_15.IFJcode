@@ -1,0 +1,14 @@
+SCOPE
+
+	dim a as double
+	a = 123.456789
+
+	dim b as integer
+	b = 987654321
+
+	dim c as double
+	c = (((a * b) / b) * b) / b 
+
+	print c;
+
+END SCOPE

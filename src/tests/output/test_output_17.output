@@ -1,0 +1,54 @@
+.IFJcode17
+DEFVAR GF@$str1
+DEFVAR GF@$str2
+DEFVAR GF@$num1
+DEFVAR GF@$num2
+DEFVAR GF@$num3
+DEFVAR GF@$bool1
+DEFVAR GF@$counter
+DEFVAR GF@$char
+JUMP $$main
+
+LABEL $$main
+CREATEFRAME
+PUSHFRAME
+
+
+DEFVAR LF@a
+PUSHS float@10.8
+POPS LF@a
+
+DEFVAR LF@b
+PUSHS float@0.67432
+POPS LF@b
+
+DEFVAR LF@c
+PUSHS float@6743.2
+POPS LF@c
+
+
+PUSHS LF@a
+PUSHS LF@b
+ADDS
+PUSHS LF@c
+SUBS
+CREATEFRAME
+DEFVAR TF@write
+POPS TF@write
+WRITE TF@write
+
+
+/******************************Error Code******************************\
+
+
+/******************************Input Code******************************\
+
+scope
+
+dim a as double = 10.8
+dim b as double = 67.432e-2
+dim c as double = 67.432e2
+
+print a + b - c;
+
+end scope

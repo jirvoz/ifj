@@ -1,0 +1,53 @@
+.IFJcode17
+DEFVAR GF@$str1
+DEFVAR GF@$str2
+DEFVAR GF@$num1
+DEFVAR GF@$num2
+DEFVAR GF@$num3
+DEFVAR GF@$bool1
+DEFVAR GF@$counter
+DEFVAR GF@$char
+JUMP $$main
+
+LABEL $get_integer
+CREATEFRAME
+PUSHFRAME
+DEFVAR LF@a
+POPS LF@a
+
+
+PUSHS LF@a
+INT2FLOATS
+FLOAT2R2EINTS
+POPFRAME
+RETURN
+
+PUSHS int@0
+POPFRAME
+RETURN
+
+LABEL $$main
+CREATEFRAME
+PUSHFRAME
+
+DEFVAR LF@b
+MOVE LF@b int@0
+
+FLOAT2R2EINTS
+POPS LF@b
+/******************************Error Code******************************\
+
+Line 7: Type incompatibility semantic error: Bad operation or operand in expression
+Line 7: Syntax error: Expected end of line after assignment.
+
+/******************************Input Code******************************\
+
+function get_integer(a as integer) as integer
+	return a
+end function
+
+scope
+	dim b as integer
+	b = get_integer(!"foo")
+	print b;
+end scope

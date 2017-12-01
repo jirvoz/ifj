@@ -1,0 +1,41 @@
+.IFJcode17
+DEFVAR GF@$str1
+DEFVAR GF@$str2
+DEFVAR GF@$num1
+DEFVAR GF@$num2
+DEFVAR GF@$num3
+DEFVAR GF@$bool1
+DEFVAR GF@$counter
+DEFVAR GF@$char
+JUMP $$main
+
+LABEL $foo
+CREATEFRAME
+PUSHFRAME
+
+
+PUSHS int@31
+INT2FLOATS
+FLOAT2R2EINTS
+POPFRAME
+RETURN
+
+PUSHS int@0
+POPFRAME
+RETURN
+
+/******************************Error Code******************************\
+
+Line 5: Semantic error in the program: Function 'foo' is already declared.
+
+/******************************Input Code******************************\
+
+function foo() as integer 
+    return 31
+end function
+
+declare function foo() as integer
+
+scope
+
+end scope

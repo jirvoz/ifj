@@ -1,0 +1,67 @@
+.IFJcode17
+DEFVAR GF@$str1
+DEFVAR GF@$str2
+DEFVAR GF@$num1
+DEFVAR GF@$num2
+DEFVAR GF@$num3
+DEFVAR GF@$bool1
+DEFVAR GF@$counter
+DEFVAR GF@$char
+JUMP $$main
+
+LABEL $$main
+CREATEFRAME
+PUSHFRAME
+
+
+DEFVAR LF@greg
+MOVE LF@greg int@0
+
+PUSHS float@42.78
+FLOAT2R2EINTS
+POPS LF@greg
+
+PUSHS float@78000
+FLOAT2R2EINTS
+POPS LF@greg
+
+
+DEFVAR LF@crack
+MOVE LF@crack float@0
+
+PUSHS int@74
+INT2FLOATS
+POPS LF@crack
+
+
+PUSHS LF@greg
+INT2FLOATS
+FLOAT2R2EINTS
+CREATEFRAME
+DEFVAR TF@write
+POPS TF@write
+WRITE TF@write
+PUSHS LF@crack
+CREATEFRAME
+DEFVAR TF@write
+POPS TF@write
+WRITE TF@write
+
+
+/******************************Error Code******************************\
+
+
+/******************************Input Code******************************\
+
+scope
+
+	dim greg as integer
+	greg = 42.78
+	greg = 78e3
+
+	dim crack as double
+	crack  = 74
+
+	print greg; crack;
+
+end scope

@@ -1,0 +1,40 @@
+.IFJcode17
+DEFVAR GF@$str1
+DEFVAR GF@$str2
+DEFVAR GF@$num1
+DEFVAR GF@$num2
+DEFVAR GF@$num3
+DEFVAR GF@$bool1
+DEFVAR GF@$counter
+DEFVAR GF@$char
+JUMP $$main
+
+LABEL $$main
+CREATEFRAME
+PUSHFRAME
+
+DEFVAR LF@number
+PUSHS int@19
+INT2FLOATS
+FLOAT2R2EINTS
+POPS LF@number
+
+/******************************Error Code******************************\
+
+Line 3: Syntax error: Wrong beginning of statement.
+
+/******************************Input Code******************************\
+
+SCOPE
+	dim number as integer = 19
+	SCOPE
+
+	if 333 < 666 then
+		dim  number as integer = 669878
+		print number;
+	else
+		
+	end if
+
+	END SCOPE
+END SCOPE

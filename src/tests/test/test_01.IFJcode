@@ -1,0 +1,5 @@
+scope
+Dim add as string
+Dim bool as integer
+Dim cut as double
+end scope

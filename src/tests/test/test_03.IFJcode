@@ -1,0 +1,5 @@
+scope
+
+	dim word as string = !""
+
+end scope

@@ -1,0 +1,103 @@
+.IFJcode17
+DEFVAR GF@$str1
+DEFVAR GF@$str2
+DEFVAR GF@$num1
+DEFVAR GF@$num2
+DEFVAR GF@$num3
+DEFVAR GF@$bool1
+DEFVAR GF@$counter
+DEFVAR GF@$char
+JUMP $$main
+
+LABEL $$main
+CREATEFRAME
+PUSHFRAME
+
+
+DEFVAR LF@a_c_c_c_p
+PUSHS int@10
+INT2FLOATS
+FLOAT2R2EINTS
+POPS LF@a_c_c_c_p
+
+DEFVAR LF@b_c_c_c_p
+PUSHS string@hellou\010\055
+POPS LF@b_c_c_c_p
+
+DEFVAR LF@c_c_c_c_p
+PUSHS float@30.42
+POPS LF@c_c_c_c_p
+
+DEFVAR LF@d_c_c_c_p
+PUSHS float@3030
+POPS LF@d_c_c_c_p
+
+DEFVAR LF@e_c_c_c_p
+PUSHS float@30
+PUSHS int@2
+INT2FLOATS
+SUBS
+POPS LF@e_c_c_c_p
+
+DEFVAR LF@g_c_c_c_p
+PUSHS string@retezec\032s\032lomitkem\032-\032\092\032a\010novym\035radkem
+POPS LF@g_c_c_c_p
+
+
+PUSHS LF@a_c_c_c_p
+INT2FLOATS
+FLOAT2R2EINTS
+CREATEFRAME
+DEFVAR TF@write
+POPS TF@write
+WRITE TF@write
+
+PUSHS LF@b_c_c_c_p
+CREATEFRAME
+DEFVAR TF@write
+POPS TF@write
+WRITE TF@write
+
+PUSHS LF@c_c_c_c_p
+CREATEFRAME
+DEFVAR TF@write
+POPS TF@write
+WRITE TF@write
+
+PUSHS LF@d_c_c_c_p
+CREATEFRAME
+DEFVAR TF@write
+POPS TF@write
+WRITE TF@write
+
+PUSHS LF@e_c_c_c_p
+CREATEFRAME
+DEFVAR TF@write
+POPS TF@write
+WRITE TF@write
+
+/******************************Error Code******************************\
+
+Line 15: Semantic error in the program: Undeclared variable
+Line 15: Syntax error: Empty expression
+
+/******************************Input Code******************************\
+
+scope
+
+	dim a_c_C_C_p as integer = 10
+	dim b_c_C_C_p as string = !"hellou\n\055"
+	dim c_c_C_C_p as double = 30.42
+	dim d_c_C_C_p as double = 30.3e2
+	dim e_c_C_C_p as double = 30.0-2
+	dim g_c_C_C_p as string = !"retezec s\032lomitkem - \092\032a\010novym\035radkem"
+
+	print a_c_C_C_p; 
+	print b_c_C_C_p;
+	print c_c_C_C_p;
+	print d_c_C_C_p;
+	print e_c_C_C_p; 
+	print f_c_C_C_p; 
+	print g_c_C_C_p;
+
+end scope

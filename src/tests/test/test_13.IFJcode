@@ -1,0 +1,6 @@
+scope
+    dim lol as integer = 02
+    dim bad as integer = 016
+    lol = bad / lol + lol - bad + 0098
+    print lol;
+end scope

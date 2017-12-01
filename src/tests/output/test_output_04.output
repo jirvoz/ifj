@@ -1,0 +1,61 @@
+.IFJcode17
+DEFVAR GF@$str1
+DEFVAR GF@$str2
+DEFVAR GF@$num1
+DEFVAR GF@$num2
+DEFVAR GF@$num3
+DEFVAR GF@$bool1
+DEFVAR GF@$counter
+DEFVAR GF@$char
+JUMP $$main
+
+LABEL $$main
+CREATEFRAME
+PUSHFRAME
+
+DEFVAR LF@a
+PUSHS string@foo
+POPS LF@a
+
+DEFVAR LF@bad
+PUSHS int@9876
+INT2FLOATS
+FLOAT2R2EINTS
+POPS LF@bad
+
+DEFVAR LF@bro_o
+PUSHS int@45
+INT2FLOATS
+FLOAT2R2EINTS
+POPS LF@bro_o
+
+DEFVAR LF@cu____r
+PUSHS float@78.4
+POPS LF@cu____r
+
+DEFVAR LF@dqews__
+PUSHS float@780000
+POPS LF@dqews__
+
+DEFVAR LF@rrrrrrrrrrrrr
+PUSHS float@0.0008
+POPS LF@rrrrrrrrrrrrr
+
+DEFVAR LF@freq
+PUSHS float@870000
+POPS LF@freq
+
+/******************************Error Code******************************\
+
+
+/******************************Input Code******************************\
+
+scope
+    Dim a as     string = !"foo"
+	Dim   bad as integer = 9876
+	Dim bro_o as integer = 0045
+	Dim cu____R   as double = 78.4
+	Dim dQeWS__ as double = 78e4
+	Dim   rrrrrrrrrrrrr as double =     8e-4
+    Dim freq   as double  = 		87E4
+end scope
