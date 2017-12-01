@@ -1,0 +1,9 @@
+scope
+Dim ads as string
+Dim ads as string
+Dim ads as string
+Dim ads as string
+Dim ads as string
+Dim bad as integer
+Dim cas as double
+end scope

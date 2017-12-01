@@ -29,6 +29,9 @@ strings.o: strings.c strings.h
 symtable.o: symtable.c symtable.h scanner.h strings.h errors.h
 ifunc.o: ifunc.c errors.h parser.h scanner.h symtable.h ifunc.h expressions.h
 
+test:
+	python3 ./tests/ifj17test.py
+
 clean:
 	rm -f ifj *.o
 

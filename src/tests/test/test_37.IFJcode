@@ -1,0 +1,15 @@
+SCOPE
+	dim A_F as integer = 31
+	SCOPE
+		dim A_F as integer = 42
+		SCOPE
+			dim A_F as integer = 69
+			SCOPE
+
+				print A_F;
+
+			END SCOPE
+		END SCOPE
+	END SCOPE
+END SCOPE
+

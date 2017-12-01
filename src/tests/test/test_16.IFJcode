@@ -1,0 +1,12 @@
+scope
+
+	dim greg as integer
+	greg = 42.78
+	greg = 78e3
+
+	dim crack as double
+	crack  = 74
+
+	print greg; crack;
+
+end scope

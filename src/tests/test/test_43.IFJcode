@@ -1,0 +1,18 @@
+scope
+
+	dim a_c_C_C_p as integer = 10
+	dim b_c_C_C_p as string = !"hellou\n\055"
+	dim c_c_C_C_p as double = 30.42
+	dim d_c_C_C_p as double = 30.3e2
+	dim e_c_C_C_p as double = 30.0-2
+	dim g_c_C_C_p as string = !"retezec s\032lomitkem - \092\032a\010novym\035radkem"
+
+	print a_c_C_C_p; 
+	print b_c_C_C_p;
+	print c_c_C_C_p;
+	print d_c_C_C_p;
+	print e_c_C_C_p; 
+	print f_c_C_C_p; 
+	print g_c_C_C_p;
+
+end scope

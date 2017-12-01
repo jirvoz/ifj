@@ -1,0 +1,13 @@
+SCOPE
+	dim number as integer = 19
+	SCOPE
+
+	if 333 < 666 then
+		dim  number as integer = 669878
+		print number;
+	else
+		
+	end if
+
+	END SCOPE
+END SCOPE
