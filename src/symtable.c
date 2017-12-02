@@ -2,16 +2,16 @@
 #include <string.h>
 #include "symtable.h"
 
-//hash function
-int hashCode (char* name)
+// Hash function using alogorithm djb2 by Dan Bernstein
+unsigned hashCode (char* name)
 {
-    unsigned int h = 0;
-    unsigned char *p;
+    unsigned hash = 5381;
+    int c;
 
-    for(p = (unsigned char*)name; *p != '\0'; p++)
-        h = 65599 * h + *p;
+    while ((c = *name++))
+        hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
 
-    return h % HTSIZE;
+    return hash % HTSIZE;
 }
 
 //initializaton of hash table before first use

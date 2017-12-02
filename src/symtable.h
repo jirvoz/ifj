@@ -31,8 +31,7 @@ typedef struct tHtitem
 typedef tHtitem* tHtable;
 
 //Declarations of functions
-
-int hashCode(char* name);
+unsigned hashCode(char* name);
 void htInit(tHtable* ptrht);
 tSymbol* htSearch(tHtable* ptrht, char* name);
 void htInsert(tHtable* ptrht, char* name, tSymbol symbol);
