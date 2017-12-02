@@ -1,90 +1,64 @@
 \documentclass{article}
+\usepackage[slovak]{babel}
 \usepackage[utf8]{inputenc}
-\author{}
 
-\title{Dokumentácia k projektu IFJ/IAL
-\textbf{Implementácia interpretu imperativného jazyka IFJ17} 
-}
-\usepackage{natbib}
+\usepackage{indentfirst}
 \usepackage{graphicx}
 
 \begin{document}
+    \begin{titlepage}
+        \begin{center}
+            \vspace{\stretch{0.382}}
+            
+            \includegraphics{FITlogo.jpg}\\[16mm]
+            
+            \LARGE
+            Implementácia interpretu imperativného jazyka IFJ17 \\
+            \large
+            Dokumentácia k projektu IFJ/IAL\\[8mm]
+            
+            \begin{tabular}{r l}
+                Tým & 094 \\
+                Varianta & II \\
+                Vedoucí: & Tomáš Nereča (xnerec00) \quad 26\% \\
+                Další členové & Samuel Obuch (xobuch00) \quad 26\% \\
+                    & Jiří Vozár (xvozar04) \quad 26\% \\
+                    & Ján Farský (xfarsk00) \quad 22\% \\
+                Implementované rozšíření & BASE, FUNEXP, IFTHEN\\
+            \end{tabular}
+            
+            \vspace{\stretch{0.618}}
+        \end{center}
+    \end{titlepage}
 
-\begin{figure}[h!]
-\centering
-\includegraphics{FITlogo.jpg}
-\maketitle
-\end{figure}
-
-\vspace{3cm}
-
-\noindent
-\large{\textbf{Tím číslo: 94}}
-\\
-\large{\textbf{Varianta: II}}
-\\
-\large{\textbf{Autori:}} 
-\\
-Tomáš Nereča \\
-Samuel Obuch \\
-Jiří Vozár \\
-Ján Farský \\
-
-\vspace{7cm}
-
-\textbf{ \Huge{Obsah} }
-
-\begin{enumerate}
-    \item \LARGE{Úvod} 
-    \item \LARGE{Zadanie} 
-        \begin{itemize}
-            \item Varianta zadania
-        \end{itemize}
-    \item \LARGE{Implementácia} 
-        \begin{itemize}
-            \item Implementácia
-            \item Lexikálna analýza
-            \item Algoritmy lexikálnej analýzy
-            \item Syntaktická analýza
-            \item Algoritmy syntaktickej analýzy
-        \end{itemize}
-    \item \LARGE{Rozšírenia} 
-    \item \LARGE{Testovanie} 
-    \item \LARGE{Práca v tíme} 
-    \item \LARGE{Záver} 
-    \item \LARGE{Prílohy} 
-\end{enumerate}
-
-\vspace{8cm}
-
-\section{Úvod}
-Dokumentácia popisuje implementáciu imperatívneho prekladača jazyku IFJ17. Program prekladaču
- najprv načíta zdrojový súbor, potom ho vyhodnotí z hľadiska syntaxe a ak je všetko v poriadku, 
- kód interpretuje. V prípade nájdenia chyby nasleduje výpis chybového hlásenia. 
-Dokumentácia taktiež zahrňuje prácu v tíme a prílohy približujúce logiku fungovania jednotlivých 
-častí prekladača. 
-
-\section{Zadanie}
-Jazyk IFJ17 je podmnožinou jazyka Free Basic...
-
-\subsection{Varianta zadania}
-
-\section{Implementácia}
-
-\subsection{Implementácia}
-\subsection{Lexikálna analýza}
-\subsection{Algoritmy lexikálnej analýzy}
-\subsection{Syntaktická analýza}
-\subsection{Algoritmy syntaktickej analýzy}
-
-\section{Rozšírenia}
-
-\section{Testovanie}
-
-\section{Práca v tíme}
-
-\section{Záver}
-
-\section{Prílohy}
+    \tableofcontents
+    \newpage
+    
+    \section{Úvod}
+        Dokumentácia popisuje implementáciu imperatívneho prekladača jazyku IFJ17. Program prekladaču
+        najprv načíta zdrojový súbor, potom ho vyhodnotí z hľadiska syntaxe a ak je všetko v poriadku, 
+        kód interpretuje. V prípade nájdenia chyby nasleduje výpis chybového hlásenia. 
+        Dokumentácia taktiež zahrňuje prácu v tíme a prílohy približujúce logiku fungovania jednotlivých 
+        častí prekladača. 
+        
+    \subsection{Varianta zadania}
+    
+    \section{Implementácia}
+    
+    \subsection{Implementácia}
+    \subsection{Lexikálna analýza}
+    \subsection{Algoritmy lexikálnej analýzy}
+    \subsection{Syntaktická analýza}
+    \subsection{Algoritmy syntaktickej analýzy}
+    
+    \section{Rozšírenia}
+    
+    \section{Testovanie}
+    
+    \section{Práca v tíme}
+    
+    \section{Záver}
+    
+    \section{Prílohy}
 
 \end{document}

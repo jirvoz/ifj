@@ -38,11 +38,15 @@ ifunc.o: ifunc.c errors.h parser.h scanner.h symtable.h ifunc.h expressions.h
 tags: src/*
 	ctags -R .
 
+doc:
+	cd doc && pdflatex dokumentace.tex; pdflatex dokumentace.tex
+	mv doc/dokumentace.pdf .
+
 pack: 
 	cd src && \
 	tar pczvf ../xnerec00.tgz *
 
 clean:
-	rm -f ifj sctest xnerec00.tgz *.o
+	rm -f ifj sctest xnerec00.tgz *.o dokumentace.pdf doc/*.aux doc/*.log doc/*.toc
 
-.PHONY: all pack clean
+.PHONY: all doc pack clean
