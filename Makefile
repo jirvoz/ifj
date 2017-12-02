@@ -39,14 +39,16 @@ tags: src/*
 	ctags -R .
 
 doc:
+	# Compile twice because of the table of contents
 	cd doc && pdflatex dokumentace.tex; pdflatex dokumentace.tex
 	mv doc/dokumentace.pdf .
 
-pack: 
+pack: ifj doc
+	mv dokumentace.pdf src
 	cd src && \
 	tar pczvf ../xnerec00.tgz *
 
 clean:
-	rm -f ifj sctest xnerec00.tgz *.o dokumentace.pdf doc/*.aux doc/*.log doc/*.toc
+	rm -f ifj sctest xnerec00.tgz *.o *.pdf src/*.pdf doc/*.aux doc/*.log doc/*.toc
 
 .PHONY: all doc pack clean
