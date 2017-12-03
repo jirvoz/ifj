@@ -9,8 +9,8 @@
 tToken last_token;
 
 // Symbol tables
-tHtable* func_table;
-tHtable* var_table;
+tHTable* func_table;
+tHTable* var_table;
 
 // Temporary function to skip not implemented statements
 bool skip_statement()
@@ -170,10 +170,11 @@ bool parse()
 
     printf("JUMP $$main\n\n");
 
-    func_table = malloc(sizeof(tHtitem) * HTSIZE);
-    var_table = malloc(sizeof(tHtitem) * HTSIZE);
-    htInit(func_table);
-    htInit(var_table);
+    func_table = htInit();
+    var_table = htInit();
+
+    if (!func_table || !var_table)
+        ERROR_AND_RETURN(OTHER_ERROR, "Can't allocate symbol tables.");
 
     if (!program())
         return false;
@@ -187,10 +188,8 @@ bool parse()
             case EOL_TOK:
                 continue;
             case EOF_TOK:
-                htClearAll(func_table);
-                free(func_table);
-                htClearAll(var_table);
-                free(var_table);
+                htFree(func_table);
+                htFree(var_table);
                 return true;
             default:
                 ERROR_AND_RETURN(SYN_ERROR, "There is something after main scope.");

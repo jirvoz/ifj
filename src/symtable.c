@@ -3,7 +3,7 @@
 #include "symtable.h"
 
 // Hash function using alogorithm djb2 by Dan Bernstein
-unsigned hashCode (char* name)
+unsigned hashCode(char* name)
 {
     unsigned hash = 5381;
     int c;
@@ -14,39 +14,43 @@ unsigned hashCode (char* name)
     return hash % HTSIZE;
 }
 
-//initializaton of hash table before first use
-void htInit (tHtable* ptrht)
+// Allocation and initializaton of hash table
+tHTable* htInit()
 {
+    tHTable* ht =  malloc(sizeof(tHTItem) * HTSIZE);
+
+    if (!ht)
+        return NULL;
+
     for (int i = 0; i < HTSIZE; i++)
-    {
-        ptrht[i] = NULL;
-    }
+        ht[i] = NULL;
+
+    return ht;
 }
 
-//searching function
-tSymbol* htSearch ( tHtable* ptrht, char* name ) 
+// Search for symbol data of specified name
+tSymbol* htSearch(tHTable* ptrht, char* name)
 {
-    tHtitem* ptr = ptrht[hashCode(name)];
+    tHTItem* ptr = ptrht[hashCode(name)];
 
     while (ptr != NULL)
     {
         if (strcmp(ptr->name, name) == 0)
-        {
             return &ptr->symbol;
-        }
         ptr = ptr->next;
     }
+
     return NULL;
 }
 
-//function insert item in the table
-void htInsert (tHtable* ptrht, char* name, tSymbol symbol)
+// Insert new item to table
+void htInsert(tHTable* ptrht, char* name, tSymbol symbol)
 {
-    tHtitem* ptr = NULL;
+    tHTItem* ptr = NULL;
 
     int code = hashCode(name);
 
-    ptr = malloc (sizeof(tHtitem));
+    ptr = malloc (sizeof(tHTItem));
     ptr->next = ptrht[code];
     ptrht[code] = ptr;
 
@@ -55,66 +59,30 @@ void htInsert (tHtable* ptrht, char* name, tSymbol symbol)
     
 }
 
-//delete item from table
-void htDelete (tHtable* ptrht, char* name)
+// Remove all items from table
+void htClear(tHTable* ptrht)
 {
-    int code = hashCode(name);
-    tHtitem* ptr = ptrht[code];
-    tHtitem* tmp;
-
-    if (ptr != NULL)
+    tHTItem* ptr;
+    for (int i = 0; i < HTSIZE; i++)
     {
-        if (strcmp(ptr->name, name) == 0)
+        while (ptrht[i] != NULL)
         {
-            tmp = ptr->next;
+            ptr = ptrht[i];
+            ptrht[i] = ptr->next;
             free(ptr->name);
             free(ptr->symbol.arg_types);
             for (int j = 0; j < ptr->symbol.arg_count; j++)
                 free(ptr->symbol.arg_names[j]);
             free(ptr->symbol.arg_names);
             free(ptr);
-            ptrht[code] = tmp;
-            return;
-        }
-        while (ptr->next != NULL)
-        {
-            if (ptr->next->name == name)
-            {
-                tmp = ptr->next;
-                ptr->next = ptr->next->next;
-                free(tmp->name);
-                free(tmp->symbol.arg_types);
-                for (int j = 0; j < tmp->symbol.arg_count; j++)
-                    free(tmp->symbol.arg_names[j]);
-                free(tmp->symbol.arg_names);
-                free(tmp);
-                tmp = NULL;
-            }
-            ptr = ptr->next;
+            ptr = NULL;
         }
     }
 }
 
-//clear whole hash table
-void htClearAll (tHtable* ptrht)
+// Destroy and free the table itself
+void htFree(tHTable* ptrht)
 {
-    tHtitem* ptr;
-    for (int i = 0; i < HTSIZE; i++) 
-    {
-        if (ptrht[i] != NULL) 
-        {
-            while (ptrht[i] != NULL) 
-            {
-                ptr = ptrht[i];
-                ptrht[i] = ptr->next;
-                free(ptr->name);
-                free(ptr->symbol.arg_types);
-                for (int j = 0; j < ptr->symbol.arg_count; j++)
-                    free(ptr->symbol.arg_names[j]);
-                free(ptr->symbol.arg_names);
-                free(ptr);
-                ptr = NULL;
-            }
-        }
-    }
+    htClear(ptrht);
+    free(ptrht);
 }
