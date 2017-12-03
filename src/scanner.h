@@ -1,13 +1,13 @@
-/* *******************************(IFJ 2017)********************************* */
-/*  Course:  Formal Languages and Compilers (IFJ) - FIT VUT Brno 2017/18      */
-/*  Project: Implementation of the IFJ17 imperative language translator       */
-/*  File:    Header file of lexical analyser                                  */
-/*                                                                            */
-/*  Authors: Tomáš Nereča : xnerec00 : ()% (team leader)                      */
-/*           Samuel Obuch : xobuch00 : ()%                                    */
-/*           Jiří Vozár   : xvozar04 : ()%                                    */
-/*           Ján Farský   : xfarsk00 : ()%                                    */
-/* ************************************************************************** */
+//  Course:      Formal Languages and Compilers (IFJ)                         
+//  Project:     Implementation of the IFJ17 imperative language compiler     
+//  File:        scanner.h                                                  
+//  Description: Header file of lexical analyser. 
+//                                                      
+//                                                                            
+//  Authors: Tomáš Nereča : xnerec00                                          
+//           Samuel Obuch : xobuch00                                          
+//           Jiří Vozár   : xvozar04                                          
+//           Ján Farský   : xfarsk00 
 
 #ifndef _SCANNER_H_
 #define _SCANNER_H_
@@ -31,9 +31,9 @@
 #define RETURN_FALSE(string, err_code, ...) do { stringFree(&string); addError(err_code, __VA_ARGS__); \
                                         return false; } while (0)
 
-extern unsigned line;           //extern variable - line counter
+extern unsigned line;           // Extern variable - line counter
 
-//types of TOKENS sent to parser
+// Types of TOKENS sent to parser
 typedef enum token_type
 {
     UNDEFINED_TOK = 0,          //non-existent token for functions in parser
@@ -44,7 +44,7 @@ typedef enum token_type
     EOL_TOK,
     EOF_TOK,
     //------------OPERATORS-------------//
-    EQUAL_SIGN_OP = 10,         //operators starting at 10
+    EQUAL_SIGN_OP = 10,         // Operators starting at 10
     NO_EQUAL_OP,
     LOWER_EQUAL_OP,
     HIGHER_EQUAL_OP,
@@ -60,7 +60,7 @@ typedef enum token_type
     COLON_OP,
     SEMICOLON_OP,
     //------------KEYWORDS-------------//
-    AND = 30,                   //keywords starting at 30
+    AND = 30,                   // Keywords starting at 30
     AS,
     ASC,
     BOOLEAN,
