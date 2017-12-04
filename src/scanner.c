@@ -2,12 +2,12 @@
 //  Project:     Implementation of the IFJ17 imperative language compiler
 //  File:        scanner.c
 //  Description: Source file of lexical analyser
-//               Lexical analyser is implemented as a finite state automata.
+//               Lexical analyser is implemented as a finite state automata
 //
 //  Authors: Tomáš Nereča : xnerec00
 //           Samuel Obuch : xobuch00
 //           Jiří Vozár   : xvozar04
-//           Ján Farský   : xfarsk00                                         
+//           Ján Farský   : xfarsk00
 
 #include <ctype.h>
 #include <stdlib.h>

@@ -1,3 +1,14 @@
+//  Course:      Formal Languages and Compilers (IFJ)
+//  Project:     Implementation of the IFJ17 imperative language compiler
+//  File:        errors.c
+//  Description: Source file of error module
+//               Main function set exit_code and prints errors to stderr
+//
+//  Authors: Tomáš Nereča : xnerec00
+//           Samuel Obuch : xobuch00
+//           Jiří Vozár   : xvozar04
+//           Ján Farský   : xfarsk00
+
 #include <stdio.h>
 #include <stdarg.h>
 #include "errors.h"
@@ -6,7 +17,7 @@
 int exit_code = 0;
 
 char* err_messages[] =
-{                                           // return values:
+{                                           // Return values:
     "Info",                                 // 0
     "Lexical error",                        // 1
     "Syntax error",                         // 2
@@ -16,14 +27,14 @@ char* err_messages[] =
     "Internal error"                        // 99
 }; 
 
-//function counts errors and creates array of errors
+// Print error message and set return value
 void addError(err_code code, const char* fmt, ...)
 {
-    //exit code will be first error code
+    // Exit code will be first error code
     if (exit_code == 0)
         exit_code = code;
 
-    // print error type
+    // Print error type
     fprintf(stderr, "Line %d: ", line);
     if (code == 99)
         fprintf(stderr, "%s: ", err_messages[6]);
@@ -32,7 +43,7 @@ void addError(err_code code, const char* fmt, ...)
     else
         fprintf(stderr, "%s: ", err_messages[code]);
 
-    // print custom message
+    // Print custom message
     va_list args;
     va_start(args, fmt);
     vfprintf(stderr, fmt, args);
