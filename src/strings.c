@@ -1,11 +1,25 @@
+//  Course:      Formal Languages and Compilers (IFJ)
+//  Project:     Implementation of the IFJ17 imperative language compiler
+//  File:        strings.c
+//  Description: Source file of String module
+//               Struct is data structure representing dynamically allocated 
+//               array of chars, size of allocated memmory and length of string
+//
+//  Authors: Tomáš Nereča : xnerec00
+//           Samuel Obuch : xobuch00
+//           Jiří Vozár   : xvozar04
+//           Ján Farský   : xfarsk00
+
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
 #include "strings.h"
 
-#define STR_LEN_INC 8           //the basic size of the allocated space for the str, relocating will be multiples of this number
+// The basic size of the allocated space for the str, relocating will be multiples of this number
+#define STR_LEN_INC 8
 
-int stringInit(string* str_1)   //function initialize new str
+// Initialize new str, allocated size is STR_LEN_INC
+int stringInit(string* str_1)   
 {
     str_1->str = (char*) malloc(STR_LEN_INC);
 
@@ -22,18 +36,21 @@ int stringInit(string* str_1)   //function initialize new str
        return false;
 }
 
-void stringFree(string *str_1)  //function to free the str from memory
+// Free the str allocated memory
+void stringFree(string *str_1)
 {
     free(str_1->str);
 }
 
-void stringClear(string *str_1) //function to clear content of the str
+// Clear content of the str
+void stringClear(string *str_1)
 {
    str_1->str[0] = '\0';
    str_1->length = 0;
 }
 
-int stringAddChar(char c, string *str_1) //function to add new char to the end of str
+// Add new char to the end of str
+int stringAddChar(char c, string *str_1)
 {
     if (str_1->length + 1 >= str_1->allocatedSize)
     {
@@ -50,6 +67,7 @@ int stringAddChar(char c, string *str_1) //function to add new char to the end o
     return true;
 }
 
+// Allocate memmory and concatenate string
 int stringConcat(const char* str_2, string* str_1)
 {
     int str_2_length = strlen(str_2);
