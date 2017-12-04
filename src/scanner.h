@@ -1,13 +1,12 @@
-//  Course:      Formal Languages and Compilers (IFJ)                         
-//  Project:     Implementation of the IFJ17 imperative language compiler     
-//  File:        scanner.h                                                  
-//  Description: Header file of lexical analyser. 
-//                                                      
-//                                                                            
-//  Authors: Tomáš Nereča : xnerec00                                          
-//           Samuel Obuch : xobuch00                                          
-//           Jiří Vozár   : xvozar04                                          
-//           Ján Farský   : xfarsk00 
+//  Course:      Formal Languages and Compilers (IFJ)
+//  Project:     Implementation of the IFJ17 imperative language compiler
+//  File:        scanner.h
+//  Description: Header file of lexical analyser
+//
+//  Authors: Tomáš Nereča : xnerec00
+//           Samuel Obuch : xobuch00
+//           Jiří Vozár   : xvozar04
+//           Ján Farský   : xfarsk00
 
 #ifndef _SCANNER_H_
 #define _SCANNER_H_
