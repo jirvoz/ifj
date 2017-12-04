@@ -1,0 +1,131 @@
+\documentclass{article}
+\usepackage[slovak]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage{indentfirst}
+\usepackage{graphicx}
+
+\begin{document}
+    \begin{titlepage}
+        \begin{center}
+            \vspace{\stretch{0.382}}
+            
+            \includegraphics{FITlogo.jpg}\\[16mm]
+            
+            \LARGE
+            Implementácia interpretu imperativného jazyka IFJ17 \\
+            \large
+            Dokumentácia k projektu IFJ/IAL\\[8mm]
+            
+            \begin{tabular}{r l}
+                Tím & 094 \\
+                Varianta & II \\
+                Vedúci: & Tomáš Nereča (xnerec00) \quad 26\% \\
+                Ďalší členovia & Samuel Obuch (xobuch00) \quad 26\% \\
+                    & Jiří Vozár (xvozar04) \quad 26\% \\
+                    & Ján Farský (xfarsk00) \quad 22\% \\
+                Implementované rozšírenia & BASE, FUNEXP, IFTHEN\\
+            \end{tabular}
+            
+            \vspace{\stretch{0.618}}
+        \end{center}
+    \end{titlepage}
+
+    \tableofcontents
+    \newpage
+    
+    \section{Úvod}
+        Dokumentácia popisuje implementáciu imperatívneho prekladača jazyku IFJ17. Program prekladaču
+        najprv načíta zdrojový súbor, potom ho vyhodnotí z hľadiska syntaxe a ak je všetko v poriadku, 
+        kód interpretuje. V prípade nájdenia chyby nasleduje výpis chybového hlásenia. 
+        Dokumentácia taktiež zahrňuje prácu v tíme a prílohy približujúce logiku fungovania jednotlivých 
+        častí prekladača. 
+        
+        \subsection{Varianta zadania}
+    
+    \section{Implementácia}
+    
+        \subsection{Lexikálna analýza}
+        
+        \subsection{Syntaktická analýza}
+            \subsubsection{Rekurzivní zostup}
+            \subsubsection{Precedenčná syntaktická analýza}
+    
+        \subsection{Tabuľka symbolov}
+        
+        \subsection{Vstavané funkcie}
+            \noindent
+            \textbf{Length}\\
+            Vstupným parametrom funkcie je string a výstupným je číselná hodnota dĺžky vstupného stringu.
+            \textbf{SubStr}\\
+            Vstupné parametre funkcie sú string  a dva integery. Výstupom je podreťazec vstupného
+            stringu, ktorého začiatok je určený prvým integerom a jeho dĺžka druhým. Ak je index dĺžky
+            0 alebo indexujeme mimo medze stringu návratovou hodnotou je prázdny reťazec. Ak by časť 
+            znakov podreťazca pripadala mimo medze základného stringu návratovou hodnotou je string
+            obsahujúci iba znaky z medzí vstupného stringu.
+            \textbf{Asc}\\
+            Vstupné parametre funkcie sú reťazec string a integer. Výstupnou hodnotou je ordinálna
+            hodnota (ASCII) znaku v stringu na pozícii zadanej integerom. Ak integer zasahuje mimo 
+            medze stringu návratovou hodnotou je 0.
+            \textbf{Chr}\\
+            Vstupným parametrom je integer. Výstupom je znak, ktorého ASCII kód bol zadaný integerom.
+            V prípade integeru momo medzí 0-255 je chovanie funkcie nedefinované.
+            
+        \subsection{Generovanie kódu}
+        
+    \section{Rozšírenia}
+    Boli implementované celkom 3 rozšírenia:
+        \begin{itemize}
+            \item[*] base - celočíselné konštanty možno zadávať aj v 2, 8 a 16-tkovej sústave.
+            \item[*] funexp - volanie funkcie môže byť súčasťou výrazu, zároveň môžu byť výrazy
+            v parametroch volaní funkcie.
+            \item[*] ifthen - podporuje zjednodušený podmienený príkaz If-Then bez časti Else.
+        \end{itemize}
+    
+    \section{Testovanie}
+    Testovanie jednotlivých častí aj celého celku interpretu prebehlo pomocou verejne zdielanej 
+    skupiny vyše 450 testov, na ktorých tvorbe sa podieľali ochotní riešitelia tohtoročného 
+    zadania projetu do predmetu IFJ. Túto iniciatívu zo strany študentov sme všetci vnímali
+    veľmi pozitívne a prospešne pre všetkých riešiteľov projektu. Aj vďaka tomuto množstvu 
+    testov sa nám podarilo pokryť takmer celý rozsah interpretu čo nám potvrdili aj výsledky
+    z pokusných termínov odovzdania.
+    
+    \section{Práca v tíme}
+    Ako tím sme sa začali schádzať pomerne skoro po zaregistrovaní zadania. Stretnutie sme mali aspoň
+    jeden krát týždenne, kde sme prediskutovali aktuálny stav práve implementovaných častí a ďalší 
+    postup či korekciu v zdrojovom kóde. Prácu sme rozdeľovali podľa schopností a záujmu jednotlivých
+    členov tímu. Po pridelení úlohy sme stanovili dedline, aby sme sa vyhli dlhému čakaniu na 
+    implementáciu nadväzujúcej časti projektu. Jednotlivé časti sme sa snažili implementovať paralelne
+    s preberanou látkou na prednáškach aby sme čo najskôr využili čerstvo získané informácie.
+
+        \subsection{Správa zdrojového kódu}
+        Pre správu a zdielanie zdrojových súborov sme využili webovú službu GitHub s ktorou sme už 
+        v priebehu štúdia mali skúsenosti a vedeli sme, že splní svoju úlohu výborne. Ako komunikačný
+        kanál sme využili skupinovú konverzáciu v sociálnej sieti Facebook, ktorá nám všetkým vyhovovala.
+        Nástenku rozdelenia úloh dokončených, aj čakajúcich na implementáciu nám zabezpečil projektový
+        software Trello, ktorý sme taktiež už využili pri riešení skupinového projektu v predošlom
+        štúdiu. Taktiež sme vedeli že splní úlohu na ktorú ho potrebujeme. Vďaka tímto informačným 
+        kanálom mohli mať všetci členovia tímu prístup k najaktuálnejšej  verzii projektu a reagovať
+        na vzniknuté chyby efektívne.
+
+        \subsection{Rozdelenie}
+        Bodové rozdelenie je nasledovné: & Tomáš Nereča (xnerec00) \quad 26\% \\
+                                         & Samuel Obuch (xobuch00) \quad 26\% \\
+                                         & Jiří Vozár (xvozar04) \quad 26\% \\
+                                         & Ján Farský (xfarsk00) \quad 22\% \\
+        Dôvod nerovnomerného rozdelenia bodov bolo nedostatočné splnenie pridelených častí jednému 
+        zo členov tímu, čo viedlo k potrebnému prepisu kódu od ostatných členov tímu.                                 
+
+    \section{Záver}
+    S projektom podobného rozsahu sa ešte nikto z nás pred tým nestretol, preto ho pokladáme dobrnú
+    skúsenosť pre každého z nás. Pri jeho riešení sme prakticky využili získané informácie z 
+    predmetov IFJ a IAL. Pre správne fungovanie tímu bola potrebná dobrá komunikácia, ktorá pretvala
+    počas celého prebehu projektu aj vďaka pravidelným stretnutiam. Výsledkom tejto práce je funkčný
+    a z nášho pohľadu vydarený interpret jazyka IFJ17.
+    
+    \section{Prílohy}
+        \subsection{LL gramatika}
+        \subsection{LL tabuľka}
+        \subsection{Precedenčná tabuľka}
+
+\end{document}
