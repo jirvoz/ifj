@@ -1,0 +1,3 @@
+scope
+    print 31 + foo();
+end scope

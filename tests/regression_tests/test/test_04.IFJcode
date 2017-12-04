@@ -1,0 +1,9 @@
+scope
+    Dim a as     string = !"foo"
+	Dim   bad as integer = 9876
+	Dim bro_o as integer = 0045
+	Dim cu____R   as double = 78.4
+	Dim dQeWS__ as double = 78e4
+	Dim   rrrrrrrrrrrrr as double =     8e-4
+    Dim freq   as double  = 		87E4
+end scope

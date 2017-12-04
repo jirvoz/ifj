@@ -1,0 +1,4 @@
+scope
+	dim x as integer = &o778777
+	print x;
+end scope

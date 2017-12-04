@@ -1,49 +1,53 @@
 #ifndef _SYMTABLE_H_
 #define _SYMTABLE_H_
 
-#include <stdbool.h>
 #include "scanner.h"
 
 //size of hash table
 #define HTSIZE 128
 
+// Data of the symbol
 typedef struct tSymbol
 {
     //for variable and function
-    token_type type;            //type of variable (or return type of function)
+    token_type type;            // Type of variable (or return type of function)
 
     //for function only
-    bool defined;               //function defined flag
-    int arg_count;              //function arguments count
-    int arg_size;               //size of arrays of function arguments
-    token_type* arg_types;      //types of function arguments
-    char** arg_names;           //names of function arguments
+    bool defined;               // Function defined flag
+    int arg_count;              // Function arguments count
+    int arg_size;               // Size of arrays of function arguments
+    token_type* arg_types;      // Types of function arguments
+    char** arg_names;           // Names of function arguments
 } tSymbol;
 
-//this structure represent symbol in hash table
-typedef struct tHtitem
+// Single item from hash table
+typedef struct tHTItem
 {
-    char* name;                 //name is also key
-    tSymbol symbol;             //data of symbol
-    struct tHtitem* next;       //pointer to the next synonym
-} tHtitem;
+    char* name;                 // Name is also key
+    tSymbol symbol;             // Data of symbol
+    struct tHTItem* next;       // Pointer to the next synonym
+} tHTItem;
 
-//hash table
-typedef tHtitem* tHtable;
+// Hash table main structure
+typedef tHTItem* tHTable;
 
 
-//Declarations of functions
+// Hash function (using alogorithm djb2 by Dan Bernstein)
+unsigned hashCode(char* name);
 
-int hashCode(char* name);
+// Allocation and initializaton of hash table
+tHTable* htInit();
 
-void htInit(tHtable* ptrht);
+// Search for symbol data of specified name
+tSymbol* htSearch(tHTable* ptrht, char* name);
 
-tSymbol* htSearch(tHtable* ptrht, char* name);
+// Insert new item to table
+void htInsert(tHTable* ptrht, char* name, tSymbol symbol);
 
-void htInsert(tHtable* ptrht, char* name, tSymbol symbol);
+// Remove all items from table
+void htClear(tHTable* ptrht);
 
-void htDelete(tHtable* ptrht, char* name);
-
-void htClearAll(tHtable* ptrht);
+// Destroy and free the table itself
+void htFree(tHTable* ptrht);
 
 #endif

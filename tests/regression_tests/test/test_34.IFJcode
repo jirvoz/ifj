@@ -1,0 +1,5 @@
+scope
+	dim a as string
+	a = !"$"
+	print $;
+end scope

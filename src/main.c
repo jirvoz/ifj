@@ -1,9 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-
 #include "errors.h"
 #include "parser.h"
-#include "scanner.h"
 
 int main ()
 {

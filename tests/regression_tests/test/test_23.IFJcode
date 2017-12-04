@@ -1,0 +1,7 @@
+scope 
+	dim str as string = !"hello hello hello"
+	str = substr(str, 6, 10)
+	dim a as integer
+	a = length(str)
+	print a;
+end scope

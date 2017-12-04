@@ -4,6 +4,12 @@
 # Executables
 ifj
 
+# Documentation
+*.pdf
+*.aux
+*.log
+*.toc
+
 # Packed project
 xnerec00.tgz
 

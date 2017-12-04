@@ -1,0 +1,4 @@
+scope
+	dim ass as integer = 42 + 66
+	print ass;
+end scope

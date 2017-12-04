@@ -1,0 +1,9 @@
+function foo() as string
+
+end function
+
+scope
+	dim a as integer
+	a = foo()
+
+end scope

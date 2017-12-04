@@ -26,7 +26,7 @@ int main(int argc, char const *argv[])
 //this function prints term
 void printTerm(tTerm term)
 {
-	
+	fprintf(test_file, " ");
 	switch (term.index)
 	{
 		case EQ_EXPR_IN:

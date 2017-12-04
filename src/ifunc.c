@@ -10,12 +10,10 @@
 
 #include <stdio.h>
 #include <stdbool.h>
+#include "ifunc.h"
 #include "errors.h"
 #include "parser.h"
-#include "scanner.h"
-#include "symtable.h"
 #include "expressions.h"
-#include "ifunc.h"
 
 bool callAsc()
 {//function gets str and postion in it and returns int related to chars position
@@ -50,36 +48,32 @@ bool callAsc()
     if (last_token.type != RIGHT_PARENTH_OP)
         ERROR_AND_RETURN(SYN_ERROR, "Expected right parenthesis after function parameters.");
 
-    static int name0 = 0;
-    name0++;
+    static int name = 0;
+    name++;
 
-     ////////////////////Asc function
-    printf("CREATEFRAME\n");
-    printf("DEFVAR TF@$ret\n");
-    printf("MOVE TF@$ret int@0\n");
+    // num1 is output ASC
+    printf("MOVE GF@$num1 int@0\n");
 
-    printf("DEFVAR TF@$pos\n");
-    printf("POPS TF@$pos\n");
+    // num2 is position
+    printf("POPS GF@$num2\n");
 
-    printf("DEFVAR TF@$str1\n");
-    printf("POPS TF@$str1\n");
+    // str1 is input string
+    printf("POPS GF@$str1\n");
 
-    printf("DEFVAR TF@$tmp_len\n");
-    printf("STRLEN TF@$tmp_len TF@$str1\n");
+    printf("STRLEN GF@$num3 GF@$str1\n");
 
-    printf("DEFVAR TF@$tmp_bool\n");
-    printf("GT TF@$tmp_bool TF@$pos TF@$tmp_len\n");
+    printf("GT GF@$bool1 GF@$num2 GF@$num3\n");
 
-    printf("JUMPIFEQ &ret0%d TF@$tmp_bool bool@true\n", name0);
+    printf("JUMPIFEQ &asc_end%d GF@$bool1 bool@true\n", name);
 
-    printf("LT TF@$tmp_bool TF@$pos int@1\n");
-    printf("JUMPIFEQ &ret0%d TF@$tmp_bool bool@true\n", name0);
+    printf("LT GF@$bool1 GF@$num2 int@1\n");
+    printf("JUMPIFEQ &asc_end%d GF@$bool1 bool@true\n", name);
     
-    printf("SUB TF@$pos TF@$pos int@1\n");
-    printf("STRI2INT TF@$ret TF@$str1 TF@$pos\n");
+    printf("SUB GF@$num2 GF@$num2 int@1\n");
+    printf("STRI2INT GF@$num1 GF@$str1 GF@$num2\n");
 
-    printf("LABEL &ret0%d\n", name0);
-    printf("PUSHS TF@$ret\n");
+    printf("LABEL &asc_end%d\n", name);
+    printf("PUSHS GF@$num1\n");
 
     return true;
 }
@@ -131,12 +125,9 @@ bool callLength()
     if (last_token.type != RIGHT_PARENTH_OP)
        ERROR_AND_RETURN(SYN_ERROR, "Expected right parenthesis after function parameters.");
 
-    printf("CREATEFRAME\n");
-    printf("DEFVAR TF@$ret\n");
-    printf("DEFVAR TF@$str1\n");
-    printf("POPS TF@$str1\n");
-    printf("STRLEN TF@$ret TF@$str1\n");
-    printf("PUSHS TF@$ret\n");
+    printf("POPS GF@$str2\n");
+    printf("STRLEN GF@$num1 GF@$str2\n");
+    printf("PUSHS GF@$num1\n");
 
     return true;
 }
@@ -173,69 +164,57 @@ bool callSubstr()
     if (last_token.type != RIGHT_PARENTH_OP)
         ERROR_AND_RETURN(SYN_ERROR, "Expected right parenthesis after function parameters.");
 
-    static int name = 1;
+    static int name = 0;
     name++;
 
-
-
-    ////////////////base function
-    printf("CREATEFRAME\n");
-    //length of sub str
-    printf("DEFVAR TF@$length\n");
-    printf("POPS TF@$length\n");
-    //start pos
-    printf("DEFVAR TF@$start_pos\n");
-    printf("POPS TF@$start_pos\n");
-    printf("SUB TF@$start_pos TF@$start_pos int@1\n");
-    //input str
-    printf("DEFVAR TF@$in_str\n");
-    printf("POPS TF@$in_str\n");
-    //int vars
-    printf("DEFVAR TF@$count\n");
-    printf("MOVE TF@$count int@0\n");
-    //character
-    printf("DEFVAR TF@$char\n");
-    //output string
-    printf("DEFVAR TF@$ret\n");
-    printf("MOVE TF@$ret string@\n");
-
+    //num1 is length sub str
+    printf("POPS GF@$num1\n");
+    //num2 is start pos
+    printf("POPS GF@$num2\n");
+    printf("SUB GF@$num2 GF@$num2 int@1\n");
+    //str2 is input str 
+    printf("POPS GF@$str2\n");
+    //cycle counter 
+    printf("MOVE GF@$counter int@0\n");
+    // str1 is output string
+    printf("MOVE GF@$str1 string@\n");
 
     //if empty string or i <=0
-    printf("DEFVAR TF@$tmp_len\n");
-    printf("STRLEN TF@$tmp_len TF@$in_str\n");
-    printf("JUMPIFEQ &end%d TF@$tmp_len int@0\n", name);
+    //num3 is sub_tmp_len
+    printf("STRLEN GF@$num3 GF@$str2\n");
+    printf("JUMPIFEQ &sub_end%d GF@$num3 int@0\n", name);
 
-    printf("DEFVAR TF@$tmp_bool\n");
-    printf("GT TF@$tmp_bool TF@$start_pos int@-1\n");
-    printf("JUMPIFNEQ &end%d TF@$tmp_bool bool@true\n", name);
+    printf("GT GF@$bool1 GF@$num2 int@-1\n");
+    printf("JUMPIFNEQ &sub_end%d GF@$bool1 bool@true\n", name);
     
-    //if n < 0 or n > length(string)
-    printf("LT TF@$tmp_bool TF@$length int@0\n");
-    printf("JUMPIFEQ &cycle2%d TF@$tmp_bool bool@true\n", name);
+    //if n < 0
+    printf("LT GF@$bool1 GF@$num1 int@0\n");
+    printf("JUMPIFEQ &cycle2%d GF@$bool1 bool@true\n", name);
 
-    printf("GT TF@$tmp_bool TF@$length TF@$tmp_len\n");
-    printf("JUMPIFEQ &cycle2%d TF@$tmp_bool bool@true\n", name);
+    //if n > rest of num1(string)
+    printf("SUB GF@$num3 GF@$num3 GF@$num2\n");
+    printf("GT GF@$bool1 GF@$num1 GF@$num3\n");
+    printf("JUMPIFEQ &cycle2%d GF@$bool1 bool@true\n", name);
 
 
     ////////////////////cycle1
     printf("LABEL &cycle1%d\n", name);
-    printf("GETCHAR TF@$char TF@$in_str TF@$start_pos\n");
-    //conect pieces of return value
-    printf("CONCAT TF@$ret TF@$ret TF@$char\n");
-    printf("ADD TF@$count TF@$count int@1\n");
-    printf("ADD TF@$start_pos TF@$start_pos int@1\n");
+    printf("GETCHAR GF@$char GF@$str2 GF@$num2\n");
+    //conect pieces of str1urn value
+    printf("CONCAT GF@$str1 GF@$str1 GF@$char\n");
+    printf("ADD GF@$counter GF@$counter int@1\n");
+    printf("ADD GF@$num2 GF@$num2 int@1\n");
 
-    //if counter == length i jump to end label
-    printf("JUMPIFNEQ &cycle1%d TF@$count TF@$length\n", name);
-    printf("JUMP &end%d\n", name);
+    //if counter == num1 i jump to end label
+    printf("JUMPIFNEQ &cycle1%d GF@$counter GF@$num1\n", name);
+    printf("JUMP &sub_end%d\n", name);
 
     printf("LABEL &cycle2%d\n", name);
-    printf("SUB TF@$length TF@$tmp_len TF@$start_pos\n");
+    printf("MOVE GF@$num1 GF@$num3\n");
     printf("JUMP &cycle1%d\n", name);
     
-
-    printf("LABEL &end%d\n", name);
-    printf("PUSHS TF@$ret\n");
+    printf("LABEL &sub_end%d\n", name);
+    printf("PUSHS GF@$str1\n");
 
     return true;
 }

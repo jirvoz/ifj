@@ -1,0 +1,10 @@
+function dsfs_666() as integer
+	dim a as integer = 10
+	return a
+end function
+
+scope
+	dim a as integer = 12
+	a = dsfs_666()
+	print a;
+end scope

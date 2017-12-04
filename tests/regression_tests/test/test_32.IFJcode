@@ -1,0 +1,8 @@
+scope
+	dim x as double = 16.3
+	dim y as double = 6.6
+	dim z as double
+	z = x \ y
+	print z;
+
+end scope

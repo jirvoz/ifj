@@ -54,39 +54,43 @@ void stackPush(tStack* stack, tTerm term)
 }
 
 //delete item from the top of stack
-tTerm* stackPop(tStack* stack)
+tTerm stackPop(tStack* stack)
 {
     if(!stackEmpty(stack)) 
     {
         (stack->top)--;
-        return &(stack->arr[(stack->top) + 1]);
+        return stack->arr[(stack->top) + 1];
     }   
-    else 
+    else
     {
-        return NULL;
+        tTerm newTerm;
+        newTerm.index = DOLAR_IN;
+        newTerm.token.type = UNDEFINED_TOK;
+        return newTerm;
     }
 }
 
 //save the pointer of the item from the top of stack
-tTerm* stackTop(tStack* stack) 
+tTerm stackTop(tStack* stack) 
 {
-    if (!stackEmpty(stack)) 
-    {
-        return &(stack->arr[stack->top]);
-    }
+    if (!stackEmpty(stack))
+        return stack->arr[stack->top];
     else
     {
-        return NULL;
+        tTerm newTerm;
+        newTerm.index = DOLAR_IN;
+        newTerm.token.type = UNDEFINED_TOK;
+        return newTerm;
     }
 }
 
-//free alocated memory and set size to 0
+// Free alocated memory of arr and whole stack
 void stackFree(tStack* stack) 
 {
-    if (stack->arr != NULL)
+    if (stack != NULL)
     {
-        free(stack->arr);  
+        if (stack->arr != NULL)
+            free(stack->arr);
+        free(stack);
     }
-    stack->size = 0;
-    stack->top = -1;
 }
