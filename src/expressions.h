@@ -5,7 +5,7 @@
 #include "stack.h"
 #include "scanner.h"
 
-//rows and cols in precedence table
+// Rows and cols in precedence table
 typedef enum p_table_index
 {
     EQ_IN,
@@ -43,10 +43,22 @@ typedef struct tTerm
 //                 or UNDEFINED_TOK = 0 (no specific type needed)
 bool expression(token_type expected_type);
 
-//Other functions
+// Conversion from infix expression to postfix expression
+//		expected_type - for checking correct data types in expression
+// 		return_type   - for set and check correct data types if is expected_type
+//						BOOLEAN UNDEFINED_TOK 
+//		term 		  - type of variable, that contains index and token type 
+//						of incoming token
+//		stack 		  - stack for holding signs, for correct conversion to postfix
 bool postfix(token_type expected_type, token_type return_type, struct tTerm term, struct tStack* stack);
+
+// Verifying that variable or functions are defined and have correct data type
 bool getTerm(tTerm* term);
+
+// Checking priority between sign on stack and actual sign
 bool getPriority (tTerm term, tStack* stack, token_type return_type);
+
+// Generating instructions from postfix expression
 bool generateInstruction(token_type return_type, tTerm sent_term);
 
 #endif

@@ -40,11 +40,11 @@ bool expression(token_type expected_type)
 
     tStack* stack = stackInit();
 
-    token_type return_type = expected_type;
+    token_type return_type = expected_type;		// return_type is token type for internal comunication whether we are working with a number or string
 
     if (expected_type == UNDEFINED_TOK || expected_type == BOOLEAN ) // Undefined token set by first token type
     {
-        while (term.index == LEFT_PARENTH_IN)    // First left brackets push on stack
+        while (term.index == LEFT_PARENTH_IN)    // Firstly left brackets will be pushed on stack
         {
             stackPush(stack, term);
             UPDATE_LAST_TOKEN();
@@ -79,7 +79,6 @@ bool expression(token_type expected_type)
             ERROR_AND_RETURN(OTHER_ERROR, "Unknown token type");
     }
 }
-
 
 // This function set the type of token and index in precedence table
 bool getTerm(tTerm* term)
@@ -203,6 +202,7 @@ bool getTerm(tTerm* term)
     return true;
 }
 
+// Function for check operation priority in the precedence table
 bool getPriority (tTerm term, tStack* stack, token_type return_type)
 {
     int get_priority = '>'; // First state for start cycle
@@ -210,18 +210,18 @@ bool getPriority (tTerm term, tStack* stack, token_type return_type)
 
     while (get_priority != '<')
     {
-        if (!stackEmpty(stack))
+        if (!stackEmpty(stack))	// if stack is not empty get sign from stack
         {
             tmp_term = stackTop(stack);
-            get_priority = precedence_table[tmp_term.index][term.index];
+            get_priority = precedence_table[tmp_term.index][term.index];	//getting priority
         }
             
-        if (get_priority == '<' || stackEmpty(stack))
+        if (get_priority == '<' || stackEmpty(stack))	// if priority is lower sign pushed on stack
         {
             stackPush(stack, term);
             break;
         }
-        else
+        else	// else pop from stack
         {
             tmp_term = stackPop(stack);
             generateInstruction(return_type, tmp_term);
@@ -230,21 +230,22 @@ bool getPriority (tTerm term, tStack* stack, token_type return_type)
     return true;
 }
 
+// Function for conversion from infix expression to postfix expresion for instruction generator
 bool postfix(token_type expected_type, token_type return_type, tTerm term, tStack* stack)
 {
     tTerm stack_term;
 
-    int operand_count = 0;
-    int operation_count = 0;
-    bool logic_allowed = true;
-    bool negative_number = false;
+    int operand_count = 0;			// variable for counting number of operands
+    int operation_count = 0;		// variable for counting number of operations
+    bool logic_allowed = true;		// after first logical equality sign set to false
+    bool negative_number = false; 	// if befor number comes + or - set tu true	
 
     do
     {
-        if ((((term.index == INT_IN) || (term.index == DOUBLE_IN)) && (return_type != STRING)) ||
+        if ((((term.index == INT_IN) || (term.index == DOUBLE_IN)) && (return_type != STRING)) ||	// checking allowed types in expresion
             ((term.index == STRING_IN) && (return_type == STRING)))
         {
-            if(negative_number && return_type != STRING)        //if first in expresion is sign + or -
+            if(negative_number && return_type != STRING)        //if firstly in expresion is sign + or -
             {
                 if (term.index == INT_IN)
                     return_type = INTEGER;
@@ -254,7 +255,7 @@ bool postfix(token_type expected_type, token_type return_type, tTerm term, tStac
                 negative_number = false;
             }
 
-            if ((expected_type == UNDEFINED_TOK) && (term.index == DOUBLE_IN)) //if is in undefined expression Double whole expression convert to Double
+            if ((expected_type == UNDEFINED_TOK) && (term.index == DOUBLE_IN)  && (return_type != STRING)) //if is in undefined expression Double whole expression convert to Double
                 return_type = DOUBLE;
 
             operand_count++;
@@ -262,7 +263,7 @@ bool postfix(token_type expected_type, token_type return_type, tTerm term, tStac
             UPDATE_LAST_TOKEN();
         }
         else if (((term.index == PLUS_IN || term.index == MINUS_IN || term.index == MUL_IN || term.index == FLOAT_DIV_IN || term.index == INT_DIV_IN) && return_type != STRING) ||
-                ((term.index == PLUS_IN) && (return_type == STRING)))  //Operands and operations allowed when expected type is INTEGER or DOUBLE      
+                ((term.index == PLUS_IN) && (return_type == STRING)))  //Operands and operations allowed when for numerical or string expressions
         {
             if (operand_count == 0)     //negative_number + or - solved ... firstly push 0.0
             {
@@ -283,46 +284,36 @@ bool postfix(token_type expected_type, token_type return_type, tTerm term, tStac
 
             operation_count++;
 
-            if (stackEmpty(stack))
+            if (stackEmpty(stack))		// for empty stack sign will be pushed to stack
             {
                 stackPush(stack, term);
                 UPDATE_LAST_TOKEN();
             }
             else
             {   
-                if (getPriority (term, stack, return_type))
+                if (getPriority (term, stack, return_type))		// if stack is not empty then call function for checking priority
                     UPDATE_LAST_TOKEN();
             }
         }
-        else if (term.index == LEFT_PARENTH_IN || term.index == RIGHT_PARENTH_IN)
+        else if (term.index == LEFT_PARENTH_IN || term.index == RIGHT_PARENTH_IN)	// if comes parenthesis 
         {
-            if (term.index == LEFT_PARENTH_IN)
+            if (term.index == LEFT_PARENTH_IN)	// left parenthesis will be pushed on stack
             {
                 stackPush(stack, term);
                 UPDATE_LAST_TOKEN();
             }
             else
             {
-                if (stackEmpty(stack))
-                {   
-                    tTerm tmp_term; 
-                    tmp_term.index = DOLAR_IN;
-                    tmp_term.token.type = EOL_TOK; //token_type musn't be empty
-                    generateInstruction(return_type, tmp_term);
-                    stackFree(stack);
-                    return true;
-                }
+                stack_term = stackTop(stack);	
 
-                stack_term = stackTop(stack);
-
-                while (!(stackEmpty(stack)) && (stack_term.index != LEFT_PARENTH_IN)) // in strings weird
+                while (!(stackEmpty(stack)) && (stack_term.index != LEFT_PARENTH_IN)) // while is stack not empty or left parenthesis on top
                 {
                     stack_term = stackPop(stack);
                     generateInstruction(return_type, stack_term);
                     stack_term = stackTop(stack);                    
                 }
 
-                if (stackEmpty(stack))
+                if (stackEmpty(stack)) // if comes right parenthesis and stack is empty then it is end of expression
                 {
                     tTerm tmp_term; 
                     tmp_term.index = DOLAR_IN;
@@ -338,18 +329,17 @@ bool postfix(token_type expected_type, token_type return_type, tTerm term, tStac
                 }     
             }
         }
-        else if((term.index == EQ_IN || term.index == NOT_EQ_IN || term.index == LOWER_EQ_IN ||
+        else if((term.index == EQ_IN || term.index == NOT_EQ_IN || term.index == LOWER_EQ_IN ||			// if comes logical operation 
                  term.index == HIGHER_EQ_IN || term.index == LOWER_IN || term.index == HIGHER_IN) && 
                 (expected_type == BOOLEAN || expected_type == UNDEFINED_TOK))
         {
-            if (logic_allowed) 
+            if (logic_allowed) 	// checking if is it first logical operation in expression
             {
-                //return_type = BOOLEAN;
                 logic_allowed = false;
     
                 operation_count++;
     
-                if (stackEmpty(stack))
+                if (stackEmpty(stack))			// same checking priority as clasic sign operations
                 {
                     stackPush(stack, term);
                     UPDATE_LAST_TOKEN();
@@ -366,15 +356,15 @@ bool postfix(token_type expected_type, token_type return_type, tTerm term, tStac
                 ERROR_AND_RETURN(SEM_TYPE_ERROR,"More than one relation operation in expression");
             }
         }
-        else if (term.index == DOLAR_IN)
+        else if (term.index == DOLAR_IN)		// end of expresion is signed as DOLLAR
         {
-            if (((operation_count + 1) == operand_count)) //
+            if (((operation_count + 1) == operand_count)) // condion for number of operations and operands
             {
-                while (!stackEmpty(stack))
+                while (!stackEmpty(stack))		// if stack is not empty then poping everything
                 {
                     stack_term = stackPop(stack);
 
-                    if (stack_term.index == LEFT_PARENTH_IN)
+                    if (stack_term.index == LEFT_PARENTH_IN)		// left parenthesis without right is error
                     {
                         stackFree(stack);
                         ERROR_AND_RETURN(SYN_ERROR,"Bad number of brackets in expression");
@@ -387,7 +377,8 @@ bool postfix(token_type expected_type, token_type return_type, tTerm term, tStac
                     stackFree(stack);
                     ERROR_AND_RETURN(SEM_TYPE_ERROR,"Expected equality operation"); 
                 }
-                if (expected_type == BOOLEAN && return_type != BOOLEAN)
+
+                if (expected_type == BOOLEAN && return_type != BOOLEAN)		// setting return type as boolean
                     return_type = BOOLEAN;
 
                 generateInstruction(return_type, term);
@@ -405,7 +396,7 @@ bool postfix(token_type expected_type, token_type return_type, tTerm term, tStac
             stackFree(stack);
             ERROR_AND_RETURN(SEM_TYPE_ERROR,"Bad operation or operand in expression");
         }
-    } while (getTerm(&term));
+    } while (getTerm(&term));	// calling function getTerm (checking if is variable defined, is allowed etc.)
 
     stackFree(stack);
     return false;
