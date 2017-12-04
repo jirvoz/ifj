@@ -1,0 +1,365 @@
+# 2017-12-04 23:21:45.696344
+# SECTION: 07_strings
+# TEST: 02
+# INFO: string concat
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# 
+# INTERPRETER STDERR:
+# Executing instruction: IDEFVAR at line: 2 with following arguments:
+# Dest: GF@$str1
+# Executing instruction: IDEFVAR at line: 3 with following arguments:
+# Dest: GF@$str2
+# Executing instruction: IDEFVAR at line: 4 with following arguments:
+# Dest: GF@$num1
+# Executing instruction: IDEFVAR at line: 5 with following arguments:
+# Dest: GF@$num2
+# Executing instruction: IDEFVAR at line: 6 with following arguments:
+# Dest: GF@$num3
+# Executing instruction: IDEFVAR at line: 7 with following arguments:
+# Dest: GF@$bool1
+# Executing instruction: IDEFVAR at line: 8 with following arguments:
+# Dest: GF@$counter
+# Executing instruction: IDEFVAR at line: 9 with following arguments:
+# Dest: GF@$char
+# Executing instruction: IJUMP at line: 10 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 16 with following arguments:
+# Dest: LF@a
+# Executing instruction: IMOVE at line: 17 with following arguments:
+# Arg1: Const@=(string)
+# Dest: LF@a()
+# Executing instruction: IDEFVAR at line: 19 with following arguments:
+# Dest: LF@content
+# Executing instruction: IPUSHS at line: 20 with following arguments:
+# Arg1: Const@= my content (string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 21 with following arguments:
+# Arg1: Stack@= my content (string)
+# Dest: LF@content()
+# Executing instruction: IPUSHS at line: 24 with following arguments:
+# Arg1: LF@a=(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 25 with following arguments:
+# Executing instruction: IDEFVAR at line: 26 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 27 with following arguments:
+# Arg1: Stack@=(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 28 with following arguments:
+# Arg1: TF@write=(string)
+# Executing instruction: IPUSHS at line: 29 with following arguments:
+# Arg1: LF@content= my content (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 30 with following arguments:
+# Executing instruction: IDEFVAR at line: 31 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 32 with following arguments:
+# Arg1: Stack@= my content (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 33 with following arguments:
+# Arg1: TF@write= my content (string)
+# Executing instruction: IPUSHS at line: 34 with following arguments:
+# Arg1: Const@=
+# (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 35 with following arguments:
+# Executing instruction: IDEFVAR at line: 36 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 37 with following arguments:
+# Arg1: Stack@=
+# (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 38 with following arguments:
+# Arg1: TF@write=
+# (string)
+# Executing instruction: IDEFVAR at line: 41 with following arguments:
+# Dest: LF@b
+# Executing instruction: IPUSHS at line: 42 with following arguments:
+# Arg1: Const@=(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 43 with following arguments:
+# Arg1: Stack@=(string)
+# Dest: LF@b()
+# Executing instruction: IDEFVAR at line: 45 with following arguments:
+# Dest: LF@c
+# Executing instruction: IPUSHS at line: 46 with following arguments:
+# Arg1: Const@=foo bar(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 47 with following arguments:
+# Arg1: Stack@=foo bar(string)
+# Dest: LF@c()
+# Executing instruction: IDEFVAR at line: 49 with following arguments:
+# Dest: LF@foo
+# Executing instruction: IMOVE at line: 50 with following arguments:
+# Arg1: Const@=(string)
+# Dest: LF@foo()
+# Executing instruction: IPUSHS at line: 52 with following arguments:
+# Arg1: LF@c=foo bar(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 53 with following arguments:
+# Arg1: Const@=(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 54 with following arguments:
+# Arg1: Stack@=(string)
+# Dest: GF@$str2()
+# Executing instruction: IPOPS at line: 55 with following arguments:
+# Arg1: Stack@=foo bar(string)
+# Dest: GF@$str1()
+# Executing instruction: ICONCAT at line: 56 with following arguments:
+# Arg1: GF@$str1=foo bar(string)
+# Arg2: GF@$str2=(string)
+# Dest: GF@$str1=foo bar(string)
+# Executing instruction: IPUSHS at line: 57 with following arguments:
+# Arg1: GF@$str1=foo bar(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 58 with following arguments:
+# Arg1: LF@c=foo bar(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 59 with following arguments:
+# Arg1: Stack@=foo bar(string)
+# Dest: GF@$str2=(string)
+# Executing instruction: IPOPS at line: 60 with following arguments:
+# Arg1: Stack@=foo bar(string)
+# Dest: GF@$str1=foo bar(string)
+# Executing instruction: ICONCAT at line: 61 with following arguments:
+# Arg1: GF@$str1=foo bar(string)
+# Arg2: GF@$str2=foo bar(string)
+# Dest: GF@$str1=foo bar(string)
+# Executing instruction: IPUSHS at line: 62 with following arguments:
+# Arg1: GF@$str1=foo barfoo bar(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 63 with following arguments:
+# Arg1: Const@=(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 64 with following arguments:
+# Arg1: Stack@=(string)
+# Dest: GF@$str2=foo bar(string)
+# Executing instruction: IPOPS at line: 65 with following arguments:
+# Arg1: Stack@=foo barfoo bar(string)
+# Dest: GF@$str1=foo barfoo bar(string)
+# Executing instruction: ICONCAT at line: 66 with following arguments:
+# Arg1: GF@$str1=foo barfoo bar(string)
+# Arg2: GF@$str2=(string)
+# Dest: GF@$str1=foo barfoo bar(string)
+# Executing instruction: IPUSHS at line: 67 with following arguments:
+# Arg1: GF@$str1=foo barfoo bar(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 68 with following arguments:
+# Arg1: LF@c=foo bar(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 69 with following arguments:
+# Arg1: Stack@=foo bar(string)
+# Dest: GF@$str2=(string)
+# Executing instruction: IPOPS at line: 70 with following arguments:
+# Arg1: Stack@=foo barfoo bar(string)
+# Dest: GF@$str1=foo barfoo bar(string)
+# Executing instruction: ICONCAT at line: 71 with following arguments:
+# Arg1: GF@$str1=foo barfoo bar(string)
+# Arg2: GF@$str2=foo bar(string)
+# Dest: GF@$str1=foo barfoo bar(string)
+# Executing instruction: IPUSHS at line: 72 with following arguments:
+# Arg1: GF@$str1=foo barfoo barfoo bar(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 73 with following arguments:
+# Arg1: Const@=
+# (string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 74 with following arguments:
+# Arg1: Stack@=
+# (string)
+# Dest: GF@$str2=foo bar(string)
+# Executing instruction: IPOPS at line: 75 with following arguments:
+# Arg1: Stack@=foo barfoo barfoo bar(string)
+# Dest: GF@$str1=foo barfoo barfoo bar(string)
+# Executing instruction: ICONCAT at line: 76 with following arguments:
+# Arg1: GF@$str1=foo barfoo barfoo bar(string)
+# Arg2: GF@$str2=
+# (string)
+# Dest: GF@$str1=foo barfoo barfoo bar(string)
+# Executing instruction: IPUSHS at line: 77 with following arguments:
+# Arg1: GF@$str1=foo barfoo barfoo bar
+# (string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 78 with following arguments:
+# Arg1: Stack@=foo barfoo barfoo bar
+# (string)
+# Dest: LF@foo=(string)
+# Executing instruction: IPUSHS at line: 81 with following arguments:
+# Arg1: LF@b=(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 82 with following arguments:
+# Executing instruction: IDEFVAR at line: 83 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 84 with following arguments:
+# Arg1: Stack@=(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 85 with following arguments:
+# Arg1: TF@write=(string)
+# Executing instruction: IPUSHS at line: 86 with following arguments:
+# Arg1: LF@foo=foo barfoo barfoo bar
+# (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 87 with following arguments:
+# Executing instruction: IDEFVAR at line: 88 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 89 with following arguments:
+# Arg1: Stack@=foo barfoo barfoo bar
+# (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 90 with following arguments:
+# Arg1: TF@write=foo barfoo barfoo bar
+# (string)
+# Executing instruction: IPUSHS at line: 91 with following arguments:
+# Arg1: LF@foo=foo barfoo barfoo bar
+# (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 92 with following arguments:
+# Executing instruction: IDEFVAR at line: 93 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 94 with following arguments:
+# Arg1: Stack@=foo barfoo barfoo bar
+# (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 95 with following arguments:
+# Arg1: TF@write=foo barfoo barfoo bar
+# (string)
+# Executing instruction: IPUSHS at line: 96 with following arguments:
+# Arg1: LF@content= my content (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 97 with following arguments:
+# Executing instruction: IDEFVAR at line: 98 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 99 with following arguments:
+# Arg1: Stack@= my content (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 100 with following arguments:
+# Arg1: TF@write= my content (string)
+# Executing instruction: IGROOT at line: 103 with following arguments:
+# I am Groot at 103 (541).
+# 
+# STDOUT DIFF:
+# 
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 0
+# CURRENT COMPILER EXIT CODE: 0
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: 0
+# PRICE: 541 (132+409)
+# GROOT: 541
+# 
+#   1: ' string concat
+#   2: 
+#   3: scope
+#   4: 	dim a as string
+#   5: 	dim content as string = !" my content "
+#   6: 
+#   7: 	print a; content; !"\n";
+#   8: 
+#   9: 	dim b as string = !""
+#  10: 	dim c as string = !"foo bar"
+#  11: 	dim foo as string
+#  12: 	foo = c + !"" + c + !"" + c + !"\n"
+#  13: 
+#  14: 	print b; foo; foo; content; 
+#  15: end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/101
+DEFVAR GF@$str1                                                                 #     2/101
+DEFVAR GF@$str2                                                                 #     3/101
+DEFVAR GF@$num1                                                                 #     4/101
+DEFVAR GF@$num2                                                                 #     5/101
+DEFVAR GF@$num3                                                                 #     6/101
+DEFVAR GF@$bool1                                                                #     7/101
+DEFVAR GF@$counter                                                              #     8/101
+DEFVAR GF@$char                                                                 #     9/101
+JUMP $$main                                                                     #    10/101
+LABEL $$main                                                                    #    12/101
+CREATEFRAME                                                                     #    13/101
+PUSHFRAME                                                                       #    14/101
+DEFVAR LF@a                                                                     #    16/101
+MOVE LF@a string@                                                               #    17/101
+DEFVAR LF@content                                                               #    19/101
+PUSHS string@\032my\032content\032                                              #    20/101
+POPS LF@content                                                                 #    21/101
+PUSHS LF@a                                                                      #    24/101
+CREATEFRAME                                                                     #    25/101
+DEFVAR TF@write                                                                 #    26/101
+POPS TF@write                                                                   #    27/101
+WRITE TF@write                                                                  #    28/101
+PUSHS LF@content                                                                #    29/101
+CREATEFRAME                                                                     #    30/101
+DEFVAR TF@write                                                                 #    31/101
+POPS TF@write                                                                   #    32/101
+WRITE TF@write                                                                  #    33/101
+PUSHS string@\010                                                               #    34/101
+CREATEFRAME                                                                     #    35/101
+DEFVAR TF@write                                                                 #    36/101
+POPS TF@write                                                                   #    37/101
+WRITE TF@write                                                                  #    38/101
+DEFVAR LF@b                                                                     #    41/101
+PUSHS string@                                                                   #    42/101
+POPS LF@b                                                                       #    43/101
+DEFVAR LF@c                                                                     #    45/101
+PUSHS string@foo\032bar                                                         #    46/101
+POPS LF@c                                                                       #    47/101
+DEFVAR LF@foo                                                                   #    49/101
+MOVE LF@foo string@                                                             #    50/101
+PUSHS LF@c                                                                      #    52/101
+PUSHS string@                                                                   #    53/101
+POPS GF@$str2                                                                   #    54/101
+POPS GF@$str1                                                                   #    55/101
+CONCAT GF@$str1 GF@$str1 GF@$str2                                               #    56/101
+PUSHS GF@$str1                                                                  #    57/101
+PUSHS LF@c                                                                      #    58/101
+POPS GF@$str2                                                                   #    59/101
+POPS GF@$str1                                                                   #    60/101
+CONCAT GF@$str1 GF@$str1 GF@$str2                                               #    61/101
+PUSHS GF@$str1                                                                  #    62/101
+PUSHS string@                                                                   #    63/101
+POPS GF@$str2                                                                   #    64/101
+POPS GF@$str1                                                                   #    65/101
+CONCAT GF@$str1 GF@$str1 GF@$str2                                               #    66/101
+PUSHS GF@$str1                                                                  #    67/101
+PUSHS LF@c                                                                      #    68/101
+POPS GF@$str2                                                                   #    69/101
+POPS GF@$str1                                                                   #    70/101
+CONCAT GF@$str1 GF@$str1 GF@$str2                                               #    71/101
+PUSHS GF@$str1                                                                  #    72/101
+PUSHS string@\010                                                               #    73/101
+POPS GF@$str2                                                                   #    74/101
+POPS GF@$str1                                                                   #    75/101
+CONCAT GF@$str1 GF@$str1 GF@$str2                                               #    76/101
+PUSHS GF@$str1                                                                  #    77/101
+POPS LF@foo                                                                     #    78/101
+PUSHS LF@b                                                                      #    81/101
+CREATEFRAME                                                                     #    82/101
+DEFVAR TF@write                                                                 #    83/101
+POPS TF@write                                                                   #    84/101
+WRITE TF@write                                                                  #    85/101
+PUSHS LF@foo                                                                    #    86/101
+CREATEFRAME                                                                     #    87/101
+DEFVAR TF@write                                                                 #    88/101
+POPS TF@write                                                                   #    89/101
+WRITE TF@write                                                                  #    90/101
+PUSHS LF@foo                                                                    #    91/101
+CREATEFRAME                                                                     #    92/101
+DEFVAR TF@write                                                                 #    93/101
+POPS TF@write                                                                   #    94/101
+WRITE TF@write                                                                  #    95/101
+PUSHS LF@content                                                                #    96/101
+CREATEFRAME                                                                     #    97/101
+DEFVAR TF@write                                                                 #    98/101
+POPS TF@write                                                                   #    99/101
+WRITE TF@write                                                                  #   100/101
+

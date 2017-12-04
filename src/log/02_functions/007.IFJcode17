@@ -1,0 +1,114 @@
+# 2017-12-04 23:21:44.082504
+# SECTION: 02_functions
+# TEST: 007
+# INFO: function double implicit return
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# 
+# INTERPRETER STDERR:
+# Executing instruction: IDEFVAR at line: 2 with following arguments:
+# Dest: GF@$str1
+# Executing instruction: IDEFVAR at line: 3 with following arguments:
+# Dest: GF@$str2
+# Executing instruction: IDEFVAR at line: 4 with following arguments:
+# Dest: GF@$num1
+# Executing instruction: IDEFVAR at line: 5 with following arguments:
+# Dest: GF@$num2
+# Executing instruction: IDEFVAR at line: 6 with following arguments:
+# Dest: GF@$num3
+# Executing instruction: IDEFVAR at line: 7 with following arguments:
+# Dest: GF@$bool1
+# Executing instruction: IDEFVAR at line: 8 with following arguments:
+# Dest: GF@$counter
+# Executing instruction: IDEFVAR at line: 9 with following arguments:
+# Dest: GF@$char
+# Executing instruction: IJUMP at line: 10 with following arguments:
+# Executing instruction: ILABEL at line: 21 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 22 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 23 with following arguments:
+# Executing instruction: IDEFVAR at line: 25 with following arguments:
+# Dest: LF@a
+# Executing instruction: IMOVE at line: 26 with following arguments:
+# Arg1: Const@=0(double)
+# Dest: LF@a()
+# Executing instruction: ICALL at line: 28 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IPUSHS at line: 17 with following arguments:
+# Arg1: Const@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPOPFRAME at line: 18 with following arguments:
+# Executing instruction: IRETURN at line: 19 with following arguments:
+# Executing instruction: IPOPS at line: 29 with following arguments:
+# Arg1: Stack@=0(double)
+# Dest: LF@a=0(double)
+# Executing instruction: IPUSHS at line: 31 with following arguments:
+# Arg1: LF@a=0(double)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 32 with following arguments:
+# Executing instruction: IDEFVAR at line: 33 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 34 with following arguments:
+# Arg1: Stack@=0(double)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 35 with following arguments:
+# Arg1: TF@write=0(double)
+# Executing instruction: IGROOT at line: 38 with following arguments:
+# I am Groot at 38 (113).
+# 
+# STDOUT DIFF:
+# 
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 0
+# CURRENT COMPILER EXIT CODE: 0
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: 0
+# PRICE: 113 (43+70)
+# GROOT: 113
+# 
+#   1: function foo() as double 
+#   2:  end function 
+#   3:  scope 
+#   4:  dim a as double 
+#   5:  a = foo() 
+#   6:  print a; 
+#   7:  end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/36
+DEFVAR GF@$str1                                                                 #     2/36
+DEFVAR GF@$str2                                                                 #     3/36
+DEFVAR GF@$num1                                                                 #     4/36
+DEFVAR GF@$num2                                                                 #     5/36
+DEFVAR GF@$num3                                                                 #     6/36
+DEFVAR GF@$bool1                                                                #     7/36
+DEFVAR GF@$counter                                                              #     8/36
+DEFVAR GF@$char                                                                 #     9/36
+JUMP $$main                                                                     #    10/36
+LABEL $foo                                                                      #    12/36
+CREATEFRAME                                                                     #    13/36
+PUSHFRAME                                                                       #    14/36
+PUSHS float@0                                                                   #    17/36
+POPFRAME                                                                        #    18/36
+RETURN                                                                          #    19/36
+LABEL $$main                                                                    #    21/36
+CREATEFRAME                                                                     #    22/36
+PUSHFRAME                                                                       #    23/36
+DEFVAR LF@a                                                                     #    25/36
+MOVE LF@a float@0                                                               #    26/36
+CALL $foo                                                                       #    28/36
+POPS LF@a                                                                       #    29/36
+PUSHS LF@a                                                                      #    31/36
+CREATEFRAME                                                                     #    32/36
+DEFVAR TF@write                                                                 #    33/36
+POPS TF@write                                                                   #    34/36
+WRITE TF@write                                                                  #    35/36
+

@@ -1,0 +1,167 @@
+# 2017-12-04 23:21:44.560695
+# SECTION: 04_expressions
+# TEST: 34
+# INFO: Random math expression with -
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# 
+# INTERPRETER STDERR:
+# Executing instruction: IDEFVAR at line: 2 with following arguments:
+# Dest: GF@$str1
+# Executing instruction: IDEFVAR at line: 3 with following arguments:
+# Dest: GF@$str2
+# Executing instruction: IDEFVAR at line: 4 with following arguments:
+# Dest: GF@$num1
+# Executing instruction: IDEFVAR at line: 5 with following arguments:
+# Dest: GF@$num2
+# Executing instruction: IDEFVAR at line: 6 with following arguments:
+# Dest: GF@$num3
+# Executing instruction: IDEFVAR at line: 7 with following arguments:
+# Dest: GF@$bool1
+# Executing instruction: IDEFVAR at line: 8 with following arguments:
+# Dest: GF@$counter
+# Executing instruction: IDEFVAR at line: 9 with following arguments:
+# Dest: GF@$char
+# Executing instruction: IJUMP at line: 10 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 16 with following arguments:
+# Dest: LF@a
+# Executing instruction: IMOVE at line: 17 with following arguments:
+# Arg1: Const@=0(double)
+# Dest: LF@a()
+# Executing instruction: IPUSHS at line: 19 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 20 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 21 with following arguments:
+# Arg1: Const@=5(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 22 with following arguments:
+# Arg1: Stack@=5(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 23 with following arguments:
+# Arg1: Stack@=0(double)
+# Arg2: Stack@=5(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 24 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 25 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 26 with following arguments:
+# Arg1: Const@=6(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 27 with following arguments:
+# Arg1: Stack@=6(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 28 with following arguments:
+# Arg1: Stack@=0(double)
+# Arg2: Stack@=6(double)
+# Dest: Stack@()
+# Executing instruction: IMULTS at line: 29 with following arguments:
+# Arg1: Stack@=-5(double)
+# Arg2: Stack@=-6(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 30 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 31 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 32 with following arguments:
+# Arg1: Const@=7(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 33 with following arguments:
+# Arg1: Stack@=7(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 34 with following arguments:
+# Arg1: Stack@=0(double)
+# Arg2: Stack@=7(double)
+# Dest: Stack@()
+# Executing instruction: IMULTS at line: 35 with following arguments:
+# Arg1: Stack@=30(double)
+# Arg2: Stack@=-7(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 36 with following arguments:
+# Arg1: Stack@=-210(double)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 37 with following arguments:
+# Executing instruction: IDEFVAR at line: 38 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 39 with following arguments:
+# Arg1: Stack@=-210(int)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 40 with following arguments:
+# Arg1: TF@write=-210(int)
+# Executing instruction: IGROOT at line: 44 with following arguments:
+# I am Groot at 44 (183).
+# 
+# STDOUT DIFF:
+# 
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 0
+# CURRENT COMPILER EXIT CODE: 0
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: 0
+# PRICE: 183 (52+131)
+# GROOT: 183
+# 
+#   1: ' Random math expression with -
+#   2: 
+#   3: scope
+#   4:     dim a as double
+#   5:     print ((0-5)*(0-6))*(0-7);
+#   6: 
+#   7: end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/42
+DEFVAR GF@$str1                                                                 #     2/42
+DEFVAR GF@$str2                                                                 #     3/42
+DEFVAR GF@$num1                                                                 #     4/42
+DEFVAR GF@$num2                                                                 #     5/42
+DEFVAR GF@$num3                                                                 #     6/42
+DEFVAR GF@$bool1                                                                #     7/42
+DEFVAR GF@$counter                                                              #     8/42
+DEFVAR GF@$char                                                                 #     9/42
+JUMP $$main                                                                     #    10/42
+LABEL $$main                                                                    #    12/42
+CREATEFRAME                                                                     #    13/42
+PUSHFRAME                                                                       #    14/42
+DEFVAR LF@a                                                                     #    16/42
+MOVE LF@a float@0                                                               #    17/42
+PUSHS int@0                                                                     #    19/42
+INT2FLOATS                                                                      #    20/42
+PUSHS int@5                                                                     #    21/42
+INT2FLOATS                                                                      #    22/42
+SUBS                                                                            #    23/42
+PUSHS int@0                                                                     #    24/42
+INT2FLOATS                                                                      #    25/42
+PUSHS int@6                                                                     #    26/42
+INT2FLOATS                                                                      #    27/42
+SUBS                                                                            #    28/42
+MULS                                                                            #    29/42
+PUSHS int@0                                                                     #    30/42
+INT2FLOATS                                                                      #    31/42
+PUSHS int@7                                                                     #    32/42
+INT2FLOATS                                                                      #    33/42
+SUBS                                                                            #    34/42
+MULS                                                                            #    35/42
+FLOAT2R2EINTS                                                                   #    36/42
+CREATEFRAME                                                                     #    37/42
+DEFVAR TF@write                                                                 #    38/42
+POPS TF@write                                                                   #    39/42
+WRITE TF@write                                                                  #    40/42
+

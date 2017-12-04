@@ -1,0 +1,191 @@
+# 2017-12-04 23:21:44.670081
+# SECTION: 04_expressions
+# TEST: 41
+# INFO: maximum for C integer
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# 
+# INTERPRETER STDERR:
+# Executing instruction: IDEFVAR at line: 2 with following arguments:
+# Dest: GF@$str1
+# Executing instruction: IDEFVAR at line: 3 with following arguments:
+# Dest: GF@$str2
+# Executing instruction: IDEFVAR at line: 4 with following arguments:
+# Dest: GF@$num1
+# Executing instruction: IDEFVAR at line: 5 with following arguments:
+# Dest: GF@$num2
+# Executing instruction: IDEFVAR at line: 6 with following arguments:
+# Dest: GF@$num3
+# Executing instruction: IDEFVAR at line: 7 with following arguments:
+# Dest: GF@$bool1
+# Executing instruction: IDEFVAR at line: 8 with following arguments:
+# Dest: GF@$counter
+# Executing instruction: IDEFVAR at line: 9 with following arguments:
+# Dest: GF@$char
+# Executing instruction: IJUMP at line: 10 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 16 with following arguments:
+# Dest: LF@a
+# Executing instruction: IPUSHS at line: 17 with following arguments:
+# Arg1: Const@=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 18 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 19 with following arguments:
+# Arg1: Const@=1000000000(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 20 with following arguments:
+# Arg1: Stack@=1000000000(int)
+# Dest: Stack@()
+# Executing instruction: IMULTS at line: 21 with following arguments:
+# Arg1: Stack@=2(double)
+# Arg2: Stack@=1000000000(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 22 with following arguments:
+# Arg1: Const@=147(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 23 with following arguments:
+# Arg1: Stack@=147(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 24 with following arguments:
+# Arg1: Const@=1000000(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 25 with following arguments:
+# Arg1: Stack@=1000000(int)
+# Dest: Stack@()
+# Executing instruction: IMULTS at line: 26 with following arguments:
+# Arg1: Stack@=147(double)
+# Arg2: Stack@=1000000(double)
+# Dest: Stack@()
+# Executing instruction: IADDS at line: 27 with following arguments:
+# Arg1: Stack@=2000000000(double)
+# Arg2: Stack@=147000000(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 28 with following arguments:
+# Arg1: Const@=483(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 29 with following arguments:
+# Arg1: Stack@=483(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 30 with following arguments:
+# Arg1: Const@=1000(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 31 with following arguments:
+# Arg1: Stack@=1000(int)
+# Dest: Stack@()
+# Executing instruction: IMULTS at line: 32 with following arguments:
+# Arg1: Stack@=483(double)
+# Arg2: Stack@=1000(double)
+# Dest: Stack@()
+# Executing instruction: IADDS at line: 33 with following arguments:
+# Arg1: Stack@=2147000000(double)
+# Arg2: Stack@=483000(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 34 with following arguments:
+# Arg1: Const@=647(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 35 with following arguments:
+# Arg1: Stack@=647(int)
+# Dest: Stack@()
+# Executing instruction: IADDS at line: 36 with following arguments:
+# Arg1: Stack@=2147483000(double)
+# Arg2: Stack@=647(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 37 with following arguments:
+# Arg1: Stack@=2147483647(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 38 with following arguments:
+# Arg1: Stack@=2147483647(int)
+# Dest: LF@a()
+# Executing instruction: IPUSHS at line: 40 with following arguments:
+# Arg1: LF@a=2147483647(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 41 with following arguments:
+# Arg1: Stack@=2147483647(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 42 with following arguments:
+# Arg1: Stack@=2147483647(double)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 43 with following arguments:
+# Executing instruction: IDEFVAR at line: 44 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 45 with following arguments:
+# Arg1: Stack@=2147483647(int)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 46 with following arguments:
+# Arg1: TF@write=2147483647(int)
+# Executing instruction: IGROOT at line: 49 with following arguments:
+# I am Groot at 49 (219).
+# 
+# STDOUT DIFF:
+# 
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 0
+# CURRENT COMPILER EXIT CODE: 0
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: 0
+# PRICE: 219 (60+159)
+# GROOT: 219
+# 
+#   1: ' maximum for C integer
+#   2: 
+#   3: scope
+#   4:     dim a as integer = 2*1000000000+147*1000000+483*1000+647
+#   5:     print a;
+#   6: end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/47
+DEFVAR GF@$str1                                                                 #     2/47
+DEFVAR GF@$str2                                                                 #     3/47
+DEFVAR GF@$num1                                                                 #     4/47
+DEFVAR GF@$num2                                                                 #     5/47
+DEFVAR GF@$num3                                                                 #     6/47
+DEFVAR GF@$bool1                                                                #     7/47
+DEFVAR GF@$counter                                                              #     8/47
+DEFVAR GF@$char                                                                 #     9/47
+JUMP $$main                                                                     #    10/47
+LABEL $$main                                                                    #    12/47
+CREATEFRAME                                                                     #    13/47
+PUSHFRAME                                                                       #    14/47
+DEFVAR LF@a                                                                     #    16/47
+PUSHS int@2                                                                     #    17/47
+INT2FLOATS                                                                      #    18/47
+PUSHS int@1000000000                                                            #    19/47
+INT2FLOATS                                                                      #    20/47
+MULS                                                                            #    21/47
+PUSHS int@147                                                                   #    22/47
+INT2FLOATS                                                                      #    23/47
+PUSHS int@1000000                                                               #    24/47
+INT2FLOATS                                                                      #    25/47
+MULS                                                                            #    26/47
+ADDS                                                                            #    27/47
+PUSHS int@483                                                                   #    28/47
+INT2FLOATS                                                                      #    29/47
+PUSHS int@1000                                                                  #    30/47
+INT2FLOATS                                                                      #    31/47
+MULS                                                                            #    32/47
+ADDS                                                                            #    33/47
+PUSHS int@647                                                                   #    34/47
+INT2FLOATS                                                                      #    35/47
+ADDS                                                                            #    36/47
+FLOAT2R2EINTS                                                                   #    37/47
+POPS LF@a                                                                       #    38/47
+PUSHS LF@a                                                                      #    40/47
+INT2FLOATS                                                                      #    41/47
+FLOAT2R2EINTS                                                                   #    42/47
+CREATEFRAME                                                                     #    43/47
+DEFVAR TF@write                                                                 #    44/47
+POPS TF@write                                                                   #    45/47
+WRITE TF@write                                                                  #    46/47
+

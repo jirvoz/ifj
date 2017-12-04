@@ -1,0 +1,69 @@
+# 2017-12-04 23:21:45.940345
+# SECTION: 66_errors
+# TEST: 16
+# INFO: function declaration after definition
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# Line 7: Semantic error in the program: Function 'fce' is already declared.
+# 
+# INTERPRETER STDERR:
+# 
+# EXPECTED INTERPRETER STDOUT:
+
+
+
+# CURRENT INTERPRETER STDOUT:
+
+
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 3
+# CURRENT COMPILER EXIT CODE: 3
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: None
+# PRICE: ---
+# GROOT: ---
+# 
+#   1: ' function declaration after definition
+#   2: 
+#   3: function fce() as integer
+#   4: 	return 0
+#   5: end function
+#   6: 
+#   7: declare function fce() as integer
+#   8: 
+#   9: scope
+#  10: 	dim b as integer
+#  11: 	b = fce()
+#  12: 	print b;
+#  13: end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/26
+DEFVAR GF@$str1                                                                 #     2/26
+DEFVAR GF@$str2                                                                 #     3/26
+DEFVAR GF@$num1                                                                 #     4/26
+DEFVAR GF@$num2                                                                 #     5/26
+DEFVAR GF@$num3                                                                 #     6/26
+DEFVAR GF@$bool1                                                                #     7/26
+DEFVAR GF@$counter                                                              #     8/26
+DEFVAR GF@$char                                                                 #     9/26
+JUMP $$main                                                                     #    10/26
+LABEL $fce                                                                      #    12/26
+CREATEFRAME                                                                     #    13/26
+PUSHFRAME                                                                       #    14/26
+PUSHS int@0                                                                     #    17/26
+INT2FLOATS                                                                      #    18/26
+FLOAT2R2EINTS                                                                   #    19/26
+POPFRAME                                                                        #    20/26
+RETURN                                                                          #    21/26
+PUSHS int@0                                                                     #    23/26
+POPFRAME                                                                        #    24/26
+RETURN                                                                          #    25/26
+

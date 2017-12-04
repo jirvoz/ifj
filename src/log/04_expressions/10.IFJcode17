@@ -1,0 +1,159 @@
+# 2017-12-04 23:21:44.238491
+# SECTION: 04_expressions
+# TEST: 10
+# INFO: Convert integer into double
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# 
+# INTERPRETER STDERR:
+# Executing instruction: IDEFVAR at line: 2 with following arguments:
+# Dest: GF@$str1
+# Executing instruction: IDEFVAR at line: 3 with following arguments:
+# Dest: GF@$str2
+# Executing instruction: IDEFVAR at line: 4 with following arguments:
+# Dest: GF@$num1
+# Executing instruction: IDEFVAR at line: 5 with following arguments:
+# Dest: GF@$num2
+# Executing instruction: IDEFVAR at line: 6 with following arguments:
+# Dest: GF@$num3
+# Executing instruction: IDEFVAR at line: 7 with following arguments:
+# Dest: GF@$bool1
+# Executing instruction: IDEFVAR at line: 8 with following arguments:
+# Dest: GF@$counter
+# Executing instruction: IDEFVAR at line: 9 with following arguments:
+# Dest: GF@$char
+# Executing instruction: IJUMP at line: 10 with following arguments:
+# Executing instruction: ILABEL at line: 26 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 27 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 28 with following arguments:
+# Executing instruction: IDEFVAR at line: 31 with following arguments:
+# Dest: LF@a
+# Executing instruction: IMOVE at line: 32 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: LF@a()
+# Executing instruction: IPUSHS at line: 34 with following arguments:
+# Arg1: Const@=3(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 35 with following arguments:
+# Arg1: Stack@=3(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 36 with following arguments:
+# Arg1: Stack@=3(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 37 with following arguments:
+# Arg1: Stack@=3(int)
+# Dest: LF@a=0(int)
+# Executing instruction: IDEFVAR at line: 39 with following arguments:
+# Dest: LF@b
+# Executing instruction: IMOVE at line: 40 with following arguments:
+# Arg1: Const@=0(double)
+# Dest: LF@b()
+# Executing instruction: IPUSHS at line: 42 with following arguments:
+# Arg1: LF@a=3(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 43 with following arguments:
+# Arg1: Stack@=3(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 44 with following arguments:
+# Arg1: Const@=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 45 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IDIVS at line: 46 with following arguments:
+# Arg1: Stack@=3(double)
+# Arg2: Stack@=2(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 47 with following arguments:
+# Arg1: Stack@=1.5(double)
+# Dest: LF@b=0(double)
+# Executing instruction: IPUSHS at line: 49 with following arguments:
+# Arg1: LF@b=1.5(double)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 50 with following arguments:
+# Executing instruction: IDEFVAR at line: 51 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 52 with following arguments:
+# Arg1: Stack@=1.5(double)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 53 with following arguments:
+# Arg1: TF@write=1.5(double)
+# Executing instruction: IGROOT at line: 57 with following arguments:
+# I am Groot at 57 (155).
+# 
+# STDOUT DIFF:
+# 
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 0
+# CURRENT COMPILER EXIT CODE: 0
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: 0
+# PRICE: 155 (39+116)
+# GROOT: 155
+# 
+#   1: ' Convert integer into double
+#   2: function foo(a as integer, b as integer) as integer
+#   3: 
+#   4: end function
+#   5: 
+#   6: scope
+#   7: 
+#   8: 	dim a as integer
+#   9: 	a = 3
+#  10: 	dim b as double
+#  11: 	b = a / 2
+#  12: 	print b;
+#  13: 
+#  14: end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/55
+DEFVAR GF@$str1                                                                 #     2/55
+DEFVAR GF@$str2                                                                 #     3/55
+DEFVAR GF@$num1                                                                 #     4/55
+DEFVAR GF@$num2                                                                 #     5/55
+DEFVAR GF@$num3                                                                 #     6/55
+DEFVAR GF@$bool1                                                                #     7/55
+DEFVAR GF@$counter                                                              #     8/55
+DEFVAR GF@$char                                                                 #     9/55
+JUMP $$main                                                                     #    10/55
+LABEL $foo                                                                      #    12/55
+CREATEFRAME                                                                     #    13/55
+PUSHFRAME                                                                       #    14/55
+DEFVAR LF@b                                                                     #    15/55
+POPS LF@b                                                                       #    16/55
+DEFVAR LF@a                                                                     #    17/55
+POPS LF@a                                                                       #    18/55
+PUSHS int@0                                                                     #    22/55
+POPFRAME                                                                        #    23/55
+RETURN                                                                          #    24/55
+LABEL $$main                                                                    #    26/55
+CREATEFRAME                                                                     #    27/55
+PUSHFRAME                                                                       #    28/55
+DEFVAR LF@a                                                                     #    31/55
+MOVE LF@a int@0                                                                 #    32/55
+PUSHS int@3                                                                     #    34/55
+INT2FLOATS                                                                      #    35/55
+FLOAT2R2EINTS                                                                   #    36/55
+POPS LF@a                                                                       #    37/55
+DEFVAR LF@b                                                                     #    39/55
+MOVE LF@b float@0                                                               #    40/55
+PUSHS LF@a                                                                      #    42/55
+INT2FLOATS                                                                      #    43/55
+PUSHS int@2                                                                     #    44/55
+INT2FLOATS                                                                      #    45/55
+DIVS                                                                            #    46/55
+POPS LF@b                                                                       #    47/55
+PUSHS LF@b                                                                      #    49/55
+CREATEFRAME                                                                     #    50/55
+DEFVAR TF@write                                                                 #    51/55
+POPS TF@write                                                                   #    52/55
+WRITE TF@write                                                                  #    53/55
+

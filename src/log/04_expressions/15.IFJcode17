@@ -1,0 +1,667 @@
+# 2017-12-04 23:21:44.266801
+# SECTION: 04_expressions
+# TEST: 15
+# INFO: exp(x) 6 iteration without loop
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# 
+# INTERPRETER STDERR:
+# Executing instruction: IDEFVAR at line: 2 with following arguments:
+# Dest: GF@$str1
+# Executing instruction: IDEFVAR at line: 3 with following arguments:
+# Dest: GF@$str2
+# Executing instruction: IDEFVAR at line: 4 with following arguments:
+# Dest: GF@$num1
+# Executing instruction: IDEFVAR at line: 5 with following arguments:
+# Dest: GF@$num2
+# Executing instruction: IDEFVAR at line: 6 with following arguments:
+# Dest: GF@$num3
+# Executing instruction: IDEFVAR at line: 7 with following arguments:
+# Dest: GF@$bool1
+# Executing instruction: IDEFVAR at line: 8 with following arguments:
+# Dest: GF@$counter
+# Executing instruction: IDEFVAR at line: 9 with following arguments:
+# Dest: GF@$char
+# Executing instruction: IJUMP at line: 10 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 17 with following arguments:
+# Dest: LF@vysledek
+# Executing instruction: IMOVE at line: 18 with following arguments:
+# Arg1: Const@=0(double)
+# Dest: LF@vysledek()
+# Executing instruction: IDEFVAR at line: 20 with following arguments:
+# Dest: LF@citatel
+# Executing instruction: IMOVE at line: 21 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: LF@citatel()
+# Executing instruction: IPUSHS at line: 23 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 24 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 25 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 26 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: LF@citatel=0(int)
+# Executing instruction: IDEFVAR at line: 28 with following arguments:
+# Dest: LF@jmenovatel
+# Executing instruction: IMOVE at line: 29 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: LF@jmenovatel()
+# Executing instruction: IPUSHS at line: 31 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 32 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 33 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 34 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: LF@jmenovatel=0(int)
+# Executing instruction: IPUSHS at line: 37 with following arguments:
+# Arg1: LF@vysledek=0(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 38 with following arguments:
+# Arg1: LF@citatel=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 39 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 40 with following arguments:
+# Arg1: LF@jmenovatel=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 41 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IDIVS at line: 42 with following arguments:
+# Arg1: Stack@=1(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IADDS at line: 43 with following arguments:
+# Arg1: Stack@=0(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 44 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: LF@vysledek=0(double)
+# Executing instruction: IPUSHS at line: 47 with following arguments:
+# Arg1: LF@citatel=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 48 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 49 with following arguments:
+# Arg1: Const@=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 50 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IMULTS at line: 51 with following arguments:
+# Arg1: Stack@=1(double)
+# Arg2: Stack@=2(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 52 with following arguments:
+# Arg1: Stack@=2(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 53 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: LF@citatel=1(int)
+# Executing instruction: IPUSHS at line: 55 with following arguments:
+# Arg1: LF@jmenovatel=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 56 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 57 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 58 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IMULTS at line: 59 with following arguments:
+# Arg1: Stack@=1(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 60 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 61 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: LF@jmenovatel=1(int)
+# Executing instruction: IPUSHS at line: 64 with following arguments:
+# Arg1: LF@vysledek=1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 65 with following arguments:
+# Arg1: LF@citatel=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 66 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 67 with following arguments:
+# Arg1: LF@jmenovatel=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 68 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IDIVS at line: 69 with following arguments:
+# Arg1: Stack@=2(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IADDS at line: 70 with following arguments:
+# Arg1: Stack@=1(double)
+# Arg2: Stack@=2(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 71 with following arguments:
+# Arg1: Stack@=3(double)
+# Dest: LF@vysledek=1(double)
+# Executing instruction: IPUSHS at line: 74 with following arguments:
+# Arg1: LF@citatel=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 75 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 76 with following arguments:
+# Arg1: Const@=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 77 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IMULTS at line: 78 with following arguments:
+# Arg1: Stack@=2(double)
+# Arg2: Stack@=2(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 79 with following arguments:
+# Arg1: Stack@=4(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 80 with following arguments:
+# Arg1: Stack@=4(int)
+# Dest: LF@citatel=2(int)
+# Executing instruction: IPUSHS at line: 82 with following arguments:
+# Arg1: LF@jmenovatel=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 83 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 84 with following arguments:
+# Arg1: Const@=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 85 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IMULTS at line: 86 with following arguments:
+# Arg1: Stack@=1(double)
+# Arg2: Stack@=2(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 87 with following arguments:
+# Arg1: Stack@=2(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 88 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: LF@jmenovatel=1(int)
+# Executing instruction: IPUSHS at line: 91 with following arguments:
+# Arg1: LF@vysledek=3(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 92 with following arguments:
+# Arg1: LF@citatel=4(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 93 with following arguments:
+# Arg1: Stack@=4(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 94 with following arguments:
+# Arg1: LF@jmenovatel=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 95 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IDIVS at line: 96 with following arguments:
+# Arg1: Stack@=4(double)
+# Arg2: Stack@=2(double)
+# Dest: Stack@()
+# Executing instruction: IADDS at line: 97 with following arguments:
+# Arg1: Stack@=3(double)
+# Arg2: Stack@=2(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 98 with following arguments:
+# Arg1: Stack@=5(double)
+# Dest: LF@vysledek=3(double)
+# Executing instruction: IPUSHS at line: 101 with following arguments:
+# Arg1: LF@citatel=4(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 102 with following arguments:
+# Arg1: Stack@=4(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 103 with following arguments:
+# Arg1: Const@=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 104 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IMULTS at line: 105 with following arguments:
+# Arg1: Stack@=4(double)
+# Arg2: Stack@=2(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 106 with following arguments:
+# Arg1: Stack@=8(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 107 with following arguments:
+# Arg1: Stack@=8(int)
+# Dest: LF@citatel=4(int)
+# Executing instruction: IPUSHS at line: 109 with following arguments:
+# Arg1: LF@jmenovatel=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 110 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 111 with following arguments:
+# Arg1: Const@=3(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 112 with following arguments:
+# Arg1: Stack@=3(int)
+# Dest: Stack@()
+# Executing instruction: IMULTS at line: 113 with following arguments:
+# Arg1: Stack@=2(double)
+# Arg2: Stack@=3(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 114 with following arguments:
+# Arg1: Stack@=6(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 115 with following arguments:
+# Arg1: Stack@=6(int)
+# Dest: LF@jmenovatel=2(int)
+# Executing instruction: IPUSHS at line: 118 with following arguments:
+# Arg1: LF@vysledek=5(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 119 with following arguments:
+# Arg1: LF@citatel=8(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 120 with following arguments:
+# Arg1: Stack@=8(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 121 with following arguments:
+# Arg1: LF@jmenovatel=6(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 122 with following arguments:
+# Arg1: Stack@=6(int)
+# Dest: Stack@()
+# Executing instruction: IDIVS at line: 123 with following arguments:
+# Arg1: Stack@=8(double)
+# Arg2: Stack@=6(double)
+# Dest: Stack@()
+# Executing instruction: IADDS at line: 124 with following arguments:
+# Arg1: Stack@=5(double)
+# Arg2: Stack@=1.333333333333333(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 125 with following arguments:
+# Arg1: Stack@=6.333333333333333(double)
+# Dest: LF@vysledek=5(double)
+# Executing instruction: IPUSHS at line: 128 with following arguments:
+# Arg1: LF@citatel=8(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 129 with following arguments:
+# Arg1: Stack@=8(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 130 with following arguments:
+# Arg1: Const@=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 131 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IMULTS at line: 132 with following arguments:
+# Arg1: Stack@=8(double)
+# Arg2: Stack@=2(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 133 with following arguments:
+# Arg1: Stack@=16(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 134 with following arguments:
+# Arg1: Stack@=16(int)
+# Dest: LF@citatel=8(int)
+# Executing instruction: IPUSHS at line: 136 with following arguments:
+# Arg1: LF@jmenovatel=6(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 137 with following arguments:
+# Arg1: Stack@=6(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 138 with following arguments:
+# Arg1: Const@=4(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 139 with following arguments:
+# Arg1: Stack@=4(int)
+# Dest: Stack@()
+# Executing instruction: IMULTS at line: 140 with following arguments:
+# Arg1: Stack@=6(double)
+# Arg2: Stack@=4(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 141 with following arguments:
+# Arg1: Stack@=24(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 142 with following arguments:
+# Arg1: Stack@=24(int)
+# Dest: LF@jmenovatel=6(int)
+# Executing instruction: IPUSHS at line: 145 with following arguments:
+# Arg1: LF@vysledek=6.333333333333333(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 146 with following arguments:
+# Arg1: LF@citatel=16(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 147 with following arguments:
+# Arg1: Stack@=16(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 148 with following arguments:
+# Arg1: LF@jmenovatel=24(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 149 with following arguments:
+# Arg1: Stack@=24(int)
+# Dest: Stack@()
+# Executing instruction: IDIVS at line: 150 with following arguments:
+# Arg1: Stack@=16(double)
+# Arg2: Stack@=24(double)
+# Dest: Stack@()
+# Executing instruction: IADDS at line: 151 with following arguments:
+# Arg1: Stack@=6.333333333333333(double)
+# Arg2: Stack@=0.6666666666666666(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 152 with following arguments:
+# Arg1: Stack@=7(double)
+# Dest: LF@vysledek=6.333333333333333(double)
+# Executing instruction: IPUSHS at line: 155 with following arguments:
+# Arg1: LF@citatel=16(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 156 with following arguments:
+# Arg1: Stack@=16(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 157 with following arguments:
+# Arg1: Const@=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 158 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IMULTS at line: 159 with following arguments:
+# Arg1: Stack@=16(double)
+# Arg2: Stack@=2(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 160 with following arguments:
+# Arg1: Stack@=32(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 161 with following arguments:
+# Arg1: Stack@=32(int)
+# Dest: LF@citatel=16(int)
+# Executing instruction: IPUSHS at line: 163 with following arguments:
+# Arg1: LF@jmenovatel=24(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 164 with following arguments:
+# Arg1: Stack@=24(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 165 with following arguments:
+# Arg1: Const@=5(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 166 with following arguments:
+# Arg1: Stack@=5(int)
+# Dest: Stack@()
+# Executing instruction: IMULTS at line: 167 with following arguments:
+# Arg1: Stack@=24(double)
+# Arg2: Stack@=5(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 168 with following arguments:
+# Arg1: Stack@=120(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 169 with following arguments:
+# Arg1: Stack@=120(int)
+# Dest: LF@jmenovatel=24(int)
+# Executing instruction: IPUSHS at line: 172 with following arguments:
+# Arg1: LF@vysledek=7(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 173 with following arguments:
+# Arg1: LF@citatel=32(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 174 with following arguments:
+# Arg1: Stack@=32(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 175 with following arguments:
+# Arg1: LF@jmenovatel=120(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 176 with following arguments:
+# Arg1: Stack@=120(int)
+# Dest: Stack@()
+# Executing instruction: IDIVS at line: 177 with following arguments:
+# Arg1: Stack@=32(double)
+# Arg2: Stack@=120(double)
+# Dest: Stack@()
+# Executing instruction: IADDS at line: 178 with following arguments:
+# Arg1: Stack@=7(double)
+# Arg2: Stack@=0.2666666666666667(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 179 with following arguments:
+# Arg1: Stack@=7.266666666666667(double)
+# Dest: LF@vysledek=7(double)
+# Executing instruction: IPUSHS at line: 182 with following arguments:
+# Arg1: LF@vysledek=7.266666666666667(double)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 183 with following arguments:
+# Executing instruction: IDEFVAR at line: 184 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 185 with following arguments:
+# Arg1: Stack@=7.266666666666667(double)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 186 with following arguments:
+# Arg1: TF@write=7.266666666666667(double)
+# Executing instruction: IGROOT at line: 190 with following arguments:
+# I am Groot at 190 (906).
+# 
+# STDOUT DIFF:
+# 
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 0
+# CURRENT COMPILER EXIT CODE: 0
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: 0
+# PRICE: 906 (199+707)
+# GROOT: 906
+# 
+#   1: ' exp(x) 6 iteration without loop
+#   2: 
+#   3: SCOPE
+#   4: 
+#   5: 	dim vysledek as double
+#   6: 	dim citatel as integer
+#   7: 	citatel = 1
+#   8: 	dim jmenovatel as integer
+#   9: 	jmenovatel = 1
+#  10: 
+#  11: 	vysledek = vysledek + citatel / jmenovatel
+#  12: 
+#  13: 	citatel = citatel * 2
+#  14: 	jmenovatel = jmenovatel * 1
+#  15: 
+#  16: 	vysledek = vysledek + citatel / jmenovatel
+#  17: 
+#  18: 	citatel = citatel * 2
+#  19: 	jmenovatel = jmenovatel * 2
+#  20: 
+#  21: 	vysledek = vysledek +  citatel / jmenovatel
+#  22: 
+#  23: 	citatel = citatel * 2
+#  24: 	jmenovatel = jmenovatel * 3
+#  25: 
+#  26: 	vysledek = vysledek + citatel / jmenovatel
+#  27: 
+#  28: 	citatel = citatel * 2
+#  29: 	jmenovatel = jmenovatel * 4
+#  30: 
+#  31: 	vysledek = vysledek + citatel / jmenovatel
+#  32: 
+#  33: 	citatel = citatel * 2
+#  34: 	jmenovatel = jmenovatel * 5
+#  35: 
+#  36: 	vysledek = vysledek + citatel / jmenovatel
+#  37: 
+#  38: 	print vysledek;
+#  39: 
+#  40: END SCOPE
+
+########################################
+
+.IFJcode17                                                                      #     1/188
+DEFVAR GF@$str1                                                                 #     2/188
+DEFVAR GF@$str2                                                                 #     3/188
+DEFVAR GF@$num1                                                                 #     4/188
+DEFVAR GF@$num2                                                                 #     5/188
+DEFVAR GF@$num3                                                                 #     6/188
+DEFVAR GF@$bool1                                                                #     7/188
+DEFVAR GF@$counter                                                              #     8/188
+DEFVAR GF@$char                                                                 #     9/188
+JUMP $$main                                                                     #    10/188
+LABEL $$main                                                                    #    12/188
+CREATEFRAME                                                                     #    13/188
+PUSHFRAME                                                                       #    14/188
+DEFVAR LF@vysledek                                                              #    17/188
+MOVE LF@vysledek float@0                                                        #    18/188
+DEFVAR LF@citatel                                                               #    20/188
+MOVE LF@citatel int@0                                                           #    21/188
+PUSHS int@1                                                                     #    23/188
+INT2FLOATS                                                                      #    24/188
+FLOAT2R2EINTS                                                                   #    25/188
+POPS LF@citatel                                                                 #    26/188
+DEFVAR LF@jmenovatel                                                            #    28/188
+MOVE LF@jmenovatel int@0                                                        #    29/188
+PUSHS int@1                                                                     #    31/188
+INT2FLOATS                                                                      #    32/188
+FLOAT2R2EINTS                                                                   #    33/188
+POPS LF@jmenovatel                                                              #    34/188
+PUSHS LF@vysledek                                                               #    37/188
+PUSHS LF@citatel                                                                #    38/188
+INT2FLOATS                                                                      #    39/188
+PUSHS LF@jmenovatel                                                             #    40/188
+INT2FLOATS                                                                      #    41/188
+DIVS                                                                            #    42/188
+ADDS                                                                            #    43/188
+POPS LF@vysledek                                                                #    44/188
+PUSHS LF@citatel                                                                #    47/188
+INT2FLOATS                                                                      #    48/188
+PUSHS int@2                                                                     #    49/188
+INT2FLOATS                                                                      #    50/188
+MULS                                                                            #    51/188
+FLOAT2R2EINTS                                                                   #    52/188
+POPS LF@citatel                                                                 #    53/188
+PUSHS LF@jmenovatel                                                             #    55/188
+INT2FLOATS                                                                      #    56/188
+PUSHS int@1                                                                     #    57/188
+INT2FLOATS                                                                      #    58/188
+MULS                                                                            #    59/188
+FLOAT2R2EINTS                                                                   #    60/188
+POPS LF@jmenovatel                                                              #    61/188
+PUSHS LF@vysledek                                                               #    64/188
+PUSHS LF@citatel                                                                #    65/188
+INT2FLOATS                                                                      #    66/188
+PUSHS LF@jmenovatel                                                             #    67/188
+INT2FLOATS                                                                      #    68/188
+DIVS                                                                            #    69/188
+ADDS                                                                            #    70/188
+POPS LF@vysledek                                                                #    71/188
+PUSHS LF@citatel                                                                #    74/188
+INT2FLOATS                                                                      #    75/188
+PUSHS int@2                                                                     #    76/188
+INT2FLOATS                                                                      #    77/188
+MULS                                                                            #    78/188
+FLOAT2R2EINTS                                                                   #    79/188
+POPS LF@citatel                                                                 #    80/188
+PUSHS LF@jmenovatel                                                             #    82/188
+INT2FLOATS                                                                      #    83/188
+PUSHS int@2                                                                     #    84/188
+INT2FLOATS                                                                      #    85/188
+MULS                                                                            #    86/188
+FLOAT2R2EINTS                                                                   #    87/188
+POPS LF@jmenovatel                                                              #    88/188
+PUSHS LF@vysledek                                                               #    91/188
+PUSHS LF@citatel                                                                #    92/188
+INT2FLOATS                                                                      #    93/188
+PUSHS LF@jmenovatel                                                             #    94/188
+INT2FLOATS                                                                      #    95/188
+DIVS                                                                            #    96/188
+ADDS                                                                            #    97/188
+POPS LF@vysledek                                                                #    98/188
+PUSHS LF@citatel                                                                #   101/188
+INT2FLOATS                                                                      #   102/188
+PUSHS int@2                                                                     #   103/188
+INT2FLOATS                                                                      #   104/188
+MULS                                                                            #   105/188
+FLOAT2R2EINTS                                                                   #   106/188
+POPS LF@citatel                                                                 #   107/188
+PUSHS LF@jmenovatel                                                             #   109/188
+INT2FLOATS                                                                      #   110/188
+PUSHS int@3                                                                     #   111/188
+INT2FLOATS                                                                      #   112/188
+MULS                                                                            #   113/188
+FLOAT2R2EINTS                                                                   #   114/188
+POPS LF@jmenovatel                                                              #   115/188
+PUSHS LF@vysledek                                                               #   118/188
+PUSHS LF@citatel                                                                #   119/188
+INT2FLOATS                                                                      #   120/188
+PUSHS LF@jmenovatel                                                             #   121/188
+INT2FLOATS                                                                      #   122/188
+DIVS                                                                            #   123/188
+ADDS                                                                            #   124/188
+POPS LF@vysledek                                                                #   125/188
+PUSHS LF@citatel                                                                #   128/188
+INT2FLOATS                                                                      #   129/188
+PUSHS int@2                                                                     #   130/188
+INT2FLOATS                                                                      #   131/188
+MULS                                                                            #   132/188
+FLOAT2R2EINTS                                                                   #   133/188
+POPS LF@citatel                                                                 #   134/188
+PUSHS LF@jmenovatel                                                             #   136/188
+INT2FLOATS                                                                      #   137/188
+PUSHS int@4                                                                     #   138/188
+INT2FLOATS                                                                      #   139/188
+MULS                                                                            #   140/188
+FLOAT2R2EINTS                                                                   #   141/188
+POPS LF@jmenovatel                                                              #   142/188
+PUSHS LF@vysledek                                                               #   145/188
+PUSHS LF@citatel                                                                #   146/188
+INT2FLOATS                                                                      #   147/188
+PUSHS LF@jmenovatel                                                             #   148/188
+INT2FLOATS                                                                      #   149/188
+DIVS                                                                            #   150/188
+ADDS                                                                            #   151/188
+POPS LF@vysledek                                                                #   152/188
+PUSHS LF@citatel                                                                #   155/188
+INT2FLOATS                                                                      #   156/188
+PUSHS int@2                                                                     #   157/188
+INT2FLOATS                                                                      #   158/188
+MULS                                                                            #   159/188
+FLOAT2R2EINTS                                                                   #   160/188
+POPS LF@citatel                                                                 #   161/188
+PUSHS LF@jmenovatel                                                             #   163/188
+INT2FLOATS                                                                      #   164/188
+PUSHS int@5                                                                     #   165/188
+INT2FLOATS                                                                      #   166/188
+MULS                                                                            #   167/188
+FLOAT2R2EINTS                                                                   #   168/188
+POPS LF@jmenovatel                                                              #   169/188
+PUSHS LF@vysledek                                                               #   172/188
+PUSHS LF@citatel                                                                #   173/188
+INT2FLOATS                                                                      #   174/188
+PUSHS LF@jmenovatel                                                             #   175/188
+INT2FLOATS                                                                      #   176/188
+DIVS                                                                            #   177/188
+ADDS                                                                            #   178/188
+POPS LF@vysledek                                                                #   179/188
+PUSHS LF@vysledek                                                               #   182/188
+CREATEFRAME                                                                     #   183/188
+DEFVAR TF@write                                                                 #   184/188
+POPS TF@write                                                                   #   185/188
+WRITE TF@write                                                                  #   186/188
+

@@ -1,0 +1,76 @@
+# 2017-12-04 23:21:45.998898
+# SECTION: 66_errors
+# TEST: 39
+# INFO: Small number of function arguments
+# REQUIRED EXTENSIONS: FUNEXP
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# Line 8: Type incompatibility semantic error: Expected right parenthesis after function parameters.
+# Line 8: Syntax error: Expected THEN after if expression.
+# 
+# INTERPRETER STDERR:
+# 
+# EXPECTED INTERPRETER STDOUT:
+
+
+
+# CURRENT INTERPRETER STDOUT:
+
+
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 4
+# CURRENT COMPILER EXIT CODE: 4
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: None
+# PRICE: ---
+# GROOT: ---
+# 
+#   1: ' Small number of function arguments
+#   2: 
+#   3: function foo(a as integer) as integer
+#   4:     
+#   5: end function
+#   6: 
+#   7: scope
+#   8:    if foo(10, 30) < 10 then
+#   9:    
+#  10:    else
+#  11:    
+#  12:    end if
+#  13: end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/33
+DEFVAR GF@$str1                                                                 #     2/33
+DEFVAR GF@$str2                                                                 #     3/33
+DEFVAR GF@$num1                                                                 #     4/33
+DEFVAR GF@$num2                                                                 #     5/33
+DEFVAR GF@$num3                                                                 #     6/33
+DEFVAR GF@$bool1                                                                #     7/33
+DEFVAR GF@$counter                                                              #     8/33
+DEFVAR GF@$char                                                                 #     9/33
+JUMP $$main                                                                     #    10/33
+LABEL $foo                                                                      #    12/33
+CREATEFRAME                                                                     #    13/33
+PUSHFRAME                                                                       #    14/33
+DEFVAR LF@a                                                                     #    15/33
+POPS LF@a                                                                       #    16/33
+PUSHS int@0                                                                     #    20/33
+POPFRAME                                                                        #    21/33
+RETURN                                                                          #    22/33
+LABEL $$main                                                                    #    24/33
+CREATEFRAME                                                                     #    25/33
+PUSHFRAME                                                                       #    26/33
+PUSHS int@10                                                                    #    28/33
+INT2FLOATS                                                                      #    29/33
+FLOAT2R2EINTS                                                                   #    30/33
+PUSHS int@30                                                                    #    31/33
+INT2FLOATS                                                                      #    32/33
+FLOAT2R2EINTS                                                                   #    33/33
+

@@ -1,0 +1,101 @@
+# 2017-12-04 23:21:42.837697
+# SECTION: 01_basic
+# TEST: 28
+# INFO: More prints
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# 
+# INTERPRETER STDERR:
+# Executing instruction: IDEFVAR at line: 2 with following arguments:
+# Dest: GF@$str1
+# Executing instruction: IDEFVAR at line: 3 with following arguments:
+# Dest: GF@$str2
+# Executing instruction: IDEFVAR at line: 4 with following arguments:
+# Dest: GF@$num1
+# Executing instruction: IDEFVAR at line: 5 with following arguments:
+# Dest: GF@$num2
+# Executing instruction: IDEFVAR at line: 6 with following arguments:
+# Dest: GF@$num3
+# Executing instruction: IDEFVAR at line: 7 with following arguments:
+# Dest: GF@$bool1
+# Executing instruction: IDEFVAR at line: 8 with following arguments:
+# Dest: GF@$counter
+# Executing instruction: IDEFVAR at line: 9 with following arguments:
+# Dest: GF@$char
+# Executing instruction: IJUMP at line: 10 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IPUSHS at line: 16 with following arguments:
+# Arg1: Const@=ahoj(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 17 with following arguments:
+# Executing instruction: IDEFVAR at line: 18 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 19 with following arguments:
+# Arg1: Stack@=ahoj(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 20 with following arguments:
+# Arg1: TF@write=ahoj(string)
+# Executing instruction: IPUSHS at line: 22 with following arguments:
+# Arg1: Const@=ahoj(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 23 with following arguments:
+# Executing instruction: IDEFVAR at line: 24 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 25 with following arguments:
+# Arg1: Stack@=ahoj(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 26 with following arguments:
+# Arg1: TF@write=ahoj(string)
+# Executing instruction: IGROOT at line: 29 with following arguments:
+# I am Groot at 29 (98).
+# 
+# STDOUT DIFF:
+# 
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 0
+# CURRENT COMPILER EXIT CODE: 0
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: 0
+# PRICE: 98 (32+66)
+# GROOT: 98
+# 
+#   1: ' More prints
+#   2: scope
+#   3: 	print !"ahoj";
+#   4: 	print !"ahoj";
+#   5: end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/27
+DEFVAR GF@$str1                                                                 #     2/27
+DEFVAR GF@$str2                                                                 #     3/27
+DEFVAR GF@$num1                                                                 #     4/27
+DEFVAR GF@$num2                                                                 #     5/27
+DEFVAR GF@$num3                                                                 #     6/27
+DEFVAR GF@$bool1                                                                #     7/27
+DEFVAR GF@$counter                                                              #     8/27
+DEFVAR GF@$char                                                                 #     9/27
+JUMP $$main                                                                     #    10/27
+LABEL $$main                                                                    #    12/27
+CREATEFRAME                                                                     #    13/27
+PUSHFRAME                                                                       #    14/27
+PUSHS string@ahoj                                                               #    16/27
+CREATEFRAME                                                                     #    17/27
+DEFVAR TF@write                                                                 #    18/27
+POPS TF@write                                                                   #    19/27
+WRITE TF@write                                                                  #    20/27
+PUSHS string@ahoj                                                               #    22/27
+CREATEFRAME                                                                     #    23/27
+DEFVAR TF@write                                                                 #    24/27
+POPS TF@write                                                                   #    25/27
+WRITE TF@write                                                                  #    26/27
+

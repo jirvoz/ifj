@@ -1,0 +1,51 @@
+# 2017-12-04 23:21:46.245830
+# SECTION: 66_errors
+# TEST: 116
+# INFO: lexical error
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# Line 2: Lexical error: Unknown character in string
+# 
+# INTERPRETER STDERR:
+# 
+# EXPECTED INTERPRETER STDOUT:
+
+
+
+# CURRENT INTERPRETER STDOUT:
+
+
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 1
+# CURRENT COMPILER EXIT CODE: 1
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: None
+# PRICE: ---
+# GROOT: ---
+# 
+#   1: scope 
+#   2:  print !" 
+#   3:  end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/15
+DEFVAR GF@$str1                                                                 #     2/15
+DEFVAR GF@$str2                                                                 #     3/15
+DEFVAR GF@$num1                                                                 #     4/15
+DEFVAR GF@$num2                                                                 #     5/15
+DEFVAR GF@$num3                                                                 #     6/15
+DEFVAR GF@$bool1                                                                #     7/15
+DEFVAR GF@$counter                                                              #     8/15
+DEFVAR GF@$char                                                                 #     9/15
+JUMP $$main                                                                     #    10/15
+LABEL $$main                                                                    #    12/15
+CREATEFRAME                                                                     #    13/15
+PUSHFRAME                                                                       #    14/15
+

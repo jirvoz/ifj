@@ -1,0 +1,3897 @@
+# 2017-12-04 23:21:46.982107
+# SECTION: 96_programs
+# TEST: 14
+# INFO: Reverse string function
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# 
+# INTERPRETER STDERR:
+# Executing instruction: IDEFVAR at line: 2 with following arguments:
+# Dest: GF@$str1
+# Executing instruction: IDEFVAR at line: 3 with following arguments:
+# Dest: GF@$str2
+# Executing instruction: IDEFVAR at line: 4 with following arguments:
+# Dest: GF@$num1
+# Executing instruction: IDEFVAR at line: 5 with following arguments:
+# Dest: GF@$num2
+# Executing instruction: IDEFVAR at line: 6 with following arguments:
+# Dest: GF@$num3
+# Executing instruction: IDEFVAR at line: 7 with following arguments:
+# Dest: GF@$bool1
+# Executing instruction: IDEFVAR at line: 8 with following arguments:
+# Dest: GF@$counter
+# Executing instruction: IDEFVAR at line: 9 with following arguments:
+# Dest: GF@$char
+# Executing instruction: IJUMP at line: 10 with following arguments:
+# Executing instruction: ILABEL at line: 124 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 125 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 126 with following arguments:
+# Executing instruction: IDEFVAR at line: 128 with following arguments:
+# Dest: LF@s
+# Executing instruction: IMOVE at line: 129 with following arguments:
+# Arg1: Const@=(string)
+# Dest: LF@s()
+# Executing instruction: IWRITE at line: 131 with following arguments:
+# Arg1: Const@=? (string)
+# Executing instruction: IREAD at line: 132 with following arguments:
+# Dest: LF@s=(string)
+# Executing instruction: IPUSHS at line: 134 with following arguments:
+# Arg1: LF@s=whatareversedstring(string)
+# Dest: Stack@()
+# Executing instruction: ICALL at line: 135 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 15 with following arguments:
+# Dest: LF@s
+# Executing instruction: IPOPS at line: 16 with following arguments:
+# Arg1: Stack@=whatareversedstring(string)
+# Dest: LF@s()
+# Executing instruction: IDEFVAR at line: 19 with following arguments:
+# Dest: LF@str_len
+# Executing instruction: IMOVE at line: 20 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: LF@str_len()
+# Executing instruction: IPUSHS at line: 22 with following arguments:
+# Arg1: LF@s=whatareversedstring(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 23 with following arguments:
+# Arg1: Stack@=whatareversedstring(string)
+# Dest: GF@$str2()
+# Executing instruction: ISTRLEN at line: 24 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Dest: GF@$num1()
+# Executing instruction: IPUSHS at line: 25 with following arguments:
+# Arg1: GF@$num1=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 26 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 27 with following arguments:
+# Arg1: Stack@=19(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 28 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: LF@str_len=0(int)
+# Executing instruction: IDEFVAR at line: 30 with following arguments:
+# Dest: LF@reversed
+# Executing instruction: IMOVE at line: 31 with following arguments:
+# Arg1: Const@=(string)
+# Dest: LF@reversed()
+# Executing instruction: IDEFVAR at line: 33 with following arguments:
+# Dest: LF@substr_res
+# Executing instruction: IMOVE at line: 34 with following arguments:
+# Arg1: Const@=(string)
+# Dest: LF@substr_res()
+# Executing instruction: IDEFVAR at line: 36 with following arguments:
+# Dest: LF@str_len_i
+# Executing instruction: IMOVE at line: 37 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: LF@str_len_i()
+# Executing instruction: IDEFVAR at line: 40 with following arguments:
+# Dest: LF@i
+# Executing instruction: IMOVE at line: 41 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: LF@i()
+# Executing instruction: ILABEL at line: 43 with following arguments:
+# Executing instruction: IPUSHS at line: 44 with following arguments:
+# Arg1: LF@i=0(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 45 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 46 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 47 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: ILSS at line: 48 with following arguments:
+# Arg1: Stack@=0(double)
+# Arg2: Stack@=19(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 49 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 50 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 52 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 53 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 54 with following arguments:
+# Arg1: LF@i=0(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 55 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 56 with following arguments:
+# Arg1: Stack@=19(double)
+# Arg2: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 57 with following arguments:
+# Arg1: Stack@=19(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 58 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: LF@str_len_i=0(int)
+# Executing instruction: IPUSHS at line: 60 with following arguments:
+# Arg1: LF@s=whatareversedstring(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 61 with following arguments:
+# Arg1: LF@str_len_i=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 62 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 63 with following arguments:
+# Arg1: Stack@=19(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 64 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 65 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 66 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 67 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: GF@$num1=19(int)
+# Executing instruction: IPOPS at line: 68 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: GF@$num2()
+# Executing instruction: ISUB at line: 69 with following arguments:
+# Arg1: GF@$num2=19(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=19(int)
+# Executing instruction: IPOPS at line: 70 with following arguments:
+# Arg1: Stack@=whatareversedstring(string)
+# Dest: GF@$str2=whatareversedstring(string)
+# Executing instruction: IMOVE at line: 71 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: GF@$counter()
+# Executing instruction: IMOVE at line: 72 with following arguments:
+# Arg1: Const@=(string)
+# Dest: GF@$str1()
+# Executing instruction: ISTRLEN at line: 73 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Dest: GF@$num3()
+# Executing instruction: IJUMPIFEQ at line: 74 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: Const@=0(int)
+# Executing instruction: IGT at line: 75 with following arguments:
+# Arg1: GF@$num2=18(int)
+# Arg2: Const@=-1(int)
+# Dest: GF@$bool1()
+# Executing instruction: IJUMPIFNEQ at line: 76 with following arguments:
+# Arg1: GF@$bool1=true(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILS at line: 77 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: Const@=0(int)
+# Dest: GF@$bool1=true(bool)
+# Executing instruction: IJUMPIFEQ at line: 78 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ISUB at line: 79 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: GF@$num2=18(int)
+# Dest: GF@$num3=19(int)
+# Executing instruction: IGT at line: 80 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: GF@$num3=1(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFEQ at line: 81 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILABEL at line: 82 with following arguments:
+# Executing instruction: IGETCHAR at line: 83 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Arg2: GF@$num2=18(int)
+# Dest: GF@$char()
+# Executing instruction: ICONCAT at line: 84 with following arguments:
+# Arg1: GF@$str1=(string)
+# Arg2: GF@$char=g(string)
+# Dest: GF@$str1=(string)
+# Executing instruction: IADD at line: 85 with following arguments:
+# Arg1: GF@$counter=0(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$counter=0(int)
+# Executing instruction: IADD at line: 86 with following arguments:
+# Arg1: GF@$num2=18(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=18(int)
+# Executing instruction: IJUMPIFNEQ at line: 87 with following arguments:
+# Arg1: GF@$counter=1(int)
+# Arg2: GF@$num1=1(int)
+# Executing instruction: IJUMP at line: 88 with following arguments:
+# Executing instruction: ILABEL at line: 92 with following arguments:
+# Executing instruction: IPUSHS at line: 93 with following arguments:
+# Arg1: GF@$str1=g(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 94 with following arguments:
+# Arg1: Stack@=g(string)
+# Dest: LF@substr_res=(string)
+# Executing instruction: IPUSHS at line: 96 with following arguments:
+# Arg1: LF@reversed=(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 97 with following arguments:
+# Arg1: LF@substr_res=g(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 98 with following arguments:
+# Arg1: Stack@=g(string)
+# Dest: GF@$str2=whatareversedstring(string)
+# Executing instruction: IPOPS at line: 99 with following arguments:
+# Arg1: Stack@=(string)
+# Dest: GF@$str1=g(string)
+# Executing instruction: ICONCAT at line: 100 with following arguments:
+# Arg1: GF@$str1=(string)
+# Arg2: GF@$str2=g(string)
+# Dest: GF@$str1=(string)
+# Executing instruction: IPUSHS at line: 101 with following arguments:
+# Arg1: GF@$str1=g(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 102 with following arguments:
+# Arg1: Stack@=g(string)
+# Dest: LF@reversed=(string)
+# Executing instruction: IPUSHS at line: 104 with following arguments:
+# Arg1: LF@i=0(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 105 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 106 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 107 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IADDS at line: 108 with following arguments:
+# Arg1: Stack@=0(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 109 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 110 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: LF@i=0(int)
+# Executing instruction: IJUMP at line: 112 with following arguments:
+# Executing instruction: ILABEL at line: 43 with following arguments:
+# Executing instruction: IPUSHS at line: 44 with following arguments:
+# Arg1: LF@i=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 45 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 46 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 47 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: ILSS at line: 48 with following arguments:
+# Arg1: Stack@=1(double)
+# Arg2: Stack@=19(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 49 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 50 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 52 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 53 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 54 with following arguments:
+# Arg1: LF@i=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 55 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 56 with following arguments:
+# Arg1: Stack@=19(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 57 with following arguments:
+# Arg1: Stack@=18(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 58 with following arguments:
+# Arg1: Stack@=18(int)
+# Dest: LF@str_len_i=19(int)
+# Executing instruction: IPUSHS at line: 60 with following arguments:
+# Arg1: LF@s=whatareversedstring(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 61 with following arguments:
+# Arg1: LF@str_len_i=18(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 62 with following arguments:
+# Arg1: Stack@=18(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 63 with following arguments:
+# Arg1: Stack@=18(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 64 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 65 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 66 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 67 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: GF@$num1=1(int)
+# Executing instruction: IPOPS at line: 68 with following arguments:
+# Arg1: Stack@=18(int)
+# Dest: GF@$num2=19(int)
+# Executing instruction: ISUB at line: 69 with following arguments:
+# Arg1: GF@$num2=18(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=18(int)
+# Executing instruction: IPOPS at line: 70 with following arguments:
+# Arg1: Stack@=whatareversedstring(string)
+# Dest: GF@$str2=g(string)
+# Executing instruction: IMOVE at line: 71 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: GF@$counter=1(int)
+# Executing instruction: IMOVE at line: 72 with following arguments:
+# Arg1: Const@=(string)
+# Dest: GF@$str1=g(string)
+# Executing instruction: ISTRLEN at line: 73 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Dest: GF@$num3=1(int)
+# Executing instruction: IJUMPIFEQ at line: 74 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: Const@=0(int)
+# Executing instruction: IGT at line: 75 with following arguments:
+# Arg1: GF@$num2=17(int)
+# Arg2: Const@=-1(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFNEQ at line: 76 with following arguments:
+# Arg1: GF@$bool1=true(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILS at line: 77 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: Const@=0(int)
+# Dest: GF@$bool1=true(bool)
+# Executing instruction: IJUMPIFEQ at line: 78 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ISUB at line: 79 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: GF@$num2=17(int)
+# Dest: GF@$num3=19(int)
+# Executing instruction: IGT at line: 80 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: GF@$num3=2(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFEQ at line: 81 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILABEL at line: 82 with following arguments:
+# Executing instruction: IGETCHAR at line: 83 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Arg2: GF@$num2=17(int)
+# Dest: GF@$char=g(string)
+# Executing instruction: ICONCAT at line: 84 with following arguments:
+# Arg1: GF@$str1=(string)
+# Arg2: GF@$char=n(string)
+# Dest: GF@$str1=(string)
+# Executing instruction: IADD at line: 85 with following arguments:
+# Arg1: GF@$counter=0(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$counter=0(int)
+# Executing instruction: IADD at line: 86 with following arguments:
+# Arg1: GF@$num2=17(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=17(int)
+# Executing instruction: IJUMPIFNEQ at line: 87 with following arguments:
+# Arg1: GF@$counter=1(int)
+# Arg2: GF@$num1=1(int)
+# Executing instruction: IJUMP at line: 88 with following arguments:
+# Executing instruction: ILABEL at line: 92 with following arguments:
+# Executing instruction: IPUSHS at line: 93 with following arguments:
+# Arg1: GF@$str1=n(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 94 with following arguments:
+# Arg1: Stack@=n(string)
+# Dest: LF@substr_res=g(string)
+# Executing instruction: IPUSHS at line: 96 with following arguments:
+# Arg1: LF@reversed=g(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 97 with following arguments:
+# Arg1: LF@substr_res=n(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 98 with following arguments:
+# Arg1: Stack@=n(string)
+# Dest: GF@$str2=whatareversedstring(string)
+# Executing instruction: IPOPS at line: 99 with following arguments:
+# Arg1: Stack@=g(string)
+# Dest: GF@$str1=n(string)
+# Executing instruction: ICONCAT at line: 100 with following arguments:
+# Arg1: GF@$str1=g(string)
+# Arg2: GF@$str2=n(string)
+# Dest: GF@$str1=g(string)
+# Executing instruction: IPUSHS at line: 101 with following arguments:
+# Arg1: GF@$str1=gn(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 102 with following arguments:
+# Arg1: Stack@=gn(string)
+# Dest: LF@reversed=g(string)
+# Executing instruction: IPUSHS at line: 104 with following arguments:
+# Arg1: LF@i=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 105 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 106 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 107 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IADDS at line: 108 with following arguments:
+# Arg1: Stack@=1(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 109 with following arguments:
+# Arg1: Stack@=2(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 110 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: LF@i=1(int)
+# Executing instruction: IJUMP at line: 112 with following arguments:
+# Executing instruction: ILABEL at line: 43 with following arguments:
+# Executing instruction: IPUSHS at line: 44 with following arguments:
+# Arg1: LF@i=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 45 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 46 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 47 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: ILSS at line: 48 with following arguments:
+# Arg1: Stack@=2(double)
+# Arg2: Stack@=19(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 49 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 50 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 52 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 53 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 54 with following arguments:
+# Arg1: LF@i=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 55 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 56 with following arguments:
+# Arg1: Stack@=19(double)
+# Arg2: Stack@=2(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 57 with following arguments:
+# Arg1: Stack@=17(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 58 with following arguments:
+# Arg1: Stack@=17(int)
+# Dest: LF@str_len_i=18(int)
+# Executing instruction: IPUSHS at line: 60 with following arguments:
+# Arg1: LF@s=whatareversedstring(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 61 with following arguments:
+# Arg1: LF@str_len_i=17(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 62 with following arguments:
+# Arg1: Stack@=17(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 63 with following arguments:
+# Arg1: Stack@=17(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 64 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 65 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 66 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 67 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: GF@$num1=1(int)
+# Executing instruction: IPOPS at line: 68 with following arguments:
+# Arg1: Stack@=17(int)
+# Dest: GF@$num2=18(int)
+# Executing instruction: ISUB at line: 69 with following arguments:
+# Arg1: GF@$num2=17(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=17(int)
+# Executing instruction: IPOPS at line: 70 with following arguments:
+# Arg1: Stack@=whatareversedstring(string)
+# Dest: GF@$str2=n(string)
+# Executing instruction: IMOVE at line: 71 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: GF@$counter=1(int)
+# Executing instruction: IMOVE at line: 72 with following arguments:
+# Arg1: Const@=(string)
+# Dest: GF@$str1=gn(string)
+# Executing instruction: ISTRLEN at line: 73 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Dest: GF@$num3=2(int)
+# Executing instruction: IJUMPIFEQ at line: 74 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: Const@=0(int)
+# Executing instruction: IGT at line: 75 with following arguments:
+# Arg1: GF@$num2=16(int)
+# Arg2: Const@=-1(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFNEQ at line: 76 with following arguments:
+# Arg1: GF@$bool1=true(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILS at line: 77 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: Const@=0(int)
+# Dest: GF@$bool1=true(bool)
+# Executing instruction: IJUMPIFEQ at line: 78 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ISUB at line: 79 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: GF@$num2=16(int)
+# Dest: GF@$num3=19(int)
+# Executing instruction: IGT at line: 80 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: GF@$num3=3(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFEQ at line: 81 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILABEL at line: 82 with following arguments:
+# Executing instruction: IGETCHAR at line: 83 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Arg2: GF@$num2=16(int)
+# Dest: GF@$char=n(string)
+# Executing instruction: ICONCAT at line: 84 with following arguments:
+# Arg1: GF@$str1=(string)
+# Arg2: GF@$char=i(string)
+# Dest: GF@$str1=(string)
+# Executing instruction: IADD at line: 85 with following arguments:
+# Arg1: GF@$counter=0(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$counter=0(int)
+# Executing instruction: IADD at line: 86 with following arguments:
+# Arg1: GF@$num2=16(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=16(int)
+# Executing instruction: IJUMPIFNEQ at line: 87 with following arguments:
+# Arg1: GF@$counter=1(int)
+# Arg2: GF@$num1=1(int)
+# Executing instruction: IJUMP at line: 88 with following arguments:
+# Executing instruction: ILABEL at line: 92 with following arguments:
+# Executing instruction: IPUSHS at line: 93 with following arguments:
+# Arg1: GF@$str1=i(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 94 with following arguments:
+# Arg1: Stack@=i(string)
+# Dest: LF@substr_res=n(string)
+# Executing instruction: IPUSHS at line: 96 with following arguments:
+# Arg1: LF@reversed=gn(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 97 with following arguments:
+# Arg1: LF@substr_res=i(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 98 with following arguments:
+# Arg1: Stack@=i(string)
+# Dest: GF@$str2=whatareversedstring(string)
+# Executing instruction: IPOPS at line: 99 with following arguments:
+# Arg1: Stack@=gn(string)
+# Dest: GF@$str1=i(string)
+# Executing instruction: ICONCAT at line: 100 with following arguments:
+# Arg1: GF@$str1=gn(string)
+# Arg2: GF@$str2=i(string)
+# Dest: GF@$str1=gn(string)
+# Executing instruction: IPUSHS at line: 101 with following arguments:
+# Arg1: GF@$str1=gni(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 102 with following arguments:
+# Arg1: Stack@=gni(string)
+# Dest: LF@reversed=gn(string)
+# Executing instruction: IPUSHS at line: 104 with following arguments:
+# Arg1: LF@i=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 105 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 106 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 107 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IADDS at line: 108 with following arguments:
+# Arg1: Stack@=2(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 109 with following arguments:
+# Arg1: Stack@=3(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 110 with following arguments:
+# Arg1: Stack@=3(int)
+# Dest: LF@i=2(int)
+# Executing instruction: IJUMP at line: 112 with following arguments:
+# Executing instruction: ILABEL at line: 43 with following arguments:
+# Executing instruction: IPUSHS at line: 44 with following arguments:
+# Arg1: LF@i=3(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 45 with following arguments:
+# Arg1: Stack@=3(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 46 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 47 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: ILSS at line: 48 with following arguments:
+# Arg1: Stack@=3(double)
+# Arg2: Stack@=19(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 49 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 50 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 52 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 53 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 54 with following arguments:
+# Arg1: LF@i=3(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 55 with following arguments:
+# Arg1: Stack@=3(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 56 with following arguments:
+# Arg1: Stack@=19(double)
+# Arg2: Stack@=3(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 57 with following arguments:
+# Arg1: Stack@=16(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 58 with following arguments:
+# Arg1: Stack@=16(int)
+# Dest: LF@str_len_i=17(int)
+# Executing instruction: IPUSHS at line: 60 with following arguments:
+# Arg1: LF@s=whatareversedstring(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 61 with following arguments:
+# Arg1: LF@str_len_i=16(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 62 with following arguments:
+# Arg1: Stack@=16(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 63 with following arguments:
+# Arg1: Stack@=16(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 64 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 65 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 66 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 67 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: GF@$num1=1(int)
+# Executing instruction: IPOPS at line: 68 with following arguments:
+# Arg1: Stack@=16(int)
+# Dest: GF@$num2=17(int)
+# Executing instruction: ISUB at line: 69 with following arguments:
+# Arg1: GF@$num2=16(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=16(int)
+# Executing instruction: IPOPS at line: 70 with following arguments:
+# Arg1: Stack@=whatareversedstring(string)
+# Dest: GF@$str2=i(string)
+# Executing instruction: IMOVE at line: 71 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: GF@$counter=1(int)
+# Executing instruction: IMOVE at line: 72 with following arguments:
+# Arg1: Const@=(string)
+# Dest: GF@$str1=gni(string)
+# Executing instruction: ISTRLEN at line: 73 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Dest: GF@$num3=3(int)
+# Executing instruction: IJUMPIFEQ at line: 74 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: Const@=0(int)
+# Executing instruction: IGT at line: 75 with following arguments:
+# Arg1: GF@$num2=15(int)
+# Arg2: Const@=-1(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFNEQ at line: 76 with following arguments:
+# Arg1: GF@$bool1=true(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILS at line: 77 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: Const@=0(int)
+# Dest: GF@$bool1=true(bool)
+# Executing instruction: IJUMPIFEQ at line: 78 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ISUB at line: 79 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: GF@$num2=15(int)
+# Dest: GF@$num3=19(int)
+# Executing instruction: IGT at line: 80 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: GF@$num3=4(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFEQ at line: 81 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILABEL at line: 82 with following arguments:
+# Executing instruction: IGETCHAR at line: 83 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Arg2: GF@$num2=15(int)
+# Dest: GF@$char=i(string)
+# Executing instruction: ICONCAT at line: 84 with following arguments:
+# Arg1: GF@$str1=(string)
+# Arg2: GF@$char=r(string)
+# Dest: GF@$str1=(string)
+# Executing instruction: IADD at line: 85 with following arguments:
+# Arg1: GF@$counter=0(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$counter=0(int)
+# Executing instruction: IADD at line: 86 with following arguments:
+# Arg1: GF@$num2=15(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=15(int)
+# Executing instruction: IJUMPIFNEQ at line: 87 with following arguments:
+# Arg1: GF@$counter=1(int)
+# Arg2: GF@$num1=1(int)
+# Executing instruction: IJUMP at line: 88 with following arguments:
+# Executing instruction: ILABEL at line: 92 with following arguments:
+# Executing instruction: IPUSHS at line: 93 with following arguments:
+# Arg1: GF@$str1=r(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 94 with following arguments:
+# Arg1: Stack@=r(string)
+# Dest: LF@substr_res=i(string)
+# Executing instruction: IPUSHS at line: 96 with following arguments:
+# Arg1: LF@reversed=gni(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 97 with following arguments:
+# Arg1: LF@substr_res=r(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 98 with following arguments:
+# Arg1: Stack@=r(string)
+# Dest: GF@$str2=whatareversedstring(string)
+# Executing instruction: IPOPS at line: 99 with following arguments:
+# Arg1: Stack@=gni(string)
+# Dest: GF@$str1=r(string)
+# Executing instruction: ICONCAT at line: 100 with following arguments:
+# Arg1: GF@$str1=gni(string)
+# Arg2: GF@$str2=r(string)
+# Dest: GF@$str1=gni(string)
+# Executing instruction: IPUSHS at line: 101 with following arguments:
+# Arg1: GF@$str1=gnir(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 102 with following arguments:
+# Arg1: Stack@=gnir(string)
+# Dest: LF@reversed=gni(string)
+# Executing instruction: IPUSHS at line: 104 with following arguments:
+# Arg1: LF@i=3(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 105 with following arguments:
+# Arg1: Stack@=3(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 106 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 107 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IADDS at line: 108 with following arguments:
+# Arg1: Stack@=3(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 109 with following arguments:
+# Arg1: Stack@=4(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 110 with following arguments:
+# Arg1: Stack@=4(int)
+# Dest: LF@i=3(int)
+# Executing instruction: IJUMP at line: 112 with following arguments:
+# Executing instruction: ILABEL at line: 43 with following arguments:
+# Executing instruction: IPUSHS at line: 44 with following arguments:
+# Arg1: LF@i=4(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 45 with following arguments:
+# Arg1: Stack@=4(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 46 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 47 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: ILSS at line: 48 with following arguments:
+# Arg1: Stack@=4(double)
+# Arg2: Stack@=19(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 49 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 50 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 52 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 53 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 54 with following arguments:
+# Arg1: LF@i=4(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 55 with following arguments:
+# Arg1: Stack@=4(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 56 with following arguments:
+# Arg1: Stack@=19(double)
+# Arg2: Stack@=4(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 57 with following arguments:
+# Arg1: Stack@=15(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 58 with following arguments:
+# Arg1: Stack@=15(int)
+# Dest: LF@str_len_i=16(int)
+# Executing instruction: IPUSHS at line: 60 with following arguments:
+# Arg1: LF@s=whatareversedstring(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 61 with following arguments:
+# Arg1: LF@str_len_i=15(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 62 with following arguments:
+# Arg1: Stack@=15(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 63 with following arguments:
+# Arg1: Stack@=15(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 64 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 65 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 66 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 67 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: GF@$num1=1(int)
+# Executing instruction: IPOPS at line: 68 with following arguments:
+# Arg1: Stack@=15(int)
+# Dest: GF@$num2=16(int)
+# Executing instruction: ISUB at line: 69 with following arguments:
+# Arg1: GF@$num2=15(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=15(int)
+# Executing instruction: IPOPS at line: 70 with following arguments:
+# Arg1: Stack@=whatareversedstring(string)
+# Dest: GF@$str2=r(string)
+# Executing instruction: IMOVE at line: 71 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: GF@$counter=1(int)
+# Executing instruction: IMOVE at line: 72 with following arguments:
+# Arg1: Const@=(string)
+# Dest: GF@$str1=gnir(string)
+# Executing instruction: ISTRLEN at line: 73 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Dest: GF@$num3=4(int)
+# Executing instruction: IJUMPIFEQ at line: 74 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: Const@=0(int)
+# Executing instruction: IGT at line: 75 with following arguments:
+# Arg1: GF@$num2=14(int)
+# Arg2: Const@=-1(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFNEQ at line: 76 with following arguments:
+# Arg1: GF@$bool1=true(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILS at line: 77 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: Const@=0(int)
+# Dest: GF@$bool1=true(bool)
+# Executing instruction: IJUMPIFEQ at line: 78 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ISUB at line: 79 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: GF@$num2=14(int)
+# Dest: GF@$num3=19(int)
+# Executing instruction: IGT at line: 80 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: GF@$num3=5(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFEQ at line: 81 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILABEL at line: 82 with following arguments:
+# Executing instruction: IGETCHAR at line: 83 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Arg2: GF@$num2=14(int)
+# Dest: GF@$char=r(string)
+# Executing instruction: ICONCAT at line: 84 with following arguments:
+# Arg1: GF@$str1=(string)
+# Arg2: GF@$char=t(string)
+# Dest: GF@$str1=(string)
+# Executing instruction: IADD at line: 85 with following arguments:
+# Arg1: GF@$counter=0(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$counter=0(int)
+# Executing instruction: IADD at line: 86 with following arguments:
+# Arg1: GF@$num2=14(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=14(int)
+# Executing instruction: IJUMPIFNEQ at line: 87 with following arguments:
+# Arg1: GF@$counter=1(int)
+# Arg2: GF@$num1=1(int)
+# Executing instruction: IJUMP at line: 88 with following arguments:
+# Executing instruction: ILABEL at line: 92 with following arguments:
+# Executing instruction: IPUSHS at line: 93 with following arguments:
+# Arg1: GF@$str1=t(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 94 with following arguments:
+# Arg1: Stack@=t(string)
+# Dest: LF@substr_res=r(string)
+# Executing instruction: IPUSHS at line: 96 with following arguments:
+# Arg1: LF@reversed=gnir(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 97 with following arguments:
+# Arg1: LF@substr_res=t(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 98 with following arguments:
+# Arg1: Stack@=t(string)
+# Dest: GF@$str2=whatareversedstring(string)
+# Executing instruction: IPOPS at line: 99 with following arguments:
+# Arg1: Stack@=gnir(string)
+# Dest: GF@$str1=t(string)
+# Executing instruction: ICONCAT at line: 100 with following arguments:
+# Arg1: GF@$str1=gnir(string)
+# Arg2: GF@$str2=t(string)
+# Dest: GF@$str1=gnir(string)
+# Executing instruction: IPUSHS at line: 101 with following arguments:
+# Arg1: GF@$str1=gnirt(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 102 with following arguments:
+# Arg1: Stack@=gnirt(string)
+# Dest: LF@reversed=gnir(string)
+# Executing instruction: IPUSHS at line: 104 with following arguments:
+# Arg1: LF@i=4(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 105 with following arguments:
+# Arg1: Stack@=4(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 106 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 107 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IADDS at line: 108 with following arguments:
+# Arg1: Stack@=4(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 109 with following arguments:
+# Arg1: Stack@=5(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 110 with following arguments:
+# Arg1: Stack@=5(int)
+# Dest: LF@i=4(int)
+# Executing instruction: IJUMP at line: 112 with following arguments:
+# Executing instruction: ILABEL at line: 43 with following arguments:
+# Executing instruction: IPUSHS at line: 44 with following arguments:
+# Arg1: LF@i=5(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 45 with following arguments:
+# Arg1: Stack@=5(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 46 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 47 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: ILSS at line: 48 with following arguments:
+# Arg1: Stack@=5(double)
+# Arg2: Stack@=19(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 49 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 50 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 52 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 53 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 54 with following arguments:
+# Arg1: LF@i=5(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 55 with following arguments:
+# Arg1: Stack@=5(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 56 with following arguments:
+# Arg1: Stack@=19(double)
+# Arg2: Stack@=5(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 57 with following arguments:
+# Arg1: Stack@=14(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 58 with following arguments:
+# Arg1: Stack@=14(int)
+# Dest: LF@str_len_i=15(int)
+# Executing instruction: IPUSHS at line: 60 with following arguments:
+# Arg1: LF@s=whatareversedstring(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 61 with following arguments:
+# Arg1: LF@str_len_i=14(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 62 with following arguments:
+# Arg1: Stack@=14(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 63 with following arguments:
+# Arg1: Stack@=14(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 64 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 65 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 66 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 67 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: GF@$num1=1(int)
+# Executing instruction: IPOPS at line: 68 with following arguments:
+# Arg1: Stack@=14(int)
+# Dest: GF@$num2=15(int)
+# Executing instruction: ISUB at line: 69 with following arguments:
+# Arg1: GF@$num2=14(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=14(int)
+# Executing instruction: IPOPS at line: 70 with following arguments:
+# Arg1: Stack@=whatareversedstring(string)
+# Dest: GF@$str2=t(string)
+# Executing instruction: IMOVE at line: 71 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: GF@$counter=1(int)
+# Executing instruction: IMOVE at line: 72 with following arguments:
+# Arg1: Const@=(string)
+# Dest: GF@$str1=gnirt(string)
+# Executing instruction: ISTRLEN at line: 73 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Dest: GF@$num3=5(int)
+# Executing instruction: IJUMPIFEQ at line: 74 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: Const@=0(int)
+# Executing instruction: IGT at line: 75 with following arguments:
+# Arg1: GF@$num2=13(int)
+# Arg2: Const@=-1(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFNEQ at line: 76 with following arguments:
+# Arg1: GF@$bool1=true(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILS at line: 77 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: Const@=0(int)
+# Dest: GF@$bool1=true(bool)
+# Executing instruction: IJUMPIFEQ at line: 78 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ISUB at line: 79 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: GF@$num2=13(int)
+# Dest: GF@$num3=19(int)
+# Executing instruction: IGT at line: 80 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: GF@$num3=6(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFEQ at line: 81 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILABEL at line: 82 with following arguments:
+# Executing instruction: IGETCHAR at line: 83 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Arg2: GF@$num2=13(int)
+# Dest: GF@$char=t(string)
+# Executing instruction: ICONCAT at line: 84 with following arguments:
+# Arg1: GF@$str1=(string)
+# Arg2: GF@$char=s(string)
+# Dest: GF@$str1=(string)
+# Executing instruction: IADD at line: 85 with following arguments:
+# Arg1: GF@$counter=0(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$counter=0(int)
+# Executing instruction: IADD at line: 86 with following arguments:
+# Arg1: GF@$num2=13(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=13(int)
+# Executing instruction: IJUMPIFNEQ at line: 87 with following arguments:
+# Arg1: GF@$counter=1(int)
+# Arg2: GF@$num1=1(int)
+# Executing instruction: IJUMP at line: 88 with following arguments:
+# Executing instruction: ILABEL at line: 92 with following arguments:
+# Executing instruction: IPUSHS at line: 93 with following arguments:
+# Arg1: GF@$str1=s(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 94 with following arguments:
+# Arg1: Stack@=s(string)
+# Dest: LF@substr_res=t(string)
+# Executing instruction: IPUSHS at line: 96 with following arguments:
+# Arg1: LF@reversed=gnirt(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 97 with following arguments:
+# Arg1: LF@substr_res=s(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 98 with following arguments:
+# Arg1: Stack@=s(string)
+# Dest: GF@$str2=whatareversedstring(string)
+# Executing instruction: IPOPS at line: 99 with following arguments:
+# Arg1: Stack@=gnirt(string)
+# Dest: GF@$str1=s(string)
+# Executing instruction: ICONCAT at line: 100 with following arguments:
+# Arg1: GF@$str1=gnirt(string)
+# Arg2: GF@$str2=s(string)
+# Dest: GF@$str1=gnirt(string)
+# Executing instruction: IPUSHS at line: 101 with following arguments:
+# Arg1: GF@$str1=gnirts(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 102 with following arguments:
+# Arg1: Stack@=gnirts(string)
+# Dest: LF@reversed=gnirt(string)
+# Executing instruction: IPUSHS at line: 104 with following arguments:
+# Arg1: LF@i=5(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 105 with following arguments:
+# Arg1: Stack@=5(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 106 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 107 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IADDS at line: 108 with following arguments:
+# Arg1: Stack@=5(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 109 with following arguments:
+# Arg1: Stack@=6(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 110 with following arguments:
+# Arg1: Stack@=6(int)
+# Dest: LF@i=5(int)
+# Executing instruction: IJUMP at line: 112 with following arguments:
+# Executing instruction: ILABEL at line: 43 with following arguments:
+# Executing instruction: IPUSHS at line: 44 with following arguments:
+# Arg1: LF@i=6(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 45 with following arguments:
+# Arg1: Stack@=6(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 46 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 47 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: ILSS at line: 48 with following arguments:
+# Arg1: Stack@=6(double)
+# Arg2: Stack@=19(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 49 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 50 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 52 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 53 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 54 with following arguments:
+# Arg1: LF@i=6(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 55 with following arguments:
+# Arg1: Stack@=6(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 56 with following arguments:
+# Arg1: Stack@=19(double)
+# Arg2: Stack@=6(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 57 with following arguments:
+# Arg1: Stack@=13(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 58 with following arguments:
+# Arg1: Stack@=13(int)
+# Dest: LF@str_len_i=14(int)
+# Executing instruction: IPUSHS at line: 60 with following arguments:
+# Arg1: LF@s=whatareversedstring(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 61 with following arguments:
+# Arg1: LF@str_len_i=13(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 62 with following arguments:
+# Arg1: Stack@=13(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 63 with following arguments:
+# Arg1: Stack@=13(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 64 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 65 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 66 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 67 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: GF@$num1=1(int)
+# Executing instruction: IPOPS at line: 68 with following arguments:
+# Arg1: Stack@=13(int)
+# Dest: GF@$num2=14(int)
+# Executing instruction: ISUB at line: 69 with following arguments:
+# Arg1: GF@$num2=13(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=13(int)
+# Executing instruction: IPOPS at line: 70 with following arguments:
+# Arg1: Stack@=whatareversedstring(string)
+# Dest: GF@$str2=s(string)
+# Executing instruction: IMOVE at line: 71 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: GF@$counter=1(int)
+# Executing instruction: IMOVE at line: 72 with following arguments:
+# Arg1: Const@=(string)
+# Dest: GF@$str1=gnirts(string)
+# Executing instruction: ISTRLEN at line: 73 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Dest: GF@$num3=6(int)
+# Executing instruction: IJUMPIFEQ at line: 74 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: Const@=0(int)
+# Executing instruction: IGT at line: 75 with following arguments:
+# Arg1: GF@$num2=12(int)
+# Arg2: Const@=-1(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFNEQ at line: 76 with following arguments:
+# Arg1: GF@$bool1=true(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILS at line: 77 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: Const@=0(int)
+# Dest: GF@$bool1=true(bool)
+# Executing instruction: IJUMPIFEQ at line: 78 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ISUB at line: 79 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: GF@$num2=12(int)
+# Dest: GF@$num3=19(int)
+# Executing instruction: IGT at line: 80 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: GF@$num3=7(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFEQ at line: 81 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILABEL at line: 82 with following arguments:
+# Executing instruction: IGETCHAR at line: 83 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Arg2: GF@$num2=12(int)
+# Dest: GF@$char=s(string)
+# Executing instruction: ICONCAT at line: 84 with following arguments:
+# Arg1: GF@$str1=(string)
+# Arg2: GF@$char=d(string)
+# Dest: GF@$str1=(string)
+# Executing instruction: IADD at line: 85 with following arguments:
+# Arg1: GF@$counter=0(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$counter=0(int)
+# Executing instruction: IADD at line: 86 with following arguments:
+# Arg1: GF@$num2=12(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=12(int)
+# Executing instruction: IJUMPIFNEQ at line: 87 with following arguments:
+# Arg1: GF@$counter=1(int)
+# Arg2: GF@$num1=1(int)
+# Executing instruction: IJUMP at line: 88 with following arguments:
+# Executing instruction: ILABEL at line: 92 with following arguments:
+# Executing instruction: IPUSHS at line: 93 with following arguments:
+# Arg1: GF@$str1=d(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 94 with following arguments:
+# Arg1: Stack@=d(string)
+# Dest: LF@substr_res=s(string)
+# Executing instruction: IPUSHS at line: 96 with following arguments:
+# Arg1: LF@reversed=gnirts(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 97 with following arguments:
+# Arg1: LF@substr_res=d(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 98 with following arguments:
+# Arg1: Stack@=d(string)
+# Dest: GF@$str2=whatareversedstring(string)
+# Executing instruction: IPOPS at line: 99 with following arguments:
+# Arg1: Stack@=gnirts(string)
+# Dest: GF@$str1=d(string)
+# Executing instruction: ICONCAT at line: 100 with following arguments:
+# Arg1: GF@$str1=gnirts(string)
+# Arg2: GF@$str2=d(string)
+# Dest: GF@$str1=gnirts(string)
+# Executing instruction: IPUSHS at line: 101 with following arguments:
+# Arg1: GF@$str1=gnirtsd(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 102 with following arguments:
+# Arg1: Stack@=gnirtsd(string)
+# Dest: LF@reversed=gnirts(string)
+# Executing instruction: IPUSHS at line: 104 with following arguments:
+# Arg1: LF@i=6(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 105 with following arguments:
+# Arg1: Stack@=6(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 106 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 107 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IADDS at line: 108 with following arguments:
+# Arg1: Stack@=6(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 109 with following arguments:
+# Arg1: Stack@=7(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 110 with following arguments:
+# Arg1: Stack@=7(int)
+# Dest: LF@i=6(int)
+# Executing instruction: IJUMP at line: 112 with following arguments:
+# Executing instruction: ILABEL at line: 43 with following arguments:
+# Executing instruction: IPUSHS at line: 44 with following arguments:
+# Arg1: LF@i=7(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 45 with following arguments:
+# Arg1: Stack@=7(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 46 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 47 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: ILSS at line: 48 with following arguments:
+# Arg1: Stack@=7(double)
+# Arg2: Stack@=19(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 49 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 50 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 52 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 53 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 54 with following arguments:
+# Arg1: LF@i=7(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 55 with following arguments:
+# Arg1: Stack@=7(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 56 with following arguments:
+# Arg1: Stack@=19(double)
+# Arg2: Stack@=7(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 57 with following arguments:
+# Arg1: Stack@=12(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 58 with following arguments:
+# Arg1: Stack@=12(int)
+# Dest: LF@str_len_i=13(int)
+# Executing instruction: IPUSHS at line: 60 with following arguments:
+# Arg1: LF@s=whatareversedstring(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 61 with following arguments:
+# Arg1: LF@str_len_i=12(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 62 with following arguments:
+# Arg1: Stack@=12(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 63 with following arguments:
+# Arg1: Stack@=12(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 64 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 65 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 66 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 67 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: GF@$num1=1(int)
+# Executing instruction: IPOPS at line: 68 with following arguments:
+# Arg1: Stack@=12(int)
+# Dest: GF@$num2=13(int)
+# Executing instruction: ISUB at line: 69 with following arguments:
+# Arg1: GF@$num2=12(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=12(int)
+# Executing instruction: IPOPS at line: 70 with following arguments:
+# Arg1: Stack@=whatareversedstring(string)
+# Dest: GF@$str2=d(string)
+# Executing instruction: IMOVE at line: 71 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: GF@$counter=1(int)
+# Executing instruction: IMOVE at line: 72 with following arguments:
+# Arg1: Const@=(string)
+# Dest: GF@$str1=gnirtsd(string)
+# Executing instruction: ISTRLEN at line: 73 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Dest: GF@$num3=7(int)
+# Executing instruction: IJUMPIFEQ at line: 74 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: Const@=0(int)
+# Executing instruction: IGT at line: 75 with following arguments:
+# Arg1: GF@$num2=11(int)
+# Arg2: Const@=-1(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFNEQ at line: 76 with following arguments:
+# Arg1: GF@$bool1=true(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILS at line: 77 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: Const@=0(int)
+# Dest: GF@$bool1=true(bool)
+# Executing instruction: IJUMPIFEQ at line: 78 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ISUB at line: 79 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: GF@$num2=11(int)
+# Dest: GF@$num3=19(int)
+# Executing instruction: IGT at line: 80 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: GF@$num3=8(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFEQ at line: 81 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILABEL at line: 82 with following arguments:
+# Executing instruction: IGETCHAR at line: 83 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Arg2: GF@$num2=11(int)
+# Dest: GF@$char=d(string)
+# Executing instruction: ICONCAT at line: 84 with following arguments:
+# Arg1: GF@$str1=(string)
+# Arg2: GF@$char=e(string)
+# Dest: GF@$str1=(string)
+# Executing instruction: IADD at line: 85 with following arguments:
+# Arg1: GF@$counter=0(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$counter=0(int)
+# Executing instruction: IADD at line: 86 with following arguments:
+# Arg1: GF@$num2=11(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=11(int)
+# Executing instruction: IJUMPIFNEQ at line: 87 with following arguments:
+# Arg1: GF@$counter=1(int)
+# Arg2: GF@$num1=1(int)
+# Executing instruction: IJUMP at line: 88 with following arguments:
+# Executing instruction: ILABEL at line: 92 with following arguments:
+# Executing instruction: IPUSHS at line: 93 with following arguments:
+# Arg1: GF@$str1=e(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 94 with following arguments:
+# Arg1: Stack@=e(string)
+# Dest: LF@substr_res=d(string)
+# Executing instruction: IPUSHS at line: 96 with following arguments:
+# Arg1: LF@reversed=gnirtsd(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 97 with following arguments:
+# Arg1: LF@substr_res=e(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 98 with following arguments:
+# Arg1: Stack@=e(string)
+# Dest: GF@$str2=whatareversedstring(string)
+# Executing instruction: IPOPS at line: 99 with following arguments:
+# Arg1: Stack@=gnirtsd(string)
+# Dest: GF@$str1=e(string)
+# Executing instruction: ICONCAT at line: 100 with following arguments:
+# Arg1: GF@$str1=gnirtsd(string)
+# Arg2: GF@$str2=e(string)
+# Dest: GF@$str1=gnirtsd(string)
+# Executing instruction: IPUSHS at line: 101 with following arguments:
+# Arg1: GF@$str1=gnirtsde(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 102 with following arguments:
+# Arg1: Stack@=gnirtsde(string)
+# Dest: LF@reversed=gnirtsd(string)
+# Executing instruction: IPUSHS at line: 104 with following arguments:
+# Arg1: LF@i=7(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 105 with following arguments:
+# Arg1: Stack@=7(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 106 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 107 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IADDS at line: 108 with following arguments:
+# Arg1: Stack@=7(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 109 with following arguments:
+# Arg1: Stack@=8(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 110 with following arguments:
+# Arg1: Stack@=8(int)
+# Dest: LF@i=7(int)
+# Executing instruction: IJUMP at line: 112 with following arguments:
+# Executing instruction: ILABEL at line: 43 with following arguments:
+# Executing instruction: IPUSHS at line: 44 with following arguments:
+# Arg1: LF@i=8(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 45 with following arguments:
+# Arg1: Stack@=8(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 46 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 47 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: ILSS at line: 48 with following arguments:
+# Arg1: Stack@=8(double)
+# Arg2: Stack@=19(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 49 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 50 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 52 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 53 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 54 with following arguments:
+# Arg1: LF@i=8(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 55 with following arguments:
+# Arg1: Stack@=8(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 56 with following arguments:
+# Arg1: Stack@=19(double)
+# Arg2: Stack@=8(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 57 with following arguments:
+# Arg1: Stack@=11(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 58 with following arguments:
+# Arg1: Stack@=11(int)
+# Dest: LF@str_len_i=12(int)
+# Executing instruction: IPUSHS at line: 60 with following arguments:
+# Arg1: LF@s=whatareversedstring(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 61 with following arguments:
+# Arg1: LF@str_len_i=11(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 62 with following arguments:
+# Arg1: Stack@=11(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 63 with following arguments:
+# Arg1: Stack@=11(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 64 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 65 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 66 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 67 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: GF@$num1=1(int)
+# Executing instruction: IPOPS at line: 68 with following arguments:
+# Arg1: Stack@=11(int)
+# Dest: GF@$num2=12(int)
+# Executing instruction: ISUB at line: 69 with following arguments:
+# Arg1: GF@$num2=11(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=11(int)
+# Executing instruction: IPOPS at line: 70 with following arguments:
+# Arg1: Stack@=whatareversedstring(string)
+# Dest: GF@$str2=e(string)
+# Executing instruction: IMOVE at line: 71 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: GF@$counter=1(int)
+# Executing instruction: IMOVE at line: 72 with following arguments:
+# Arg1: Const@=(string)
+# Dest: GF@$str1=gnirtsde(string)
+# Executing instruction: ISTRLEN at line: 73 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Dest: GF@$num3=8(int)
+# Executing instruction: IJUMPIFEQ at line: 74 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: Const@=0(int)
+# Executing instruction: IGT at line: 75 with following arguments:
+# Arg1: GF@$num2=10(int)
+# Arg2: Const@=-1(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFNEQ at line: 76 with following arguments:
+# Arg1: GF@$bool1=true(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILS at line: 77 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: Const@=0(int)
+# Dest: GF@$bool1=true(bool)
+# Executing instruction: IJUMPIFEQ at line: 78 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ISUB at line: 79 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: GF@$num2=10(int)
+# Dest: GF@$num3=19(int)
+# Executing instruction: IGT at line: 80 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: GF@$num3=9(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFEQ at line: 81 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILABEL at line: 82 with following arguments:
+# Executing instruction: IGETCHAR at line: 83 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Arg2: GF@$num2=10(int)
+# Dest: GF@$char=e(string)
+# Executing instruction: ICONCAT at line: 84 with following arguments:
+# Arg1: GF@$str1=(string)
+# Arg2: GF@$char=s(string)
+# Dest: GF@$str1=(string)
+# Executing instruction: IADD at line: 85 with following arguments:
+# Arg1: GF@$counter=0(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$counter=0(int)
+# Executing instruction: IADD at line: 86 with following arguments:
+# Arg1: GF@$num2=10(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=10(int)
+# Executing instruction: IJUMPIFNEQ at line: 87 with following arguments:
+# Arg1: GF@$counter=1(int)
+# Arg2: GF@$num1=1(int)
+# Executing instruction: IJUMP at line: 88 with following arguments:
+# Executing instruction: ILABEL at line: 92 with following arguments:
+# Executing instruction: IPUSHS at line: 93 with following arguments:
+# Arg1: GF@$str1=s(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 94 with following arguments:
+# Arg1: Stack@=s(string)
+# Dest: LF@substr_res=e(string)
+# Executing instruction: IPUSHS at line: 96 with following arguments:
+# Arg1: LF@reversed=gnirtsde(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 97 with following arguments:
+# Arg1: LF@substr_res=s(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 98 with following arguments:
+# Arg1: Stack@=s(string)
+# Dest: GF@$str2=whatareversedstring(string)
+# Executing instruction: IPOPS at line: 99 with following arguments:
+# Arg1: Stack@=gnirtsde(string)
+# Dest: GF@$str1=s(string)
+# Executing instruction: ICONCAT at line: 100 with following arguments:
+# Arg1: GF@$str1=gnirtsde(string)
+# Arg2: GF@$str2=s(string)
+# Dest: GF@$str1=gnirtsde(string)
+# Executing instruction: IPUSHS at line: 101 with following arguments:
+# Arg1: GF@$str1=gnirtsdes(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 102 with following arguments:
+# Arg1: Stack@=gnirtsdes(string)
+# Dest: LF@reversed=gnirtsde(string)
+# Executing instruction: IPUSHS at line: 104 with following arguments:
+# Arg1: LF@i=8(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 105 with following arguments:
+# Arg1: Stack@=8(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 106 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 107 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IADDS at line: 108 with following arguments:
+# Arg1: Stack@=8(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 109 with following arguments:
+# Arg1: Stack@=9(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 110 with following arguments:
+# Arg1: Stack@=9(int)
+# Dest: LF@i=8(int)
+# Executing instruction: IJUMP at line: 112 with following arguments:
+# Executing instruction: ILABEL at line: 43 with following arguments:
+# Executing instruction: IPUSHS at line: 44 with following arguments:
+# Arg1: LF@i=9(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 45 with following arguments:
+# Arg1: Stack@=9(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 46 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 47 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: ILSS at line: 48 with following arguments:
+# Arg1: Stack@=9(double)
+# Arg2: Stack@=19(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 49 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 50 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 52 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 53 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 54 with following arguments:
+# Arg1: LF@i=9(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 55 with following arguments:
+# Arg1: Stack@=9(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 56 with following arguments:
+# Arg1: Stack@=19(double)
+# Arg2: Stack@=9(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 57 with following arguments:
+# Arg1: Stack@=10(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 58 with following arguments:
+# Arg1: Stack@=10(int)
+# Dest: LF@str_len_i=11(int)
+# Executing instruction: IPUSHS at line: 60 with following arguments:
+# Arg1: LF@s=whatareversedstring(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 61 with following arguments:
+# Arg1: LF@str_len_i=10(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 62 with following arguments:
+# Arg1: Stack@=10(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 63 with following arguments:
+# Arg1: Stack@=10(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 64 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 65 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 66 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 67 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: GF@$num1=1(int)
+# Executing instruction: IPOPS at line: 68 with following arguments:
+# Arg1: Stack@=10(int)
+# Dest: GF@$num2=11(int)
+# Executing instruction: ISUB at line: 69 with following arguments:
+# Arg1: GF@$num2=10(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=10(int)
+# Executing instruction: IPOPS at line: 70 with following arguments:
+# Arg1: Stack@=whatareversedstring(string)
+# Dest: GF@$str2=s(string)
+# Executing instruction: IMOVE at line: 71 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: GF@$counter=1(int)
+# Executing instruction: IMOVE at line: 72 with following arguments:
+# Arg1: Const@=(string)
+# Dest: GF@$str1=gnirtsdes(string)
+# Executing instruction: ISTRLEN at line: 73 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Dest: GF@$num3=9(int)
+# Executing instruction: IJUMPIFEQ at line: 74 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: Const@=0(int)
+# Executing instruction: IGT at line: 75 with following arguments:
+# Arg1: GF@$num2=9(int)
+# Arg2: Const@=-1(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFNEQ at line: 76 with following arguments:
+# Arg1: GF@$bool1=true(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILS at line: 77 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: Const@=0(int)
+# Dest: GF@$bool1=true(bool)
+# Executing instruction: IJUMPIFEQ at line: 78 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ISUB at line: 79 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: GF@$num2=9(int)
+# Dest: GF@$num3=19(int)
+# Executing instruction: IGT at line: 80 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: GF@$num3=10(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFEQ at line: 81 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILABEL at line: 82 with following arguments:
+# Executing instruction: IGETCHAR at line: 83 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Arg2: GF@$num2=9(int)
+# Dest: GF@$char=s(string)
+# Executing instruction: ICONCAT at line: 84 with following arguments:
+# Arg1: GF@$str1=(string)
+# Arg2: GF@$char=r(string)
+# Dest: GF@$str1=(string)
+# Executing instruction: IADD at line: 85 with following arguments:
+# Arg1: GF@$counter=0(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$counter=0(int)
+# Executing instruction: IADD at line: 86 with following arguments:
+# Arg1: GF@$num2=9(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=9(int)
+# Executing instruction: IJUMPIFNEQ at line: 87 with following arguments:
+# Arg1: GF@$counter=1(int)
+# Arg2: GF@$num1=1(int)
+# Executing instruction: IJUMP at line: 88 with following arguments:
+# Executing instruction: ILABEL at line: 92 with following arguments:
+# Executing instruction: IPUSHS at line: 93 with following arguments:
+# Arg1: GF@$str1=r(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 94 with following arguments:
+# Arg1: Stack@=r(string)
+# Dest: LF@substr_res=s(string)
+# Executing instruction: IPUSHS at line: 96 with following arguments:
+# Arg1: LF@reversed=gnirtsdes(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 97 with following arguments:
+# Arg1: LF@substr_res=r(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 98 with following arguments:
+# Arg1: Stack@=r(string)
+# Dest: GF@$str2=whatareversedstring(string)
+# Executing instruction: IPOPS at line: 99 with following arguments:
+# Arg1: Stack@=gnirtsdes(string)
+# Dest: GF@$str1=r(string)
+# Executing instruction: ICONCAT at line: 100 with following arguments:
+# Arg1: GF@$str1=gnirtsdes(string)
+# Arg2: GF@$str2=r(string)
+# Dest: GF@$str1=gnirtsdes(string)
+# Executing instruction: IPUSHS at line: 101 with following arguments:
+# Arg1: GF@$str1=gnirtsdesr(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 102 with following arguments:
+# Arg1: Stack@=gnirtsdesr(string)
+# Dest: LF@reversed=gnirtsdes(string)
+# Executing instruction: IPUSHS at line: 104 with following arguments:
+# Arg1: LF@i=9(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 105 with following arguments:
+# Arg1: Stack@=9(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 106 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 107 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IADDS at line: 108 with following arguments:
+# Arg1: Stack@=9(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 109 with following arguments:
+# Arg1: Stack@=10(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 110 with following arguments:
+# Arg1: Stack@=10(int)
+# Dest: LF@i=9(int)
+# Executing instruction: IJUMP at line: 112 with following arguments:
+# Executing instruction: ILABEL at line: 43 with following arguments:
+# Executing instruction: IPUSHS at line: 44 with following arguments:
+# Arg1: LF@i=10(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 45 with following arguments:
+# Arg1: Stack@=10(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 46 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 47 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: ILSS at line: 48 with following arguments:
+# Arg1: Stack@=10(double)
+# Arg2: Stack@=19(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 49 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 50 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 52 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 53 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 54 with following arguments:
+# Arg1: LF@i=10(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 55 with following arguments:
+# Arg1: Stack@=10(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 56 with following arguments:
+# Arg1: Stack@=19(double)
+# Arg2: Stack@=10(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 57 with following arguments:
+# Arg1: Stack@=9(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 58 with following arguments:
+# Arg1: Stack@=9(int)
+# Dest: LF@str_len_i=10(int)
+# Executing instruction: IPUSHS at line: 60 with following arguments:
+# Arg1: LF@s=whatareversedstring(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 61 with following arguments:
+# Arg1: LF@str_len_i=9(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 62 with following arguments:
+# Arg1: Stack@=9(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 63 with following arguments:
+# Arg1: Stack@=9(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 64 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 65 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 66 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 67 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: GF@$num1=1(int)
+# Executing instruction: IPOPS at line: 68 with following arguments:
+# Arg1: Stack@=9(int)
+# Dest: GF@$num2=10(int)
+# Executing instruction: ISUB at line: 69 with following arguments:
+# Arg1: GF@$num2=9(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=9(int)
+# Executing instruction: IPOPS at line: 70 with following arguments:
+# Arg1: Stack@=whatareversedstring(string)
+# Dest: GF@$str2=r(string)
+# Executing instruction: IMOVE at line: 71 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: GF@$counter=1(int)
+# Executing instruction: IMOVE at line: 72 with following arguments:
+# Arg1: Const@=(string)
+# Dest: GF@$str1=gnirtsdesr(string)
+# Executing instruction: ISTRLEN at line: 73 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Dest: GF@$num3=10(int)
+# Executing instruction: IJUMPIFEQ at line: 74 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: Const@=0(int)
+# Executing instruction: IGT at line: 75 with following arguments:
+# Arg1: GF@$num2=8(int)
+# Arg2: Const@=-1(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFNEQ at line: 76 with following arguments:
+# Arg1: GF@$bool1=true(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILS at line: 77 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: Const@=0(int)
+# Dest: GF@$bool1=true(bool)
+# Executing instruction: IJUMPIFEQ at line: 78 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ISUB at line: 79 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: GF@$num2=8(int)
+# Dest: GF@$num3=19(int)
+# Executing instruction: IGT at line: 80 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: GF@$num3=11(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFEQ at line: 81 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILABEL at line: 82 with following arguments:
+# Executing instruction: IGETCHAR at line: 83 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Arg2: GF@$num2=8(int)
+# Dest: GF@$char=r(string)
+# Executing instruction: ICONCAT at line: 84 with following arguments:
+# Arg1: GF@$str1=(string)
+# Arg2: GF@$char=e(string)
+# Dest: GF@$str1=(string)
+# Executing instruction: IADD at line: 85 with following arguments:
+# Arg1: GF@$counter=0(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$counter=0(int)
+# Executing instruction: IADD at line: 86 with following arguments:
+# Arg1: GF@$num2=8(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=8(int)
+# Executing instruction: IJUMPIFNEQ at line: 87 with following arguments:
+# Arg1: GF@$counter=1(int)
+# Arg2: GF@$num1=1(int)
+# Executing instruction: IJUMP at line: 88 with following arguments:
+# Executing instruction: ILABEL at line: 92 with following arguments:
+# Executing instruction: IPUSHS at line: 93 with following arguments:
+# Arg1: GF@$str1=e(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 94 with following arguments:
+# Arg1: Stack@=e(string)
+# Dest: LF@substr_res=r(string)
+# Executing instruction: IPUSHS at line: 96 with following arguments:
+# Arg1: LF@reversed=gnirtsdesr(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 97 with following arguments:
+# Arg1: LF@substr_res=e(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 98 with following arguments:
+# Arg1: Stack@=e(string)
+# Dest: GF@$str2=whatareversedstring(string)
+# Executing instruction: IPOPS at line: 99 with following arguments:
+# Arg1: Stack@=gnirtsdesr(string)
+# Dest: GF@$str1=e(string)
+# Executing instruction: ICONCAT at line: 100 with following arguments:
+# Arg1: GF@$str1=gnirtsdesr(string)
+# Arg2: GF@$str2=e(string)
+# Dest: GF@$str1=gnirtsdesr(string)
+# Executing instruction: IPUSHS at line: 101 with following arguments:
+# Arg1: GF@$str1=gnirtsdesre(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 102 with following arguments:
+# Arg1: Stack@=gnirtsdesre(string)
+# Dest: LF@reversed=gnirtsdesr(string)
+# Executing instruction: IPUSHS at line: 104 with following arguments:
+# Arg1: LF@i=10(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 105 with following arguments:
+# Arg1: Stack@=10(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 106 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 107 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IADDS at line: 108 with following arguments:
+# Arg1: Stack@=10(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 109 with following arguments:
+# Arg1: Stack@=11(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 110 with following arguments:
+# Arg1: Stack@=11(int)
+# Dest: LF@i=10(int)
+# Executing instruction: IJUMP at line: 112 with following arguments:
+# Executing instruction: ILABEL at line: 43 with following arguments:
+# Executing instruction: IPUSHS at line: 44 with following arguments:
+# Arg1: LF@i=11(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 45 with following arguments:
+# Arg1: Stack@=11(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 46 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 47 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: ILSS at line: 48 with following arguments:
+# Arg1: Stack@=11(double)
+# Arg2: Stack@=19(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 49 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 50 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 52 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 53 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 54 with following arguments:
+# Arg1: LF@i=11(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 55 with following arguments:
+# Arg1: Stack@=11(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 56 with following arguments:
+# Arg1: Stack@=19(double)
+# Arg2: Stack@=11(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 57 with following arguments:
+# Arg1: Stack@=8(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 58 with following arguments:
+# Arg1: Stack@=8(int)
+# Dest: LF@str_len_i=9(int)
+# Executing instruction: IPUSHS at line: 60 with following arguments:
+# Arg1: LF@s=whatareversedstring(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 61 with following arguments:
+# Arg1: LF@str_len_i=8(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 62 with following arguments:
+# Arg1: Stack@=8(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 63 with following arguments:
+# Arg1: Stack@=8(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 64 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 65 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 66 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 67 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: GF@$num1=1(int)
+# Executing instruction: IPOPS at line: 68 with following arguments:
+# Arg1: Stack@=8(int)
+# Dest: GF@$num2=9(int)
+# Executing instruction: ISUB at line: 69 with following arguments:
+# Arg1: GF@$num2=8(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=8(int)
+# Executing instruction: IPOPS at line: 70 with following arguments:
+# Arg1: Stack@=whatareversedstring(string)
+# Dest: GF@$str2=e(string)
+# Executing instruction: IMOVE at line: 71 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: GF@$counter=1(int)
+# Executing instruction: IMOVE at line: 72 with following arguments:
+# Arg1: Const@=(string)
+# Dest: GF@$str1=gnirtsdesre(string)
+# Executing instruction: ISTRLEN at line: 73 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Dest: GF@$num3=11(int)
+# Executing instruction: IJUMPIFEQ at line: 74 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: Const@=0(int)
+# Executing instruction: IGT at line: 75 with following arguments:
+# Arg1: GF@$num2=7(int)
+# Arg2: Const@=-1(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFNEQ at line: 76 with following arguments:
+# Arg1: GF@$bool1=true(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILS at line: 77 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: Const@=0(int)
+# Dest: GF@$bool1=true(bool)
+# Executing instruction: IJUMPIFEQ at line: 78 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ISUB at line: 79 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: GF@$num2=7(int)
+# Dest: GF@$num3=19(int)
+# Executing instruction: IGT at line: 80 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: GF@$num3=12(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFEQ at line: 81 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILABEL at line: 82 with following arguments:
+# Executing instruction: IGETCHAR at line: 83 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Arg2: GF@$num2=7(int)
+# Dest: GF@$char=e(string)
+# Executing instruction: ICONCAT at line: 84 with following arguments:
+# Arg1: GF@$str1=(string)
+# Arg2: GF@$char=v(string)
+# Dest: GF@$str1=(string)
+# Executing instruction: IADD at line: 85 with following arguments:
+# Arg1: GF@$counter=0(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$counter=0(int)
+# Executing instruction: IADD at line: 86 with following arguments:
+# Arg1: GF@$num2=7(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=7(int)
+# Executing instruction: IJUMPIFNEQ at line: 87 with following arguments:
+# Arg1: GF@$counter=1(int)
+# Arg2: GF@$num1=1(int)
+# Executing instruction: IJUMP at line: 88 with following arguments:
+# Executing instruction: ILABEL at line: 92 with following arguments:
+# Executing instruction: IPUSHS at line: 93 with following arguments:
+# Arg1: GF@$str1=v(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 94 with following arguments:
+# Arg1: Stack@=v(string)
+# Dest: LF@substr_res=e(string)
+# Executing instruction: IPUSHS at line: 96 with following arguments:
+# Arg1: LF@reversed=gnirtsdesre(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 97 with following arguments:
+# Arg1: LF@substr_res=v(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 98 with following arguments:
+# Arg1: Stack@=v(string)
+# Dest: GF@$str2=whatareversedstring(string)
+# Executing instruction: IPOPS at line: 99 with following arguments:
+# Arg1: Stack@=gnirtsdesre(string)
+# Dest: GF@$str1=v(string)
+# Executing instruction: ICONCAT at line: 100 with following arguments:
+# Arg1: GF@$str1=gnirtsdesre(string)
+# Arg2: GF@$str2=v(string)
+# Dest: GF@$str1=gnirtsdesre(string)
+# Executing instruction: IPUSHS at line: 101 with following arguments:
+# Arg1: GF@$str1=gnirtsdesrev(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 102 with following arguments:
+# Arg1: Stack@=gnirtsdesrev(string)
+# Dest: LF@reversed=gnirtsdesre(string)
+# Executing instruction: IPUSHS at line: 104 with following arguments:
+# Arg1: LF@i=11(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 105 with following arguments:
+# Arg1: Stack@=11(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 106 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 107 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IADDS at line: 108 with following arguments:
+# Arg1: Stack@=11(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 109 with following arguments:
+# Arg1: Stack@=12(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 110 with following arguments:
+# Arg1: Stack@=12(int)
+# Dest: LF@i=11(int)
+# Executing instruction: IJUMP at line: 112 with following arguments:
+# Executing instruction: ILABEL at line: 43 with following arguments:
+# Executing instruction: IPUSHS at line: 44 with following arguments:
+# Arg1: LF@i=12(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 45 with following arguments:
+# Arg1: Stack@=12(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 46 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 47 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: ILSS at line: 48 with following arguments:
+# Arg1: Stack@=12(double)
+# Arg2: Stack@=19(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 49 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 50 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 52 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 53 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 54 with following arguments:
+# Arg1: LF@i=12(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 55 with following arguments:
+# Arg1: Stack@=12(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 56 with following arguments:
+# Arg1: Stack@=19(double)
+# Arg2: Stack@=12(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 57 with following arguments:
+# Arg1: Stack@=7(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 58 with following arguments:
+# Arg1: Stack@=7(int)
+# Dest: LF@str_len_i=8(int)
+# Executing instruction: IPUSHS at line: 60 with following arguments:
+# Arg1: LF@s=whatareversedstring(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 61 with following arguments:
+# Arg1: LF@str_len_i=7(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 62 with following arguments:
+# Arg1: Stack@=7(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 63 with following arguments:
+# Arg1: Stack@=7(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 64 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 65 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 66 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 67 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: GF@$num1=1(int)
+# Executing instruction: IPOPS at line: 68 with following arguments:
+# Arg1: Stack@=7(int)
+# Dest: GF@$num2=8(int)
+# Executing instruction: ISUB at line: 69 with following arguments:
+# Arg1: GF@$num2=7(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=7(int)
+# Executing instruction: IPOPS at line: 70 with following arguments:
+# Arg1: Stack@=whatareversedstring(string)
+# Dest: GF@$str2=v(string)
+# Executing instruction: IMOVE at line: 71 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: GF@$counter=1(int)
+# Executing instruction: IMOVE at line: 72 with following arguments:
+# Arg1: Const@=(string)
+# Dest: GF@$str1=gnirtsdesrev(string)
+# Executing instruction: ISTRLEN at line: 73 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Dest: GF@$num3=12(int)
+# Executing instruction: IJUMPIFEQ at line: 74 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: Const@=0(int)
+# Executing instruction: IGT at line: 75 with following arguments:
+# Arg1: GF@$num2=6(int)
+# Arg2: Const@=-1(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFNEQ at line: 76 with following arguments:
+# Arg1: GF@$bool1=true(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILS at line: 77 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: Const@=0(int)
+# Dest: GF@$bool1=true(bool)
+# Executing instruction: IJUMPIFEQ at line: 78 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ISUB at line: 79 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: GF@$num2=6(int)
+# Dest: GF@$num3=19(int)
+# Executing instruction: IGT at line: 80 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: GF@$num3=13(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFEQ at line: 81 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILABEL at line: 82 with following arguments:
+# Executing instruction: IGETCHAR at line: 83 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Arg2: GF@$num2=6(int)
+# Dest: GF@$char=v(string)
+# Executing instruction: ICONCAT at line: 84 with following arguments:
+# Arg1: GF@$str1=(string)
+# Arg2: GF@$char=e(string)
+# Dest: GF@$str1=(string)
+# Executing instruction: IADD at line: 85 with following arguments:
+# Arg1: GF@$counter=0(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$counter=0(int)
+# Executing instruction: IADD at line: 86 with following arguments:
+# Arg1: GF@$num2=6(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=6(int)
+# Executing instruction: IJUMPIFNEQ at line: 87 with following arguments:
+# Arg1: GF@$counter=1(int)
+# Arg2: GF@$num1=1(int)
+# Executing instruction: IJUMP at line: 88 with following arguments:
+# Executing instruction: ILABEL at line: 92 with following arguments:
+# Executing instruction: IPUSHS at line: 93 with following arguments:
+# Arg1: GF@$str1=e(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 94 with following arguments:
+# Arg1: Stack@=e(string)
+# Dest: LF@substr_res=v(string)
+# Executing instruction: IPUSHS at line: 96 with following arguments:
+# Arg1: LF@reversed=gnirtsdesrev(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 97 with following arguments:
+# Arg1: LF@substr_res=e(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 98 with following arguments:
+# Arg1: Stack@=e(string)
+# Dest: GF@$str2=whatareversedstring(string)
+# Executing instruction: IPOPS at line: 99 with following arguments:
+# Arg1: Stack@=gnirtsdesrev(string)
+# Dest: GF@$str1=e(string)
+# Executing instruction: ICONCAT at line: 100 with following arguments:
+# Arg1: GF@$str1=gnirtsdesrev(string)
+# Arg2: GF@$str2=e(string)
+# Dest: GF@$str1=gnirtsdesrev(string)
+# Executing instruction: IPUSHS at line: 101 with following arguments:
+# Arg1: GF@$str1=gnirtsdesreve(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 102 with following arguments:
+# Arg1: Stack@=gnirtsdesreve(string)
+# Dest: LF@reversed=gnirtsdesrev(string)
+# Executing instruction: IPUSHS at line: 104 with following arguments:
+# Arg1: LF@i=12(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 105 with following arguments:
+# Arg1: Stack@=12(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 106 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 107 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IADDS at line: 108 with following arguments:
+# Arg1: Stack@=12(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 109 with following arguments:
+# Arg1: Stack@=13(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 110 with following arguments:
+# Arg1: Stack@=13(int)
+# Dest: LF@i=12(int)
+# Executing instruction: IJUMP at line: 112 with following arguments:
+# Executing instruction: ILABEL at line: 43 with following arguments:
+# Executing instruction: IPUSHS at line: 44 with following arguments:
+# Arg1: LF@i=13(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 45 with following arguments:
+# Arg1: Stack@=13(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 46 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 47 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: ILSS at line: 48 with following arguments:
+# Arg1: Stack@=13(double)
+# Arg2: Stack@=19(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 49 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 50 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 52 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 53 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 54 with following arguments:
+# Arg1: LF@i=13(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 55 with following arguments:
+# Arg1: Stack@=13(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 56 with following arguments:
+# Arg1: Stack@=19(double)
+# Arg2: Stack@=13(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 57 with following arguments:
+# Arg1: Stack@=6(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 58 with following arguments:
+# Arg1: Stack@=6(int)
+# Dest: LF@str_len_i=7(int)
+# Executing instruction: IPUSHS at line: 60 with following arguments:
+# Arg1: LF@s=whatareversedstring(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 61 with following arguments:
+# Arg1: LF@str_len_i=6(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 62 with following arguments:
+# Arg1: Stack@=6(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 63 with following arguments:
+# Arg1: Stack@=6(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 64 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 65 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 66 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 67 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: GF@$num1=1(int)
+# Executing instruction: IPOPS at line: 68 with following arguments:
+# Arg1: Stack@=6(int)
+# Dest: GF@$num2=7(int)
+# Executing instruction: ISUB at line: 69 with following arguments:
+# Arg1: GF@$num2=6(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=6(int)
+# Executing instruction: IPOPS at line: 70 with following arguments:
+# Arg1: Stack@=whatareversedstring(string)
+# Dest: GF@$str2=e(string)
+# Executing instruction: IMOVE at line: 71 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: GF@$counter=1(int)
+# Executing instruction: IMOVE at line: 72 with following arguments:
+# Arg1: Const@=(string)
+# Dest: GF@$str1=gnirtsdesreve(string)
+# Executing instruction: ISTRLEN at line: 73 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Dest: GF@$num3=13(int)
+# Executing instruction: IJUMPIFEQ at line: 74 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: Const@=0(int)
+# Executing instruction: IGT at line: 75 with following arguments:
+# Arg1: GF@$num2=5(int)
+# Arg2: Const@=-1(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFNEQ at line: 76 with following arguments:
+# Arg1: GF@$bool1=true(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILS at line: 77 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: Const@=0(int)
+# Dest: GF@$bool1=true(bool)
+# Executing instruction: IJUMPIFEQ at line: 78 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ISUB at line: 79 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: GF@$num2=5(int)
+# Dest: GF@$num3=19(int)
+# Executing instruction: IGT at line: 80 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: GF@$num3=14(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFEQ at line: 81 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILABEL at line: 82 with following arguments:
+# Executing instruction: IGETCHAR at line: 83 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Arg2: GF@$num2=5(int)
+# Dest: GF@$char=e(string)
+# Executing instruction: ICONCAT at line: 84 with following arguments:
+# Arg1: GF@$str1=(string)
+# Arg2: GF@$char=r(string)
+# Dest: GF@$str1=(string)
+# Executing instruction: IADD at line: 85 with following arguments:
+# Arg1: GF@$counter=0(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$counter=0(int)
+# Executing instruction: IADD at line: 86 with following arguments:
+# Arg1: GF@$num2=5(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=5(int)
+# Executing instruction: IJUMPIFNEQ at line: 87 with following arguments:
+# Arg1: GF@$counter=1(int)
+# Arg2: GF@$num1=1(int)
+# Executing instruction: IJUMP at line: 88 with following arguments:
+# Executing instruction: ILABEL at line: 92 with following arguments:
+# Executing instruction: IPUSHS at line: 93 with following arguments:
+# Arg1: GF@$str1=r(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 94 with following arguments:
+# Arg1: Stack@=r(string)
+# Dest: LF@substr_res=e(string)
+# Executing instruction: IPUSHS at line: 96 with following arguments:
+# Arg1: LF@reversed=gnirtsdesreve(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 97 with following arguments:
+# Arg1: LF@substr_res=r(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 98 with following arguments:
+# Arg1: Stack@=r(string)
+# Dest: GF@$str2=whatareversedstring(string)
+# Executing instruction: IPOPS at line: 99 with following arguments:
+# Arg1: Stack@=gnirtsdesreve(string)
+# Dest: GF@$str1=r(string)
+# Executing instruction: ICONCAT at line: 100 with following arguments:
+# Arg1: GF@$str1=gnirtsdesreve(string)
+# Arg2: GF@$str2=r(string)
+# Dest: GF@$str1=gnirtsdesreve(string)
+# Executing instruction: IPUSHS at line: 101 with following arguments:
+# Arg1: GF@$str1=gnirtsdesrever(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 102 with following arguments:
+# Arg1: Stack@=gnirtsdesrever(string)
+# Dest: LF@reversed=gnirtsdesreve(string)
+# Executing instruction: IPUSHS at line: 104 with following arguments:
+# Arg1: LF@i=13(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 105 with following arguments:
+# Arg1: Stack@=13(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 106 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 107 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IADDS at line: 108 with following arguments:
+# Arg1: Stack@=13(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 109 with following arguments:
+# Arg1: Stack@=14(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 110 with following arguments:
+# Arg1: Stack@=14(int)
+# Dest: LF@i=13(int)
+# Executing instruction: IJUMP at line: 112 with following arguments:
+# Executing instruction: ILABEL at line: 43 with following arguments:
+# Executing instruction: IPUSHS at line: 44 with following arguments:
+# Arg1: LF@i=14(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 45 with following arguments:
+# Arg1: Stack@=14(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 46 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 47 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: ILSS at line: 48 with following arguments:
+# Arg1: Stack@=14(double)
+# Arg2: Stack@=19(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 49 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 50 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 52 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 53 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 54 with following arguments:
+# Arg1: LF@i=14(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 55 with following arguments:
+# Arg1: Stack@=14(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 56 with following arguments:
+# Arg1: Stack@=19(double)
+# Arg2: Stack@=14(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 57 with following arguments:
+# Arg1: Stack@=5(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 58 with following arguments:
+# Arg1: Stack@=5(int)
+# Dest: LF@str_len_i=6(int)
+# Executing instruction: IPUSHS at line: 60 with following arguments:
+# Arg1: LF@s=whatareversedstring(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 61 with following arguments:
+# Arg1: LF@str_len_i=5(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 62 with following arguments:
+# Arg1: Stack@=5(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 63 with following arguments:
+# Arg1: Stack@=5(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 64 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 65 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 66 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 67 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: GF@$num1=1(int)
+# Executing instruction: IPOPS at line: 68 with following arguments:
+# Arg1: Stack@=5(int)
+# Dest: GF@$num2=6(int)
+# Executing instruction: ISUB at line: 69 with following arguments:
+# Arg1: GF@$num2=5(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=5(int)
+# Executing instruction: IPOPS at line: 70 with following arguments:
+# Arg1: Stack@=whatareversedstring(string)
+# Dest: GF@$str2=r(string)
+# Executing instruction: IMOVE at line: 71 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: GF@$counter=1(int)
+# Executing instruction: IMOVE at line: 72 with following arguments:
+# Arg1: Const@=(string)
+# Dest: GF@$str1=gnirtsdesrever(string)
+# Executing instruction: ISTRLEN at line: 73 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Dest: GF@$num3=14(int)
+# Executing instruction: IJUMPIFEQ at line: 74 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: Const@=0(int)
+# Executing instruction: IGT at line: 75 with following arguments:
+# Arg1: GF@$num2=4(int)
+# Arg2: Const@=-1(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFNEQ at line: 76 with following arguments:
+# Arg1: GF@$bool1=true(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILS at line: 77 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: Const@=0(int)
+# Dest: GF@$bool1=true(bool)
+# Executing instruction: IJUMPIFEQ at line: 78 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ISUB at line: 79 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: GF@$num2=4(int)
+# Dest: GF@$num3=19(int)
+# Executing instruction: IGT at line: 80 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: GF@$num3=15(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFEQ at line: 81 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILABEL at line: 82 with following arguments:
+# Executing instruction: IGETCHAR at line: 83 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Arg2: GF@$num2=4(int)
+# Dest: GF@$char=r(string)
+# Executing instruction: ICONCAT at line: 84 with following arguments:
+# Arg1: GF@$str1=(string)
+# Arg2: GF@$char=a(string)
+# Dest: GF@$str1=(string)
+# Executing instruction: IADD at line: 85 with following arguments:
+# Arg1: GF@$counter=0(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$counter=0(int)
+# Executing instruction: IADD at line: 86 with following arguments:
+# Arg1: GF@$num2=4(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=4(int)
+# Executing instruction: IJUMPIFNEQ at line: 87 with following arguments:
+# Arg1: GF@$counter=1(int)
+# Arg2: GF@$num1=1(int)
+# Executing instruction: IJUMP at line: 88 with following arguments:
+# Executing instruction: ILABEL at line: 92 with following arguments:
+# Executing instruction: IPUSHS at line: 93 with following arguments:
+# Arg1: GF@$str1=a(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 94 with following arguments:
+# Arg1: Stack@=a(string)
+# Dest: LF@substr_res=r(string)
+# Executing instruction: IPUSHS at line: 96 with following arguments:
+# Arg1: LF@reversed=gnirtsdesrever(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 97 with following arguments:
+# Arg1: LF@substr_res=a(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 98 with following arguments:
+# Arg1: Stack@=a(string)
+# Dest: GF@$str2=whatareversedstring(string)
+# Executing instruction: IPOPS at line: 99 with following arguments:
+# Arg1: Stack@=gnirtsdesrever(string)
+# Dest: GF@$str1=a(string)
+# Executing instruction: ICONCAT at line: 100 with following arguments:
+# Arg1: GF@$str1=gnirtsdesrever(string)
+# Arg2: GF@$str2=a(string)
+# Dest: GF@$str1=gnirtsdesrever(string)
+# Executing instruction: IPUSHS at line: 101 with following arguments:
+# Arg1: GF@$str1=gnirtsdesrevera(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 102 with following arguments:
+# Arg1: Stack@=gnirtsdesrevera(string)
+# Dest: LF@reversed=gnirtsdesrever(string)
+# Executing instruction: IPUSHS at line: 104 with following arguments:
+# Arg1: LF@i=14(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 105 with following arguments:
+# Arg1: Stack@=14(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 106 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 107 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IADDS at line: 108 with following arguments:
+# Arg1: Stack@=14(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 109 with following arguments:
+# Arg1: Stack@=15(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 110 with following arguments:
+# Arg1: Stack@=15(int)
+# Dest: LF@i=14(int)
+# Executing instruction: IJUMP at line: 112 with following arguments:
+# Executing instruction: ILABEL at line: 43 with following arguments:
+# Executing instruction: IPUSHS at line: 44 with following arguments:
+# Arg1: LF@i=15(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 45 with following arguments:
+# Arg1: Stack@=15(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 46 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 47 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: ILSS at line: 48 with following arguments:
+# Arg1: Stack@=15(double)
+# Arg2: Stack@=19(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 49 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 50 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 52 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 53 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 54 with following arguments:
+# Arg1: LF@i=15(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 55 with following arguments:
+# Arg1: Stack@=15(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 56 with following arguments:
+# Arg1: Stack@=19(double)
+# Arg2: Stack@=15(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 57 with following arguments:
+# Arg1: Stack@=4(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 58 with following arguments:
+# Arg1: Stack@=4(int)
+# Dest: LF@str_len_i=5(int)
+# Executing instruction: IPUSHS at line: 60 with following arguments:
+# Arg1: LF@s=whatareversedstring(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 61 with following arguments:
+# Arg1: LF@str_len_i=4(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 62 with following arguments:
+# Arg1: Stack@=4(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 63 with following arguments:
+# Arg1: Stack@=4(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 64 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 65 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 66 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 67 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: GF@$num1=1(int)
+# Executing instruction: IPOPS at line: 68 with following arguments:
+# Arg1: Stack@=4(int)
+# Dest: GF@$num2=5(int)
+# Executing instruction: ISUB at line: 69 with following arguments:
+# Arg1: GF@$num2=4(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=4(int)
+# Executing instruction: IPOPS at line: 70 with following arguments:
+# Arg1: Stack@=whatareversedstring(string)
+# Dest: GF@$str2=a(string)
+# Executing instruction: IMOVE at line: 71 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: GF@$counter=1(int)
+# Executing instruction: IMOVE at line: 72 with following arguments:
+# Arg1: Const@=(string)
+# Dest: GF@$str1=gnirtsdesrevera(string)
+# Executing instruction: ISTRLEN at line: 73 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Dest: GF@$num3=15(int)
+# Executing instruction: IJUMPIFEQ at line: 74 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: Const@=0(int)
+# Executing instruction: IGT at line: 75 with following arguments:
+# Arg1: GF@$num2=3(int)
+# Arg2: Const@=-1(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFNEQ at line: 76 with following arguments:
+# Arg1: GF@$bool1=true(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILS at line: 77 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: Const@=0(int)
+# Dest: GF@$bool1=true(bool)
+# Executing instruction: IJUMPIFEQ at line: 78 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ISUB at line: 79 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: GF@$num2=3(int)
+# Dest: GF@$num3=19(int)
+# Executing instruction: IGT at line: 80 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: GF@$num3=16(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFEQ at line: 81 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILABEL at line: 82 with following arguments:
+# Executing instruction: IGETCHAR at line: 83 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Arg2: GF@$num2=3(int)
+# Dest: GF@$char=a(string)
+# Executing instruction: ICONCAT at line: 84 with following arguments:
+# Arg1: GF@$str1=(string)
+# Arg2: GF@$char=t(string)
+# Dest: GF@$str1=(string)
+# Executing instruction: IADD at line: 85 with following arguments:
+# Arg1: GF@$counter=0(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$counter=0(int)
+# Executing instruction: IADD at line: 86 with following arguments:
+# Arg1: GF@$num2=3(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=3(int)
+# Executing instruction: IJUMPIFNEQ at line: 87 with following arguments:
+# Arg1: GF@$counter=1(int)
+# Arg2: GF@$num1=1(int)
+# Executing instruction: IJUMP at line: 88 with following arguments:
+# Executing instruction: ILABEL at line: 92 with following arguments:
+# Executing instruction: IPUSHS at line: 93 with following arguments:
+# Arg1: GF@$str1=t(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 94 with following arguments:
+# Arg1: Stack@=t(string)
+# Dest: LF@substr_res=a(string)
+# Executing instruction: IPUSHS at line: 96 with following arguments:
+# Arg1: LF@reversed=gnirtsdesrevera(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 97 with following arguments:
+# Arg1: LF@substr_res=t(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 98 with following arguments:
+# Arg1: Stack@=t(string)
+# Dest: GF@$str2=whatareversedstring(string)
+# Executing instruction: IPOPS at line: 99 with following arguments:
+# Arg1: Stack@=gnirtsdesrevera(string)
+# Dest: GF@$str1=t(string)
+# Executing instruction: ICONCAT at line: 100 with following arguments:
+# Arg1: GF@$str1=gnirtsdesrevera(string)
+# Arg2: GF@$str2=t(string)
+# Dest: GF@$str1=gnirtsdesrevera(string)
+# Executing instruction: IPUSHS at line: 101 with following arguments:
+# Arg1: GF@$str1=gnirtsdesreverat(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 102 with following arguments:
+# Arg1: Stack@=gnirtsdesreverat(string)
+# Dest: LF@reversed=gnirtsdesrevera(string)
+# Executing instruction: IPUSHS at line: 104 with following arguments:
+# Arg1: LF@i=15(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 105 with following arguments:
+# Arg1: Stack@=15(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 106 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 107 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IADDS at line: 108 with following arguments:
+# Arg1: Stack@=15(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 109 with following arguments:
+# Arg1: Stack@=16(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 110 with following arguments:
+# Arg1: Stack@=16(int)
+# Dest: LF@i=15(int)
+# Executing instruction: IJUMP at line: 112 with following arguments:
+# Executing instruction: ILABEL at line: 43 with following arguments:
+# Executing instruction: IPUSHS at line: 44 with following arguments:
+# Arg1: LF@i=16(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 45 with following arguments:
+# Arg1: Stack@=16(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 46 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 47 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: ILSS at line: 48 with following arguments:
+# Arg1: Stack@=16(double)
+# Arg2: Stack@=19(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 49 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 50 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 52 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 53 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 54 with following arguments:
+# Arg1: LF@i=16(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 55 with following arguments:
+# Arg1: Stack@=16(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 56 with following arguments:
+# Arg1: Stack@=19(double)
+# Arg2: Stack@=16(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 57 with following arguments:
+# Arg1: Stack@=3(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 58 with following arguments:
+# Arg1: Stack@=3(int)
+# Dest: LF@str_len_i=4(int)
+# Executing instruction: IPUSHS at line: 60 with following arguments:
+# Arg1: LF@s=whatareversedstring(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 61 with following arguments:
+# Arg1: LF@str_len_i=3(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 62 with following arguments:
+# Arg1: Stack@=3(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 63 with following arguments:
+# Arg1: Stack@=3(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 64 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 65 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 66 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 67 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: GF@$num1=1(int)
+# Executing instruction: IPOPS at line: 68 with following arguments:
+# Arg1: Stack@=3(int)
+# Dest: GF@$num2=4(int)
+# Executing instruction: ISUB at line: 69 with following arguments:
+# Arg1: GF@$num2=3(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=3(int)
+# Executing instruction: IPOPS at line: 70 with following arguments:
+# Arg1: Stack@=whatareversedstring(string)
+# Dest: GF@$str2=t(string)
+# Executing instruction: IMOVE at line: 71 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: GF@$counter=1(int)
+# Executing instruction: IMOVE at line: 72 with following arguments:
+# Arg1: Const@=(string)
+# Dest: GF@$str1=gnirtsdesreverat(string)
+# Executing instruction: ISTRLEN at line: 73 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Dest: GF@$num3=16(int)
+# Executing instruction: IJUMPIFEQ at line: 74 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: Const@=0(int)
+# Executing instruction: IGT at line: 75 with following arguments:
+# Arg1: GF@$num2=2(int)
+# Arg2: Const@=-1(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFNEQ at line: 76 with following arguments:
+# Arg1: GF@$bool1=true(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILS at line: 77 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: Const@=0(int)
+# Dest: GF@$bool1=true(bool)
+# Executing instruction: IJUMPIFEQ at line: 78 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ISUB at line: 79 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: GF@$num2=2(int)
+# Dest: GF@$num3=19(int)
+# Executing instruction: IGT at line: 80 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: GF@$num3=17(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFEQ at line: 81 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILABEL at line: 82 with following arguments:
+# Executing instruction: IGETCHAR at line: 83 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Arg2: GF@$num2=2(int)
+# Dest: GF@$char=t(string)
+# Executing instruction: ICONCAT at line: 84 with following arguments:
+# Arg1: GF@$str1=(string)
+# Arg2: GF@$char=a(string)
+# Dest: GF@$str1=(string)
+# Executing instruction: IADD at line: 85 with following arguments:
+# Arg1: GF@$counter=0(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$counter=0(int)
+# Executing instruction: IADD at line: 86 with following arguments:
+# Arg1: GF@$num2=2(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=2(int)
+# Executing instruction: IJUMPIFNEQ at line: 87 with following arguments:
+# Arg1: GF@$counter=1(int)
+# Arg2: GF@$num1=1(int)
+# Executing instruction: IJUMP at line: 88 with following arguments:
+# Executing instruction: ILABEL at line: 92 with following arguments:
+# Executing instruction: IPUSHS at line: 93 with following arguments:
+# Arg1: GF@$str1=a(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 94 with following arguments:
+# Arg1: Stack@=a(string)
+# Dest: LF@substr_res=t(string)
+# Executing instruction: IPUSHS at line: 96 with following arguments:
+# Arg1: LF@reversed=gnirtsdesreverat(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 97 with following arguments:
+# Arg1: LF@substr_res=a(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 98 with following arguments:
+# Arg1: Stack@=a(string)
+# Dest: GF@$str2=whatareversedstring(string)
+# Executing instruction: IPOPS at line: 99 with following arguments:
+# Arg1: Stack@=gnirtsdesreverat(string)
+# Dest: GF@$str1=a(string)
+# Executing instruction: ICONCAT at line: 100 with following arguments:
+# Arg1: GF@$str1=gnirtsdesreverat(string)
+# Arg2: GF@$str2=a(string)
+# Dest: GF@$str1=gnirtsdesreverat(string)
+# Executing instruction: IPUSHS at line: 101 with following arguments:
+# Arg1: GF@$str1=gnirtsdesreverata(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 102 with following arguments:
+# Arg1: Stack@=gnirtsdesreverata(string)
+# Dest: LF@reversed=gnirtsdesreverat(string)
+# Executing instruction: IPUSHS at line: 104 with following arguments:
+# Arg1: LF@i=16(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 105 with following arguments:
+# Arg1: Stack@=16(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 106 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 107 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IADDS at line: 108 with following arguments:
+# Arg1: Stack@=16(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 109 with following arguments:
+# Arg1: Stack@=17(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 110 with following arguments:
+# Arg1: Stack@=17(int)
+# Dest: LF@i=16(int)
+# Executing instruction: IJUMP at line: 112 with following arguments:
+# Executing instruction: ILABEL at line: 43 with following arguments:
+# Executing instruction: IPUSHS at line: 44 with following arguments:
+# Arg1: LF@i=17(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 45 with following arguments:
+# Arg1: Stack@=17(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 46 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 47 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: ILSS at line: 48 with following arguments:
+# Arg1: Stack@=17(double)
+# Arg2: Stack@=19(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 49 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 50 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 52 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 53 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 54 with following arguments:
+# Arg1: LF@i=17(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 55 with following arguments:
+# Arg1: Stack@=17(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 56 with following arguments:
+# Arg1: Stack@=19(double)
+# Arg2: Stack@=17(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 57 with following arguments:
+# Arg1: Stack@=2(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 58 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: LF@str_len_i=3(int)
+# Executing instruction: IPUSHS at line: 60 with following arguments:
+# Arg1: LF@s=whatareversedstring(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 61 with following arguments:
+# Arg1: LF@str_len_i=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 62 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 63 with following arguments:
+# Arg1: Stack@=2(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 64 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 65 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 66 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 67 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: GF@$num1=1(int)
+# Executing instruction: IPOPS at line: 68 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: GF@$num2=3(int)
+# Executing instruction: ISUB at line: 69 with following arguments:
+# Arg1: GF@$num2=2(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=2(int)
+# Executing instruction: IPOPS at line: 70 with following arguments:
+# Arg1: Stack@=whatareversedstring(string)
+# Dest: GF@$str2=a(string)
+# Executing instruction: IMOVE at line: 71 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: GF@$counter=1(int)
+# Executing instruction: IMOVE at line: 72 with following arguments:
+# Arg1: Const@=(string)
+# Dest: GF@$str1=gnirtsdesreverata(string)
+# Executing instruction: ISTRLEN at line: 73 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Dest: GF@$num3=17(int)
+# Executing instruction: IJUMPIFEQ at line: 74 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: Const@=0(int)
+# Executing instruction: IGT at line: 75 with following arguments:
+# Arg1: GF@$num2=1(int)
+# Arg2: Const@=-1(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFNEQ at line: 76 with following arguments:
+# Arg1: GF@$bool1=true(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILS at line: 77 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: Const@=0(int)
+# Dest: GF@$bool1=true(bool)
+# Executing instruction: IJUMPIFEQ at line: 78 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ISUB at line: 79 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: GF@$num2=1(int)
+# Dest: GF@$num3=19(int)
+# Executing instruction: IGT at line: 80 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: GF@$num3=18(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFEQ at line: 81 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILABEL at line: 82 with following arguments:
+# Executing instruction: IGETCHAR at line: 83 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Arg2: GF@$num2=1(int)
+# Dest: GF@$char=a(string)
+# Executing instruction: ICONCAT at line: 84 with following arguments:
+# Arg1: GF@$str1=(string)
+# Arg2: GF@$char=h(string)
+# Dest: GF@$str1=(string)
+# Executing instruction: IADD at line: 85 with following arguments:
+# Arg1: GF@$counter=0(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$counter=0(int)
+# Executing instruction: IADD at line: 86 with following arguments:
+# Arg1: GF@$num2=1(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=1(int)
+# Executing instruction: IJUMPIFNEQ at line: 87 with following arguments:
+# Arg1: GF@$counter=1(int)
+# Arg2: GF@$num1=1(int)
+# Executing instruction: IJUMP at line: 88 with following arguments:
+# Executing instruction: ILABEL at line: 92 with following arguments:
+# Executing instruction: IPUSHS at line: 93 with following arguments:
+# Arg1: GF@$str1=h(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 94 with following arguments:
+# Arg1: Stack@=h(string)
+# Dest: LF@substr_res=a(string)
+# Executing instruction: IPUSHS at line: 96 with following arguments:
+# Arg1: LF@reversed=gnirtsdesreverata(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 97 with following arguments:
+# Arg1: LF@substr_res=h(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 98 with following arguments:
+# Arg1: Stack@=h(string)
+# Dest: GF@$str2=whatareversedstring(string)
+# Executing instruction: IPOPS at line: 99 with following arguments:
+# Arg1: Stack@=gnirtsdesreverata(string)
+# Dest: GF@$str1=h(string)
+# Executing instruction: ICONCAT at line: 100 with following arguments:
+# Arg1: GF@$str1=gnirtsdesreverata(string)
+# Arg2: GF@$str2=h(string)
+# Dest: GF@$str1=gnirtsdesreverata(string)
+# Executing instruction: IPUSHS at line: 101 with following arguments:
+# Arg1: GF@$str1=gnirtsdesreveratah(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 102 with following arguments:
+# Arg1: Stack@=gnirtsdesreveratah(string)
+# Dest: LF@reversed=gnirtsdesreverata(string)
+# Executing instruction: IPUSHS at line: 104 with following arguments:
+# Arg1: LF@i=17(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 105 with following arguments:
+# Arg1: Stack@=17(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 106 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 107 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IADDS at line: 108 with following arguments:
+# Arg1: Stack@=17(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 109 with following arguments:
+# Arg1: Stack@=18(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 110 with following arguments:
+# Arg1: Stack@=18(int)
+# Dest: LF@i=17(int)
+# Executing instruction: IJUMP at line: 112 with following arguments:
+# Executing instruction: ILABEL at line: 43 with following arguments:
+# Executing instruction: IPUSHS at line: 44 with following arguments:
+# Arg1: LF@i=18(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 45 with following arguments:
+# Arg1: Stack@=18(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 46 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 47 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: ILSS at line: 48 with following arguments:
+# Arg1: Stack@=18(double)
+# Arg2: Stack@=19(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 49 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 50 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 52 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 53 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 54 with following arguments:
+# Arg1: LF@i=18(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 55 with following arguments:
+# Arg1: Stack@=18(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 56 with following arguments:
+# Arg1: Stack@=19(double)
+# Arg2: Stack@=18(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 57 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 58 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: LF@str_len_i=2(int)
+# Executing instruction: IPUSHS at line: 60 with following arguments:
+# Arg1: LF@s=whatareversedstring(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 61 with following arguments:
+# Arg1: LF@str_len_i=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 62 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 63 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 64 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 65 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 66 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 67 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: GF@$num1=1(int)
+# Executing instruction: IPOPS at line: 68 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: GF@$num2=2(int)
+# Executing instruction: ISUB at line: 69 with following arguments:
+# Arg1: GF@$num2=1(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=1(int)
+# Executing instruction: IPOPS at line: 70 with following arguments:
+# Arg1: Stack@=whatareversedstring(string)
+# Dest: GF@$str2=h(string)
+# Executing instruction: IMOVE at line: 71 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: GF@$counter=1(int)
+# Executing instruction: IMOVE at line: 72 with following arguments:
+# Arg1: Const@=(string)
+# Dest: GF@$str1=gnirtsdesreveratah(string)
+# Executing instruction: ISTRLEN at line: 73 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Dest: GF@$num3=18(int)
+# Executing instruction: IJUMPIFEQ at line: 74 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: Const@=0(int)
+# Executing instruction: IGT at line: 75 with following arguments:
+# Arg1: GF@$num2=0(int)
+# Arg2: Const@=-1(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFNEQ at line: 76 with following arguments:
+# Arg1: GF@$bool1=true(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILS at line: 77 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: Const@=0(int)
+# Dest: GF@$bool1=true(bool)
+# Executing instruction: IJUMPIFEQ at line: 78 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ISUB at line: 79 with following arguments:
+# Arg1: GF@$num3=19(int)
+# Arg2: GF@$num2=0(int)
+# Dest: GF@$num3=19(int)
+# Executing instruction: IGT at line: 80 with following arguments:
+# Arg1: GF@$num1=1(int)
+# Arg2: GF@$num3=19(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFEQ at line: 81 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILABEL at line: 82 with following arguments:
+# Executing instruction: IGETCHAR at line: 83 with following arguments:
+# Arg1: GF@$str2=whatareversedstring(string)
+# Arg2: GF@$num2=0(int)
+# Dest: GF@$char=h(string)
+# Executing instruction: ICONCAT at line: 84 with following arguments:
+# Arg1: GF@$str1=(string)
+# Arg2: GF@$char=w(string)
+# Dest: GF@$str1=(string)
+# Executing instruction: IADD at line: 85 with following arguments:
+# Arg1: GF@$counter=0(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$counter=0(int)
+# Executing instruction: IADD at line: 86 with following arguments:
+# Arg1: GF@$num2=0(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=0(int)
+# Executing instruction: IJUMPIFNEQ at line: 87 with following arguments:
+# Arg1: GF@$counter=1(int)
+# Arg2: GF@$num1=1(int)
+# Executing instruction: IJUMP at line: 88 with following arguments:
+# Executing instruction: ILABEL at line: 92 with following arguments:
+# Executing instruction: IPUSHS at line: 93 with following arguments:
+# Arg1: GF@$str1=w(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 94 with following arguments:
+# Arg1: Stack@=w(string)
+# Dest: LF@substr_res=h(string)
+# Executing instruction: IPUSHS at line: 96 with following arguments:
+# Arg1: LF@reversed=gnirtsdesreveratah(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 97 with following arguments:
+# Arg1: LF@substr_res=w(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 98 with following arguments:
+# Arg1: Stack@=w(string)
+# Dest: GF@$str2=whatareversedstring(string)
+# Executing instruction: IPOPS at line: 99 with following arguments:
+# Arg1: Stack@=gnirtsdesreveratah(string)
+# Dest: GF@$str1=w(string)
+# Executing instruction: ICONCAT at line: 100 with following arguments:
+# Arg1: GF@$str1=gnirtsdesreveratah(string)
+# Arg2: GF@$str2=w(string)
+# Dest: GF@$str1=gnirtsdesreveratah(string)
+# Executing instruction: IPUSHS at line: 101 with following arguments:
+# Arg1: GF@$str1=gnirtsdesreveratahw(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 102 with following arguments:
+# Arg1: Stack@=gnirtsdesreveratahw(string)
+# Dest: LF@reversed=gnirtsdesreveratah(string)
+# Executing instruction: IPUSHS at line: 104 with following arguments:
+# Arg1: LF@i=18(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 105 with following arguments:
+# Arg1: Stack@=18(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 106 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 107 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IADDS at line: 108 with following arguments:
+# Arg1: Stack@=18(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 109 with following arguments:
+# Arg1: Stack@=19(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 110 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: LF@i=18(int)
+# Executing instruction: IJUMP at line: 112 with following arguments:
+# Executing instruction: ILABEL at line: 43 with following arguments:
+# Executing instruction: IPUSHS at line: 44 with following arguments:
+# Arg1: LF@i=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 45 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 46 with following arguments:
+# Arg1: LF@str_len=19(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 47 with following arguments:
+# Arg1: Stack@=19(int)
+# Dest: Stack@()
+# Executing instruction: ILSS at line: 48 with following arguments:
+# Arg1: Stack@=19(double)
+# Arg2: Stack@=19(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 49 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 50 with following arguments:
+# Arg1: Stack@=false(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: ILABEL at line: 113 with following arguments:
+# Executing instruction: IPUSHS at line: 116 with following arguments:
+# Arg1: LF@reversed=gnirtsdesreveratahw(string)
+# Dest: Stack@()
+# Executing instruction: IPOPFRAME at line: 117 with following arguments:
+# Executing instruction: IRETURN at line: 118 with following arguments:
+# Executing instruction: IPOPS at line: 136 with following arguments:
+# Arg1: Stack@=gnirtsdesreveratahw(string)
+# Dest: LF@s=whatareversedstring(string)
+# Executing instruction: IPUSHS at line: 138 with following arguments:
+# Arg1: LF@s=gnirtsdesreveratahw(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 139 with following arguments:
+# Executing instruction: IDEFVAR at line: 140 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 141 with following arguments:
+# Arg1: Stack@=gnirtsdesreveratahw(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 142 with following arguments:
+# Arg1: TF@write=gnirtsdesreveratahw(string)
+# Executing instruction: IGROOT at line: 145 with following arguments:
+# I am Groot at 145 (8940).
+# 
+# STDOUT DIFF:
+# 
+
+# INTERPRETER STDIN: 
+# whatareversedstring
+#
+# EXPECTED COMPILER EXIT CODE: 0
+# CURRENT COMPILER EXIT CODE: 0
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: 0
+# PRICE: 8940 (2078+6862)
+# GROOT: 8940
+# 
+#   1: 'Reverse string function
+#   2: 
+#   3: function Reverse_str(s as string) as string
+#   4: 	dim str_len as integer
+#   5: 	str_len = length(s)
+#   6: 	dim reversed as string
+#   7: 	dim substr_res as string
+#   8: 	dim str_len_i as integer
+#   9: 
+#  10: 	dim i as integer
+#  11: 	do while i < str_len
+#  12: 		str_len_i = str_len - i
+#  13: 		substr_res = substr(s, str_len_i, 1)
+#  14: 	   	reversed = reversed + substr_res
+#  15: 	   	i = i + 1
+#  16: 	loop
+#  17: 	
+#  18: 	return reversed
+#  19: end function
+#  20: 
+#  21: scope
+#  22:     dim s as string
+#  23:     input s
+#  24:     s = reverse_str(s)
+#  25:     print s;
+#  26: end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/143
+DEFVAR GF@$str1                                                                 #     2/143
+DEFVAR GF@$str2                                                                 #     3/143
+DEFVAR GF@$num1                                                                 #     4/143
+DEFVAR GF@$num2                                                                 #     5/143
+DEFVAR GF@$num3                                                                 #     6/143
+DEFVAR GF@$bool1                                                                #     7/143
+DEFVAR GF@$counter                                                              #     8/143
+DEFVAR GF@$char                                                                 #     9/143
+JUMP $$main                                                                     #    10/143
+LABEL $reverse_str                                                              #    12/143
+CREATEFRAME                                                                     #    13/143
+PUSHFRAME                                                                       #    14/143
+DEFVAR LF@s                                                                     #    15/143
+POPS LF@s                                                                       #    16/143
+DEFVAR LF@str_len                                                               #    19/143
+MOVE LF@str_len int@0                                                           #    20/143
+PUSHS LF@s                                                                      #    22/143
+POPS GF@$str2                                                                   #    23/143
+STRLEN GF@$num1 GF@$str2                                                        #    24/143
+PUSHS GF@$num1                                                                  #    25/143
+INT2FLOATS                                                                      #    26/143
+FLOAT2R2EINTS                                                                   #    27/143
+POPS LF@str_len                                                                 #    28/143
+DEFVAR LF@reversed                                                              #    30/143
+MOVE LF@reversed string@                                                        #    31/143
+DEFVAR LF@substr_res                                                            #    33/143
+MOVE LF@substr_res string@                                                      #    34/143
+DEFVAR LF@str_len_i                                                             #    36/143
+MOVE LF@str_len_i int@0                                                         #    37/143
+DEFVAR LF@i                                                                     #    40/143
+MOVE LF@i int@0                                                                 #    41/143
+LABEL &while11                                                                  #    43/143
+PUSHS LF@i                                                                      #    44/143
+INT2FLOATS                                                                      #    45/143
+PUSHS LF@str_len                                                                #    46/143
+INT2FLOATS                                                                      #    47/143
+LTS                                                                             #    48/143
+PUSHS bool@true                                                                 #    49/143
+JUMPIFNEQS &loop11                                                              #    50/143
+PUSHS LF@str_len                                                                #    52/143
+INT2FLOATS                                                                      #    53/143
+PUSHS LF@i                                                                      #    54/143
+INT2FLOATS                                                                      #    55/143
+SUBS                                                                            #    56/143
+FLOAT2R2EINTS                                                                   #    57/143
+POPS LF@str_len_i                                                               #    58/143
+PUSHS LF@s                                                                      #    60/143
+PUSHS LF@str_len_i                                                              #    61/143
+INT2FLOATS                                                                      #    62/143
+FLOAT2R2EINTS                                                                   #    63/143
+PUSHS int@1                                                                     #    64/143
+INT2FLOATS                                                                      #    65/143
+FLOAT2R2EINTS                                                                   #    66/143
+POPS GF@$num1                                                                   #    67/143
+POPS GF@$num2                                                                   #    68/143
+SUB GF@$num2 GF@$num2 int@1                                                     #    69/143
+POPS GF@$str2                                                                   #    70/143
+MOVE GF@$counter int@0                                                          #    71/143
+MOVE GF@$str1 string@                                                           #    72/143
+STRLEN GF@$num3 GF@$str2                                                        #    73/143
+JUMPIFEQ &sub_end1 GF@$num3 int@0                                               #    74/143
+GT GF@$bool1 GF@$num2 int@-1                                                    #    75/143
+JUMPIFNEQ &sub_end1 GF@$bool1 bool@true                                         #    76/143
+LT GF@$bool1 GF@$num1 int@0                                                     #    77/143
+JUMPIFEQ &rest1 GF@$bool1 bool@true                                             #    78/143
+SUB GF@$num3 GF@$num3 GF@$num2                                                  #    79/143
+GT GF@$bool1 GF@$num1 GF@$num3                                                  #    80/143
+JUMPIFEQ &rest1 GF@$bool1 bool@true                                             #    81/143
+LABEL &cycle1                                                                   #    82/143
+GETCHAR GF@$char GF@$str2 GF@$num2                                              #    83/143
+CONCAT GF@$str1 GF@$str1 GF@$char                                               #    84/143
+ADD GF@$counter GF@$counter int@1                                               #    85/143
+ADD GF@$num2 GF@$num2 int@1                                                     #    86/143
+JUMPIFNEQ &cycle1 GF@$counter GF@$num1                                          #    87/143
+JUMP &sub_end1                                                                  #    88/143
+LABEL &rest1                                                                    #    89/143
+MOVE GF@$num1 GF@$num3                                                          #    90/143
+JUMP &cycle1                                                                    #    91/143
+LABEL &sub_end1                                                                 #    92/143
+PUSHS GF@$str1                                                                  #    93/143
+POPS LF@substr_res                                                              #    94/143
+PUSHS LF@reversed                                                               #    96/143
+PUSHS LF@substr_res                                                             #    97/143
+POPS GF@$str2                                                                   #    98/143
+POPS GF@$str1                                                                   #    99/143
+CONCAT GF@$str1 GF@$str1 GF@$str2                                               #   100/143
+PUSHS GF@$str1                                                                  #   101/143
+POPS LF@reversed                                                                #   102/143
+PUSHS LF@i                                                                      #   104/143
+INT2FLOATS                                                                      #   105/143
+PUSHS int@1                                                                     #   106/143
+INT2FLOATS                                                                      #   107/143
+ADDS                                                                            #   108/143
+FLOAT2R2EINTS                                                                   #   109/143
+POPS LF@i                                                                       #   110/143
+JUMP &while11                                                                   #   112/143
+LABEL &loop11                                                                   #   113/143
+PUSHS LF@reversed                                                               #   116/143
+POPFRAME                                                                        #   117/143
+RETURN                                                                          #   118/143
+PUSHS string@                                                                   #   120/143
+POPFRAME                                                                        #   121/143
+RETURN                                                                          #   122/143
+LABEL $$main                                                                    #   124/143
+CREATEFRAME                                                                     #   125/143
+PUSHFRAME                                                                       #   126/143
+DEFVAR LF@s                                                                     #   128/143
+MOVE LF@s string@                                                               #   129/143
+WRITE string@?\032                                                              #   131/143
+READ LF@s string                                                                #   132/143
+PUSHS LF@s                                                                      #   134/143
+CALL $reverse_str                                                               #   135/143
+POPS LF@s                                                                       #   136/143
+PUSHS LF@s                                                                      #   138/143
+CREATEFRAME                                                                     #   139/143
+DEFVAR TF@write                                                                 #   140/143
+POPS TF@write                                                                   #   141/143
+WRITE TF@write                                                                  #   142/143
+

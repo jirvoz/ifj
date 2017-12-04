@@ -1,0 +1,156 @@
+# 2017-12-04 23:21:42.509538
+# SECTION: 01_basic
+# TEST: 09
+# INFO: Use all data types
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# 
+# INTERPRETER STDERR:
+# Executing instruction: IDEFVAR at line: 2 with following arguments:
+# Dest: GF@$str1
+# Executing instruction: IDEFVAR at line: 3 with following arguments:
+# Dest: GF@$str2
+# Executing instruction: IDEFVAR at line: 4 with following arguments:
+# Dest: GF@$num1
+# Executing instruction: IDEFVAR at line: 5 with following arguments:
+# Dest: GF@$num2
+# Executing instruction: IDEFVAR at line: 6 with following arguments:
+# Dest: GF@$num3
+# Executing instruction: IDEFVAR at line: 7 with following arguments:
+# Dest: GF@$bool1
+# Executing instruction: IDEFVAR at line: 8 with following arguments:
+# Dest: GF@$counter
+# Executing instruction: IDEFVAR at line: 9 with following arguments:
+# Dest: GF@$char
+# Executing instruction: IJUMP at line: 10 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 17 with following arguments:
+# Dest: LF@_a669
+# Executing instruction: IPUSHS at line: 18 with following arguments:
+# Arg1: Const@=445655454(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 19 with following arguments:
+# Arg1: Stack@=445655454(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 20 with following arguments:
+# Arg1: Stack@=445655454(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 21 with following arguments:
+# Arg1: Stack@=445655454(int)
+# Dest: LF@_a669()
+# Executing instruction: IDEFVAR at line: 23 with following arguments:
+# Dest: LF@b__67678
+# Executing instruction: IPUSHS at line: 24 with following arguments:
+# Arg1: Const@=FGGHGHHghjhhjhj 8 	 ahoj 
+#  iloilailaeiii(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 25 with following arguments:
+# Arg1: Stack@=FGGHGHHghjhhjhj 8 	 ahoj 
+#  iloilailaeiii(string)
+# Dest: LF@b__67678()
+# Executing instruction: IDEFVAR at line: 27 with following arguments:
+# Dest: LF@___ced65689
+# Executing instruction: IPUSHS at line: 28 with following arguments:
+# Arg1: Const@=56758.6(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 29 with following arguments:
+# Arg1: Stack@=56758.6(double)
+# Dest: LF@___ced65689()
+# Executing instruction: IDEFVAR at line: 31 with following arguments:
+# Dest: LF@___d___6778ghgkjhhj
+# Executing instruction: IPUSHS at line: 32 with following arguments:
+# Arg1: Const@=5666790000000000(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 33 with following arguments:
+# Arg1: Stack@=5666790000000000(double)
+# Dest: LF@___d___6778ghgkjhhj()
+# Executing instruction: IDEFVAR at line: 35 with following arguments:
+# Dest: LF@ghg__e__676767
+# Executing instruction: IPUSHS at line: 36 with following arguments:
+# Arg1: Const@=5.66679e-05(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 37 with following arguments:
+# Arg1: Stack@=5.66679e-05(double)
+# Dest: LF@ghg__e__676767()
+# Executing instruction: IDEFVAR at line: 39 with following arguments:
+# Dest: LF@__6767hjhjghhjkh
+# Executing instruction: IPUSHS at line: 40 with following arguments:
+# Arg1: Const@=5666790000000000(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 41 with following arguments:
+# Arg1: Stack@=5666790000000000(double)
+# Dest: LF@__6767hjhjghhjkh()
+# Executing instruction: IGROOT at line: 45 with following arguments:
+# I am Groot at 45 (152).
+# 
+# EXPECTED INTERPRETER STDOUT:
+
+
+
+# CURRENT INTERPRETER STDOUT:
+
+
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 0
+# CURRENT COMPILER EXIT CODE: 0
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: 0
+# PRICE: 152 (34+118)
+# GROOT: 152
+# 
+#   1: ' Use all data types
+#   2: scope
+#   3: 	
+#   4: 	dim _a669 as integer = 445655454
+#   5: 	dim b__67678 as string = !"FGGHGHHghjhhjhj \056 \t ahoj \n iloilailaeiii"
+#   6: 	dim ___ced65689 as double = 56758.56686
+#   7: 	dim ___d___6778GHGKjhhj as double = 566678.658678e+10
+#   8: 	dim GHG__e__676767 as double = 566678.658678e-10
+#   9: 	dim __6767hjhjGHHJKH as double = 566678.658678e10
+#  10: 
+#  11: end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/43
+DEFVAR GF@$str1                                                                 #     2/43
+DEFVAR GF@$str2                                                                 #     3/43
+DEFVAR GF@$num1                                                                 #     4/43
+DEFVAR GF@$num2                                                                 #     5/43
+DEFVAR GF@$num3                                                                 #     6/43
+DEFVAR GF@$bool1                                                                #     7/43
+DEFVAR GF@$counter                                                              #     8/43
+DEFVAR GF@$char                                                                 #     9/43
+JUMP $$main                                                                     #    10/43
+LABEL $$main                                                                    #    12/43
+CREATEFRAME                                                                     #    13/43
+PUSHFRAME                                                                       #    14/43
+DEFVAR LF@_a669                                                                 #    17/43
+PUSHS int@445655454                                                             #    18/43
+INT2FLOATS                                                                      #    19/43
+FLOAT2R2EINTS                                                                   #    20/43
+POPS LF@_a669                                                                   #    21/43
+DEFVAR LF@b__67678                                                              #    23/43
+PUSHS string@FGGHGHHghjhhjhj\032\056\032\009\032ahoj\032\010\032iloilailaeiii   #    24/43
+POPS LF@b__67678                                                                #    25/43
+DEFVAR LF@___ced65689                                                           #    27/43
+PUSHS float@56758.6                                                             #    28/43
+POPS LF@___ced65689                                                             #    29/43
+DEFVAR LF@___d___6778ghgkjhhj                                                   #    31/43
+PUSHS float@5.66679e+15                                                         #    32/43
+POPS LF@___d___6778ghgkjhhj                                                     #    33/43
+DEFVAR LF@ghg__e__676767                                                        #    35/43
+PUSHS float@5.66679e-05                                                         #    36/43
+POPS LF@ghg__e__676767                                                          #    37/43
+DEFVAR LF@__6767hjhjghhjkh                                                      #    39/43
+PUSHS float@5.66679e+15                                                         #    40/43
+POPS LF@__6767hjhjghhjkh                                                        #    41/43
+

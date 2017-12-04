@@ -1,0 +1,119 @@
+# 2017-12-04 23:21:44.305782
+# SECTION: 04_expressions
+# TEST: 20
+# INFO: Add doubles with dot format
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# 
+# INTERPRETER STDERR:
+# Executing instruction: IDEFVAR at line: 2 with following arguments:
+# Dest: GF@$str1
+# Executing instruction: IDEFVAR at line: 3 with following arguments:
+# Dest: GF@$str2
+# Executing instruction: IDEFVAR at line: 4 with following arguments:
+# Dest: GF@$num1
+# Executing instruction: IDEFVAR at line: 5 with following arguments:
+# Dest: GF@$num2
+# Executing instruction: IDEFVAR at line: 6 with following arguments:
+# Dest: GF@$num3
+# Executing instruction: IDEFVAR at line: 7 with following arguments:
+# Dest: GF@$bool1
+# Executing instruction: IDEFVAR at line: 8 with following arguments:
+# Dest: GF@$counter
+# Executing instruction: IDEFVAR at line: 9 with following arguments:
+# Dest: GF@$char
+# Executing instruction: IJUMP at line: 10 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 16 with following arguments:
+# Dest: LF@ahoj
+# Executing instruction: IPUSHS at line: 17 with following arguments:
+# Arg1: Const@=10.8(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 18 with following arguments:
+# Arg1: Stack@=10.8(double)
+# Dest: LF@ahoj()
+# Executing instruction: IDEFVAR at line: 20 with following arguments:
+# Dest: LF@neboj
+# Executing instruction: IPUSHS at line: 21 with following arguments:
+# Arg1: Const@=67.40000000000001(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 22 with following arguments:
+# Arg1: Stack@=67.40000000000001(double)
+# Dest: LF@neboj()
+# Executing instruction: IPUSHS at line: 25 with following arguments:
+# Arg1: LF@ahoj=10.8(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 26 with following arguments:
+# Arg1: LF@neboj=67.40000000000001(double)
+# Dest: Stack@()
+# Executing instruction: IADDS at line: 27 with following arguments:
+# Arg1: Stack@=10.8(double)
+# Arg2: Stack@=67.40000000000001(double)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 28 with following arguments:
+# Executing instruction: IDEFVAR at line: 29 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 30 with following arguments:
+# Arg1: Stack@=78.2(double)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 31 with following arguments:
+# Arg1: TF@write=78.2(double)
+# Executing instruction: IGROOT at line: 35 with following arguments:
+# I am Groot at 35 (123).
+# 
+# STDOUT DIFF:
+# 
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 0
+# CURRENT COMPILER EXIT CODE: 0
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: 0
+# PRICE: 123 (33+90)
+# GROOT: 123
+# 
+#   1: ' Add doubles with dot format
+#   2: scope
+#   3: dim ahoj as double = 10.8
+#   4: dim neboj as double = 67.4
+#   5: 
+#   6: print ahoj + neboj;
+#   7: 
+#   8: end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/33
+DEFVAR GF@$str1                                                                 #     2/33
+DEFVAR GF@$str2                                                                 #     3/33
+DEFVAR GF@$num1                                                                 #     4/33
+DEFVAR GF@$num2                                                                 #     5/33
+DEFVAR GF@$num3                                                                 #     6/33
+DEFVAR GF@$bool1                                                                #     7/33
+DEFVAR GF@$counter                                                              #     8/33
+DEFVAR GF@$char                                                                 #     9/33
+JUMP $$main                                                                     #    10/33
+LABEL $$main                                                                    #    12/33
+CREATEFRAME                                                                     #    13/33
+PUSHFRAME                                                                       #    14/33
+DEFVAR LF@ahoj                                                                  #    16/33
+PUSHS float@10.8                                                                #    17/33
+POPS LF@ahoj                                                                    #    18/33
+DEFVAR LF@neboj                                                                 #    20/33
+PUSHS float@67.4                                                                #    21/33
+POPS LF@neboj                                                                   #    22/33
+PUSHS LF@ahoj                                                                   #    25/33
+PUSHS LF@neboj                                                                  #    26/33
+ADDS                                                                            #    27/33
+CREATEFRAME                                                                     #    28/33
+DEFVAR TF@write                                                                 #    29/33
+POPS TF@write                                                                   #    30/33
+WRITE TF@write                                                                  #    31/33
+

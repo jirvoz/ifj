@@ -1,0 +1,178 @@
+# 2017-12-04 23:21:44.736491
+# SECTION: 05_conditions
+# TEST: 06
+# INFO: if with else if and else block
+# REQUIRED EXTENSIONS: IFTHEN
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# 
+# INTERPRETER STDERR:
+# Executing instruction: IDEFVAR at line: 2 with following arguments:
+# Dest: GF@$str1
+# Executing instruction: IDEFVAR at line: 3 with following arguments:
+# Dest: GF@$str2
+# Executing instruction: IDEFVAR at line: 4 with following arguments:
+# Dest: GF@$num1
+# Executing instruction: IDEFVAR at line: 5 with following arguments:
+# Dest: GF@$num2
+# Executing instruction: IDEFVAR at line: 6 with following arguments:
+# Dest: GF@$num3
+# Executing instruction: IDEFVAR at line: 7 with following arguments:
+# Dest: GF@$bool1
+# Executing instruction: IDEFVAR at line: 8 with following arguments:
+# Dest: GF@$counter
+# Executing instruction: IDEFVAR at line: 9 with following arguments:
+# Dest: GF@$char
+# Executing instruction: IJUMP at line: 10 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IPUSHS at line: 16 with following arguments:
+# Arg1: Const@=8(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 17 with following arguments:
+# Arg1: Stack@=8(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 18 with following arguments:
+# Arg1: Const@=9(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 19 with following arguments:
+# Arg1: Stack@=9(int)
+# Dest: Stack@()
+# Executing instruction: IGTS at line: 20 with following arguments:
+# Arg1: Stack@=8(double)
+# Arg2: Stack@=9(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 21 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 22 with following arguments:
+# Arg1: Stack@=false(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: ILABEL at line: 34 with following arguments:
+# Executing instruction: IPUSHS at line: 35 with following arguments:
+# Arg1: Const@=45(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 36 with following arguments:
+# Arg1: Stack@=45(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 37 with following arguments:
+# Arg1: Const@=12(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 38 with following arguments:
+# Arg1: Stack@=12(int)
+# Dest: Stack@()
+# Executing instruction: IGTS at line: 39 with following arguments:
+# Arg1: Stack@=45(double)
+# Arg2: Stack@=12(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 40 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 41 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 44 with following arguments:
+# Arg1: Const@=74(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 45 with following arguments:
+# Arg1: Stack@=74(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 46 with following arguments:
+# Arg1: Stack@=74(double)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 47 with following arguments:
+# Executing instruction: IDEFVAR at line: 48 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 49 with following arguments:
+# Arg1: Stack@=74(int)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 50 with following arguments:
+# Arg1: TF@write=74(int)
+# Executing instruction: IJUMP at line: 52 with following arguments:
+# Executing instruction: ILABEL at line: 63 with following arguments:
+# Executing instruction: IGROOT at line: 66 with following arguments:
+# I am Groot at 66 (156).
+# 
+# STDOUT DIFF:
+# 
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 0
+# CURRENT COMPILER EXIT CODE: 0
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: 0
+# PRICE: 156 (45+111)
+# GROOT: 156
+# 
+#   1: ' if with else if and else block
+#   2: scope
+#   3: 	if 8 > 9 then
+#   4: 		print 42;
+#   5: 	elseif 45 > 12 then
+#   6: 		print 74;
+#   7: 	else
+#   8: 		print 11;
+#   9: 	end if
+#  10: end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/64
+DEFVAR GF@$str1                                                                 #     2/64
+DEFVAR GF@$str2                                                                 #     3/64
+DEFVAR GF@$num1                                                                 #     4/64
+DEFVAR GF@$num2                                                                 #     5/64
+DEFVAR GF@$num3                                                                 #     6/64
+DEFVAR GF@$bool1                                                                #     7/64
+DEFVAR GF@$counter                                                              #     8/64
+DEFVAR GF@$char                                                                 #     9/64
+JUMP $$main                                                                     #    10/64
+LABEL $$main                                                                    #    12/64
+CREATEFRAME                                                                     #    13/64
+PUSHFRAME                                                                       #    14/64
+PUSHS int@8                                                                     #    16/64
+INT2FLOATS                                                                      #    17/64
+PUSHS int@9                                                                     #    18/64
+INT2FLOATS                                                                      #    19/64
+GTS                                                                             #    20/64
+PUSHS bool@true                                                                 #    21/64
+JUMPIFNEQS &else3                                                               #    22/64
+PUSHS int@42                                                                    #    25/64
+INT2FLOATS                                                                      #    26/64
+FLOAT2R2EINTS                                                                   #    27/64
+CREATEFRAME                                                                     #    28/64
+DEFVAR TF@write                                                                 #    29/64
+POPS TF@write                                                                   #    30/64
+WRITE TF@write                                                                  #    31/64
+JUMP &endif3                                                                    #    33/64
+LABEL &else3                                                                    #    34/64
+PUSHS int@45                                                                    #    35/64
+INT2FLOATS                                                                      #    36/64
+PUSHS int@12                                                                    #    37/64
+INT2FLOATS                                                                      #    38/64
+GTS                                                                             #    39/64
+PUSHS bool@true                                                                 #    40/64
+JUMPIFNEQS &else5                                                               #    41/64
+PUSHS int@74                                                                    #    44/64
+INT2FLOATS                                                                      #    45/64
+FLOAT2R2EINTS                                                                   #    46/64
+CREATEFRAME                                                                     #    47/64
+DEFVAR TF@write                                                                 #    48/64
+POPS TF@write                                                                   #    49/64
+WRITE TF@write                                                                  #    50/64
+JUMP &endif3                                                                    #    52/64
+LABEL &else5                                                                    #    53/64
+PUSHS int@11                                                                    #    55/64
+INT2FLOATS                                                                      #    56/64
+FLOAT2R2EINTS                                                                   #    57/64
+CREATEFRAME                                                                     #    58/64
+DEFVAR TF@write                                                                 #    59/64
+POPS TF@write                                                                   #    60/64
+WRITE TF@write                                                                  #    61/64
+LABEL &endif3                                                                   #    63/64
+

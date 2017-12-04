@@ -1,0 +1,106 @@
+# 2017-12-04 23:21:44.171266
+# SECTION: 03_statements
+# TEST: 011
+# INFO: Empty condition
+# REQUIRED EXTENSIONS: IFTHEN
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# 
+# INTERPRETER STDERR:
+# Executing instruction: IDEFVAR at line: 2 with following arguments:
+# Dest: GF@$str1
+# Executing instruction: IDEFVAR at line: 3 with following arguments:
+# Dest: GF@$str2
+# Executing instruction: IDEFVAR at line: 4 with following arguments:
+# Dest: GF@$num1
+# Executing instruction: IDEFVAR at line: 5 with following arguments:
+# Dest: GF@$num2
+# Executing instruction: IDEFVAR at line: 6 with following arguments:
+# Dest: GF@$num3
+# Executing instruction: IDEFVAR at line: 7 with following arguments:
+# Dest: GF@$bool1
+# Executing instruction: IDEFVAR at line: 8 with following arguments:
+# Dest: GF@$counter
+# Executing instruction: IDEFVAR at line: 9 with following arguments:
+# Dest: GF@$char
+# Executing instruction: IJUMP at line: 10 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IPUSHS at line: 16 with following arguments:
+# Arg1: Const@=10(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 17 with following arguments:
+# Arg1: Stack@=10(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 18 with following arguments:
+# Arg1: Const@=15(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 19 with following arguments:
+# Arg1: Stack@=15(int)
+# Dest: Stack@()
+# Executing instruction: ILSS at line: 20 with following arguments:
+# Arg1: Stack@=10(double)
+# Arg2: Stack@=15(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 21 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 22 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: ILABEL at line: 25 with following arguments:
+# Executing instruction: ILABEL at line: 26 with following arguments:
+# Executing instruction: IGROOT at line: 29 with following arguments:
+# I am Groot at 29 (82).
+# 
+# EXPECTED INTERPRETER STDOUT:
+
+
+
+# CURRENT INTERPRETER STDOUT:
+
+
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 0
+# CURRENT COMPILER EXIT CODE: 0
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: 0
+# PRICE: 82 (23+59)
+# GROOT: 82
+# 
+#   1: scope 
+#   2:  if 10 < 15 then 
+#   3:  end if 
+#   4:  end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/27
+DEFVAR GF@$str1                                                                 #     2/27
+DEFVAR GF@$str2                                                                 #     3/27
+DEFVAR GF@$num1                                                                 #     4/27
+DEFVAR GF@$num2                                                                 #     5/27
+DEFVAR GF@$num3                                                                 #     6/27
+DEFVAR GF@$bool1                                                                #     7/27
+DEFVAR GF@$counter                                                              #     8/27
+DEFVAR GF@$char                                                                 #     9/27
+JUMP $$main                                                                     #    10/27
+LABEL $$main                                                                    #    12/27
+CREATEFRAME                                                                     #    13/27
+PUSHFRAME                                                                       #    14/27
+PUSHS int@10                                                                    #    16/27
+INT2FLOATS                                                                      #    17/27
+PUSHS int@15                                                                    #    18/27
+INT2FLOATS                                                                      #    19/27
+LTS                                                                             #    20/27
+PUSHS bool@true                                                                 #    21/27
+JUMPIFNEQS &else2                                                               #    22/27
+LABEL &else2                                                                    #    25/27
+LABEL &endif2                                                                   #    26/27
+

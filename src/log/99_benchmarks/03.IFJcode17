@@ -1,0 +1,2729 @@
+# 2017-12-04 23:21:47.380576
+# SECTION: 99_benchmarks
+# TEST: 03
+# INFO: Tower of Hanoi for 4 rodes
+# REQUIRED EXTENSIONS: FUNEXP
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# 
+# INTERPRETER STDERR:
+# Executing instruction: IDEFVAR at line: 2 with following arguments:
+# Dest: GF@$str1
+# Executing instruction: IDEFVAR at line: 3 with following arguments:
+# Dest: GF@$str2
+# Executing instruction: IDEFVAR at line: 4 with following arguments:
+# Dest: GF@$num1
+# Executing instruction: IDEFVAR at line: 5 with following arguments:
+# Dest: GF@$num2
+# Executing instruction: IDEFVAR at line: 6 with following arguments:
+# Dest: GF@$num3
+# Executing instruction: IDEFVAR at line: 7 with following arguments:
+# Dest: GF@$bool1
+# Executing instruction: IDEFVAR at line: 8 with following arguments:
+# Dest: GF@$counter
+# Executing instruction: IDEFVAR at line: 9 with following arguments:
+# Dest: GF@$char
+# Executing instruction: IJUMP at line: 10 with following arguments:
+# Executing instruction: ILABEL at line: 142 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 143 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 144 with following arguments:
+# Executing instruction: IDEFVAR at line: 146 with following arguments:
+# Dest: LF@c
+# Executing instruction: IMOVE at line: 147 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: LF@c()
+# Executing instruction: IPUSHS at line: 149 with following arguments:
+# Arg1: Const@=4(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 150 with following arguments:
+# Arg1: Stack@=4(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 151 with following arguments:
+# Arg1: Stack@=4(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 152 with following arguments:
+# Arg1: Const@=A(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 153 with following arguments:
+# Arg1: Const@=B(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 154 with following arguments:
+# Arg1: Const@=C(string)
+# Dest: Stack@()
+# Executing instruction: ICALL at line: 155 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 15 with following arguments:
+# Dest: LF@middle
+# Executing instruction: IPOPS at line: 16 with following arguments:
+# Arg1: Stack@=C(string)
+# Dest: LF@middle()
+# Executing instruction: IDEFVAR at line: 17 with following arguments:
+# Dest: LF@to_
+# Executing instruction: IPOPS at line: 18 with following arguments:
+# Arg1: Stack@=B(string)
+# Dest: LF@to_()
+# Executing instruction: IDEFVAR at line: 19 with following arguments:
+# Dest: LF@from
+# Executing instruction: IPOPS at line: 20 with following arguments:
+# Arg1: Stack@=A(string)
+# Dest: LF@from()
+# Executing instruction: IDEFVAR at line: 21 with following arguments:
+# Dest: LF@n
+# Executing instruction: IPOPS at line: 22 with following arguments:
+# Arg1: Stack@=4(int)
+# Dest: LF@n()
+# Executing instruction: IDEFVAR at line: 25 with following arguments:
+# Dest: LF@c
+# Executing instruction: IMOVE at line: 26 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: LF@c()
+# Executing instruction: IPUSHS at line: 28 with following arguments:
+# Arg1: LF@n=4(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 29 with following arguments:
+# Arg1: Stack@=4(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 30 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 31 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IEQS at line: 32 with following arguments:
+# Arg1: Stack@=4(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 33 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 34 with following arguments:
+# Arg1: Stack@=false(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: ILABEL at line: 69 with following arguments:
+# Executing instruction: ILABEL at line: 70 with following arguments:
+# Executing instruction: IPUSHS at line: 72 with following arguments:
+# Arg1: LF@n=4(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 73 with following arguments:
+# Arg1: Stack@=4(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 74 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 75 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 76 with following arguments:
+# Arg1: Stack@=4(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 77 with following arguments:
+# Arg1: Stack@=3(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 78 with following arguments:
+# Arg1: LF@from=A(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 79 with following arguments:
+# Arg1: LF@middle=C(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 80 with following arguments:
+# Arg1: LF@to_=B(string)
+# Dest: Stack@()
+# Executing instruction: ICALL at line: 81 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 15 with following arguments:
+# Dest: LF@middle
+# Executing instruction: IPOPS at line: 16 with following arguments:
+# Arg1: Stack@=B(string)
+# Dest: LF@middle()
+# Executing instruction: IDEFVAR at line: 17 with following arguments:
+# Dest: LF@to_
+# Executing instruction: IPOPS at line: 18 with following arguments:
+# Arg1: Stack@=C(string)
+# Dest: LF@to_()
+# Executing instruction: IDEFVAR at line: 19 with following arguments:
+# Dest: LF@from
+# Executing instruction: IPOPS at line: 20 with following arguments:
+# Arg1: Stack@=A(string)
+# Dest: LF@from()
+# Executing instruction: IDEFVAR at line: 21 with following arguments:
+# Dest: LF@n
+# Executing instruction: IPOPS at line: 22 with following arguments:
+# Arg1: Stack@=3(int)
+# Dest: LF@n()
+# Executing instruction: IDEFVAR at line: 25 with following arguments:
+# Dest: LF@c
+# Executing instruction: IMOVE at line: 26 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: LF@c()
+# Executing instruction: IPUSHS at line: 28 with following arguments:
+# Arg1: LF@n=3(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 29 with following arguments:
+# Arg1: Stack@=3(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 30 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 31 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IEQS at line: 32 with following arguments:
+# Arg1: Stack@=3(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 33 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 34 with following arguments:
+# Arg1: Stack@=false(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: ILABEL at line: 69 with following arguments:
+# Executing instruction: ILABEL at line: 70 with following arguments:
+# Executing instruction: IPUSHS at line: 72 with following arguments:
+# Arg1: LF@n=3(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 73 with following arguments:
+# Arg1: Stack@=3(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 74 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 75 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 76 with following arguments:
+# Arg1: Stack@=3(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 77 with following arguments:
+# Arg1: Stack@=2(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 78 with following arguments:
+# Arg1: LF@from=A(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 79 with following arguments:
+# Arg1: LF@middle=B(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 80 with following arguments:
+# Arg1: LF@to_=C(string)
+# Dest: Stack@()
+# Executing instruction: ICALL at line: 81 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 15 with following arguments:
+# Dest: LF@middle
+# Executing instruction: IPOPS at line: 16 with following arguments:
+# Arg1: Stack@=C(string)
+# Dest: LF@middle()
+# Executing instruction: IDEFVAR at line: 17 with following arguments:
+# Dest: LF@to_
+# Executing instruction: IPOPS at line: 18 with following arguments:
+# Arg1: Stack@=B(string)
+# Dest: LF@to_()
+# Executing instruction: IDEFVAR at line: 19 with following arguments:
+# Dest: LF@from
+# Executing instruction: IPOPS at line: 20 with following arguments:
+# Arg1: Stack@=A(string)
+# Dest: LF@from()
+# Executing instruction: IDEFVAR at line: 21 with following arguments:
+# Dest: LF@n
+# Executing instruction: IPOPS at line: 22 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: LF@n()
+# Executing instruction: IDEFVAR at line: 25 with following arguments:
+# Dest: LF@c
+# Executing instruction: IMOVE at line: 26 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: LF@c()
+# Executing instruction: IPUSHS at line: 28 with following arguments:
+# Arg1: LF@n=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 29 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 30 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 31 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IEQS at line: 32 with following arguments:
+# Arg1: Stack@=2(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 33 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 34 with following arguments:
+# Arg1: Stack@=false(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: ILABEL at line: 69 with following arguments:
+# Executing instruction: ILABEL at line: 70 with following arguments:
+# Executing instruction: IPUSHS at line: 72 with following arguments:
+# Arg1: LF@n=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 73 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 74 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 75 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 76 with following arguments:
+# Arg1: Stack@=2(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 77 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 78 with following arguments:
+# Arg1: LF@from=A(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 79 with following arguments:
+# Arg1: LF@middle=C(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 80 with following arguments:
+# Arg1: LF@to_=B(string)
+# Dest: Stack@()
+# Executing instruction: ICALL at line: 81 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 15 with following arguments:
+# Dest: LF@middle
+# Executing instruction: IPOPS at line: 16 with following arguments:
+# Arg1: Stack@=B(string)
+# Dest: LF@middle()
+# Executing instruction: IDEFVAR at line: 17 with following arguments:
+# Dest: LF@to_
+# Executing instruction: IPOPS at line: 18 with following arguments:
+# Arg1: Stack@=C(string)
+# Dest: LF@to_()
+# Executing instruction: IDEFVAR at line: 19 with following arguments:
+# Dest: LF@from
+# Executing instruction: IPOPS at line: 20 with following arguments:
+# Arg1: Stack@=A(string)
+# Dest: LF@from()
+# Executing instruction: IDEFVAR at line: 21 with following arguments:
+# Dest: LF@n
+# Executing instruction: IPOPS at line: 22 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: LF@n()
+# Executing instruction: IDEFVAR at line: 25 with following arguments:
+# Dest: LF@c
+# Executing instruction: IMOVE at line: 26 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: LF@c()
+# Executing instruction: IPUSHS at line: 28 with following arguments:
+# Arg1: LF@n=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 29 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 30 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 31 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IEQS at line: 32 with following arguments:
+# Arg1: Stack@=1(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 33 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 34 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 37 with following arguments:
+# Arg1: Const@=Move disk 1 from row (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 38 with following arguments:
+# Executing instruction: IDEFVAR at line: 39 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 40 with following arguments:
+# Arg1: Stack@=Move disk 1 from row (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 41 with following arguments:
+# Arg1: TF@write=Move disk 1 from row (string)
+# Executing instruction: IPUSHS at line: 42 with following arguments:
+# Arg1: LF@from=A(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 43 with following arguments:
+# Executing instruction: IDEFVAR at line: 44 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 45 with following arguments:
+# Arg1: Stack@=A(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 46 with following arguments:
+# Arg1: TF@write=A(string)
+# Executing instruction: IPUSHS at line: 47 with following arguments:
+# Arg1: Const@= to rod (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 48 with following arguments:
+# Executing instruction: IDEFVAR at line: 49 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 50 with following arguments:
+# Arg1: Stack@= to rod (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 51 with following arguments:
+# Arg1: TF@write= to rod (string)
+# Executing instruction: IPUSHS at line: 52 with following arguments:
+# Arg1: LF@to_=C(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 53 with following arguments:
+# Executing instruction: IDEFVAR at line: 54 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 55 with following arguments:
+# Arg1: Stack@=C(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 56 with following arguments:
+# Arg1: TF@write=C(string)
+# Executing instruction: IPUSHS at line: 57 with following arguments:
+# Arg1: Const@=
+# (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 58 with following arguments:
+# Executing instruction: IDEFVAR at line: 59 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 60 with following arguments:
+# Arg1: Stack@=
+# (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 61 with following arguments:
+# Arg1: TF@write=
+# (string)
+# Executing instruction: IPUSHS at line: 63 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 64 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 65 with following arguments:
+# Arg1: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPOPFRAME at line: 66 with following arguments:
+# Executing instruction: IRETURN at line: 67 with following arguments:
+# Executing instruction: IINT2FLOATS at line: 82 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 83 with following arguments:
+# Arg1: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 84 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: LF@c=0(int)
+# Executing instruction: IPUSHS at line: 86 with following arguments:
+# Arg1: Const@=Move disk(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 87 with following arguments:
+# Executing instruction: IDEFVAR at line: 88 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 89 with following arguments:
+# Arg1: Stack@=Move disk(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 90 with following arguments:
+# Arg1: TF@write=Move disk(string)
+# Executing instruction: IPUSHS at line: 91 with following arguments:
+# Arg1: LF@n=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 92 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 93 with following arguments:
+# Arg1: Stack@=2(double)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 94 with following arguments:
+# Executing instruction: IDEFVAR at line: 95 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 96 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 97 with following arguments:
+# Arg1: TF@write=2(int)
+# Executing instruction: IPUSHS at line: 98 with following arguments:
+# Arg1: Const@= from row (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 99 with following arguments:
+# Executing instruction: IDEFVAR at line: 100 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 101 with following arguments:
+# Arg1: Stack@= from row (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 102 with following arguments:
+# Arg1: TF@write= from row (string)
+# Executing instruction: IPUSHS at line: 103 with following arguments:
+# Arg1: LF@from=A(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 104 with following arguments:
+# Executing instruction: IDEFVAR at line: 105 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 106 with following arguments:
+# Arg1: Stack@=A(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 107 with following arguments:
+# Arg1: TF@write=A(string)
+# Executing instruction: IPUSHS at line: 108 with following arguments:
+# Arg1: Const@= to rod (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 109 with following arguments:
+# Executing instruction: IDEFVAR at line: 110 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 111 with following arguments:
+# Arg1: Stack@= to rod (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 112 with following arguments:
+# Arg1: TF@write= to rod (string)
+# Executing instruction: IPUSHS at line: 113 with following arguments:
+# Arg1: LF@to_=B(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 114 with following arguments:
+# Executing instruction: IDEFVAR at line: 115 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 116 with following arguments:
+# Arg1: Stack@=B(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 117 with following arguments:
+# Arg1: TF@write=B(string)
+# Executing instruction: IPUSHS at line: 118 with following arguments:
+# Arg1: Const@=
+# (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 119 with following arguments:
+# Executing instruction: IDEFVAR at line: 120 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 121 with following arguments:
+# Arg1: Stack@=
+# (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 122 with following arguments:
+# Arg1: TF@write=
+# (string)
+# Executing instruction: IPUSHS at line: 124 with following arguments:
+# Arg1: LF@n=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 125 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 126 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 127 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 128 with following arguments:
+# Arg1: Stack@=2(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 129 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 130 with following arguments:
+# Arg1: LF@middle=C(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 131 with following arguments:
+# Arg1: LF@to_=B(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 132 with following arguments:
+# Arg1: LF@from=A(string)
+# Dest: Stack@()
+# Executing instruction: ICALL at line: 133 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 15 with following arguments:
+# Dest: LF@middle
+# Executing instruction: IPOPS at line: 16 with following arguments:
+# Arg1: Stack@=A(string)
+# Dest: LF@middle()
+# Executing instruction: IDEFVAR at line: 17 with following arguments:
+# Dest: LF@to_
+# Executing instruction: IPOPS at line: 18 with following arguments:
+# Arg1: Stack@=B(string)
+# Dest: LF@to_()
+# Executing instruction: IDEFVAR at line: 19 with following arguments:
+# Dest: LF@from
+# Executing instruction: IPOPS at line: 20 with following arguments:
+# Arg1: Stack@=C(string)
+# Dest: LF@from()
+# Executing instruction: IDEFVAR at line: 21 with following arguments:
+# Dest: LF@n
+# Executing instruction: IPOPS at line: 22 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: LF@n()
+# Executing instruction: IDEFVAR at line: 25 with following arguments:
+# Dest: LF@c
+# Executing instruction: IMOVE at line: 26 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: LF@c()
+# Executing instruction: IPUSHS at line: 28 with following arguments:
+# Arg1: LF@n=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 29 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 30 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 31 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IEQS at line: 32 with following arguments:
+# Arg1: Stack@=1(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 33 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 34 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 37 with following arguments:
+# Arg1: Const@=Move disk 1 from row (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 38 with following arguments:
+# Executing instruction: IDEFVAR at line: 39 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 40 with following arguments:
+# Arg1: Stack@=Move disk 1 from row (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 41 with following arguments:
+# Arg1: TF@write=Move disk 1 from row (string)
+# Executing instruction: IPUSHS at line: 42 with following arguments:
+# Arg1: LF@from=C(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 43 with following arguments:
+# Executing instruction: IDEFVAR at line: 44 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 45 with following arguments:
+# Arg1: Stack@=C(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 46 with following arguments:
+# Arg1: TF@write=C(string)
+# Executing instruction: IPUSHS at line: 47 with following arguments:
+# Arg1: Const@= to rod (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 48 with following arguments:
+# Executing instruction: IDEFVAR at line: 49 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 50 with following arguments:
+# Arg1: Stack@= to rod (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 51 with following arguments:
+# Arg1: TF@write= to rod (string)
+# Executing instruction: IPUSHS at line: 52 with following arguments:
+# Arg1: LF@to_=B(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 53 with following arguments:
+# Executing instruction: IDEFVAR at line: 54 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 55 with following arguments:
+# Arg1: Stack@=B(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 56 with following arguments:
+# Arg1: TF@write=B(string)
+# Executing instruction: IPUSHS at line: 57 with following arguments:
+# Arg1: Const@=
+# (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 58 with following arguments:
+# Executing instruction: IDEFVAR at line: 59 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 60 with following arguments:
+# Arg1: Stack@=
+# (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 61 with following arguments:
+# Arg1: TF@write=
+# (string)
+# Executing instruction: IPUSHS at line: 63 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 64 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 65 with following arguments:
+# Arg1: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPOPFRAME at line: 66 with following arguments:
+# Executing instruction: IRETURN at line: 67 with following arguments:
+# Executing instruction: IINT2FLOATS at line: 134 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 135 with following arguments:
+# Arg1: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 136 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: LF@c=0(int)
+# Executing instruction: IPUSHS at line: 138 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: Stack@()
+# Executing instruction: IPOPFRAME at line: 139 with following arguments:
+# Executing instruction: IRETURN at line: 140 with following arguments:
+# Executing instruction: IINT2FLOATS at line: 82 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 83 with following arguments:
+# Arg1: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 84 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: LF@c=0(int)
+# Executing instruction: IPUSHS at line: 86 with following arguments:
+# Arg1: Const@=Move disk(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 87 with following arguments:
+# Executing instruction: IDEFVAR at line: 88 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 89 with following arguments:
+# Arg1: Stack@=Move disk(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 90 with following arguments:
+# Arg1: TF@write=Move disk(string)
+# Executing instruction: IPUSHS at line: 91 with following arguments:
+# Arg1: LF@n=3(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 92 with following arguments:
+# Arg1: Stack@=3(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 93 with following arguments:
+# Arg1: Stack@=3(double)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 94 with following arguments:
+# Executing instruction: IDEFVAR at line: 95 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 96 with following arguments:
+# Arg1: Stack@=3(int)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 97 with following arguments:
+# Arg1: TF@write=3(int)
+# Executing instruction: IPUSHS at line: 98 with following arguments:
+# Arg1: Const@= from row (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 99 with following arguments:
+# Executing instruction: IDEFVAR at line: 100 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 101 with following arguments:
+# Arg1: Stack@= from row (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 102 with following arguments:
+# Arg1: TF@write= from row (string)
+# Executing instruction: IPUSHS at line: 103 with following arguments:
+# Arg1: LF@from=A(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 104 with following arguments:
+# Executing instruction: IDEFVAR at line: 105 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 106 with following arguments:
+# Arg1: Stack@=A(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 107 with following arguments:
+# Arg1: TF@write=A(string)
+# Executing instruction: IPUSHS at line: 108 with following arguments:
+# Arg1: Const@= to rod (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 109 with following arguments:
+# Executing instruction: IDEFVAR at line: 110 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 111 with following arguments:
+# Arg1: Stack@= to rod (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 112 with following arguments:
+# Arg1: TF@write= to rod (string)
+# Executing instruction: IPUSHS at line: 113 with following arguments:
+# Arg1: LF@to_=C(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 114 with following arguments:
+# Executing instruction: IDEFVAR at line: 115 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 116 with following arguments:
+# Arg1: Stack@=C(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 117 with following arguments:
+# Arg1: TF@write=C(string)
+# Executing instruction: IPUSHS at line: 118 with following arguments:
+# Arg1: Const@=
+# (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 119 with following arguments:
+# Executing instruction: IDEFVAR at line: 120 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 121 with following arguments:
+# Arg1: Stack@=
+# (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 122 with following arguments:
+# Arg1: TF@write=
+# (string)
+# Executing instruction: IPUSHS at line: 124 with following arguments:
+# Arg1: LF@n=3(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 125 with following arguments:
+# Arg1: Stack@=3(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 126 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 127 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 128 with following arguments:
+# Arg1: Stack@=3(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 129 with following arguments:
+# Arg1: Stack@=2(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 130 with following arguments:
+# Arg1: LF@middle=B(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 131 with following arguments:
+# Arg1: LF@to_=C(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 132 with following arguments:
+# Arg1: LF@from=A(string)
+# Dest: Stack@()
+# Executing instruction: ICALL at line: 133 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 15 with following arguments:
+# Dest: LF@middle
+# Executing instruction: IPOPS at line: 16 with following arguments:
+# Arg1: Stack@=A(string)
+# Dest: LF@middle()
+# Executing instruction: IDEFVAR at line: 17 with following arguments:
+# Dest: LF@to_
+# Executing instruction: IPOPS at line: 18 with following arguments:
+# Arg1: Stack@=C(string)
+# Dest: LF@to_()
+# Executing instruction: IDEFVAR at line: 19 with following arguments:
+# Dest: LF@from
+# Executing instruction: IPOPS at line: 20 with following arguments:
+# Arg1: Stack@=B(string)
+# Dest: LF@from()
+# Executing instruction: IDEFVAR at line: 21 with following arguments:
+# Dest: LF@n
+# Executing instruction: IPOPS at line: 22 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: LF@n()
+# Executing instruction: IDEFVAR at line: 25 with following arguments:
+# Dest: LF@c
+# Executing instruction: IMOVE at line: 26 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: LF@c()
+# Executing instruction: IPUSHS at line: 28 with following arguments:
+# Arg1: LF@n=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 29 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 30 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 31 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IEQS at line: 32 with following arguments:
+# Arg1: Stack@=2(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 33 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 34 with following arguments:
+# Arg1: Stack@=false(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: ILABEL at line: 69 with following arguments:
+# Executing instruction: ILABEL at line: 70 with following arguments:
+# Executing instruction: IPUSHS at line: 72 with following arguments:
+# Arg1: LF@n=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 73 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 74 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 75 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 76 with following arguments:
+# Arg1: Stack@=2(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 77 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 78 with following arguments:
+# Arg1: LF@from=B(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 79 with following arguments:
+# Arg1: LF@middle=A(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 80 with following arguments:
+# Arg1: LF@to_=C(string)
+# Dest: Stack@()
+# Executing instruction: ICALL at line: 81 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 15 with following arguments:
+# Dest: LF@middle
+# Executing instruction: IPOPS at line: 16 with following arguments:
+# Arg1: Stack@=C(string)
+# Dest: LF@middle()
+# Executing instruction: IDEFVAR at line: 17 with following arguments:
+# Dest: LF@to_
+# Executing instruction: IPOPS at line: 18 with following arguments:
+# Arg1: Stack@=A(string)
+# Dest: LF@to_()
+# Executing instruction: IDEFVAR at line: 19 with following arguments:
+# Dest: LF@from
+# Executing instruction: IPOPS at line: 20 with following arguments:
+# Arg1: Stack@=B(string)
+# Dest: LF@from()
+# Executing instruction: IDEFVAR at line: 21 with following arguments:
+# Dest: LF@n
+# Executing instruction: IPOPS at line: 22 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: LF@n()
+# Executing instruction: IDEFVAR at line: 25 with following arguments:
+# Dest: LF@c
+# Executing instruction: IMOVE at line: 26 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: LF@c()
+# Executing instruction: IPUSHS at line: 28 with following arguments:
+# Arg1: LF@n=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 29 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 30 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 31 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IEQS at line: 32 with following arguments:
+# Arg1: Stack@=1(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 33 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 34 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 37 with following arguments:
+# Arg1: Const@=Move disk 1 from row (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 38 with following arguments:
+# Executing instruction: IDEFVAR at line: 39 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 40 with following arguments:
+# Arg1: Stack@=Move disk 1 from row (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 41 with following arguments:
+# Arg1: TF@write=Move disk 1 from row (string)
+# Executing instruction: IPUSHS at line: 42 with following arguments:
+# Arg1: LF@from=B(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 43 with following arguments:
+# Executing instruction: IDEFVAR at line: 44 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 45 with following arguments:
+# Arg1: Stack@=B(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 46 with following arguments:
+# Arg1: TF@write=B(string)
+# Executing instruction: IPUSHS at line: 47 with following arguments:
+# Arg1: Const@= to rod (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 48 with following arguments:
+# Executing instruction: IDEFVAR at line: 49 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 50 with following arguments:
+# Arg1: Stack@= to rod (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 51 with following arguments:
+# Arg1: TF@write= to rod (string)
+# Executing instruction: IPUSHS at line: 52 with following arguments:
+# Arg1: LF@to_=A(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 53 with following arguments:
+# Executing instruction: IDEFVAR at line: 54 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 55 with following arguments:
+# Arg1: Stack@=A(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 56 with following arguments:
+# Arg1: TF@write=A(string)
+# Executing instruction: IPUSHS at line: 57 with following arguments:
+# Arg1: Const@=
+# (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 58 with following arguments:
+# Executing instruction: IDEFVAR at line: 59 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 60 with following arguments:
+# Arg1: Stack@=
+# (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 61 with following arguments:
+# Arg1: TF@write=
+# (string)
+# Executing instruction: IPUSHS at line: 63 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 64 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 65 with following arguments:
+# Arg1: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPOPFRAME at line: 66 with following arguments:
+# Executing instruction: IRETURN at line: 67 with following arguments:
+# Executing instruction: IINT2FLOATS at line: 82 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 83 with following arguments:
+# Arg1: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 84 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: LF@c=0(int)
+# Executing instruction: IPUSHS at line: 86 with following arguments:
+# Arg1: Const@=Move disk(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 87 with following arguments:
+# Executing instruction: IDEFVAR at line: 88 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 89 with following arguments:
+# Arg1: Stack@=Move disk(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 90 with following arguments:
+# Arg1: TF@write=Move disk(string)
+# Executing instruction: IPUSHS at line: 91 with following arguments:
+# Arg1: LF@n=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 92 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 93 with following arguments:
+# Arg1: Stack@=2(double)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 94 with following arguments:
+# Executing instruction: IDEFVAR at line: 95 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 96 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 97 with following arguments:
+# Arg1: TF@write=2(int)
+# Executing instruction: IPUSHS at line: 98 with following arguments:
+# Arg1: Const@= from row (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 99 with following arguments:
+# Executing instruction: IDEFVAR at line: 100 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 101 with following arguments:
+# Arg1: Stack@= from row (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 102 with following arguments:
+# Arg1: TF@write= from row (string)
+# Executing instruction: IPUSHS at line: 103 with following arguments:
+# Arg1: LF@from=B(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 104 with following arguments:
+# Executing instruction: IDEFVAR at line: 105 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 106 with following arguments:
+# Arg1: Stack@=B(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 107 with following arguments:
+# Arg1: TF@write=B(string)
+# Executing instruction: IPUSHS at line: 108 with following arguments:
+# Arg1: Const@= to rod (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 109 with following arguments:
+# Executing instruction: IDEFVAR at line: 110 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 111 with following arguments:
+# Arg1: Stack@= to rod (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 112 with following arguments:
+# Arg1: TF@write= to rod (string)
+# Executing instruction: IPUSHS at line: 113 with following arguments:
+# Arg1: LF@to_=C(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 114 with following arguments:
+# Executing instruction: IDEFVAR at line: 115 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 116 with following arguments:
+# Arg1: Stack@=C(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 117 with following arguments:
+# Arg1: TF@write=C(string)
+# Executing instruction: IPUSHS at line: 118 with following arguments:
+# Arg1: Const@=
+# (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 119 with following arguments:
+# Executing instruction: IDEFVAR at line: 120 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 121 with following arguments:
+# Arg1: Stack@=
+# (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 122 with following arguments:
+# Arg1: TF@write=
+# (string)
+# Executing instruction: IPUSHS at line: 124 with following arguments:
+# Arg1: LF@n=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 125 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 126 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 127 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 128 with following arguments:
+# Arg1: Stack@=2(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 129 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 130 with following arguments:
+# Arg1: LF@middle=A(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 131 with following arguments:
+# Arg1: LF@to_=C(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 132 with following arguments:
+# Arg1: LF@from=B(string)
+# Dest: Stack@()
+# Executing instruction: ICALL at line: 133 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 15 with following arguments:
+# Dest: LF@middle
+# Executing instruction: IPOPS at line: 16 with following arguments:
+# Arg1: Stack@=B(string)
+# Dest: LF@middle()
+# Executing instruction: IDEFVAR at line: 17 with following arguments:
+# Dest: LF@to_
+# Executing instruction: IPOPS at line: 18 with following arguments:
+# Arg1: Stack@=C(string)
+# Dest: LF@to_()
+# Executing instruction: IDEFVAR at line: 19 with following arguments:
+# Dest: LF@from
+# Executing instruction: IPOPS at line: 20 with following arguments:
+# Arg1: Stack@=A(string)
+# Dest: LF@from()
+# Executing instruction: IDEFVAR at line: 21 with following arguments:
+# Dest: LF@n
+# Executing instruction: IPOPS at line: 22 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: LF@n()
+# Executing instruction: IDEFVAR at line: 25 with following arguments:
+# Dest: LF@c
+# Executing instruction: IMOVE at line: 26 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: LF@c()
+# Executing instruction: IPUSHS at line: 28 with following arguments:
+# Arg1: LF@n=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 29 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 30 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 31 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IEQS at line: 32 with following arguments:
+# Arg1: Stack@=1(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 33 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 34 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 37 with following arguments:
+# Arg1: Const@=Move disk 1 from row (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 38 with following arguments:
+# Executing instruction: IDEFVAR at line: 39 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 40 with following arguments:
+# Arg1: Stack@=Move disk 1 from row (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 41 with following arguments:
+# Arg1: TF@write=Move disk 1 from row (string)
+# Executing instruction: IPUSHS at line: 42 with following arguments:
+# Arg1: LF@from=A(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 43 with following arguments:
+# Executing instruction: IDEFVAR at line: 44 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 45 with following arguments:
+# Arg1: Stack@=A(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 46 with following arguments:
+# Arg1: TF@write=A(string)
+# Executing instruction: IPUSHS at line: 47 with following arguments:
+# Arg1: Const@= to rod (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 48 with following arguments:
+# Executing instruction: IDEFVAR at line: 49 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 50 with following arguments:
+# Arg1: Stack@= to rod (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 51 with following arguments:
+# Arg1: TF@write= to rod (string)
+# Executing instruction: IPUSHS at line: 52 with following arguments:
+# Arg1: LF@to_=C(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 53 with following arguments:
+# Executing instruction: IDEFVAR at line: 54 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 55 with following arguments:
+# Arg1: Stack@=C(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 56 with following arguments:
+# Arg1: TF@write=C(string)
+# Executing instruction: IPUSHS at line: 57 with following arguments:
+# Arg1: Const@=
+# (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 58 with following arguments:
+# Executing instruction: IDEFVAR at line: 59 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 60 with following arguments:
+# Arg1: Stack@=
+# (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 61 with following arguments:
+# Arg1: TF@write=
+# (string)
+# Executing instruction: IPUSHS at line: 63 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 64 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 65 with following arguments:
+# Arg1: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPOPFRAME at line: 66 with following arguments:
+# Executing instruction: IRETURN at line: 67 with following arguments:
+# Executing instruction: IINT2FLOATS at line: 134 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 135 with following arguments:
+# Arg1: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 136 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: LF@c=0(int)
+# Executing instruction: IPUSHS at line: 138 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: Stack@()
+# Executing instruction: IPOPFRAME at line: 139 with following arguments:
+# Executing instruction: IRETURN at line: 140 with following arguments:
+# Executing instruction: IINT2FLOATS at line: 134 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 135 with following arguments:
+# Arg1: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 136 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: LF@c=0(int)
+# Executing instruction: IPUSHS at line: 138 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: Stack@()
+# Executing instruction: IPOPFRAME at line: 139 with following arguments:
+# Executing instruction: IRETURN at line: 140 with following arguments:
+# Executing instruction: IINT2FLOATS at line: 82 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 83 with following arguments:
+# Arg1: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 84 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: LF@c=0(int)
+# Executing instruction: IPUSHS at line: 86 with following arguments:
+# Arg1: Const@=Move disk(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 87 with following arguments:
+# Executing instruction: IDEFVAR at line: 88 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 89 with following arguments:
+# Arg1: Stack@=Move disk(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 90 with following arguments:
+# Arg1: TF@write=Move disk(string)
+# Executing instruction: IPUSHS at line: 91 with following arguments:
+# Arg1: LF@n=4(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 92 with following arguments:
+# Arg1: Stack@=4(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 93 with following arguments:
+# Arg1: Stack@=4(double)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 94 with following arguments:
+# Executing instruction: IDEFVAR at line: 95 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 96 with following arguments:
+# Arg1: Stack@=4(int)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 97 with following arguments:
+# Arg1: TF@write=4(int)
+# Executing instruction: IPUSHS at line: 98 with following arguments:
+# Arg1: Const@= from row (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 99 with following arguments:
+# Executing instruction: IDEFVAR at line: 100 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 101 with following arguments:
+# Arg1: Stack@= from row (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 102 with following arguments:
+# Arg1: TF@write= from row (string)
+# Executing instruction: IPUSHS at line: 103 with following arguments:
+# Arg1: LF@from=A(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 104 with following arguments:
+# Executing instruction: IDEFVAR at line: 105 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 106 with following arguments:
+# Arg1: Stack@=A(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 107 with following arguments:
+# Arg1: TF@write=A(string)
+# Executing instruction: IPUSHS at line: 108 with following arguments:
+# Arg1: Const@= to rod (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 109 with following arguments:
+# Executing instruction: IDEFVAR at line: 110 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 111 with following arguments:
+# Arg1: Stack@= to rod (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 112 with following arguments:
+# Arg1: TF@write= to rod (string)
+# Executing instruction: IPUSHS at line: 113 with following arguments:
+# Arg1: LF@to_=B(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 114 with following arguments:
+# Executing instruction: IDEFVAR at line: 115 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 116 with following arguments:
+# Arg1: Stack@=B(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 117 with following arguments:
+# Arg1: TF@write=B(string)
+# Executing instruction: IPUSHS at line: 118 with following arguments:
+# Arg1: Const@=
+# (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 119 with following arguments:
+# Executing instruction: IDEFVAR at line: 120 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 121 with following arguments:
+# Arg1: Stack@=
+# (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 122 with following arguments:
+# Arg1: TF@write=
+# (string)
+# Executing instruction: IPUSHS at line: 124 with following arguments:
+# Arg1: LF@n=4(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 125 with following arguments:
+# Arg1: Stack@=4(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 126 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 127 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 128 with following arguments:
+# Arg1: Stack@=4(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 129 with following arguments:
+# Arg1: Stack@=3(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 130 with following arguments:
+# Arg1: LF@middle=C(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 131 with following arguments:
+# Arg1: LF@to_=B(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 132 with following arguments:
+# Arg1: LF@from=A(string)
+# Dest: Stack@()
+# Executing instruction: ICALL at line: 133 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 15 with following arguments:
+# Dest: LF@middle
+# Executing instruction: IPOPS at line: 16 with following arguments:
+# Arg1: Stack@=A(string)
+# Dest: LF@middle()
+# Executing instruction: IDEFVAR at line: 17 with following arguments:
+# Dest: LF@to_
+# Executing instruction: IPOPS at line: 18 with following arguments:
+# Arg1: Stack@=B(string)
+# Dest: LF@to_()
+# Executing instruction: IDEFVAR at line: 19 with following arguments:
+# Dest: LF@from
+# Executing instruction: IPOPS at line: 20 with following arguments:
+# Arg1: Stack@=C(string)
+# Dest: LF@from()
+# Executing instruction: IDEFVAR at line: 21 with following arguments:
+# Dest: LF@n
+# Executing instruction: IPOPS at line: 22 with following arguments:
+# Arg1: Stack@=3(int)
+# Dest: LF@n()
+# Executing instruction: IDEFVAR at line: 25 with following arguments:
+# Dest: LF@c
+# Executing instruction: IMOVE at line: 26 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: LF@c()
+# Executing instruction: IPUSHS at line: 28 with following arguments:
+# Arg1: LF@n=3(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 29 with following arguments:
+# Arg1: Stack@=3(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 30 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 31 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IEQS at line: 32 with following arguments:
+# Arg1: Stack@=3(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 33 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 34 with following arguments:
+# Arg1: Stack@=false(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: ILABEL at line: 69 with following arguments:
+# Executing instruction: ILABEL at line: 70 with following arguments:
+# Executing instruction: IPUSHS at line: 72 with following arguments:
+# Arg1: LF@n=3(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 73 with following arguments:
+# Arg1: Stack@=3(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 74 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 75 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 76 with following arguments:
+# Arg1: Stack@=3(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 77 with following arguments:
+# Arg1: Stack@=2(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 78 with following arguments:
+# Arg1: LF@from=C(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 79 with following arguments:
+# Arg1: LF@middle=A(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 80 with following arguments:
+# Arg1: LF@to_=B(string)
+# Dest: Stack@()
+# Executing instruction: ICALL at line: 81 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 15 with following arguments:
+# Dest: LF@middle
+# Executing instruction: IPOPS at line: 16 with following arguments:
+# Arg1: Stack@=B(string)
+# Dest: LF@middle()
+# Executing instruction: IDEFVAR at line: 17 with following arguments:
+# Dest: LF@to_
+# Executing instruction: IPOPS at line: 18 with following arguments:
+# Arg1: Stack@=A(string)
+# Dest: LF@to_()
+# Executing instruction: IDEFVAR at line: 19 with following arguments:
+# Dest: LF@from
+# Executing instruction: IPOPS at line: 20 with following arguments:
+# Arg1: Stack@=C(string)
+# Dest: LF@from()
+# Executing instruction: IDEFVAR at line: 21 with following arguments:
+# Dest: LF@n
+# Executing instruction: IPOPS at line: 22 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: LF@n()
+# Executing instruction: IDEFVAR at line: 25 with following arguments:
+# Dest: LF@c
+# Executing instruction: IMOVE at line: 26 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: LF@c()
+# Executing instruction: IPUSHS at line: 28 with following arguments:
+# Arg1: LF@n=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 29 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 30 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 31 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IEQS at line: 32 with following arguments:
+# Arg1: Stack@=2(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 33 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 34 with following arguments:
+# Arg1: Stack@=false(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: ILABEL at line: 69 with following arguments:
+# Executing instruction: ILABEL at line: 70 with following arguments:
+# Executing instruction: IPUSHS at line: 72 with following arguments:
+# Arg1: LF@n=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 73 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 74 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 75 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 76 with following arguments:
+# Arg1: Stack@=2(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 77 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 78 with following arguments:
+# Arg1: LF@from=C(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 79 with following arguments:
+# Arg1: LF@middle=B(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 80 with following arguments:
+# Arg1: LF@to_=A(string)
+# Dest: Stack@()
+# Executing instruction: ICALL at line: 81 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 15 with following arguments:
+# Dest: LF@middle
+# Executing instruction: IPOPS at line: 16 with following arguments:
+# Arg1: Stack@=A(string)
+# Dest: LF@middle()
+# Executing instruction: IDEFVAR at line: 17 with following arguments:
+# Dest: LF@to_
+# Executing instruction: IPOPS at line: 18 with following arguments:
+# Arg1: Stack@=B(string)
+# Dest: LF@to_()
+# Executing instruction: IDEFVAR at line: 19 with following arguments:
+# Dest: LF@from
+# Executing instruction: IPOPS at line: 20 with following arguments:
+# Arg1: Stack@=C(string)
+# Dest: LF@from()
+# Executing instruction: IDEFVAR at line: 21 with following arguments:
+# Dest: LF@n
+# Executing instruction: IPOPS at line: 22 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: LF@n()
+# Executing instruction: IDEFVAR at line: 25 with following arguments:
+# Dest: LF@c
+# Executing instruction: IMOVE at line: 26 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: LF@c()
+# Executing instruction: IPUSHS at line: 28 with following arguments:
+# Arg1: LF@n=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 29 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 30 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 31 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IEQS at line: 32 with following arguments:
+# Arg1: Stack@=1(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 33 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 34 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 37 with following arguments:
+# Arg1: Const@=Move disk 1 from row (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 38 with following arguments:
+# Executing instruction: IDEFVAR at line: 39 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 40 with following arguments:
+# Arg1: Stack@=Move disk 1 from row (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 41 with following arguments:
+# Arg1: TF@write=Move disk 1 from row (string)
+# Executing instruction: IPUSHS at line: 42 with following arguments:
+# Arg1: LF@from=C(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 43 with following arguments:
+# Executing instruction: IDEFVAR at line: 44 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 45 with following arguments:
+# Arg1: Stack@=C(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 46 with following arguments:
+# Arg1: TF@write=C(string)
+# Executing instruction: IPUSHS at line: 47 with following arguments:
+# Arg1: Const@= to rod (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 48 with following arguments:
+# Executing instruction: IDEFVAR at line: 49 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 50 with following arguments:
+# Arg1: Stack@= to rod (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 51 with following arguments:
+# Arg1: TF@write= to rod (string)
+# Executing instruction: IPUSHS at line: 52 with following arguments:
+# Arg1: LF@to_=B(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 53 with following arguments:
+# Executing instruction: IDEFVAR at line: 54 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 55 with following arguments:
+# Arg1: Stack@=B(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 56 with following arguments:
+# Arg1: TF@write=B(string)
+# Executing instruction: IPUSHS at line: 57 with following arguments:
+# Arg1: Const@=
+# (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 58 with following arguments:
+# Executing instruction: IDEFVAR at line: 59 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 60 with following arguments:
+# Arg1: Stack@=
+# (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 61 with following arguments:
+# Arg1: TF@write=
+# (string)
+# Executing instruction: IPUSHS at line: 63 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 64 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 65 with following arguments:
+# Arg1: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPOPFRAME at line: 66 with following arguments:
+# Executing instruction: IRETURN at line: 67 with following arguments:
+# Executing instruction: IINT2FLOATS at line: 82 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 83 with following arguments:
+# Arg1: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 84 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: LF@c=0(int)
+# Executing instruction: IPUSHS at line: 86 with following arguments:
+# Arg1: Const@=Move disk(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 87 with following arguments:
+# Executing instruction: IDEFVAR at line: 88 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 89 with following arguments:
+# Arg1: Stack@=Move disk(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 90 with following arguments:
+# Arg1: TF@write=Move disk(string)
+# Executing instruction: IPUSHS at line: 91 with following arguments:
+# Arg1: LF@n=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 92 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 93 with following arguments:
+# Arg1: Stack@=2(double)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 94 with following arguments:
+# Executing instruction: IDEFVAR at line: 95 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 96 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 97 with following arguments:
+# Arg1: TF@write=2(int)
+# Executing instruction: IPUSHS at line: 98 with following arguments:
+# Arg1: Const@= from row (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 99 with following arguments:
+# Executing instruction: IDEFVAR at line: 100 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 101 with following arguments:
+# Arg1: Stack@= from row (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 102 with following arguments:
+# Arg1: TF@write= from row (string)
+# Executing instruction: IPUSHS at line: 103 with following arguments:
+# Arg1: LF@from=C(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 104 with following arguments:
+# Executing instruction: IDEFVAR at line: 105 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 106 with following arguments:
+# Arg1: Stack@=C(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 107 with following arguments:
+# Arg1: TF@write=C(string)
+# Executing instruction: IPUSHS at line: 108 with following arguments:
+# Arg1: Const@= to rod (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 109 with following arguments:
+# Executing instruction: IDEFVAR at line: 110 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 111 with following arguments:
+# Arg1: Stack@= to rod (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 112 with following arguments:
+# Arg1: TF@write= to rod (string)
+# Executing instruction: IPUSHS at line: 113 with following arguments:
+# Arg1: LF@to_=A(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 114 with following arguments:
+# Executing instruction: IDEFVAR at line: 115 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 116 with following arguments:
+# Arg1: Stack@=A(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 117 with following arguments:
+# Arg1: TF@write=A(string)
+# Executing instruction: IPUSHS at line: 118 with following arguments:
+# Arg1: Const@=
+# (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 119 with following arguments:
+# Executing instruction: IDEFVAR at line: 120 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 121 with following arguments:
+# Arg1: Stack@=
+# (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 122 with following arguments:
+# Arg1: TF@write=
+# (string)
+# Executing instruction: IPUSHS at line: 124 with following arguments:
+# Arg1: LF@n=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 125 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 126 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 127 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 128 with following arguments:
+# Arg1: Stack@=2(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 129 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 130 with following arguments:
+# Arg1: LF@middle=B(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 131 with following arguments:
+# Arg1: LF@to_=A(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 132 with following arguments:
+# Arg1: LF@from=C(string)
+# Dest: Stack@()
+# Executing instruction: ICALL at line: 133 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 15 with following arguments:
+# Dest: LF@middle
+# Executing instruction: IPOPS at line: 16 with following arguments:
+# Arg1: Stack@=C(string)
+# Dest: LF@middle()
+# Executing instruction: IDEFVAR at line: 17 with following arguments:
+# Dest: LF@to_
+# Executing instruction: IPOPS at line: 18 with following arguments:
+# Arg1: Stack@=A(string)
+# Dest: LF@to_()
+# Executing instruction: IDEFVAR at line: 19 with following arguments:
+# Dest: LF@from
+# Executing instruction: IPOPS at line: 20 with following arguments:
+# Arg1: Stack@=B(string)
+# Dest: LF@from()
+# Executing instruction: IDEFVAR at line: 21 with following arguments:
+# Dest: LF@n
+# Executing instruction: IPOPS at line: 22 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: LF@n()
+# Executing instruction: IDEFVAR at line: 25 with following arguments:
+# Dest: LF@c
+# Executing instruction: IMOVE at line: 26 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: LF@c()
+# Executing instruction: IPUSHS at line: 28 with following arguments:
+# Arg1: LF@n=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 29 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 30 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 31 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IEQS at line: 32 with following arguments:
+# Arg1: Stack@=1(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 33 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 34 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 37 with following arguments:
+# Arg1: Const@=Move disk 1 from row (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 38 with following arguments:
+# Executing instruction: IDEFVAR at line: 39 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 40 with following arguments:
+# Arg1: Stack@=Move disk 1 from row (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 41 with following arguments:
+# Arg1: TF@write=Move disk 1 from row (string)
+# Executing instruction: IPUSHS at line: 42 with following arguments:
+# Arg1: LF@from=B(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 43 with following arguments:
+# Executing instruction: IDEFVAR at line: 44 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 45 with following arguments:
+# Arg1: Stack@=B(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 46 with following arguments:
+# Arg1: TF@write=B(string)
+# Executing instruction: IPUSHS at line: 47 with following arguments:
+# Arg1: Const@= to rod (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 48 with following arguments:
+# Executing instruction: IDEFVAR at line: 49 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 50 with following arguments:
+# Arg1: Stack@= to rod (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 51 with following arguments:
+# Arg1: TF@write= to rod (string)
+# Executing instruction: IPUSHS at line: 52 with following arguments:
+# Arg1: LF@to_=A(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 53 with following arguments:
+# Executing instruction: IDEFVAR at line: 54 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 55 with following arguments:
+# Arg1: Stack@=A(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 56 with following arguments:
+# Arg1: TF@write=A(string)
+# Executing instruction: IPUSHS at line: 57 with following arguments:
+# Arg1: Const@=
+# (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 58 with following arguments:
+# Executing instruction: IDEFVAR at line: 59 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 60 with following arguments:
+# Arg1: Stack@=
+# (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 61 with following arguments:
+# Arg1: TF@write=
+# (string)
+# Executing instruction: IPUSHS at line: 63 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 64 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 65 with following arguments:
+# Arg1: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPOPFRAME at line: 66 with following arguments:
+# Executing instruction: IRETURN at line: 67 with following arguments:
+# Executing instruction: IINT2FLOATS at line: 134 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 135 with following arguments:
+# Arg1: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 136 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: LF@c=0(int)
+# Executing instruction: IPUSHS at line: 138 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: Stack@()
+# Executing instruction: IPOPFRAME at line: 139 with following arguments:
+# Executing instruction: IRETURN at line: 140 with following arguments:
+# Executing instruction: IINT2FLOATS at line: 82 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 83 with following arguments:
+# Arg1: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 84 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: LF@c=0(int)
+# Executing instruction: IPUSHS at line: 86 with following arguments:
+# Arg1: Const@=Move disk(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 87 with following arguments:
+# Executing instruction: IDEFVAR at line: 88 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 89 with following arguments:
+# Arg1: Stack@=Move disk(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 90 with following arguments:
+# Arg1: TF@write=Move disk(string)
+# Executing instruction: IPUSHS at line: 91 with following arguments:
+# Arg1: LF@n=3(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 92 with following arguments:
+# Arg1: Stack@=3(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 93 with following arguments:
+# Arg1: Stack@=3(double)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 94 with following arguments:
+# Executing instruction: IDEFVAR at line: 95 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 96 with following arguments:
+# Arg1: Stack@=3(int)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 97 with following arguments:
+# Arg1: TF@write=3(int)
+# Executing instruction: IPUSHS at line: 98 with following arguments:
+# Arg1: Const@= from row (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 99 with following arguments:
+# Executing instruction: IDEFVAR at line: 100 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 101 with following arguments:
+# Arg1: Stack@= from row (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 102 with following arguments:
+# Arg1: TF@write= from row (string)
+# Executing instruction: IPUSHS at line: 103 with following arguments:
+# Arg1: LF@from=C(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 104 with following arguments:
+# Executing instruction: IDEFVAR at line: 105 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 106 with following arguments:
+# Arg1: Stack@=C(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 107 with following arguments:
+# Arg1: TF@write=C(string)
+# Executing instruction: IPUSHS at line: 108 with following arguments:
+# Arg1: Const@= to rod (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 109 with following arguments:
+# Executing instruction: IDEFVAR at line: 110 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 111 with following arguments:
+# Arg1: Stack@= to rod (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 112 with following arguments:
+# Arg1: TF@write= to rod (string)
+# Executing instruction: IPUSHS at line: 113 with following arguments:
+# Arg1: LF@to_=B(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 114 with following arguments:
+# Executing instruction: IDEFVAR at line: 115 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 116 with following arguments:
+# Arg1: Stack@=B(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 117 with following arguments:
+# Arg1: TF@write=B(string)
+# Executing instruction: IPUSHS at line: 118 with following arguments:
+# Arg1: Const@=
+# (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 119 with following arguments:
+# Executing instruction: IDEFVAR at line: 120 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 121 with following arguments:
+# Arg1: Stack@=
+# (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 122 with following arguments:
+# Arg1: TF@write=
+# (string)
+# Executing instruction: IPUSHS at line: 124 with following arguments:
+# Arg1: LF@n=3(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 125 with following arguments:
+# Arg1: Stack@=3(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 126 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 127 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 128 with following arguments:
+# Arg1: Stack@=3(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 129 with following arguments:
+# Arg1: Stack@=2(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 130 with following arguments:
+# Arg1: LF@middle=A(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 131 with following arguments:
+# Arg1: LF@to_=B(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 132 with following arguments:
+# Arg1: LF@from=C(string)
+# Dest: Stack@()
+# Executing instruction: ICALL at line: 133 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 15 with following arguments:
+# Dest: LF@middle
+# Executing instruction: IPOPS at line: 16 with following arguments:
+# Arg1: Stack@=C(string)
+# Dest: LF@middle()
+# Executing instruction: IDEFVAR at line: 17 with following arguments:
+# Dest: LF@to_
+# Executing instruction: IPOPS at line: 18 with following arguments:
+# Arg1: Stack@=B(string)
+# Dest: LF@to_()
+# Executing instruction: IDEFVAR at line: 19 with following arguments:
+# Dest: LF@from
+# Executing instruction: IPOPS at line: 20 with following arguments:
+# Arg1: Stack@=A(string)
+# Dest: LF@from()
+# Executing instruction: IDEFVAR at line: 21 with following arguments:
+# Dest: LF@n
+# Executing instruction: IPOPS at line: 22 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: LF@n()
+# Executing instruction: IDEFVAR at line: 25 with following arguments:
+# Dest: LF@c
+# Executing instruction: IMOVE at line: 26 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: LF@c()
+# Executing instruction: IPUSHS at line: 28 with following arguments:
+# Arg1: LF@n=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 29 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 30 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 31 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IEQS at line: 32 with following arguments:
+# Arg1: Stack@=2(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 33 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 34 with following arguments:
+# Arg1: Stack@=false(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: ILABEL at line: 69 with following arguments:
+# Executing instruction: ILABEL at line: 70 with following arguments:
+# Executing instruction: IPUSHS at line: 72 with following arguments:
+# Arg1: LF@n=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 73 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 74 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 75 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 76 with following arguments:
+# Arg1: Stack@=2(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 77 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 78 with following arguments:
+# Arg1: LF@from=A(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 79 with following arguments:
+# Arg1: LF@middle=C(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 80 with following arguments:
+# Arg1: LF@to_=B(string)
+# Dest: Stack@()
+# Executing instruction: ICALL at line: 81 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 15 with following arguments:
+# Dest: LF@middle
+# Executing instruction: IPOPS at line: 16 with following arguments:
+# Arg1: Stack@=B(string)
+# Dest: LF@middle()
+# Executing instruction: IDEFVAR at line: 17 with following arguments:
+# Dest: LF@to_
+# Executing instruction: IPOPS at line: 18 with following arguments:
+# Arg1: Stack@=C(string)
+# Dest: LF@to_()
+# Executing instruction: IDEFVAR at line: 19 with following arguments:
+# Dest: LF@from
+# Executing instruction: IPOPS at line: 20 with following arguments:
+# Arg1: Stack@=A(string)
+# Dest: LF@from()
+# Executing instruction: IDEFVAR at line: 21 with following arguments:
+# Dest: LF@n
+# Executing instruction: IPOPS at line: 22 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: LF@n()
+# Executing instruction: IDEFVAR at line: 25 with following arguments:
+# Dest: LF@c
+# Executing instruction: IMOVE at line: 26 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: LF@c()
+# Executing instruction: IPUSHS at line: 28 with following arguments:
+# Arg1: LF@n=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 29 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 30 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 31 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IEQS at line: 32 with following arguments:
+# Arg1: Stack@=1(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 33 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 34 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 37 with following arguments:
+# Arg1: Const@=Move disk 1 from row (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 38 with following arguments:
+# Executing instruction: IDEFVAR at line: 39 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 40 with following arguments:
+# Arg1: Stack@=Move disk 1 from row (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 41 with following arguments:
+# Arg1: TF@write=Move disk 1 from row (string)
+# Executing instruction: IPUSHS at line: 42 with following arguments:
+# Arg1: LF@from=A(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 43 with following arguments:
+# Executing instruction: IDEFVAR at line: 44 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 45 with following arguments:
+# Arg1: Stack@=A(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 46 with following arguments:
+# Arg1: TF@write=A(string)
+# Executing instruction: IPUSHS at line: 47 with following arguments:
+# Arg1: Const@= to rod (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 48 with following arguments:
+# Executing instruction: IDEFVAR at line: 49 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 50 with following arguments:
+# Arg1: Stack@= to rod (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 51 with following arguments:
+# Arg1: TF@write= to rod (string)
+# Executing instruction: IPUSHS at line: 52 with following arguments:
+# Arg1: LF@to_=C(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 53 with following arguments:
+# Executing instruction: IDEFVAR at line: 54 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 55 with following arguments:
+# Arg1: Stack@=C(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 56 with following arguments:
+# Arg1: TF@write=C(string)
+# Executing instruction: IPUSHS at line: 57 with following arguments:
+# Arg1: Const@=
+# (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 58 with following arguments:
+# Executing instruction: IDEFVAR at line: 59 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 60 with following arguments:
+# Arg1: Stack@=
+# (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 61 with following arguments:
+# Arg1: TF@write=
+# (string)
+# Executing instruction: IPUSHS at line: 63 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 64 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 65 with following arguments:
+# Arg1: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPOPFRAME at line: 66 with following arguments:
+# Executing instruction: IRETURN at line: 67 with following arguments:
+# Executing instruction: IINT2FLOATS at line: 82 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 83 with following arguments:
+# Arg1: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 84 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: LF@c=0(int)
+# Executing instruction: IPUSHS at line: 86 with following arguments:
+# Arg1: Const@=Move disk(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 87 with following arguments:
+# Executing instruction: IDEFVAR at line: 88 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 89 with following arguments:
+# Arg1: Stack@=Move disk(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 90 with following arguments:
+# Arg1: TF@write=Move disk(string)
+# Executing instruction: IPUSHS at line: 91 with following arguments:
+# Arg1: LF@n=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 92 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 93 with following arguments:
+# Arg1: Stack@=2(double)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 94 with following arguments:
+# Executing instruction: IDEFVAR at line: 95 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 96 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 97 with following arguments:
+# Arg1: TF@write=2(int)
+# Executing instruction: IPUSHS at line: 98 with following arguments:
+# Arg1: Const@= from row (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 99 with following arguments:
+# Executing instruction: IDEFVAR at line: 100 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 101 with following arguments:
+# Arg1: Stack@= from row (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 102 with following arguments:
+# Arg1: TF@write= from row (string)
+# Executing instruction: IPUSHS at line: 103 with following arguments:
+# Arg1: LF@from=A(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 104 with following arguments:
+# Executing instruction: IDEFVAR at line: 105 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 106 with following arguments:
+# Arg1: Stack@=A(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 107 with following arguments:
+# Arg1: TF@write=A(string)
+# Executing instruction: IPUSHS at line: 108 with following arguments:
+# Arg1: Const@= to rod (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 109 with following arguments:
+# Executing instruction: IDEFVAR at line: 110 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 111 with following arguments:
+# Arg1: Stack@= to rod (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 112 with following arguments:
+# Arg1: TF@write= to rod (string)
+# Executing instruction: IPUSHS at line: 113 with following arguments:
+# Arg1: LF@to_=B(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 114 with following arguments:
+# Executing instruction: IDEFVAR at line: 115 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 116 with following arguments:
+# Arg1: Stack@=B(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 117 with following arguments:
+# Arg1: TF@write=B(string)
+# Executing instruction: IPUSHS at line: 118 with following arguments:
+# Arg1: Const@=
+# (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 119 with following arguments:
+# Executing instruction: IDEFVAR at line: 120 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 121 with following arguments:
+# Arg1: Stack@=
+# (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 122 with following arguments:
+# Arg1: TF@write=
+# (string)
+# Executing instruction: IPUSHS at line: 124 with following arguments:
+# Arg1: LF@n=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 125 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 126 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 127 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 128 with following arguments:
+# Arg1: Stack@=2(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 129 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 130 with following arguments:
+# Arg1: LF@middle=C(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 131 with following arguments:
+# Arg1: LF@to_=B(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 132 with following arguments:
+# Arg1: LF@from=A(string)
+# Dest: Stack@()
+# Executing instruction: ICALL at line: 133 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 15 with following arguments:
+# Dest: LF@middle
+# Executing instruction: IPOPS at line: 16 with following arguments:
+# Arg1: Stack@=A(string)
+# Dest: LF@middle()
+# Executing instruction: IDEFVAR at line: 17 with following arguments:
+# Dest: LF@to_
+# Executing instruction: IPOPS at line: 18 with following arguments:
+# Arg1: Stack@=B(string)
+# Dest: LF@to_()
+# Executing instruction: IDEFVAR at line: 19 with following arguments:
+# Dest: LF@from
+# Executing instruction: IPOPS at line: 20 with following arguments:
+# Arg1: Stack@=C(string)
+# Dest: LF@from()
+# Executing instruction: IDEFVAR at line: 21 with following arguments:
+# Dest: LF@n
+# Executing instruction: IPOPS at line: 22 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: LF@n()
+# Executing instruction: IDEFVAR at line: 25 with following arguments:
+# Dest: LF@c
+# Executing instruction: IMOVE at line: 26 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: LF@c()
+# Executing instruction: IPUSHS at line: 28 with following arguments:
+# Arg1: LF@n=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 29 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 30 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 31 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IEQS at line: 32 with following arguments:
+# Arg1: Stack@=1(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 33 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 34 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 37 with following arguments:
+# Arg1: Const@=Move disk 1 from row (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 38 with following arguments:
+# Executing instruction: IDEFVAR at line: 39 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 40 with following arguments:
+# Arg1: Stack@=Move disk 1 from row (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 41 with following arguments:
+# Arg1: TF@write=Move disk 1 from row (string)
+# Executing instruction: IPUSHS at line: 42 with following arguments:
+# Arg1: LF@from=C(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 43 with following arguments:
+# Executing instruction: IDEFVAR at line: 44 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 45 with following arguments:
+# Arg1: Stack@=C(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 46 with following arguments:
+# Arg1: TF@write=C(string)
+# Executing instruction: IPUSHS at line: 47 with following arguments:
+# Arg1: Const@= to rod (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 48 with following arguments:
+# Executing instruction: IDEFVAR at line: 49 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 50 with following arguments:
+# Arg1: Stack@= to rod (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 51 with following arguments:
+# Arg1: TF@write= to rod (string)
+# Executing instruction: IPUSHS at line: 52 with following arguments:
+# Arg1: LF@to_=B(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 53 with following arguments:
+# Executing instruction: IDEFVAR at line: 54 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 55 with following arguments:
+# Arg1: Stack@=B(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 56 with following arguments:
+# Arg1: TF@write=B(string)
+# Executing instruction: IPUSHS at line: 57 with following arguments:
+# Arg1: Const@=
+# (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 58 with following arguments:
+# Executing instruction: IDEFVAR at line: 59 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 60 with following arguments:
+# Arg1: Stack@=
+# (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 61 with following arguments:
+# Arg1: TF@write=
+# (string)
+# Executing instruction: IPUSHS at line: 63 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 64 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 65 with following arguments:
+# Arg1: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPOPFRAME at line: 66 with following arguments:
+# Executing instruction: IRETURN at line: 67 with following arguments:
+# Executing instruction: IINT2FLOATS at line: 134 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 135 with following arguments:
+# Arg1: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 136 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: LF@c=0(int)
+# Executing instruction: IPUSHS at line: 138 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: Stack@()
+# Executing instruction: IPOPFRAME at line: 139 with following arguments:
+# Executing instruction: IRETURN at line: 140 with following arguments:
+# Executing instruction: IINT2FLOATS at line: 134 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 135 with following arguments:
+# Arg1: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 136 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: LF@c=0(int)
+# Executing instruction: IPUSHS at line: 138 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: Stack@()
+# Executing instruction: IPOPFRAME at line: 139 with following arguments:
+# Executing instruction: IRETURN at line: 140 with following arguments:
+# Executing instruction: IINT2FLOATS at line: 134 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 135 with following arguments:
+# Arg1: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 136 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: LF@c=0(int)
+# Executing instruction: IPUSHS at line: 138 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: Stack@()
+# Executing instruction: IPOPFRAME at line: 139 with following arguments:
+# Executing instruction: IRETURN at line: 140 with following arguments:
+# Executing instruction: IINT2FLOATS at line: 156 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 157 with following arguments:
+# Arg1: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 158 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: LF@c=0(int)
+# Executing instruction: IGROOT at line: 161 with following arguments:
+# I am Groot at 161 (5467).
+# 
+# STDOUT DIFF:
+# 
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 0
+# CURRENT COMPILER EXIT CODE: 0
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: 0
+# PRICE: 5467 (1592+3875)
+# GROOT: 5467
+# 
+#   1: ' Tower of Hanoi for 4 rodes
+#   2: 
+#   3: function hanoi(n as integer, from as string, to_ as string, middle as string) as integer
+#   4: 	dim c as integer
+#   5: 	if n = 1 then
+#   6: 		print !"Move disk 1 from row "; from; !" to rod "; to_; !"\n";
+#   7: 		return 0
+#   8: 	end if
+#   9: 	c = hanoi(n - 1, from, middle, to_)
+#  10: 	print !"Move disk"; n; !" from row "; from; !" to rod "; to_; !"\n";
+#  11: 	c = hanoi(n - 1, middle, to_, from)
+#  12: end function
+#  13: 
+#  14: scope
+#  15: 	dim c as integer
+#  16: 	c = hanoi(4, !"A", !"B", !"C")
+#  17: end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/159
+DEFVAR GF@$str1                                                                 #     2/159
+DEFVAR GF@$str2                                                                 #     3/159
+DEFVAR GF@$num1                                                                 #     4/159
+DEFVAR GF@$num2                                                                 #     5/159
+DEFVAR GF@$num3                                                                 #     6/159
+DEFVAR GF@$bool1                                                                #     7/159
+DEFVAR GF@$counter                                                              #     8/159
+DEFVAR GF@$char                                                                 #     9/159
+JUMP $$main                                                                     #    10/159
+LABEL $hanoi                                                                    #    12/159
+CREATEFRAME                                                                     #    13/159
+PUSHFRAME                                                                       #    14/159
+DEFVAR LF@middle                                                                #    15/159
+POPS LF@middle                                                                  #    16/159
+DEFVAR LF@to_                                                                   #    17/159
+POPS LF@to_                                                                     #    18/159
+DEFVAR LF@from                                                                  #    19/159
+POPS LF@from                                                                    #    20/159
+DEFVAR LF@n                                                                     #    21/159
+POPS LF@n                                                                       #    22/159
+DEFVAR LF@c                                                                     #    25/159
+MOVE LF@c int@0                                                                 #    26/159
+PUSHS LF@n                                                                      #    28/159
+INT2FLOATS                                                                      #    29/159
+PUSHS int@1                                                                     #    30/159
+INT2FLOATS                                                                      #    31/159
+EQS                                                                             #    32/159
+PUSHS bool@true                                                                 #    33/159
+JUMPIFNEQS &else5                                                               #    34/159
+PUSHS string@Move\032disk\0321\032from\032row\032                               #    37/159
+CREATEFRAME                                                                     #    38/159
+DEFVAR TF@write                                                                 #    39/159
+POPS TF@write                                                                   #    40/159
+WRITE TF@write                                                                  #    41/159
+PUSHS LF@from                                                                   #    42/159
+CREATEFRAME                                                                     #    43/159
+DEFVAR TF@write                                                                 #    44/159
+POPS TF@write                                                                   #    45/159
+WRITE TF@write                                                                  #    46/159
+PUSHS string@\032to\032rod\032                                                  #    47/159
+CREATEFRAME                                                                     #    48/159
+DEFVAR TF@write                                                                 #    49/159
+POPS TF@write                                                                   #    50/159
+WRITE TF@write                                                                  #    51/159
+PUSHS LF@to_                                                                    #    52/159
+CREATEFRAME                                                                     #    53/159
+DEFVAR TF@write                                                                 #    54/159
+POPS TF@write                                                                   #    55/159
+WRITE TF@write                                                                  #    56/159
+PUSHS string@\010                                                               #    57/159
+CREATEFRAME                                                                     #    58/159
+DEFVAR TF@write                                                                 #    59/159
+POPS TF@write                                                                   #    60/159
+WRITE TF@write                                                                  #    61/159
+PUSHS int@0                                                                     #    63/159
+INT2FLOATS                                                                      #    64/159
+FLOAT2R2EINTS                                                                   #    65/159
+POPFRAME                                                                        #    66/159
+RETURN                                                                          #    67/159
+LABEL &else5                                                                    #    69/159
+LABEL &endif5                                                                   #    70/159
+PUSHS LF@n                                                                      #    72/159
+INT2FLOATS                                                                      #    73/159
+PUSHS int@1                                                                     #    74/159
+INT2FLOATS                                                                      #    75/159
+SUBS                                                                            #    76/159
+FLOAT2R2EINTS                                                                   #    77/159
+PUSHS LF@from                                                                   #    78/159
+PUSHS LF@middle                                                                 #    79/159
+PUSHS LF@to_                                                                    #    80/159
+CALL $hanoi                                                                     #    81/159
+INT2FLOATS                                                                      #    82/159
+FLOAT2R2EINTS                                                                   #    83/159
+POPS LF@c                                                                       #    84/159
+PUSHS string@Move\032disk                                                       #    86/159
+CREATEFRAME                                                                     #    87/159
+DEFVAR TF@write                                                                 #    88/159
+POPS TF@write                                                                   #    89/159
+WRITE TF@write                                                                  #    90/159
+PUSHS LF@n                                                                      #    91/159
+INT2FLOATS                                                                      #    92/159
+FLOAT2R2EINTS                                                                   #    93/159
+CREATEFRAME                                                                     #    94/159
+DEFVAR TF@write                                                                 #    95/159
+POPS TF@write                                                                   #    96/159
+WRITE TF@write                                                                  #    97/159
+PUSHS string@\032from\032row\032                                                #    98/159
+CREATEFRAME                                                                     #    99/159
+DEFVAR TF@write                                                                 #   100/159
+POPS TF@write                                                                   #   101/159
+WRITE TF@write                                                                  #   102/159
+PUSHS LF@from                                                                   #   103/159
+CREATEFRAME                                                                     #   104/159
+DEFVAR TF@write                                                                 #   105/159
+POPS TF@write                                                                   #   106/159
+WRITE TF@write                                                                  #   107/159
+PUSHS string@\032to\032rod\032                                                  #   108/159
+CREATEFRAME                                                                     #   109/159
+DEFVAR TF@write                                                                 #   110/159
+POPS TF@write                                                                   #   111/159
+WRITE TF@write                                                                  #   112/159
+PUSHS LF@to_                                                                    #   113/159
+CREATEFRAME                                                                     #   114/159
+DEFVAR TF@write                                                                 #   115/159
+POPS TF@write                                                                   #   116/159
+WRITE TF@write                                                                  #   117/159
+PUSHS string@\010                                                               #   118/159
+CREATEFRAME                                                                     #   119/159
+DEFVAR TF@write                                                                 #   120/159
+POPS TF@write                                                                   #   121/159
+WRITE TF@write                                                                  #   122/159
+PUSHS LF@n                                                                      #   124/159
+INT2FLOATS                                                                      #   125/159
+PUSHS int@1                                                                     #   126/159
+INT2FLOATS                                                                      #   127/159
+SUBS                                                                            #   128/159
+FLOAT2R2EINTS                                                                   #   129/159
+PUSHS LF@middle                                                                 #   130/159
+PUSHS LF@to_                                                                    #   131/159
+PUSHS LF@from                                                                   #   132/159
+CALL $hanoi                                                                     #   133/159
+INT2FLOATS                                                                      #   134/159
+FLOAT2R2EINTS                                                                   #   135/159
+POPS LF@c                                                                       #   136/159
+PUSHS int@0                                                                     #   138/159
+POPFRAME                                                                        #   139/159
+RETURN                                                                          #   140/159
+LABEL $$main                                                                    #   142/159
+CREATEFRAME                                                                     #   143/159
+PUSHFRAME                                                                       #   144/159
+DEFVAR LF@c                                                                     #   146/159
+MOVE LF@c int@0                                                                 #   147/159
+PUSHS int@4                                                                     #   149/159
+INT2FLOATS                                                                      #   150/159
+FLOAT2R2EINTS                                                                   #   151/159
+PUSHS string@A                                                                  #   152/159
+PUSHS string@B                                                                  #   153/159
+PUSHS string@C                                                                  #   154/159
+CALL $hanoi                                                                     #   155/159
+INT2FLOATS                                                                      #   156/159
+FLOAT2R2EINTS                                                                   #   157/159
+POPS LF@c                                                                       #   158/159
+

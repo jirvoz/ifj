@@ -1,0 +1,249 @@
+# 2017-12-04 23:21:44.503833
+# SECTION: 04_expressions
+# TEST: 27
+# INFO: Divide priority (fail types)
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# 
+# INTERPRETER STDERR:
+# Executing instruction: IDEFVAR at line: 2 with following arguments:
+# Dest: GF@$str1
+# Executing instruction: IDEFVAR at line: 3 with following arguments:
+# Dest: GF@$str2
+# Executing instruction: IDEFVAR at line: 4 with following arguments:
+# Dest: GF@$num1
+# Executing instruction: IDEFVAR at line: 5 with following arguments:
+# Dest: GF@$num2
+# Executing instruction: IDEFVAR at line: 6 with following arguments:
+# Dest: GF@$num3
+# Executing instruction: IDEFVAR at line: 7 with following arguments:
+# Dest: GF@$bool1
+# Executing instruction: IDEFVAR at line: 8 with following arguments:
+# Dest: GF@$counter
+# Executing instruction: IDEFVAR at line: 9 with following arguments:
+# Dest: GF@$char
+# Executing instruction: IJUMP at line: 10 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IPUSHS at line: 16 with following arguments:
+# Arg1: Const@=100000(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 17 with following arguments:
+# Arg1: Stack@=100000(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 18 with following arguments:
+# Arg1: Const@=3(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 19 with following arguments:
+# Arg1: Stack@=3(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 20 with following arguments:
+# Arg1: Const@=4(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 21 with following arguments:
+# Arg1: Stack@=4(int)
+# Dest: Stack@()
+# Executing instruction: IDIVS at line: 22 with following arguments:
+# Arg1: Stack@=3(double)
+# Arg2: Stack@=4(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 23 with following arguments:
+# Arg1: Stack@=0.75(double)
+# Dest: GF@$num1()
+# Executing instruction: IFLOAT2R2EINTS at line: 24 with following arguments:
+# Arg1: Stack@=100000(double)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 25 with following arguments:
+# Arg1: Stack@=100000(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 26 with following arguments:
+# Arg1: GF@$num1=0.75(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 27 with following arguments:
+# Arg1: Stack@=0.75(double)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 28 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IDIVS at line: 29 with following arguments:
+# Arg1: Stack@=100000(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2INTS at line: 30 with following arguments:
+# Arg1: Stack@=100000(double)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 31 with following arguments:
+# Arg1: Stack@=100000(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 32 with following arguments:
+# Arg1: Const@=4(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 33 with following arguments:
+# Arg1: Stack@=4(int)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 34 with following arguments:
+# Arg1: Stack@=4(double)
+# Dest: GF@$num1=0.75(double)
+# Executing instruction: IFLOAT2R2EINTS at line: 35 with following arguments:
+# Arg1: Stack@=100000(double)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 36 with following arguments:
+# Arg1: Stack@=100000(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 37 with following arguments:
+# Arg1: GF@$num1=4(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 38 with following arguments:
+# Arg1: Stack@=4(double)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 39 with following arguments:
+# Arg1: Stack@=4(int)
+# Dest: Stack@()
+# Executing instruction: IDIVS at line: 40 with following arguments:
+# Arg1: Stack@=100000(double)
+# Arg2: Stack@=4(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2INTS at line: 41 with following arguments:
+# Arg1: Stack@=25000(double)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 42 with following arguments:
+# Arg1: Stack@=25000(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 43 with following arguments:
+# Arg1: Const@=4(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 44 with following arguments:
+# Arg1: Stack@=4(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 45 with following arguments:
+# Arg1: Const@=6(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 46 with following arguments:
+# Arg1: Stack@=6(int)
+# Dest: Stack@()
+# Executing instruction: IDIVS at line: 47 with following arguments:
+# Arg1: Stack@=4(double)
+# Arg2: Stack@=6(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 48 with following arguments:
+# Arg1: Stack@=0.6666666666666666(double)
+# Dest: GF@$num1=4(double)
+# Executing instruction: IFLOAT2R2EINTS at line: 49 with following arguments:
+# Arg1: Stack@=25000(double)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 50 with following arguments:
+# Arg1: Stack@=25000(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 51 with following arguments:
+# Arg1: GF@$num1=0.6666666666666666(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 52 with following arguments:
+# Arg1: Stack@=0.6666666666666666(double)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 53 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IDIVS at line: 54 with following arguments:
+# Arg1: Stack@=25000(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2INTS at line: 55 with following arguments:
+# Arg1: Stack@=25000(double)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 56 with following arguments:
+# Arg1: Stack@=25000(int)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 57 with following arguments:
+# Executing instruction: IDEFVAR at line: 58 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 59 with following arguments:
+# Arg1: Stack@=25000(double)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 60 with following arguments:
+# Arg1: TF@write=25000(double)
+# Executing instruction: IGROOT at line: 63 with following arguments:
+# I am Groot at 63 (299).
+# 
+# STDOUT DIFF:
+# 
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 0
+# CURRENT COMPILER EXIT CODE: 0
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: 0
+# PRICE: 299 (73+226)
+# GROOT: 299
+# 
+#   1: ' Divide priority (fail types)
+#   2: scope
+#   3:     print 100000\(3/4)\4\(4/6);
+#   4: end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/61
+DEFVAR GF@$str1                                                                 #     2/61
+DEFVAR GF@$str2                                                                 #     3/61
+DEFVAR GF@$num1                                                                 #     4/61
+DEFVAR GF@$num2                                                                 #     5/61
+DEFVAR GF@$num3                                                                 #     6/61
+DEFVAR GF@$bool1                                                                #     7/61
+DEFVAR GF@$counter                                                              #     8/61
+DEFVAR GF@$char                                                                 #     9/61
+JUMP $$main                                                                     #    10/61
+LABEL $$main                                                                    #    12/61
+CREATEFRAME                                                                     #    13/61
+PUSHFRAME                                                                       #    14/61
+PUSHS int@100000                                                                #    16/61
+INT2FLOATS                                                                      #    17/61
+PUSHS int@3                                                                     #    18/61
+INT2FLOATS                                                                      #    19/61
+PUSHS int@4                                                                     #    20/61
+INT2FLOATS                                                                      #    21/61
+DIVS                                                                            #    22/61
+POPS GF@$num1                                                                   #    23/61
+FLOAT2R2EINTS                                                                   #    24/61
+INT2FLOATS                                                                      #    25/61
+PUSHS GF@$num1                                                                  #    26/61
+FLOAT2R2EINTS                                                                   #    27/61
+INT2FLOATS                                                                      #    28/61
+DIVS                                                                            #    29/61
+FLOAT2INTS                                                                      #    30/61
+INT2FLOATS                                                                      #    31/61
+PUSHS int@4                                                                     #    32/61
+INT2FLOATS                                                                      #    33/61
+POPS GF@$num1                                                                   #    34/61
+FLOAT2R2EINTS                                                                   #    35/61
+INT2FLOATS                                                                      #    36/61
+PUSHS GF@$num1                                                                  #    37/61
+FLOAT2R2EINTS                                                                   #    38/61
+INT2FLOATS                                                                      #    39/61
+DIVS                                                                            #    40/61
+FLOAT2INTS                                                                      #    41/61
+INT2FLOATS                                                                      #    42/61
+PUSHS int@4                                                                     #    43/61
+INT2FLOATS                                                                      #    44/61
+PUSHS int@6                                                                     #    45/61
+INT2FLOATS                                                                      #    46/61
+DIVS                                                                            #    47/61
+POPS GF@$num1                                                                   #    48/61
+FLOAT2R2EINTS                                                                   #    49/61
+INT2FLOATS                                                                      #    50/61
+PUSHS GF@$num1                                                                  #    51/61
+FLOAT2R2EINTS                                                                   #    52/61
+INT2FLOATS                                                                      #    53/61
+DIVS                                                                            #    54/61
+FLOAT2INTS                                                                      #    55/61
+INT2FLOATS                                                                      #    56/61
+CREATEFRAME                                                                     #    57/61
+DEFVAR TF@write                                                                 #    58/61
+POPS TF@write                                                                   #    59/61
+WRITE TF@write                                                                  #    60/61
+

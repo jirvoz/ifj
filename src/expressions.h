@@ -1,3 +1,13 @@
+//  Course:      Formal Languages and Compilers (IFJ)
+//  Project:     Implementation of the IFJ17 imperative language compiler
+//  File:        expressions.h
+//  Description: Header file of expressions module
+//
+//  Authors: Tomáš Nereča : xnerec00
+//           Samuel Obuch : xobuch00
+//           Jiří Vozár   : xvozar04
+//           Ján Farský   : xfarsk00
+
 #ifndef _EXPRESSIONS_H_
 #define _EXPRESSIONS_H_
 

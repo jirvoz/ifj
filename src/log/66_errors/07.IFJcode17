@@ -1,0 +1,82 @@
+# 2017-12-04 23:21:45.915458
+# SECTION: 66_errors
+# TEST: 07
+# INFO: Call function with too many arguments
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# Line 9: Type incompatibility semantic error: Expected right parenthesis after function parameters.
+# Line 9: Syntax error: Expected end of line after assignment.
+# 
+# INTERPRETER STDERR:
+# 
+# EXPECTED INTERPRETER STDOUT:
+
+
+
+# CURRENT INTERPRETER STDOUT:
+
+
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 4
+# CURRENT COMPILER EXIT CODE: 4
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: None
+# PRICE: ---
+# GROOT: ---
+# 
+#   1: ' Call function with too many arguments
+#   2: 
+#   3: function foo(a as integer, b as integer) as integer
+#   4: 
+#   5: end function
+#   6: 
+#   7: scope
+#   8: 	dim a as integer
+#   9: 	a = foo(31, 42, 64)
+#  10: 
+#  11: end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/42
+DEFVAR GF@$str1                                                                 #     2/42
+DEFVAR GF@$str2                                                                 #     3/42
+DEFVAR GF@$num1                                                                 #     4/42
+DEFVAR GF@$num2                                                                 #     5/42
+DEFVAR GF@$num3                                                                 #     6/42
+DEFVAR GF@$bool1                                                                #     7/42
+DEFVAR GF@$counter                                                              #     8/42
+DEFVAR GF@$char                                                                 #     9/42
+JUMP $$main                                                                     #    10/42
+LABEL $foo                                                                      #    12/42
+CREATEFRAME                                                                     #    13/42
+PUSHFRAME                                                                       #    14/42
+DEFVAR LF@b                                                                     #    15/42
+POPS LF@b                                                                       #    16/42
+DEFVAR LF@a                                                                     #    17/42
+POPS LF@a                                                                       #    18/42
+PUSHS int@0                                                                     #    22/42
+POPFRAME                                                                        #    23/42
+RETURN                                                                          #    24/42
+LABEL $$main                                                                    #    26/42
+CREATEFRAME                                                                     #    27/42
+PUSHFRAME                                                                       #    28/42
+DEFVAR LF@a                                                                     #    30/42
+MOVE LF@a int@0                                                                 #    31/42
+PUSHS int@31                                                                    #    33/42
+INT2FLOATS                                                                      #    34/42
+FLOAT2R2EINTS                                                                   #    35/42
+PUSHS int@42                                                                    #    36/42
+INT2FLOATS                                                                      #    37/42
+FLOAT2R2EINTS                                                                   #    38/42
+PUSHS int@64                                                                    #    39/42
+INT2FLOATS                                                                      #    40/42
+FLOAT2R2EINTS                                                                   #    41/42
+POPS LF@a                                                                       #    42/42
+

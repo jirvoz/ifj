@@ -1,0 +1,740 @@
+# 2017-12-04 23:21:43.666589
+# SECTION: 02_functions
+# TEST: 12
+# INFO: Recursive function
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# 
+# INTERPRETER STDERR:
+# Executing instruction: IDEFVAR at line: 2 with following arguments:
+# Dest: GF@$str1
+# Executing instruction: IDEFVAR at line: 3 with following arguments:
+# Dest: GF@$str2
+# Executing instruction: IDEFVAR at line: 4 with following arguments:
+# Dest: GF@$num1
+# Executing instruction: IDEFVAR at line: 5 with following arguments:
+# Dest: GF@$num2
+# Executing instruction: IDEFVAR at line: 6 with following arguments:
+# Dest: GF@$num3
+# Executing instruction: IDEFVAR at line: 7 with following arguments:
+# Dest: GF@$bool1
+# Executing instruction: IDEFVAR at line: 8 with following arguments:
+# Dest: GF@$counter
+# Executing instruction: IDEFVAR at line: 9 with following arguments:
+# Dest: GF@$char
+# Executing instruction: IJUMP at line: 10 with following arguments:
+# Executing instruction: ILABEL at line: 77 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 78 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 79 with following arguments:
+# Executing instruction: IDEFVAR at line: 81 with following arguments:
+# Dest: LF@a
+# Executing instruction: IPUSHS at line: 82 with following arguments:
+# Arg1: Const@=12(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 83 with following arguments:
+# Arg1: Stack@=12(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 84 with following arguments:
+# Arg1: Stack@=12(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 85 with following arguments:
+# Arg1: Stack@=12(int)
+# Dest: LF@a()
+# Executing instruction: IPUSHS at line: 87 with following arguments:
+# Arg1: Const@=4(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 88 with following arguments:
+# Arg1: Stack@=4(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 89 with following arguments:
+# Arg1: Stack@=4(double)
+# Dest: Stack@()
+# Executing instruction: ICALL at line: 90 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 15 with following arguments:
+# Dest: LF@param
+# Executing instruction: IPOPS at line: 16 with following arguments:
+# Arg1: Stack@=4(int)
+# Dest: LF@param()
+# Executing instruction: IDEFVAR at line: 19 with following arguments:
+# Dest: LF@param0
+# Executing instruction: IPUSHS at line: 20 with following arguments:
+# Arg1: Const@=12(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 21 with following arguments:
+# Arg1: Stack@=12(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 22 with following arguments:
+# Arg1: Stack@=12(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 23 with following arguments:
+# Arg1: Stack@=12(int)
+# Dest: LF@param0()
+# Executing instruction: IDEFVAR at line: 25 with following arguments:
+# Dest: LF@res
+# Executing instruction: IPUSHS at line: 26 with following arguments:
+# Arg1: Const@=10(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 27 with following arguments:
+# Arg1: Stack@=10(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 28 with following arguments:
+# Arg1: Stack@=10(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 29 with following arguments:
+# Arg1: Stack@=10(int)
+# Dest: LF@res()
+# Executing instruction: IPUSHS at line: 31 with following arguments:
+# Arg1: LF@param=4(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 32 with following arguments:
+# Arg1: Stack@=4(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 33 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 34 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 35 with following arguments:
+# Arg1: Stack@=4(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 36 with following arguments:
+# Arg1: Stack@=3(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 37 with following arguments:
+# Arg1: Stack@=3(int)
+# Dest: LF@param0=12(int)
+# Executing instruction: IPUSHS at line: 39 with following arguments:
+# Arg1: LF@param=4(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 40 with following arguments:
+# Arg1: Stack@=4(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 41 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 42 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IEQS at line: 43 with following arguments:
+# Arg1: Stack@=4(double)
+# Arg2: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 44 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 45 with following arguments:
+# Arg1: Stack@=false(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: ILABEL at line: 55 with following arguments:
+# Executing instruction: IPUSHS at line: 57 with following arguments:
+# Arg1: LF@param0=3(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 58 with following arguments:
+# Arg1: Stack@=3(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 59 with following arguments:
+# Arg1: Stack@=3(double)
+# Dest: Stack@()
+# Executing instruction: ICALL at line: 60 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 15 with following arguments:
+# Dest: LF@param
+# Executing instruction: IPOPS at line: 16 with following arguments:
+# Arg1: Stack@=3(int)
+# Dest: LF@param()
+# Executing instruction: IDEFVAR at line: 19 with following arguments:
+# Dest: LF@param0
+# Executing instruction: IPUSHS at line: 20 with following arguments:
+# Arg1: Const@=12(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 21 with following arguments:
+# Arg1: Stack@=12(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 22 with following arguments:
+# Arg1: Stack@=12(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 23 with following arguments:
+# Arg1: Stack@=12(int)
+# Dest: LF@param0()
+# Executing instruction: IDEFVAR at line: 25 with following arguments:
+# Dest: LF@res
+# Executing instruction: IPUSHS at line: 26 with following arguments:
+# Arg1: Const@=10(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 27 with following arguments:
+# Arg1: Stack@=10(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 28 with following arguments:
+# Arg1: Stack@=10(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 29 with following arguments:
+# Arg1: Stack@=10(int)
+# Dest: LF@res()
+# Executing instruction: IPUSHS at line: 31 with following arguments:
+# Arg1: LF@param=3(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 32 with following arguments:
+# Arg1: Stack@=3(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 33 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 34 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 35 with following arguments:
+# Arg1: Stack@=3(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 36 with following arguments:
+# Arg1: Stack@=2(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 37 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: LF@param0=12(int)
+# Executing instruction: IPUSHS at line: 39 with following arguments:
+# Arg1: LF@param=3(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 40 with following arguments:
+# Arg1: Stack@=3(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 41 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 42 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IEQS at line: 43 with following arguments:
+# Arg1: Stack@=3(double)
+# Arg2: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 44 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 45 with following arguments:
+# Arg1: Stack@=false(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: ILABEL at line: 55 with following arguments:
+# Executing instruction: IPUSHS at line: 57 with following arguments:
+# Arg1: LF@param0=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 58 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 59 with following arguments:
+# Arg1: Stack@=2(double)
+# Dest: Stack@()
+# Executing instruction: ICALL at line: 60 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 15 with following arguments:
+# Dest: LF@param
+# Executing instruction: IPOPS at line: 16 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: LF@param()
+# Executing instruction: IDEFVAR at line: 19 with following arguments:
+# Dest: LF@param0
+# Executing instruction: IPUSHS at line: 20 with following arguments:
+# Arg1: Const@=12(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 21 with following arguments:
+# Arg1: Stack@=12(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 22 with following arguments:
+# Arg1: Stack@=12(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 23 with following arguments:
+# Arg1: Stack@=12(int)
+# Dest: LF@param0()
+# Executing instruction: IDEFVAR at line: 25 with following arguments:
+# Dest: LF@res
+# Executing instruction: IPUSHS at line: 26 with following arguments:
+# Arg1: Const@=10(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 27 with following arguments:
+# Arg1: Stack@=10(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 28 with following arguments:
+# Arg1: Stack@=10(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 29 with following arguments:
+# Arg1: Stack@=10(int)
+# Dest: LF@res()
+# Executing instruction: IPUSHS at line: 31 with following arguments:
+# Arg1: LF@param=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 32 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 33 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 34 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 35 with following arguments:
+# Arg1: Stack@=2(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 36 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 37 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: LF@param0=12(int)
+# Executing instruction: IPUSHS at line: 39 with following arguments:
+# Arg1: LF@param=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 40 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 41 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 42 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IEQS at line: 43 with following arguments:
+# Arg1: Stack@=2(double)
+# Arg2: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 44 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 45 with following arguments:
+# Arg1: Stack@=false(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: ILABEL at line: 55 with following arguments:
+# Executing instruction: IPUSHS at line: 57 with following arguments:
+# Arg1: LF@param0=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 58 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 59 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: ICALL at line: 60 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 15 with following arguments:
+# Dest: LF@param
+# Executing instruction: IPOPS at line: 16 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: LF@param()
+# Executing instruction: IDEFVAR at line: 19 with following arguments:
+# Dest: LF@param0
+# Executing instruction: IPUSHS at line: 20 with following arguments:
+# Arg1: Const@=12(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 21 with following arguments:
+# Arg1: Stack@=12(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 22 with following arguments:
+# Arg1: Stack@=12(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 23 with following arguments:
+# Arg1: Stack@=12(int)
+# Dest: LF@param0()
+# Executing instruction: IDEFVAR at line: 25 with following arguments:
+# Dest: LF@res
+# Executing instruction: IPUSHS at line: 26 with following arguments:
+# Arg1: Const@=10(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 27 with following arguments:
+# Arg1: Stack@=10(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 28 with following arguments:
+# Arg1: Stack@=10(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 29 with following arguments:
+# Arg1: Stack@=10(int)
+# Dest: LF@res()
+# Executing instruction: IPUSHS at line: 31 with following arguments:
+# Arg1: LF@param=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 32 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 33 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 34 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 35 with following arguments:
+# Arg1: Stack@=1(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 36 with following arguments:
+# Arg1: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 37 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: LF@param0=12(int)
+# Executing instruction: IPUSHS at line: 39 with following arguments:
+# Arg1: LF@param=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 40 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 41 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 42 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IEQS at line: 43 with following arguments:
+# Arg1: Stack@=1(double)
+# Arg2: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 44 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 45 with following arguments:
+# Arg1: Stack@=false(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: ILABEL at line: 55 with following arguments:
+# Executing instruction: IPUSHS at line: 57 with following arguments:
+# Arg1: LF@param0=0(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 58 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 59 with following arguments:
+# Arg1: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: ICALL at line: 60 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 15 with following arguments:
+# Dest: LF@param
+# Executing instruction: IPOPS at line: 16 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: LF@param()
+# Executing instruction: IDEFVAR at line: 19 with following arguments:
+# Dest: LF@param0
+# Executing instruction: IPUSHS at line: 20 with following arguments:
+# Arg1: Const@=12(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 21 with following arguments:
+# Arg1: Stack@=12(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 22 with following arguments:
+# Arg1: Stack@=12(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 23 with following arguments:
+# Arg1: Stack@=12(int)
+# Dest: LF@param0()
+# Executing instruction: IDEFVAR at line: 25 with following arguments:
+# Dest: LF@res
+# Executing instruction: IPUSHS at line: 26 with following arguments:
+# Arg1: Const@=10(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 27 with following arguments:
+# Arg1: Stack@=10(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 28 with following arguments:
+# Arg1: Stack@=10(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 29 with following arguments:
+# Arg1: Stack@=10(int)
+# Dest: LF@res()
+# Executing instruction: IPUSHS at line: 31 with following arguments:
+# Arg1: LF@param=0(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 32 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 33 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 34 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 35 with following arguments:
+# Arg1: Stack@=0(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 36 with following arguments:
+# Arg1: Stack@=-1(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 37 with following arguments:
+# Arg1: Stack@=-1(int)
+# Dest: LF@param0=12(int)
+# Executing instruction: IPUSHS at line: 39 with following arguments:
+# Arg1: LF@param=0(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 40 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 41 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 42 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IEQS at line: 43 with following arguments:
+# Arg1: Stack@=0(double)
+# Arg2: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 44 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 45 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 48 with following arguments:
+# Arg1: Const@=42(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 49 with following arguments:
+# Arg1: Stack@=42(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 50 with following arguments:
+# Arg1: Stack@=42(double)
+# Dest: Stack@()
+# Executing instruction: IPOPFRAME at line: 51 with following arguments:
+# Executing instruction: IRETURN at line: 52 with following arguments:
+# Executing instruction: IINT2FLOATS at line: 61 with following arguments:
+# Arg1: Stack@=42(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 62 with following arguments:
+# Arg1: Stack@=42(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 63 with following arguments:
+# Arg1: Stack@=42(int)
+# Dest: LF@res=10(int)
+# Executing instruction: IPUSHS at line: 65 with following arguments:
+# Arg1: LF@res=42(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 66 with following arguments:
+# Arg1: Stack@=42(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 67 with following arguments:
+# Arg1: Stack@=42(double)
+# Dest: Stack@()
+# Executing instruction: IPOPFRAME at line: 68 with following arguments:
+# Executing instruction: IRETURN at line: 69 with following arguments:
+# Executing instruction: IINT2FLOATS at line: 61 with following arguments:
+# Arg1: Stack@=42(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 62 with following arguments:
+# Arg1: Stack@=42(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 63 with following arguments:
+# Arg1: Stack@=42(int)
+# Dest: LF@res=10(int)
+# Executing instruction: IPUSHS at line: 65 with following arguments:
+# Arg1: LF@res=42(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 66 with following arguments:
+# Arg1: Stack@=42(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 67 with following arguments:
+# Arg1: Stack@=42(double)
+# Dest: Stack@()
+# Executing instruction: IPOPFRAME at line: 68 with following arguments:
+# Executing instruction: IRETURN at line: 69 with following arguments:
+# Executing instruction: IINT2FLOATS at line: 61 with following arguments:
+# Arg1: Stack@=42(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 62 with following arguments:
+# Arg1: Stack@=42(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 63 with following arguments:
+# Arg1: Stack@=42(int)
+# Dest: LF@res=10(int)
+# Executing instruction: IPUSHS at line: 65 with following arguments:
+# Arg1: LF@res=42(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 66 with following arguments:
+# Arg1: Stack@=42(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 67 with following arguments:
+# Arg1: Stack@=42(double)
+# Dest: Stack@()
+# Executing instruction: IPOPFRAME at line: 68 with following arguments:
+# Executing instruction: IRETURN at line: 69 with following arguments:
+# Executing instruction: IINT2FLOATS at line: 61 with following arguments:
+# Arg1: Stack@=42(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 62 with following arguments:
+# Arg1: Stack@=42(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 63 with following arguments:
+# Arg1: Stack@=42(int)
+# Dest: LF@res=10(int)
+# Executing instruction: IPUSHS at line: 65 with following arguments:
+# Arg1: LF@res=42(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 66 with following arguments:
+# Arg1: Stack@=42(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 67 with following arguments:
+# Arg1: Stack@=42(double)
+# Dest: Stack@()
+# Executing instruction: IPOPFRAME at line: 68 with following arguments:
+# Executing instruction: IRETURN at line: 69 with following arguments:
+# Executing instruction: IINT2FLOATS at line: 91 with following arguments:
+# Arg1: Stack@=42(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 92 with following arguments:
+# Arg1: Stack@=42(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 93 with following arguments:
+# Arg1: Stack@=42(int)
+# Dest: LF@a=12(int)
+# Executing instruction: IPUSHS at line: 95 with following arguments:
+# Arg1: LF@a=42(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 96 with following arguments:
+# Arg1: Stack@=42(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 97 with following arguments:
+# Arg1: Stack@=42(double)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 98 with following arguments:
+# Executing instruction: IDEFVAR at line: 99 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 100 with following arguments:
+# Arg1: Stack@=42(int)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 101 with following arguments:
+# Arg1: TF@write=42(int)
+# Executing instruction: IGROOT at line: 105 with following arguments:
+# I am Groot at 105 (1165).
+# 
+# STDOUT DIFF:
+# 
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 0
+# CURRENT COMPILER EXIT CODE: 0
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: 0
+# PRICE: 1165 (305+860)
+# GROOT: 1165
+# 
+#   1: ' Recursive function
+#   2: 
+#   3: function recursive(param as integer) as integer
+#   4: 	dim param0 as integer = 12
+#   5: 	dim res as integer = 10
+#   6: 	param0 = param - 1
+#   7: 	if param = 0 then
+#   8: 		return 42
+#   9: 	else
+#  10: 	    res = recursive(param0)
+#  11: 		return res
+#  12: 	end if
+#  13: end function
+#  14: 
+#  15: scope
+#  16: 	dim a as integer = 12
+#  17: 	a = recursive(4)
+#  18: 	print a;
+#  19: 
+#  20: end scope 
+
+########################################
+
+.IFJcode17                                                                      #     1/103
+DEFVAR GF@$str1                                                                 #     2/103
+DEFVAR GF@$str2                                                                 #     3/103
+DEFVAR GF@$num1                                                                 #     4/103
+DEFVAR GF@$num2                                                                 #     5/103
+DEFVAR GF@$num3                                                                 #     6/103
+DEFVAR GF@$bool1                                                                #     7/103
+DEFVAR GF@$counter                                                              #     8/103
+DEFVAR GF@$char                                                                 #     9/103
+JUMP $$main                                                                     #    10/103
+LABEL $recursive                                                                #    12/103
+CREATEFRAME                                                                     #    13/103
+PUSHFRAME                                                                       #    14/103
+DEFVAR LF@param                                                                 #    15/103
+POPS LF@param                                                                   #    16/103
+DEFVAR LF@param0                                                                #    19/103
+PUSHS int@12                                                                    #    20/103
+INT2FLOATS                                                                      #    21/103
+FLOAT2R2EINTS                                                                   #    22/103
+POPS LF@param0                                                                  #    23/103
+DEFVAR LF@res                                                                   #    25/103
+PUSHS int@10                                                                    #    26/103
+INT2FLOATS                                                                      #    27/103
+FLOAT2R2EINTS                                                                   #    28/103
+POPS LF@res                                                                     #    29/103
+PUSHS LF@param                                                                  #    31/103
+INT2FLOATS                                                                      #    32/103
+PUSHS int@1                                                                     #    33/103
+INT2FLOATS                                                                      #    34/103
+SUBS                                                                            #    35/103
+FLOAT2R2EINTS                                                                   #    36/103
+POPS LF@param0                                                                  #    37/103
+PUSHS LF@param                                                                  #    39/103
+INT2FLOATS                                                                      #    40/103
+PUSHS int@0                                                                     #    41/103
+INT2FLOATS                                                                      #    42/103
+EQS                                                                             #    43/103
+PUSHS bool@true                                                                 #    44/103
+JUMPIFNEQS &else7                                                               #    45/103
+PUSHS int@42                                                                    #    48/103
+INT2FLOATS                                                                      #    49/103
+FLOAT2R2EINTS                                                                   #    50/103
+POPFRAME                                                                        #    51/103
+RETURN                                                                          #    52/103
+JUMP &endif7                                                                    #    54/103
+LABEL &else7                                                                    #    55/103
+PUSHS LF@param0                                                                 #    57/103
+INT2FLOATS                                                                      #    58/103
+FLOAT2R2EINTS                                                                   #    59/103
+CALL $recursive                                                                 #    60/103
+INT2FLOATS                                                                      #    61/103
+FLOAT2R2EINTS                                                                   #    62/103
+POPS LF@res                                                                     #    63/103
+PUSHS LF@res                                                                    #    65/103
+INT2FLOATS                                                                      #    66/103
+FLOAT2R2EINTS                                                                   #    67/103
+POPFRAME                                                                        #    68/103
+RETURN                                                                          #    69/103
+LABEL &endif7                                                                   #    71/103
+PUSHS int@0                                                                     #    73/103
+POPFRAME                                                                        #    74/103
+RETURN                                                                          #    75/103
+LABEL $$main                                                                    #    77/103
+CREATEFRAME                                                                     #    78/103
+PUSHFRAME                                                                       #    79/103
+DEFVAR LF@a                                                                     #    81/103
+PUSHS int@12                                                                    #    82/103
+INT2FLOATS                                                                      #    83/103
+FLOAT2R2EINTS                                                                   #    84/103
+POPS LF@a                                                                       #    85/103
+PUSHS int@4                                                                     #    87/103
+INT2FLOATS                                                                      #    88/103
+FLOAT2R2EINTS                                                                   #    89/103
+CALL $recursive                                                                 #    90/103
+INT2FLOATS                                                                      #    91/103
+FLOAT2R2EINTS                                                                   #    92/103
+POPS LF@a                                                                       #    93/103
+PUSHS LF@a                                                                      #    95/103
+INT2FLOATS                                                                      #    96/103
+FLOAT2R2EINTS                                                                   #    97/103
+CREATEFRAME                                                                     #    98/103
+DEFVAR TF@write                                                                 #    99/103
+POPS TF@write                                                                   #   100/103
+WRITE TF@write                                                                  #   101/103
+

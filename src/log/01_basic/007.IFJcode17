@@ -1,0 +1,106 @@
+# 2017-12-04 23:21:43.564100
+# SECTION: 01_basic
+# TEST: 007
+# INFO: Simple input and print
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# 
+# INTERPRETER STDERR:
+# Executing instruction: IDEFVAR at line: 2 with following arguments:
+# Dest: GF@$str1
+# Executing instruction: IDEFVAR at line: 3 with following arguments:
+# Dest: GF@$str2
+# Executing instruction: IDEFVAR at line: 4 with following arguments:
+# Dest: GF@$num1
+# Executing instruction: IDEFVAR at line: 5 with following arguments:
+# Dest: GF@$num2
+# Executing instruction: IDEFVAR at line: 6 with following arguments:
+# Dest: GF@$num3
+# Executing instruction: IDEFVAR at line: 7 with following arguments:
+# Dest: GF@$bool1
+# Executing instruction: IDEFVAR at line: 8 with following arguments:
+# Dest: GF@$counter
+# Executing instruction: IDEFVAR at line: 9 with following arguments:
+# Dest: GF@$char
+# Executing instruction: IJUMP at line: 10 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 16 with following arguments:
+# Dest: LF@a
+# Executing instruction: IMOVE at line: 17 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: LF@a()
+# Executing instruction: IWRITE at line: 19 with following arguments:
+# Arg1: Const@=? (string)
+# Executing instruction: IREAD at line: 20 with following arguments:
+# Dest: LF@a=0(int)
+# Executing instruction: IPUSHS at line: 22 with following arguments:
+# Arg1: LF@a=42(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 23 with following arguments:
+# Arg1: Stack@=42(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 24 with following arguments:
+# Arg1: Stack@=42(double)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 25 with following arguments:
+# Executing instruction: IDEFVAR at line: 26 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 27 with following arguments:
+# Arg1: Stack@=42(int)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 28 with following arguments:
+# Arg1: TF@write=42(int)
+# Executing instruction: IGROOT at line: 31 with following arguments:
+# I am Groot at 31 (109).
+# 
+# STDOUT DIFF:
+# 
+
+# INTERPRETER STDIN: 
+# 42
+#
+# EXPECTED COMPILER EXIT CODE: 0
+# CURRENT COMPILER EXIT CODE: 0
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: 0
+# PRICE: 109 (35+74)
+# GROOT: 109
+# 
+#   1: scope 
+#   2:  dim a as integer 
+#   3:  input a 
+#   4:  print a; 
+#   5: end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/29
+DEFVAR GF@$str1                                                                 #     2/29
+DEFVAR GF@$str2                                                                 #     3/29
+DEFVAR GF@$num1                                                                 #     4/29
+DEFVAR GF@$num2                                                                 #     5/29
+DEFVAR GF@$num3                                                                 #     6/29
+DEFVAR GF@$bool1                                                                #     7/29
+DEFVAR GF@$counter                                                              #     8/29
+DEFVAR GF@$char                                                                 #     9/29
+JUMP $$main                                                                     #    10/29
+LABEL $$main                                                                    #    12/29
+CREATEFRAME                                                                     #    13/29
+PUSHFRAME                                                                       #    14/29
+DEFVAR LF@a                                                                     #    16/29
+MOVE LF@a int@0                                                                 #    17/29
+WRITE string@?\032                                                              #    19/29
+READ LF@a int                                                                   #    20/29
+PUSHS LF@a                                                                      #    22/29
+INT2FLOATS                                                                      #    23/29
+FLOAT2R2EINTS                                                                   #    24/29
+CREATEFRAME                                                                     #    25/29
+DEFVAR TF@write                                                                 #    26/29
+POPS TF@write                                                                   #    27/29
+WRITE TF@write                                                                  #    28/29
+

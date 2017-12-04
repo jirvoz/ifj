@@ -1,0 +1,178 @@
+# 2017-12-04 23:21:44.061914
+# SECTION: 02_functions
+# TEST: 004
+# INFO: Asc value
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# 
+# INTERPRETER STDERR:
+# Executing instruction: IDEFVAR at line: 2 with following arguments:
+# Dest: GF@$str1
+# Executing instruction: IDEFVAR at line: 3 with following arguments:
+# Dest: GF@$str2
+# Executing instruction: IDEFVAR at line: 4 with following arguments:
+# Dest: GF@$num1
+# Executing instruction: IDEFVAR at line: 5 with following arguments:
+# Dest: GF@$num2
+# Executing instruction: IDEFVAR at line: 6 with following arguments:
+# Dest: GF@$num3
+# Executing instruction: IDEFVAR at line: 7 with following arguments:
+# Dest: GF@$bool1
+# Executing instruction: IDEFVAR at line: 8 with following arguments:
+# Dest: GF@$counter
+# Executing instruction: IDEFVAR at line: 9 with following arguments:
+# Dest: GF@$char
+# Executing instruction: IJUMP at line: 10 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 16 with following arguments:
+# Dest: LF@a
+# Executing instruction: IMOVE at line: 17 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: LF@a()
+# Executing instruction: IPUSHS at line: 19 with following arguments:
+# Arg1: Const@=ahoj(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 20 with following arguments:
+# Arg1: Const@=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 21 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 22 with following arguments:
+# Arg1: Stack@=2(double)
+# Dest: Stack@()
+# Executing instruction: IMOVE at line: 23 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: GF@$num1()
+# Executing instruction: IPOPS at line: 24 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: GF@$num2()
+# Executing instruction: IPOPS at line: 25 with following arguments:
+# Arg1: Stack@=ahoj(string)
+# Dest: GF@$str1()
+# Executing instruction: ISTRLEN at line: 26 with following arguments:
+# Arg1: GF@$str1=ahoj(string)
+# Dest: GF@$num3()
+# Executing instruction: IGT at line: 27 with following arguments:
+# Arg1: GF@$num2=2(int)
+# Arg2: GF@$num3=4(int)
+# Dest: GF@$bool1()
+# Executing instruction: IJUMPIFEQ at line: 28 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILS at line: 29 with following arguments:
+# Arg1: GF@$num2=2(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFEQ at line: 30 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ISUB at line: 31 with following arguments:
+# Arg1: GF@$num2=2(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=2(int)
+# Executing instruction: ISTRI2INT at line: 32 with following arguments:
+# Arg1: GF@$str1=ahoj(string)
+# Arg2: GF@$num2=1(int)
+# Dest: GF@$num1=0(int)
+# Executing instruction: ILABEL at line: 33 with following arguments:
+# Executing instruction: IPUSHS at line: 34 with following arguments:
+# Arg1: GF@$num1=104(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 35 with following arguments:
+# Arg1: Stack@=104(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 36 with following arguments:
+# Arg1: Stack@=104(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 37 with following arguments:
+# Arg1: Stack@=104(int)
+# Dest: LF@a=0(int)
+# Executing instruction: IPUSHS at line: 39 with following arguments:
+# Arg1: LF@a=104(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 40 with following arguments:
+# Arg1: Stack@=104(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 41 with following arguments:
+# Arg1: Stack@=104(double)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 42 with following arguments:
+# Executing instruction: IDEFVAR at line: 43 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 44 with following arguments:
+# Arg1: Stack@=104(int)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 45 with following arguments:
+# Arg1: TF@write=104(int)
+# Executing instruction: IGROOT at line: 48 with following arguments:
+# I am Groot at 48 (240).
+# 
+# STDOUT DIFF:
+# 
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 0
+# CURRENT COMPILER EXIT CODE: 0
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: 0
+# PRICE: 240 (60+180)
+# GROOT: 240
+# 
+#   1: scope 
+#   2:  dim a as integer 
+#   3:  a = asc(!"ahoj", 2) 
+#   4:  print a; 
+#   5:  end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/46
+DEFVAR GF@$str1                                                                 #     2/46
+DEFVAR GF@$str2                                                                 #     3/46
+DEFVAR GF@$num1                                                                 #     4/46
+DEFVAR GF@$num2                                                                 #     5/46
+DEFVAR GF@$num3                                                                 #     6/46
+DEFVAR GF@$bool1                                                                #     7/46
+DEFVAR GF@$counter                                                              #     8/46
+DEFVAR GF@$char                                                                 #     9/46
+JUMP $$main                                                                     #    10/46
+LABEL $$main                                                                    #    12/46
+CREATEFRAME                                                                     #    13/46
+PUSHFRAME                                                                       #    14/46
+DEFVAR LF@a                                                                     #    16/46
+MOVE LF@a int@0                                                                 #    17/46
+PUSHS string@ahoj                                                               #    19/46
+PUSHS int@2                                                                     #    20/46
+INT2FLOATS                                                                      #    21/46
+FLOAT2R2EINTS                                                                   #    22/46
+MOVE GF@$num1 int@0                                                             #    23/46
+POPS GF@$num2                                                                   #    24/46
+POPS GF@$str1                                                                   #    25/46
+STRLEN GF@$num3 GF@$str1                                                        #    26/46
+GT GF@$bool1 GF@$num2 GF@$num3                                                  #    27/46
+JUMPIFEQ &asc_end1 GF@$bool1 bool@true                                          #    28/46
+LT GF@$bool1 GF@$num2 int@1                                                     #    29/46
+JUMPIFEQ &asc_end1 GF@$bool1 bool@true                                          #    30/46
+SUB GF@$num2 GF@$num2 int@1                                                     #    31/46
+STRI2INT GF@$num1 GF@$str1 GF@$num2                                             #    32/46
+LABEL &asc_end1                                                                 #    33/46
+PUSHS GF@$num1                                                                  #    34/46
+INT2FLOATS                                                                      #    35/46
+FLOAT2R2EINTS                                                                   #    36/46
+POPS LF@a                                                                       #    37/46
+PUSHS LF@a                                                                      #    39/46
+INT2FLOATS                                                                      #    40/46
+FLOAT2R2EINTS                                                                   #    41/46
+CREATEFRAME                                                                     #    42/46
+DEFVAR TF@write                                                                 #    43/46
+POPS TF@write                                                                   #    44/46
+WRITE TF@write                                                                  #    45/46
+

@@ -1,0 +1,74 @@
+# 2017-12-04 23:21:44.298996
+# SECTION: 04_expressions
+# TEST: 19
+# INFO: function used as variable
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# Line 10: Semantic error in the program: Expected '(' after function
+# 
+# INTERPRETER STDERR:
+# 
+# EXPECTED INTERPRETER STDOUT:
+
+
+
+# CURRENT INTERPRETER STDOUT:
+
+
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 3
+# CURRENT COMPILER EXIT CODE: 3
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: None
+# PRICE: ---
+# GROOT: ---
+# 
+#   1: ' function used as variable
+#   2: 
+#   3: function foo() as integer
+#   4: 	return 39
+#   5: end function
+#   6: 
+#   7: scope
+#   8: 	dim a as integer
+#   9: 	a = 3 + foo
+#  10: 	print a;
+#  11: end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/35
+DEFVAR GF@$str1                                                                 #     2/35
+DEFVAR GF@$str2                                                                 #     3/35
+DEFVAR GF@$num1                                                                 #     4/35
+DEFVAR GF@$num2                                                                 #     5/35
+DEFVAR GF@$num3                                                                 #     6/35
+DEFVAR GF@$bool1                                                                #     7/35
+DEFVAR GF@$counter                                                              #     8/35
+DEFVAR GF@$char                                                                 #     9/35
+JUMP $$main                                                                     #    10/35
+LABEL $foo                                                                      #    12/35
+CREATEFRAME                                                                     #    13/35
+PUSHFRAME                                                                       #    14/35
+PUSHS int@39                                                                    #    17/35
+INT2FLOATS                                                                      #    18/35
+FLOAT2R2EINTS                                                                   #    19/35
+POPFRAME                                                                        #    20/35
+RETURN                                                                          #    21/35
+PUSHS int@0                                                                     #    23/35
+POPFRAME                                                                        #    24/35
+RETURN                                                                          #    25/35
+LABEL $$main                                                                    #    27/35
+CREATEFRAME                                                                     #    28/35
+PUSHFRAME                                                                       #    29/35
+DEFVAR LF@a                                                                     #    31/35
+MOVE LF@a int@0                                                                 #    32/35
+PUSHS int@3                                                                     #    34/35
+INT2FLOATS                                                                      #    35/35
+

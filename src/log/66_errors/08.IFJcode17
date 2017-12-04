@@ -1,0 +1,67 @@
+# 2017-12-04 23:21:45.917882
+# SECTION: 66_errors
+# TEST: 08
+# INFO: Assign string into integer
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# Line 9: Type incompatibility semantic error: Bad operation or operand in expression
+# 
+# INTERPRETER STDERR:
+# 
+# EXPECTED INTERPRETER STDOUT:
+
+
+
+# CURRENT INTERPRETER STDOUT:
+
+
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 4
+# CURRENT COMPILER EXIT CODE: 4
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: None
+# PRICE: ---
+# GROOT: ---
+# 
+#   1: ' Assign string into integer
+#   2: 
+#   3: function foo() as string
+#   4: 
+#   5: end function
+#   6: 
+#   7: scope
+#   8: 	dim a as integer
+#   9: 	a = foo()
+#  10: 
+#  11: end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/28
+DEFVAR GF@$str1                                                                 #     2/28
+DEFVAR GF@$str2                                                                 #     3/28
+DEFVAR GF@$num1                                                                 #     4/28
+DEFVAR GF@$num2                                                                 #     5/28
+DEFVAR GF@$num3                                                                 #     6/28
+DEFVAR GF@$bool1                                                                #     7/28
+DEFVAR GF@$counter                                                              #     8/28
+DEFVAR GF@$char                                                                 #     9/28
+JUMP $$main                                                                     #    10/28
+LABEL $foo                                                                      #    12/28
+CREATEFRAME                                                                     #    13/28
+PUSHFRAME                                                                       #    14/28
+PUSHS string@                                                                   #    18/28
+POPFRAME                                                                        #    19/28
+RETURN                                                                          #    20/28
+LABEL $$main                                                                    #    22/28
+CREATEFRAME                                                                     #    23/28
+PUSHFRAME                                                                       #    24/28
+DEFVAR LF@a                                                                     #    26/28
+MOVE LF@a int@0                                                                 #    27/28
+

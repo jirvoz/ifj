@@ -1,0 +1,442 @@
+# 2017-12-04 23:21:43.643995
+# SECTION: 02_functions
+# TEST: 10
+# INFO: Call built-in features - combined
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# 
+# INTERPRETER STDERR:
+# Executing instruction: IDEFVAR at line: 2 with following arguments:
+# Dest: GF@$str1
+# Executing instruction: IDEFVAR at line: 3 with following arguments:
+# Dest: GF@$str2
+# Executing instruction: IDEFVAR at line: 4 with following arguments:
+# Dest: GF@$num1
+# Executing instruction: IDEFVAR at line: 5 with following arguments:
+# Dest: GF@$num2
+# Executing instruction: IDEFVAR at line: 6 with following arguments:
+# Dest: GF@$num3
+# Executing instruction: IDEFVAR at line: 7 with following arguments:
+# Dest: GF@$bool1
+# Executing instruction: IDEFVAR at line: 8 with following arguments:
+# Dest: GF@$counter
+# Executing instruction: IDEFVAR at line: 9 with following arguments:
+# Dest: GF@$char
+# Executing instruction: IJUMP at line: 10 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 16 with following arguments:
+# Dest: LF@retezec
+# Executing instruction: IPUSHS at line: 17 with following arguments:
+# Arg1: Const@=ahoj ahoj ahoj(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 18 with following arguments:
+# Arg1: Stack@=ahoj ahoj ahoj(string)
+# Dest: LF@retezec()
+# Executing instruction: IPUSHS at line: 20 with following arguments:
+# Arg1: LF@retezec=ahoj ahoj ahoj(string)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 21 with following arguments:
+# Arg1: Const@=6(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 22 with following arguments:
+# Arg1: Stack@=6(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 23 with following arguments:
+# Arg1: Stack@=6(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 24 with following arguments:
+# Arg1: Const@=10(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 25 with following arguments:
+# Arg1: Stack@=10(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 26 with following arguments:
+# Arg1: Stack@=10(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 27 with following arguments:
+# Arg1: Stack@=10(int)
+# Dest: GF@$num1()
+# Executing instruction: IPOPS at line: 28 with following arguments:
+# Arg1: Stack@=6(int)
+# Dest: GF@$num2()
+# Executing instruction: ISUB at line: 29 with following arguments:
+# Arg1: GF@$num2=6(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=6(int)
+# Executing instruction: IPOPS at line: 30 with following arguments:
+# Arg1: Stack@=ahoj ahoj ahoj(string)
+# Dest: GF@$str2()
+# Executing instruction: IMOVE at line: 31 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: GF@$counter()
+# Executing instruction: IMOVE at line: 32 with following arguments:
+# Arg1: Const@=(string)
+# Dest: GF@$str1()
+# Executing instruction: ISTRLEN at line: 33 with following arguments:
+# Arg1: GF@$str2=ahoj ahoj ahoj(string)
+# Dest: GF@$num3()
+# Executing instruction: IJUMPIFEQ at line: 34 with following arguments:
+# Arg1: GF@$num3=14(int)
+# Arg2: Const@=0(int)
+# Executing instruction: IGT at line: 35 with following arguments:
+# Arg1: GF@$num2=5(int)
+# Arg2: Const@=-1(int)
+# Dest: GF@$bool1()
+# Executing instruction: IJUMPIFNEQ at line: 36 with following arguments:
+# Arg1: GF@$bool1=true(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILS at line: 37 with following arguments:
+# Arg1: GF@$num1=10(int)
+# Arg2: Const@=0(int)
+# Dest: GF@$bool1=true(bool)
+# Executing instruction: IJUMPIFEQ at line: 38 with following arguments:
+# Arg1: GF@$bool1=false(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ISUB at line: 39 with following arguments:
+# Arg1: GF@$num3=14(int)
+# Arg2: GF@$num2=5(int)
+# Dest: GF@$num3=14(int)
+# Executing instruction: IGT at line: 40 with following arguments:
+# Arg1: GF@$num1=10(int)
+# Arg2: GF@$num3=9(int)
+# Dest: GF@$bool1=false(bool)
+# Executing instruction: IJUMPIFEQ at line: 41 with following arguments:
+# Arg1: GF@$bool1=true(bool)
+# Arg2: Const@=true(bool)
+# Executing instruction: ILABEL at line: 49 with following arguments:
+# Executing instruction: IMOVE at line: 50 with following arguments:
+# Arg1: GF@$num3=9(int)
+# Dest: GF@$num1=10(int)
+# Executing instruction: IJUMP at line: 51 with following arguments:
+# Executing instruction: ILABEL at line: 42 with following arguments:
+# Executing instruction: IGETCHAR at line: 43 with following arguments:
+# Arg1: GF@$str2=ahoj ahoj ahoj(string)
+# Arg2: GF@$num2=5(int)
+# Dest: GF@$char()
+# Executing instruction: ICONCAT at line: 44 with following arguments:
+# Arg1: GF@$str1=(string)
+# Arg2: GF@$char=a(string)
+# Dest: GF@$str1=(string)
+# Executing instruction: IADD at line: 45 with following arguments:
+# Arg1: GF@$counter=0(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$counter=0(int)
+# Executing instruction: IADD at line: 46 with following arguments:
+# Arg1: GF@$num2=5(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=5(int)
+# Executing instruction: IJUMPIFNEQ at line: 47 with following arguments:
+# Arg1: GF@$counter=1(int)
+# Arg2: GF@$num1=9(int)
+# Executing instruction: ILABEL at line: 42 with following arguments:
+# Executing instruction: IGETCHAR at line: 43 with following arguments:
+# Arg1: GF@$str2=ahoj ahoj ahoj(string)
+# Arg2: GF@$num2=6(int)
+# Dest: GF@$char=a(string)
+# Executing instruction: ICONCAT at line: 44 with following arguments:
+# Arg1: GF@$str1=a(string)
+# Arg2: GF@$char=h(string)
+# Dest: GF@$str1=a(string)
+# Executing instruction: IADD at line: 45 with following arguments:
+# Arg1: GF@$counter=1(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$counter=1(int)
+# Executing instruction: IADD at line: 46 with following arguments:
+# Arg1: GF@$num2=6(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=6(int)
+# Executing instruction: IJUMPIFNEQ at line: 47 with following arguments:
+# Arg1: GF@$counter=2(int)
+# Arg2: GF@$num1=9(int)
+# Executing instruction: ILABEL at line: 42 with following arguments:
+# Executing instruction: IGETCHAR at line: 43 with following arguments:
+# Arg1: GF@$str2=ahoj ahoj ahoj(string)
+# Arg2: GF@$num2=7(int)
+# Dest: GF@$char=h(string)
+# Executing instruction: ICONCAT at line: 44 with following arguments:
+# Arg1: GF@$str1=ah(string)
+# Arg2: GF@$char=o(string)
+# Dest: GF@$str1=ah(string)
+# Executing instruction: IADD at line: 45 with following arguments:
+# Arg1: GF@$counter=2(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$counter=2(int)
+# Executing instruction: IADD at line: 46 with following arguments:
+# Arg1: GF@$num2=7(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=7(int)
+# Executing instruction: IJUMPIFNEQ at line: 47 with following arguments:
+# Arg1: GF@$counter=3(int)
+# Arg2: GF@$num1=9(int)
+# Executing instruction: ILABEL at line: 42 with following arguments:
+# Executing instruction: IGETCHAR at line: 43 with following arguments:
+# Arg1: GF@$str2=ahoj ahoj ahoj(string)
+# Arg2: GF@$num2=8(int)
+# Dest: GF@$char=o(string)
+# Executing instruction: ICONCAT at line: 44 with following arguments:
+# Arg1: GF@$str1=aho(string)
+# Arg2: GF@$char=j(string)
+# Dest: GF@$str1=aho(string)
+# Executing instruction: IADD at line: 45 with following arguments:
+# Arg1: GF@$counter=3(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$counter=3(int)
+# Executing instruction: IADD at line: 46 with following arguments:
+# Arg1: GF@$num2=8(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=8(int)
+# Executing instruction: IJUMPIFNEQ at line: 47 with following arguments:
+# Arg1: GF@$counter=4(int)
+# Arg2: GF@$num1=9(int)
+# Executing instruction: ILABEL at line: 42 with following arguments:
+# Executing instruction: IGETCHAR at line: 43 with following arguments:
+# Arg1: GF@$str2=ahoj ahoj ahoj(string)
+# Arg2: GF@$num2=9(int)
+# Dest: GF@$char=j(string)
+# Executing instruction: ICONCAT at line: 44 with following arguments:
+# Arg1: GF@$str1=ahoj(string)
+# Arg2: GF@$char= (string)
+# Dest: GF@$str1=ahoj(string)
+# Executing instruction: IADD at line: 45 with following arguments:
+# Arg1: GF@$counter=4(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$counter=4(int)
+# Executing instruction: IADD at line: 46 with following arguments:
+# Arg1: GF@$num2=9(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=9(int)
+# Executing instruction: IJUMPIFNEQ at line: 47 with following arguments:
+# Arg1: GF@$counter=5(int)
+# Arg2: GF@$num1=9(int)
+# Executing instruction: ILABEL at line: 42 with following arguments:
+# Executing instruction: IGETCHAR at line: 43 with following arguments:
+# Arg1: GF@$str2=ahoj ahoj ahoj(string)
+# Arg2: GF@$num2=10(int)
+# Dest: GF@$char= (string)
+# Executing instruction: ICONCAT at line: 44 with following arguments:
+# Arg1: GF@$str1=ahoj (string)
+# Arg2: GF@$char=a(string)
+# Dest: GF@$str1=ahoj (string)
+# Executing instruction: IADD at line: 45 with following arguments:
+# Arg1: GF@$counter=5(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$counter=5(int)
+# Executing instruction: IADD at line: 46 with following arguments:
+# Arg1: GF@$num2=10(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=10(int)
+# Executing instruction: IJUMPIFNEQ at line: 47 with following arguments:
+# Arg1: GF@$counter=6(int)
+# Arg2: GF@$num1=9(int)
+# Executing instruction: ILABEL at line: 42 with following arguments:
+# Executing instruction: IGETCHAR at line: 43 with following arguments:
+# Arg1: GF@$str2=ahoj ahoj ahoj(string)
+# Arg2: GF@$num2=11(int)
+# Dest: GF@$char=a(string)
+# Executing instruction: ICONCAT at line: 44 with following arguments:
+# Arg1: GF@$str1=ahoj a(string)
+# Arg2: GF@$char=h(string)
+# Dest: GF@$str1=ahoj a(string)
+# Executing instruction: IADD at line: 45 with following arguments:
+# Arg1: GF@$counter=6(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$counter=6(int)
+# Executing instruction: IADD at line: 46 with following arguments:
+# Arg1: GF@$num2=11(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=11(int)
+# Executing instruction: IJUMPIFNEQ at line: 47 with following arguments:
+# Arg1: GF@$counter=7(int)
+# Arg2: GF@$num1=9(int)
+# Executing instruction: ILABEL at line: 42 with following arguments:
+# Executing instruction: IGETCHAR at line: 43 with following arguments:
+# Arg1: GF@$str2=ahoj ahoj ahoj(string)
+# Arg2: GF@$num2=12(int)
+# Dest: GF@$char=h(string)
+# Executing instruction: ICONCAT at line: 44 with following arguments:
+# Arg1: GF@$str1=ahoj ah(string)
+# Arg2: GF@$char=o(string)
+# Dest: GF@$str1=ahoj ah(string)
+# Executing instruction: IADD at line: 45 with following arguments:
+# Arg1: GF@$counter=7(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$counter=7(int)
+# Executing instruction: IADD at line: 46 with following arguments:
+# Arg1: GF@$num2=12(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=12(int)
+# Executing instruction: IJUMPIFNEQ at line: 47 with following arguments:
+# Arg1: GF@$counter=8(int)
+# Arg2: GF@$num1=9(int)
+# Executing instruction: ILABEL at line: 42 with following arguments:
+# Executing instruction: IGETCHAR at line: 43 with following arguments:
+# Arg1: GF@$str2=ahoj ahoj ahoj(string)
+# Arg2: GF@$num2=13(int)
+# Dest: GF@$char=o(string)
+# Executing instruction: ICONCAT at line: 44 with following arguments:
+# Arg1: GF@$str1=ahoj aho(string)
+# Arg2: GF@$char=j(string)
+# Dest: GF@$str1=ahoj aho(string)
+# Executing instruction: IADD at line: 45 with following arguments:
+# Arg1: GF@$counter=8(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$counter=8(int)
+# Executing instruction: IADD at line: 46 with following arguments:
+# Arg1: GF@$num2=13(int)
+# Arg2: Const@=1(int)
+# Dest: GF@$num2=13(int)
+# Executing instruction: IJUMPIFNEQ at line: 47 with following arguments:
+# Arg1: GF@$counter=9(int)
+# Arg2: GF@$num1=9(int)
+# Executing instruction: IJUMP at line: 48 with following arguments:
+# Executing instruction: ILABEL at line: 52 with following arguments:
+# Executing instruction: IPUSHS at line: 53 with following arguments:
+# Arg1: GF@$str1=ahoj ahoj(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 54 with following arguments:
+# Arg1: Stack@=ahoj ahoj(string)
+# Dest: LF@retezec=ahoj ahoj ahoj(string)
+# Executing instruction: IDEFVAR at line: 56 with following arguments:
+# Dest: LF@a
+# Executing instruction: IMOVE at line: 57 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: LF@a()
+# Executing instruction: IPUSHS at line: 59 with following arguments:
+# Arg1: LF@retezec=ahoj ahoj(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 60 with following arguments:
+# Arg1: Stack@=ahoj ahoj(string)
+# Dest: GF@$str2=ahoj ahoj ahoj(string)
+# Executing instruction: ISTRLEN at line: 61 with following arguments:
+# Arg1: GF@$str2=ahoj ahoj(string)
+# Dest: GF@$num1=9(int)
+# Executing instruction: IPUSHS at line: 62 with following arguments:
+# Arg1: GF@$num1=9(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 63 with following arguments:
+# Arg1: Stack@=9(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 64 with following arguments:
+# Arg1: Stack@=9(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 65 with following arguments:
+# Arg1: Stack@=9(int)
+# Dest: LF@a=0(int)
+# Executing instruction: IPUSHS at line: 67 with following arguments:
+# Arg1: LF@a=9(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 68 with following arguments:
+# Arg1: Stack@=9(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 69 with following arguments:
+# Arg1: Stack@=9(double)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 70 with following arguments:
+# Executing instruction: IDEFVAR at line: 71 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 72 with following arguments:
+# Arg1: Stack@=9(int)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 73 with following arguments:
+# Arg1: TF@write=9(int)
+# Executing instruction: IGROOT at line: 76 with following arguments:
+# I am Groot at 76 (980).
+# 
+# STDOUT DIFF:
+# 
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 0
+# CURRENT COMPILER EXIT CODE: 0
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: 0
+# PRICE: 980 (253+727)
+# GROOT: 980
+# 
+#   1: ' Call built-in features - combined
+#   2: 
+#   3: scope 
+#   4: 	dim retezec as string = !"ahoj ahoj ahoj"
+#   5: 	retezec = substr(retezec, 6, 10)
+#   6: 	dim a as integer
+#   7: 	a = length(retezec)
+#   8: 	print a;
+#   9: end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/74
+DEFVAR GF@$str1                                                                 #     2/74
+DEFVAR GF@$str2                                                                 #     3/74
+DEFVAR GF@$num1                                                                 #     4/74
+DEFVAR GF@$num2                                                                 #     5/74
+DEFVAR GF@$num3                                                                 #     6/74
+DEFVAR GF@$bool1                                                                #     7/74
+DEFVAR GF@$counter                                                              #     8/74
+DEFVAR GF@$char                                                                 #     9/74
+JUMP $$main                                                                     #    10/74
+LABEL $$main                                                                    #    12/74
+CREATEFRAME                                                                     #    13/74
+PUSHFRAME                                                                       #    14/74
+DEFVAR LF@retezec                                                               #    16/74
+PUSHS string@ahoj\032ahoj\032ahoj                                               #    17/74
+POPS LF@retezec                                                                 #    18/74
+PUSHS LF@retezec                                                                #    20/74
+PUSHS int@6                                                                     #    21/74
+INT2FLOATS                                                                      #    22/74
+FLOAT2R2EINTS                                                                   #    23/74
+PUSHS int@10                                                                    #    24/74
+INT2FLOATS                                                                      #    25/74
+FLOAT2R2EINTS                                                                   #    26/74
+POPS GF@$num1                                                                   #    27/74
+POPS GF@$num2                                                                   #    28/74
+SUB GF@$num2 GF@$num2 int@1                                                     #    29/74
+POPS GF@$str2                                                                   #    30/74
+MOVE GF@$counter int@0                                                          #    31/74
+MOVE GF@$str1 string@                                                           #    32/74
+STRLEN GF@$num3 GF@$str2                                                        #    33/74
+JUMPIFEQ &sub_end1 GF@$num3 int@0                                               #    34/74
+GT GF@$bool1 GF@$num2 int@-1                                                    #    35/74
+JUMPIFNEQ &sub_end1 GF@$bool1 bool@true                                         #    36/74
+LT GF@$bool1 GF@$num1 int@0                                                     #    37/74
+JUMPIFEQ &rest1 GF@$bool1 bool@true                                             #    38/74
+SUB GF@$num3 GF@$num3 GF@$num2                                                  #    39/74
+GT GF@$bool1 GF@$num1 GF@$num3                                                  #    40/74
+JUMPIFEQ &rest1 GF@$bool1 bool@true                                             #    41/74
+LABEL &cycle1                                                                   #    42/74
+GETCHAR GF@$char GF@$str2 GF@$num2                                              #    43/74
+CONCAT GF@$str1 GF@$str1 GF@$char                                               #    44/74
+ADD GF@$counter GF@$counter int@1                                               #    45/74
+ADD GF@$num2 GF@$num2 int@1                                                     #    46/74
+JUMPIFNEQ &cycle1 GF@$counter GF@$num1                                          #    47/74
+JUMP &sub_end1                                                                  #    48/74
+LABEL &rest1                                                                    #    49/74
+MOVE GF@$num1 GF@$num3                                                          #    50/74
+JUMP &cycle1                                                                    #    51/74
+LABEL &sub_end1                                                                 #    52/74
+PUSHS GF@$str1                                                                  #    53/74
+POPS LF@retezec                                                                 #    54/74
+DEFVAR LF@a                                                                     #    56/74
+MOVE LF@a int@0                                                                 #    57/74
+PUSHS LF@retezec                                                                #    59/74
+POPS GF@$str2                                                                   #    60/74
+STRLEN GF@$num1 GF@$str2                                                        #    61/74
+PUSHS GF@$num1                                                                  #    62/74
+INT2FLOATS                                                                      #    63/74
+FLOAT2R2EINTS                                                                   #    64/74
+POPS LF@a                                                                       #    65/74
+PUSHS LF@a                                                                      #    67/74
+INT2FLOATS                                                                      #    68/74
+FLOAT2R2EINTS                                                                   #    69/74
+CREATEFRAME                                                                     #    70/74
+DEFVAR TF@write                                                                 #    71/74
+POPS TF@write                                                                   #    72/74
+WRITE TF@write                                                                  #    73/74
+

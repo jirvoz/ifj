@@ -1,0 +1,56 @@
+# 2017-12-04 23:21:46.064900
+# SECTION: 66_errors
+# TEST: 034
+# INFO: assignment or undefined variable
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# Line 4: Semantic error in the program: Undeclared variable
+# 
+# INTERPRETER STDERR:
+# 
+# EXPECTED INTERPRETER STDOUT:
+
+
+
+# CURRENT INTERPRETER STDOUT:
+
+
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 3
+# CURRENT COMPILER EXIT CODE: 3
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: None
+# PRICE: ---
+# GROOT: ---
+# 
+#   1: scope 
+#   2:  dim a as integer 
+#   3:  a = 10 + variable 
+#   4:  end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/20
+DEFVAR GF@$str1                                                                 #     2/20
+DEFVAR GF@$str2                                                                 #     3/20
+DEFVAR GF@$num1                                                                 #     4/20
+DEFVAR GF@$num2                                                                 #     5/20
+DEFVAR GF@$num3                                                                 #     6/20
+DEFVAR GF@$bool1                                                                #     7/20
+DEFVAR GF@$counter                                                              #     8/20
+DEFVAR GF@$char                                                                 #     9/20
+JUMP $$main                                                                     #    10/20
+LABEL $$main                                                                    #    12/20
+CREATEFRAME                                                                     #    13/20
+PUSHFRAME                                                                       #    14/20
+DEFVAR LF@a                                                                     #    16/20
+MOVE LF@a int@0                                                                 #    17/20
+PUSHS int@10                                                                    #    19/20
+INT2FLOATS                                                                      #    20/20
+

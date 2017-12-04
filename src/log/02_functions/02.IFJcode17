@@ -1,0 +1,84 @@
+# 2017-12-04 23:21:43.598595
+# SECTION: 02_functions
+# TEST: 02
+# INFO: empty function definition with declaration
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# 
+# INTERPRETER STDERR:
+# Executing instruction: IDEFVAR at line: 2 with following arguments:
+# Dest: GF@$str1
+# Executing instruction: IDEFVAR at line: 3 with following arguments:
+# Dest: GF@$str2
+# Executing instruction: IDEFVAR at line: 4 with following arguments:
+# Dest: GF@$num1
+# Executing instruction: IDEFVAR at line: 5 with following arguments:
+# Dest: GF@$num2
+# Executing instruction: IDEFVAR at line: 6 with following arguments:
+# Dest: GF@$num3
+# Executing instruction: IDEFVAR at line: 7 with following arguments:
+# Dest: GF@$bool1
+# Executing instruction: IDEFVAR at line: 8 with following arguments:
+# Dest: GF@$counter
+# Executing instruction: IDEFVAR at line: 9 with following arguments:
+# Dest: GF@$char
+# Executing instruction: IJUMP at line: 10 with following arguments:
+# Executing instruction: ILABEL at line: 21 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 22 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 23 with following arguments:
+# Executing instruction: IGROOT at line: 26 with following arguments:
+# I am Groot at 26 (46).
+# 
+# EXPECTED INTERPRETER STDOUT:
+
+
+
+# CURRENT INTERPRETER STDOUT:
+
+
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 0
+# CURRENT COMPILER EXIT CODE: 0
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: 0
+# PRICE: 46 (14+32)
+# GROOT: 46
+# 
+#   1: ' empty function definition with declaration
+#   2: 
+#   3: declare function bar() as string
+#   4: 
+#   5: function bar() as string
+#   6: end function 
+#   7: 
+#   8: scope
+#   9: end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/24
+DEFVAR GF@$str1                                                                 #     2/24
+DEFVAR GF@$str2                                                                 #     3/24
+DEFVAR GF@$num1                                                                 #     4/24
+DEFVAR GF@$num2                                                                 #     5/24
+DEFVAR GF@$num3                                                                 #     6/24
+DEFVAR GF@$bool1                                                                #     7/24
+DEFVAR GF@$counter                                                              #     8/24
+DEFVAR GF@$char                                                                 #     9/24
+JUMP $$main                                                                     #    10/24
+LABEL $bar                                                                      #    12/24
+CREATEFRAME                                                                     #    13/24
+PUSHFRAME                                                                       #    14/24
+PUSHS string@                                                                   #    17/24
+POPFRAME                                                                        #    18/24
+RETURN                                                                          #    19/24
+LABEL $$main                                                                    #    21/24
+CREATEFRAME                                                                     #    22/24
+PUSHFRAME                                                                       #    23/24
+

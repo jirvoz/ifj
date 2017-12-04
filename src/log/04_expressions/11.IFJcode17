@@ -1,0 +1,134 @@
+# 2017-12-04 23:21:44.245683
+# SECTION: 04_expressions
+# TEST: 11
+# INFO: Convert double into integer
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# 
+# INTERPRETER STDERR:
+# Executing instruction: IDEFVAR at line: 2 with following arguments:
+# Dest: GF@$str1
+# Executing instruction: IDEFVAR at line: 3 with following arguments:
+# Dest: GF@$str2
+# Executing instruction: IDEFVAR at line: 4 with following arguments:
+# Dest: GF@$num1
+# Executing instruction: IDEFVAR at line: 5 with following arguments:
+# Dest: GF@$num2
+# Executing instruction: IDEFVAR at line: 6 with following arguments:
+# Dest: GF@$num3
+# Executing instruction: IDEFVAR at line: 7 with following arguments:
+# Dest: GF@$bool1
+# Executing instruction: IDEFVAR at line: 8 with following arguments:
+# Dest: GF@$counter
+# Executing instruction: IDEFVAR at line: 9 with following arguments:
+# Dest: GF@$char
+# Executing instruction: IJUMP at line: 10 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 17 with following arguments:
+# Dest: LF@a
+# Executing instruction: IMOVE at line: 18 with following arguments:
+# Arg1: Const@=0(double)
+# Dest: LF@a()
+# Executing instruction: IPUSHS at line: 20 with following arguments:
+# Arg1: Const@=2(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 21 with following arguments:
+# Arg1: Stack@=2(double)
+# Dest: LF@a=0(double)
+# Executing instruction: IDEFVAR at line: 23 with following arguments:
+# Dest: LF@b
+# Executing instruction: IMOVE at line: 24 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: LF@b()
+# Executing instruction: IPUSHS at line: 26 with following arguments:
+# Arg1: LF@a=2(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 27 with following arguments:
+# Arg1: Stack@=2(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 28 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: LF@b=0(int)
+# Executing instruction: IPUSHS at line: 31 with following arguments:
+# Arg1: LF@b=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 32 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 33 with following arguments:
+# Arg1: Stack@=2(double)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 34 with following arguments:
+# Executing instruction: IDEFVAR at line: 35 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 36 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 37 with following arguments:
+# Arg1: TF@write=2(int)
+# Executing instruction: IGROOT at line: 41 with following arguments:
+# I am Groot at 41 (137).
+# 
+# STDOUT DIFF:
+# 
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 0
+# CURRENT COMPILER EXIT CODE: 0
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: 0
+# PRICE: 137 (34+103)
+# GROOT: 137
+# 
+#   1: ' Convert double into integer
+#   2: 
+#   3: scope
+#   4: 
+#   5: 	dim a as double
+#   6: 	a = 2.0
+#   7: 	dim b as integer
+#   8: 	b = a
+#   9: 
+#  10: 	print b;
+#  11: 
+#  12: end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/39
+DEFVAR GF@$str1                                                                 #     2/39
+DEFVAR GF@$str2                                                                 #     3/39
+DEFVAR GF@$num1                                                                 #     4/39
+DEFVAR GF@$num2                                                                 #     5/39
+DEFVAR GF@$num3                                                                 #     6/39
+DEFVAR GF@$bool1                                                                #     7/39
+DEFVAR GF@$counter                                                              #     8/39
+DEFVAR GF@$char                                                                 #     9/39
+JUMP $$main                                                                     #    10/39
+LABEL $$main                                                                    #    12/39
+CREATEFRAME                                                                     #    13/39
+PUSHFRAME                                                                       #    14/39
+DEFVAR LF@a                                                                     #    17/39
+MOVE LF@a float@0                                                               #    18/39
+PUSHS float@2                                                                   #    20/39
+POPS LF@a                                                                       #    21/39
+DEFVAR LF@b                                                                     #    23/39
+MOVE LF@b int@0                                                                 #    24/39
+PUSHS LF@a                                                                      #    26/39
+FLOAT2R2EINTS                                                                   #    27/39
+POPS LF@b                                                                       #    28/39
+PUSHS LF@b                                                                      #    31/39
+INT2FLOATS                                                                      #    32/39
+FLOAT2R2EINTS                                                                   #    33/39
+CREATEFRAME                                                                     #    34/39
+DEFVAR TF@write                                                                 #    35/39
+POPS TF@write                                                                   #    36/39
+WRITE TF@write                                                                  #    37/39
+

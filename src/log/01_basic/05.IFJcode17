@@ -1,0 +1,100 @@
+# 2017-12-04 23:21:42.484726
+# SECTION: 01_basic
+# TEST: 05
+# INFO: string escape sequences
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# 
+# INTERPRETER STDERR:
+# Executing instruction: IDEFVAR at line: 2 with following arguments:
+# Dest: GF@$str1
+# Executing instruction: IDEFVAR at line: 3 with following arguments:
+# Dest: GF@$str2
+# Executing instruction: IDEFVAR at line: 4 with following arguments:
+# Dest: GF@$num1
+# Executing instruction: IDEFVAR at line: 5 with following arguments:
+# Dest: GF@$num2
+# Executing instruction: IDEFVAR at line: 6 with following arguments:
+# Dest: GF@$num3
+# Executing instruction: IDEFVAR at line: 7 with following arguments:
+# Dest: GF@$bool1
+# Executing instruction: IDEFVAR at line: 8 with following arguments:
+# Dest: GF@$counter
+# Executing instruction: IDEFVAR at line: 9 with following arguments:
+# Dest: GF@$char
+# Executing instruction: IJUMP at line: 10 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 16 with following arguments:
+# Dest: LF@str
+# Executing instruction: IPUSHS at line: 17 with following arguments:
+# Arg1: Const@="
+# 	\î(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 18 with following arguments:
+# Arg1: Stack@="
+# 	\î(string)
+# Dest: LF@str()
+# Executing instruction: IDEFVAR at line: 20 with following arguments:
+# Dest: LF@str0
+# Executing instruction: IPUSHS at line: 21 with following arguments:
+# Arg1: Const@=ÿ\
+# (string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 22 with following arguments:
+# Arg1: Stack@=ÿ\
+# (string)
+# Dest: LF@str0()
+# Executing instruction: IGROOT at line: 25 with following arguments:
+# I am Groot at 25 (78).
+# 
+# EXPECTED INTERPRETER STDOUT:
+
+
+
+# CURRENT INTERPRETER STDOUT:
+
+
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 0
+# CURRENT COMPILER EXIT CODE: 0
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: 0
+# PRICE: 78 (20+58)
+# GROOT: 78
+# 
+#   1: ' string escape sequences
+#   2: scope
+#   3: 	dim str as string = !"\"\n\t\\\238"
+#   4: 	dim str0 as string = !"\001\255\\\n"
+#   5: end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/23
+DEFVAR GF@$str1                                                                 #     2/23
+DEFVAR GF@$str2                                                                 #     3/23
+DEFVAR GF@$num1                                                                 #     4/23
+DEFVAR GF@$num2                                                                 #     5/23
+DEFVAR GF@$num3                                                                 #     6/23
+DEFVAR GF@$bool1                                                                #     7/23
+DEFVAR GF@$counter                                                              #     8/23
+DEFVAR GF@$char                                                                 #     9/23
+JUMP $$main                                                                     #    10/23
+LABEL $$main                                                                    #    12/23
+CREATEFRAME                                                                     #    13/23
+PUSHFRAME                                                                       #    14/23
+DEFVAR LF@str                                                                   #    16/23
+PUSHS string@\034\010\009\092\238                                               #    17/23
+POPS LF@str                                                                     #    18/23
+DEFVAR LF@str0                                                                  #    20/23
+PUSHS string@\001\255\092\010                                                   #    21/23
+POPS LF@str0                                                                    #    22/23
+

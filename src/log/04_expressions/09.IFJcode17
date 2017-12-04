@@ -1,0 +1,141 @@
+# 2017-12-04 23:21:44.230745
+# SECTION: 04_expressions
+# TEST: 09
+# INFO: string concat
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# 
+# INTERPRETER STDERR:
+# Executing instruction: IDEFVAR at line: 2 with following arguments:
+# Dest: GF@$str1
+# Executing instruction: IDEFVAR at line: 3 with following arguments:
+# Dest: GF@$str2
+# Executing instruction: IDEFVAR at line: 4 with following arguments:
+# Dest: GF@$num1
+# Executing instruction: IDEFVAR at line: 5 with following arguments:
+# Dest: GF@$num2
+# Executing instruction: IDEFVAR at line: 6 with following arguments:
+# Dest: GF@$num3
+# Executing instruction: IDEFVAR at line: 7 with following arguments:
+# Dest: GF@$bool1
+# Executing instruction: IDEFVAR at line: 8 with following arguments:
+# Dest: GF@$counter
+# Executing instruction: IDEFVAR at line: 9 with following arguments:
+# Dest: GF@$char
+# Executing instruction: IJUMP at line: 10 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 16 with following arguments:
+# Dest: LF@a
+# Executing instruction: IPUSHS at line: 17 with following arguments:
+# Arg1: Const@=master (string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 18 with following arguments:
+# Arg1: Stack@=master (string)
+# Dest: LF@a()
+# Executing instruction: IDEFVAR at line: 20 with following arguments:
+# Dest: LF@b
+# Executing instruction: IPUSHS at line: 21 with following arguments:
+# Arg1: Const@= puppets!(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 22 with following arguments:
+# Arg1: Stack@= puppets!(string)
+# Dest: LF@b()
+# Executing instruction: IPUSHS at line: 25 with following arguments:
+# Arg1: LF@a=master (string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 26 with following arguments:
+# Executing instruction: IDEFVAR at line: 27 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 28 with following arguments:
+# Arg1: Stack@=master (string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 29 with following arguments:
+# Arg1: TF@write=master (string)
+# Executing instruction: IPUSHS at line: 30 with following arguments:
+# Arg1: Const@=of(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 31 with following arguments:
+# Executing instruction: IDEFVAR at line: 32 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 33 with following arguments:
+# Arg1: Stack@=of(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 34 with following arguments:
+# Arg1: TF@write=of(string)
+# Executing instruction: IPUSHS at line: 35 with following arguments:
+# Arg1: LF@b= puppets!(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 36 with following arguments:
+# Executing instruction: IDEFVAR at line: 37 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 38 with following arguments:
+# Arg1: Stack@= puppets!(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 39 with following arguments:
+# Arg1: TF@write= puppets!(string)
+# Executing instruction: IGROOT at line: 42 with following arguments:
+# I am Groot at 42 (162).
+# 
+# STDOUT DIFF:
+# 
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 0
+# CURRENT COMPILER EXIT CODE: 0
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: 0
+# PRICE: 162 (47+115)
+# GROOT: 162
+# 
+#   1: ' string concat
+#   2: scope
+#   3:     dim a as string = !"master "
+#   4:     dim b as string = !" puppets!"
+#   5: 
+#   6:     print a; !"of"; b;
+#   7: end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/40
+DEFVAR GF@$str1                                                                 #     2/40
+DEFVAR GF@$str2                                                                 #     3/40
+DEFVAR GF@$num1                                                                 #     4/40
+DEFVAR GF@$num2                                                                 #     5/40
+DEFVAR GF@$num3                                                                 #     6/40
+DEFVAR GF@$bool1                                                                #     7/40
+DEFVAR GF@$counter                                                              #     8/40
+DEFVAR GF@$char                                                                 #     9/40
+JUMP $$main                                                                     #    10/40
+LABEL $$main                                                                    #    12/40
+CREATEFRAME                                                                     #    13/40
+PUSHFRAME                                                                       #    14/40
+DEFVAR LF@a                                                                     #    16/40
+PUSHS string@master\032                                                         #    17/40
+POPS LF@a                                                                       #    18/40
+DEFVAR LF@b                                                                     #    20/40
+PUSHS string@\032puppets!                                                       #    21/40
+POPS LF@b                                                                       #    22/40
+PUSHS LF@a                                                                      #    25/40
+CREATEFRAME                                                                     #    26/40
+DEFVAR TF@write                                                                 #    27/40
+POPS TF@write                                                                   #    28/40
+WRITE TF@write                                                                  #    29/40
+PUSHS string@of                                                                 #    30/40
+CREATEFRAME                                                                     #    31/40
+DEFVAR TF@write                                                                 #    32/40
+POPS TF@write                                                                   #    33/40
+WRITE TF@write                                                                  #    34/40
+PUSHS LF@b                                                                      #    35/40
+CREATEFRAME                                                                     #    36/40
+DEFVAR TF@write                                                                 #    37/40
+POPS TF@write                                                                   #    38/40
+WRITE TF@write                                                                  #    39/40
+

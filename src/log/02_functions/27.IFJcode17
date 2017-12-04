@@ -1,0 +1,88 @@
+# 2017-12-04 23:21:43.925921
+# SECTION: 02_functions
+# TEST: 27
+# INFO: Condition return
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# Line 12: Type incompatibility semantic error: Bad operation or operand in expression
+# 
+# INTERPRETER STDERR:
+# 
+# EXPECTED INTERPRETER STDOUT:
+
+#  0
+
+
+# CURRENT INTERPRETER STDOUT:
+
+
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 4
+# CURRENT COMPILER EXIT CODE: 4
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: None
+# PRICE: ---
+# GROOT: ---
+# 
+#   1: ' Condition return
+#   2: 
+#   3: function get_integer(a as integer) as integer
+#   4: 	if a < 2 then
+#   5: 		return 42
+#   6: 	else
+#   7: 	end if
+#   8: end function
+#   9: 
+#  10: scope
+#  11: 	dim b as string
+#  12: 	b = get_integer(25)
+#  13: 	print b;
+#  14: end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/49
+DEFVAR GF@$str1                                                                 #     2/49
+DEFVAR GF@$str2                                                                 #     3/49
+DEFVAR GF@$num1                                                                 #     4/49
+DEFVAR GF@$num2                                                                 #     5/49
+DEFVAR GF@$num3                                                                 #     6/49
+DEFVAR GF@$bool1                                                                #     7/49
+DEFVAR GF@$counter                                                              #     8/49
+DEFVAR GF@$char                                                                 #     9/49
+JUMP $$main                                                                     #    10/49
+LABEL $get_integer                                                              #    12/49
+CREATEFRAME                                                                     #    13/49
+PUSHFRAME                                                                       #    14/49
+DEFVAR LF@a                                                                     #    15/49
+POPS LF@a                                                                       #    16/49
+PUSHS LF@a                                                                      #    19/49
+INT2FLOATS                                                                      #    20/49
+PUSHS int@2                                                                     #    21/49
+INT2FLOATS                                                                      #    22/49
+LTS                                                                             #    23/49
+PUSHS bool@true                                                                 #    24/49
+JUMPIFNEQS &else4                                                               #    25/49
+PUSHS int@42                                                                    #    28/49
+INT2FLOATS                                                                      #    29/49
+FLOAT2R2EINTS                                                                   #    30/49
+POPFRAME                                                                        #    31/49
+RETURN                                                                          #    32/49
+JUMP &endif4                                                                    #    34/49
+LABEL &else4                                                                    #    35/49
+LABEL &endif4                                                                   #    37/49
+PUSHS int@0                                                                     #    39/49
+POPFRAME                                                                        #    40/49
+RETURN                                                                          #    41/49
+LABEL $$main                                                                    #    43/49
+CREATEFRAME                                                                     #    44/49
+PUSHFRAME                                                                       #    45/49
+DEFVAR LF@b                                                                     #    47/49
+MOVE LF@b string@                                                               #    48/49
+

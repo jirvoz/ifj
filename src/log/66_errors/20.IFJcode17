@@ -1,0 +1,54 @@
+# 2017-12-04 23:21:45.950277
+# SECTION: 66_errors
+# TEST: 20
+# INFO: Colision of argument name and function name
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# Line 4: Semantic error in the program: There is already function named 'foo1'.
+# 
+# INTERPRETER STDERR:
+# 
+# EXPECTED INTERPRETER STDOUT:
+
+
+
+# CURRENT INTERPRETER STDOUT:
+
+
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 3
+# CURRENT COMPILER EXIT CODE: 3
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: None
+# PRICE: ---
+# GROOT: ---
+# 
+#   1: ' Colision of argument name and function name
+#   2: 
+#   3: declare function foo1() as integer
+#   4: function bar(foo1 as integer) as integer
+#   5: return foo1
+#   6: end function
+#   7: 
+#   8: scope
+#   9: end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/11
+DEFVAR GF@$str1                                                                 #     2/11
+DEFVAR GF@$str2                                                                 #     3/11
+DEFVAR GF@$num1                                                                 #     4/11
+DEFVAR GF@$num2                                                                 #     5/11
+DEFVAR GF@$num3                                                                 #     6/11
+DEFVAR GF@$bool1                                                                #     7/11
+DEFVAR GF@$counter                                                              #     8/11
+DEFVAR GF@$char                                                                 #     9/11
+JUMP $$main                                                                     #    10/11
+

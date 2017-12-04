@@ -1,0 +1,76 @@
+# 2017-12-04 23:21:45.912955
+# SECTION: 66_errors
+# TEST: 06
+# INFO: Call function with too little arguments
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# Line 9: Type incompatibility semantic error: Expected more parameters.
+# 
+# INTERPRETER STDERR:
+# 
+# EXPECTED INTERPRETER STDOUT:
+
+
+
+# CURRENT INTERPRETER STDOUT:
+
+
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 4
+# CURRENT COMPILER EXIT CODE: 4
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: None
+# PRICE: ---
+# GROOT: ---
+# 
+#   1: ' Call function with too little arguments
+#   2: 
+#   3: function foo(a as integer, b as integer) as integer
+#   4: 
+#   5: end function
+#   6: 
+#   7: scope
+#   8: 	dim a as integer
+#   9: 	a = foo(31)
+#  10: 
+#  11: end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/39
+DEFVAR GF@$str1                                                                 #     2/39
+DEFVAR GF@$str2                                                                 #     3/39
+DEFVAR GF@$num1                                                                 #     4/39
+DEFVAR GF@$num2                                                                 #     5/39
+DEFVAR GF@$num3                                                                 #     6/39
+DEFVAR GF@$bool1                                                                #     7/39
+DEFVAR GF@$counter                                                              #     8/39
+DEFVAR GF@$char                                                                 #     9/39
+JUMP $$main                                                                     #    10/39
+LABEL $foo                                                                      #    12/39
+CREATEFRAME                                                                     #    13/39
+PUSHFRAME                                                                       #    14/39
+DEFVAR LF@b                                                                     #    15/39
+POPS LF@b                                                                       #    16/39
+DEFVAR LF@a                                                                     #    17/39
+POPS LF@a                                                                       #    18/39
+PUSHS int@0                                                                     #    22/39
+POPFRAME                                                                        #    23/39
+RETURN                                                                          #    24/39
+LABEL $$main                                                                    #    26/39
+CREATEFRAME                                                                     #    27/39
+PUSHFRAME                                                                       #    28/39
+DEFVAR LF@a                                                                     #    30/39
+MOVE LF@a int@0                                                                 #    31/39
+PUSHS int@31                                                                    #    33/39
+INT2FLOATS                                                                      #    34/39
+FLOAT2R2EINTS                                                                   #    35/39
+FLOAT2R2EINTS                                                                   #    36/39
+POPS LF@a                                                                       #    37/39
+

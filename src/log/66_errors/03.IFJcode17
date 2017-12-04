@@ -1,0 +1,65 @@
+# 2017-12-04 23:21:45.904051
+# SECTION: 66_errors
+# TEST: 03
+# INFO: Try to redefinition function
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# Line 6: Semantic error in the program: Function 'erzert' is already defined.
+# 
+# INTERPRETER STDERR:
+# 
+# EXPECTED INTERPRETER STDOUT:
+
+
+
+# CURRENT INTERPRETER STDOUT:
+
+
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 3
+# CURRENT COMPILER EXIT CODE: 3
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: None
+# PRICE: ---
+# GROOT: ---
+# 
+#   1: ' Try to redefinition function
+#   2: 
+#   3: function erzert(aqrqwer as integer, bqewqxc as integer) as integer
+#   4: end function
+#   5: 
+#   6: function erzert(aqrqwer as integer) as integer
+#   7: end function
+#   8: 
+#   9: scope
+#  10: end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/24
+DEFVAR GF@$str1                                                                 #     2/24
+DEFVAR GF@$str2                                                                 #     3/24
+DEFVAR GF@$num1                                                                 #     4/24
+DEFVAR GF@$num2                                                                 #     5/24
+DEFVAR GF@$num3                                                                 #     6/24
+DEFVAR GF@$bool1                                                                #     7/24
+DEFVAR GF@$counter                                                              #     8/24
+DEFVAR GF@$char                                                                 #     9/24
+JUMP $$main                                                                     #    10/24
+LABEL $erzert                                                                   #    12/24
+CREATEFRAME                                                                     #    13/24
+PUSHFRAME                                                                       #    14/24
+DEFVAR LF@bqewqxc                                                               #    15/24
+POPS LF@bqewqxc                                                                 #    16/24
+DEFVAR LF@aqrqwer                                                               #    17/24
+POPS LF@aqrqwer                                                                 #    18/24
+PUSHS int@0                                                                     #    21/24
+POPFRAME                                                                        #    22/24
+RETURN                                                                          #    23/24
+

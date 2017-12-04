@@ -1,0 +1,167 @@
+# 2017-12-04 23:21:44.134124
+# SECTION: 03_statements
+# TEST: 02
+# INFO: basic constant assigment with implicit coversions
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# 
+# INTERPRETER STDERR:
+# Executing instruction: IDEFVAR at line: 2 with following arguments:
+# Dest: GF@$str1
+# Executing instruction: IDEFVAR at line: 3 with following arguments:
+# Dest: GF@$str2
+# Executing instruction: IDEFVAR at line: 4 with following arguments:
+# Dest: GF@$num1
+# Executing instruction: IDEFVAR at line: 5 with following arguments:
+# Dest: GF@$num2
+# Executing instruction: IDEFVAR at line: 6 with following arguments:
+# Dest: GF@$num3
+# Executing instruction: IDEFVAR at line: 7 with following arguments:
+# Dest: GF@$bool1
+# Executing instruction: IDEFVAR at line: 8 with following arguments:
+# Dest: GF@$counter
+# Executing instruction: IDEFVAR at line: 9 with following arguments:
+# Dest: GF@$char
+# Executing instruction: IJUMP at line: 10 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 17 with following arguments:
+# Dest: LF@b
+# Executing instruction: IMOVE at line: 18 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: LF@b()
+# Executing instruction: IPUSHS at line: 20 with following arguments:
+# Arg1: Const@=42.78(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 21 with following arguments:
+# Arg1: Stack@=42.78(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 22 with following arguments:
+# Arg1: Stack@=43(int)
+# Dest: LF@b=0(int)
+# Executing instruction: IPUSHS at line: 24 with following arguments:
+# Arg1: Const@=78000(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 25 with following arguments:
+# Arg1: Stack@=78000(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 26 with following arguments:
+# Arg1: Stack@=78000(int)
+# Dest: LF@b=43(int)
+# Executing instruction: IDEFVAR at line: 29 with following arguments:
+# Dest: LF@c
+# Executing instruction: IMOVE at line: 30 with following arguments:
+# Arg1: Const@=0(double)
+# Dest: LF@c()
+# Executing instruction: IPUSHS at line: 32 with following arguments:
+# Arg1: Const@=74(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 33 with following arguments:
+# Arg1: Stack@=74(int)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 34 with following arguments:
+# Arg1: Stack@=74(double)
+# Dest: LF@c=0(double)
+# Executing instruction: IPUSHS at line: 37 with following arguments:
+# Arg1: LF@b=78000(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 38 with following arguments:
+# Arg1: Stack@=78000(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 39 with following arguments:
+# Arg1: Stack@=78000(double)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 40 with following arguments:
+# Executing instruction: IDEFVAR at line: 41 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 42 with following arguments:
+# Arg1: Stack@=78000(int)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 43 with following arguments:
+# Arg1: TF@write=78000(int)
+# Executing instruction: IPUSHS at line: 44 with following arguments:
+# Arg1: LF@c=74(double)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 45 with following arguments:
+# Executing instruction: IDEFVAR at line: 46 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 47 with following arguments:
+# Arg1: Stack@=74(double)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 48 with following arguments:
+# Arg1: TF@write=74(double)
+# Executing instruction: IGROOT at line: 52 with following arguments:
+# I am Groot at 52 (184).
+# 
+# STDOUT DIFF:
+# 
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 0
+# CURRENT COMPILER EXIT CODE: 0
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: 0
+# PRICE: 184 (47+137)
+# GROOT: 184
+# 
+#   1: ' basic constant assigment with implicit coversions
+#   2: scope
+#   3: 
+#   4: 	dim b as integer
+#   5: 	b = 42.78
+#   6: 	b = 78e3
+#   7: 
+#   8: 	dim c as double
+#   9: 	c  = 74
+#  10: 
+#  11: 	print b; c;
+#  12: 
+#  13: end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/50
+DEFVAR GF@$str1                                                                 #     2/50
+DEFVAR GF@$str2                                                                 #     3/50
+DEFVAR GF@$num1                                                                 #     4/50
+DEFVAR GF@$num2                                                                 #     5/50
+DEFVAR GF@$num3                                                                 #     6/50
+DEFVAR GF@$bool1                                                                #     7/50
+DEFVAR GF@$counter                                                              #     8/50
+DEFVAR GF@$char                                                                 #     9/50
+JUMP $$main                                                                     #    10/50
+LABEL $$main                                                                    #    12/50
+CREATEFRAME                                                                     #    13/50
+PUSHFRAME                                                                       #    14/50
+DEFVAR LF@b                                                                     #    17/50
+MOVE LF@b int@0                                                                 #    18/50
+PUSHS float@42.78                                                               #    20/50
+FLOAT2R2EINTS                                                                   #    21/50
+POPS LF@b                                                                       #    22/50
+PUSHS float@78000                                                               #    24/50
+FLOAT2R2EINTS                                                                   #    25/50
+POPS LF@b                                                                       #    26/50
+DEFVAR LF@c                                                                     #    29/50
+MOVE LF@c float@0                                                               #    30/50
+PUSHS int@74                                                                    #    32/50
+INT2FLOATS                                                                      #    33/50
+POPS LF@c                                                                       #    34/50
+PUSHS LF@b                                                                      #    37/50
+INT2FLOATS                                                                      #    38/50
+FLOAT2R2EINTS                                                                   #    39/50
+CREATEFRAME                                                                     #    40/50
+DEFVAR TF@write                                                                 #    41/50
+POPS TF@write                                                                   #    42/50
+WRITE TF@write                                                                  #    43/50
+PUSHS LF@c                                                                      #    44/50
+CREATEFRAME                                                                     #    45/50
+DEFVAR TF@write                                                                 #    46/50
+POPS TF@write                                                                   #    47/50
+WRITE TF@write                                                                  #    48/50
+

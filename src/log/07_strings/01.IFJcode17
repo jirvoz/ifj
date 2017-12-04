@@ -1,0 +1,258 @@
+# 2017-12-04 23:21:45.682656
+# SECTION: 07_strings
+# TEST: 01
+# INFO: valid length call
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# 
+# INTERPRETER STDERR:
+# Executing instruction: IDEFVAR at line: 2 with following arguments:
+# Dest: GF@$str1
+# Executing instruction: IDEFVAR at line: 3 with following arguments:
+# Dest: GF@$str2
+# Executing instruction: IDEFVAR at line: 4 with following arguments:
+# Dest: GF@$num1
+# Executing instruction: IDEFVAR at line: 5 with following arguments:
+# Dest: GF@$num2
+# Executing instruction: IDEFVAR at line: 6 with following arguments:
+# Dest: GF@$num3
+# Executing instruction: IDEFVAR at line: 7 with following arguments:
+# Dest: GF@$bool1
+# Executing instruction: IDEFVAR at line: 8 with following arguments:
+# Dest: GF@$counter
+# Executing instruction: IDEFVAR at line: 9 with following arguments:
+# Dest: GF@$char
+# Executing instruction: IJUMP at line: 10 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 16 with following arguments:
+# Dest: LF@len
+# Executing instruction: IMOVE at line: 17 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: LF@len()
+# Executing instruction: IPUSHS at line: 20 with following arguments:
+# Arg1: Const@=(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 21 with following arguments:
+# Arg1: Stack@=(string)
+# Dest: GF@$str2()
+# Executing instruction: ISTRLEN at line: 22 with following arguments:
+# Arg1: GF@$str2=(string)
+# Dest: GF@$num1()
+# Executing instruction: IPUSHS at line: 23 with following arguments:
+# Arg1: GF@$num1=0(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 24 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 25 with following arguments:
+# Arg1: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 26 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: LF@len=0(int)
+# Executing instruction: IPUSHS at line: 28 with following arguments:
+# Arg1: LF@len=0(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 29 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 30 with following arguments:
+# Arg1: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 31 with following arguments:
+# Executing instruction: IDEFVAR at line: 32 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 33 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 34 with following arguments:
+# Arg1: TF@write=0(int)
+# Executing instruction: IPUSHS at line: 37 with following arguments:
+# Arg1: Const@=foobar(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 38 with following arguments:
+# Arg1: Stack@=foobar(string)
+# Dest: GF@$str2=(string)
+# Executing instruction: ISTRLEN at line: 39 with following arguments:
+# Arg1: GF@$str2=foobar(string)
+# Dest: GF@$num1=0(int)
+# Executing instruction: IPUSHS at line: 40 with following arguments:
+# Arg1: GF@$num1=6(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 41 with following arguments:
+# Arg1: Stack@=6(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 42 with following arguments:
+# Arg1: Stack@=6(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 43 with following arguments:
+# Arg1: Stack@=6(int)
+# Dest: LF@len=0(int)
+# Executing instruction: IPUSHS at line: 45 with following arguments:
+# Arg1: LF@len=6(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 46 with following arguments:
+# Arg1: Stack@=6(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 47 with following arguments:
+# Arg1: Stack@=6(double)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 48 with following arguments:
+# Executing instruction: IDEFVAR at line: 49 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 50 with following arguments:
+# Arg1: Stack@=6(int)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 51 with following arguments:
+# Arg1: TF@write=6(int)
+# Executing instruction: IDEFVAR at line: 54 with following arguments:
+# Dest: LF@str
+# Executing instruction: IMOVE at line: 55 with following arguments:
+# Arg1: Const@=(string)
+# Dest: LF@str()
+# Executing instruction: IPUSHS at line: 57 with following arguments:
+# Arg1: Const@=Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 58 with following arguments:
+# Arg1: Stack@=Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.(string)
+# Dest: LF@str=(string)
+# Executing instruction: IPUSHS at line: 60 with following arguments:
+# Arg1: LF@str=Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.(string)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 61 with following arguments:
+# Arg1: Stack@=Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.(string)
+# Dest: GF@$str2=foobar(string)
+# Executing instruction: ISTRLEN at line: 62 with following arguments:
+# Arg1: GF@$str2=Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.(string)
+# Dest: GF@$num1=6(int)
+# Executing instruction: IPUSHS at line: 63 with following arguments:
+# Arg1: GF@$num1=445(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 64 with following arguments:
+# Arg1: Stack@=445(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 65 with following arguments:
+# Arg1: Stack@=445(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 66 with following arguments:
+# Arg1: Stack@=445(int)
+# Dest: LF@len=6(int)
+# Executing instruction: IPUSHS at line: 68 with following arguments:
+# Arg1: LF@len=445(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 69 with following arguments:
+# Arg1: Stack@=445(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 70 with following arguments:
+# Arg1: Stack@=445(double)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 71 with following arguments:
+# Executing instruction: IDEFVAR at line: 72 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 73 with following arguments:
+# Arg1: Stack@=445(int)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 74 with following arguments:
+# Arg1: TF@write=445(int)
+# Executing instruction: IGROOT at line: 78 with following arguments:
+# I am Groot at 78 (340).
+# 
+# STDOUT DIFF:
+# 
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 0
+# CURRENT COMPILER EXIT CODE: 0
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: 0
+# PRICE: 340 (83+257)
+# GROOT: 340
+# 
+#   1: ' valid length call
+#   2: scope
+#   3: 	dim len as integer
+#   4: 
+#   5: 	len = length(!"")
+#   6: 	print len;
+#   7: 
+#   8: 	len = length(!"foobar")
+#   9: 	print len;
+#  10: 
+#  11: 	dim str as string
+#  12: 	str = !"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+#  13: 	len = length(str)
+#  14: 	print len;
+#  15: 	
+#  16: end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/76
+DEFVAR GF@$str1                                                                 #     2/76
+DEFVAR GF@$str2                                                                 #     3/76
+DEFVAR GF@$num1                                                                 #     4/76
+DEFVAR GF@$num2                                                                 #     5/76
+DEFVAR GF@$num3                                                                 #     6/76
+DEFVAR GF@$bool1                                                                #     7/76
+DEFVAR GF@$counter                                                              #     8/76
+DEFVAR GF@$char                                                                 #     9/76
+JUMP $$main                                                                     #    10/76
+LABEL $$main                                                                    #    12/76
+CREATEFRAME                                                                     #    13/76
+PUSHFRAME                                                                       #    14/76
+DEFVAR LF@len                                                                   #    16/76
+MOVE LF@len int@0                                                               #    17/76
+PUSHS string@                                                                   #    20/76
+POPS GF@$str2                                                                   #    21/76
+STRLEN GF@$num1 GF@$str2                                                        #    22/76
+PUSHS GF@$num1                                                                  #    23/76
+INT2FLOATS                                                                      #    24/76
+FLOAT2R2EINTS                                                                   #    25/76
+POPS LF@len                                                                     #    26/76
+PUSHS LF@len                                                                    #    28/76
+INT2FLOATS                                                                      #    29/76
+FLOAT2R2EINTS                                                                   #    30/76
+CREATEFRAME                                                                     #    31/76
+DEFVAR TF@write                                                                 #    32/76
+POPS TF@write                                                                   #    33/76
+WRITE TF@write                                                                  #    34/76
+PUSHS string@foobar                                                             #    37/76
+POPS GF@$str2                                                                   #    38/76
+STRLEN GF@$num1 GF@$str2                                                        #    39/76
+PUSHS GF@$num1                                                                  #    40/76
+INT2FLOATS                                                                      #    41/76
+FLOAT2R2EINTS                                                                   #    42/76
+POPS LF@len                                                                     #    43/76
+PUSHS LF@len                                                                    #    45/76
+INT2FLOATS                                                                      #    46/76
+FLOAT2R2EINTS                                                                   #    47/76
+CREATEFRAME                                                                     #    48/76
+DEFVAR TF@write                                                                 #    49/76
+POPS TF@write                                                                   #    50/76
+WRITE TF@write                                                                  #    51/76
+DEFVAR LF@str                                                                   #    54/76
+MOVE LF@str string@                                                             #    55/76
+PUSHS string@Lorem\032ipsum\032dolor\032sit\032amet,\032consectetur\032adipiscing\032elit,\032sed\032do\032eiusmod\032tempor\032incididunt\032ut\032labore\032et\032dolore\032magna\032aliqua.\032Ut\032enim\032ad\032minim\032veniam,\032quis\032nostrud\032exercitation\032ullamco\032laboris\032nisi\032ut\032aliquip\032ex\032ea\032commodo\032consequat.\032Duis\032aute\032irure\032dolor\032in\032reprehenderit\032in\032voluptate\032velit\032esse\032cillum\032dolore\032eu\032fugiat\032nulla\032pariatur.\032Excepteur\032sint\032occaecat\032cupidatat\032non\032proident,\032sunt\032in\032culpa\032qui\032officia\032deserunt\032mollit\032anim\032id\032est\032laborum.#    57/76
+POPS LF@str                                                                     #    58/76
+PUSHS LF@str                                                                    #    60/76
+POPS GF@$str2                                                                   #    61/76
+STRLEN GF@$num1 GF@$str2                                                        #    62/76
+PUSHS GF@$num1                                                                  #    63/76
+INT2FLOATS                                                                      #    64/76
+FLOAT2R2EINTS                                                                   #    65/76
+POPS LF@len                                                                     #    66/76
+PUSHS LF@len                                                                    #    68/76
+INT2FLOATS                                                                      #    69/76
+FLOAT2R2EINTS                                                                   #    70/76
+CREATEFRAME                                                                     #    71/76
+DEFVAR TF@write                                                                 #    72/76
+POPS TF@write                                                                   #    73/76
+WRITE TF@write                                                                  #    74/76
+

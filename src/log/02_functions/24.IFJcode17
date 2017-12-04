@@ -1,0 +1,61 @@
+# 2017-12-04 23:21:43.766513
+# SECTION: 02_functions
+# TEST: 24
+# INFO: invalid types without supported implicit conversion II
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# Line 4: Type incompatibility semantic error: Bad operation or operand in expression
+# 
+# INTERPRETER STDERR:
+# 
+# EXPECTED INTERPRETER STDOUT:
+
+
+
+# CURRENT INTERPRETER STDOUT:
+
+
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 4
+# CURRENT COMPILER EXIT CODE: 4
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: None
+# PRICE: ---
+# GROOT: ---
+# 
+#   1: ' invalid types without supported implicit conversion II
+#   2: 
+#   3: function get_integer(a as integer) as integer
+#   4: 	return !"foo"
+#   5: end function
+#   6: 
+#   7: scope
+#   8: 	dim b as string
+#   9: 	b = get_integer(25)
+#  10: 	print b;
+#  11: end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/18
+DEFVAR GF@$str1                                                                 #     2/18
+DEFVAR GF@$str2                                                                 #     3/18
+DEFVAR GF@$num1                                                                 #     4/18
+DEFVAR GF@$num2                                                                 #     5/18
+DEFVAR GF@$num3                                                                 #     6/18
+DEFVAR GF@$bool1                                                                #     7/18
+DEFVAR GF@$counter                                                              #     8/18
+DEFVAR GF@$char                                                                 #     9/18
+JUMP $$main                                                                     #    10/18
+LABEL $get_integer                                                              #    12/18
+CREATEFRAME                                                                     #    13/18
+PUSHFRAME                                                                       #    14/18
+DEFVAR LF@a                                                                     #    15/18
+POPS LF@a                                                                       #    16/18
+

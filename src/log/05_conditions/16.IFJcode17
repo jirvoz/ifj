@@ -1,0 +1,633 @@
+# 2017-12-04 23:21:44.827341
+# SECTION: 05_conditions
+# TEST: 16
+# INFO: Many conditions double version
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# 
+# INTERPRETER STDERR:
+# Executing instruction: IDEFVAR at line: 2 with following arguments:
+# Dest: GF@$str1
+# Executing instruction: IDEFVAR at line: 3 with following arguments:
+# Dest: GF@$str2
+# Executing instruction: IDEFVAR at line: 4 with following arguments:
+# Dest: GF@$num1
+# Executing instruction: IDEFVAR at line: 5 with following arguments:
+# Dest: GF@$num2
+# Executing instruction: IDEFVAR at line: 6 with following arguments:
+# Dest: GF@$num3
+# Executing instruction: IDEFVAR at line: 7 with following arguments:
+# Dest: GF@$bool1
+# Executing instruction: IDEFVAR at line: 8 with following arguments:
+# Dest: GF@$counter
+# Executing instruction: IDEFVAR at line: 9 with following arguments:
+# Dest: GF@$char
+# Executing instruction: IJUMP at line: 10 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 17 with following arguments:
+# Dest: LF@a
+# Executing instruction: IMOVE at line: 18 with following arguments:
+# Arg1: Const@=0(double)
+# Dest: LF@a()
+# Executing instruction: IPUSHS at line: 20 with following arguments:
+# Arg1: Const@=1.1(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 21 with following arguments:
+# Arg1: Stack@=1.1(double)
+# Dest: LF@a=0(double)
+# Executing instruction: IPUSHS at line: 24 with following arguments:
+# Arg1: LF@a=1.1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 25 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 26 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: ILSS at line: 27 with following arguments:
+# Arg1: Stack@=1.1(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 28 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 29 with following arguments:
+# Arg1: Stack@=false(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: ILABEL at line: 39 with following arguments:
+# Executing instruction: IPUSHS at line: 41 with following arguments:
+# Arg1: Const@=NOTOK(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 42 with following arguments:
+# Executing instruction: IDEFVAR at line: 43 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 44 with following arguments:
+# Arg1: Stack@=NOTOK(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 45 with following arguments:
+# Arg1: TF@write=NOTOK(string)
+# Executing instruction: ILABEL at line: 47 with following arguments:
+# Executing instruction: IPUSHS at line: 50 with following arguments:
+# Arg1: LF@a=1.1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 51 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 52 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IGTS at line: 53 with following arguments:
+# Arg1: Stack@=1.1(double)
+# Arg2: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: INOTS at line: 54 with following arguments:
+# Arg1: Stack@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 55 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 56 with following arguments:
+# Arg1: Stack@=false(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: ILABEL at line: 66 with following arguments:
+# Executing instruction: IPUSHS at line: 68 with following arguments:
+# Arg1: Const@=NOTOK(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 69 with following arguments:
+# Executing instruction: IDEFVAR at line: 70 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 71 with following arguments:
+# Arg1: Stack@=NOTOK(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 72 with following arguments:
+# Arg1: TF@write=NOTOK(string)
+# Executing instruction: ILABEL at line: 74 with following arguments:
+# Executing instruction: IPUSHS at line: 77 with following arguments:
+# Arg1: LF@a=1.1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 78 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 79 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: ILSS at line: 80 with following arguments:
+# Arg1: Stack@=1.1(double)
+# Arg2: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: INOTS at line: 81 with following arguments:
+# Arg1: Stack@=false(bool)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 82 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 83 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 86 with following arguments:
+# Arg1: Const@=OK(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 87 with following arguments:
+# Executing instruction: IDEFVAR at line: 88 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 89 with following arguments:
+# Arg1: Stack@=OK(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 90 with following arguments:
+# Arg1: TF@write=OK(string)
+# Executing instruction: IJUMP at line: 92 with following arguments:
+# Executing instruction: ILABEL at line: 101 with following arguments:
+# Executing instruction: IPUSHS at line: 104 with following arguments:
+# Arg1: LF@a=1.1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 105 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 106 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 107 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 108 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 109 with following arguments:
+# Arg1: Stack@=0(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: ILSS at line: 110 with following arguments:
+# Arg1: Stack@=1.1(double)
+# Arg2: Stack@=-1(double)
+# Dest: Stack@()
+# Executing instruction: INOTS at line: 111 with following arguments:
+# Arg1: Stack@=false(bool)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 112 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 113 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 116 with following arguments:
+# Arg1: Const@=OK(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 117 with following arguments:
+# Executing instruction: IDEFVAR at line: 118 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 119 with following arguments:
+# Arg1: Stack@=OK(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 120 with following arguments:
+# Arg1: TF@write=OK(string)
+# Executing instruction: IJUMP at line: 122 with following arguments:
+# Executing instruction: ILABEL at line: 131 with following arguments:
+# Executing instruction: IPUSHS at line: 134 with following arguments:
+# Arg1: LF@a=1.1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 135 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 136 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IGTS at line: 137 with following arguments:
+# Arg1: Stack@=1.1(double)
+# Arg2: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 138 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 139 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 142 with following arguments:
+# Arg1: Const@=OK(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 143 with following arguments:
+# Executing instruction: IDEFVAR at line: 144 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 145 with following arguments:
+# Arg1: Stack@=OK(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 146 with following arguments:
+# Arg1: TF@write=OK(string)
+# Executing instruction: IJUMP at line: 148 with following arguments:
+# Executing instruction: ILABEL at line: 157 with following arguments:
+# Executing instruction: IPUSHS at line: 160 with following arguments:
+# Arg1: LF@a=1.1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 161 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 162 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IEQS at line: 163 with following arguments:
+# Arg1: Stack@=1.1(double)
+# Arg2: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: INOTS at line: 164 with following arguments:
+# Arg1: Stack@=false(bool)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 165 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 166 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 169 with following arguments:
+# Arg1: Const@=OK(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 170 with following arguments:
+# Executing instruction: IDEFVAR at line: 171 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 172 with following arguments:
+# Arg1: Stack@=OK(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 173 with following arguments:
+# Arg1: TF@write=OK(string)
+# Executing instruction: IJUMP at line: 175 with following arguments:
+# Executing instruction: ILABEL at line: 184 with following arguments:
+# Executing instruction: IPUSHS at line: 187 with following arguments:
+# Arg1: LF@a=1.1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 188 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 189 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IEQS at line: 190 with following arguments:
+# Arg1: Stack@=1.1(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: INOTS at line: 191 with following arguments:
+# Arg1: Stack@=false(bool)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 192 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 193 with following arguments:
+# Arg1: Stack@=true(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: IPUSHS at line: 196 with following arguments:
+# Arg1: Const@=OK(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 197 with following arguments:
+# Executing instruction: IDEFVAR at line: 198 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 199 with following arguments:
+# Arg1: Stack@=OK(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 200 with following arguments:
+# Arg1: TF@write=OK(string)
+# Executing instruction: IJUMP at line: 202 with following arguments:
+# Executing instruction: ILABEL at line: 211 with following arguments:
+# Executing instruction: IPUSHS at line: 214 with following arguments:
+# Arg1: LF@a=1.1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 215 with following arguments:
+# Arg1: Const@=1(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 216 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: Stack@()
+# Executing instruction: IEQS at line: 217 with following arguments:
+# Arg1: Stack@=1.1(double)
+# Arg2: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 218 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 219 with following arguments:
+# Arg1: Stack@=false(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: ILABEL at line: 229 with following arguments:
+# Executing instruction: IPUSHS at line: 231 with following arguments:
+# Arg1: Const@=NOTOK(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 232 with following arguments:
+# Executing instruction: IDEFVAR at line: 233 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 234 with following arguments:
+# Arg1: Stack@=NOTOK(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 235 with following arguments:
+# Arg1: TF@write=NOTOK(string)
+# Executing instruction: ILABEL at line: 237 with following arguments:
+# Executing instruction: IPUSHS at line: 240 with following arguments:
+# Arg1: LF@a=1.1(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 241 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 242 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IEQS at line: 243 with following arguments:
+# Arg1: Stack@=1.1(double)
+# Arg2: Stack@=0(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 244 with following arguments:
+# Arg1: Const@=true(bool)
+# Dest: Stack@()
+# Executing instruction: IJUMPIFNEQS at line: 245 with following arguments:
+# Arg1: Stack@=false(bool)
+# Arg2: Stack@=true(bool)
+# Executing instruction: ILABEL at line: 255 with following arguments:
+# Executing instruction: IPUSHS at line: 257 with following arguments:
+# Arg1: Const@=NOTOK(string)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 258 with following arguments:
+# Executing instruction: IDEFVAR at line: 259 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 260 with following arguments:
+# Arg1: Stack@=NOTOK(string)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 261 with following arguments:
+# Arg1: TF@write=NOTOK(string)
+# Executing instruction: ILABEL at line: 263 with following arguments:
+# Executing instruction: IGROOT at line: 267 with following arguments:
+# I am Groot at 267 (671).
+# 
+# STDOUT DIFF:
+# 
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 0
+# CURRENT COMPILER EXIT CODE: 0
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: 0
+# PRICE: 671 (201+470)
+# GROOT: 671
+# 
+#   1: ' Many conditions double version
+#   2: 
+#   3: scope
+#   4: 
+#   5: dim a as double
+#   6: a = 1.1
+#   7: 
+#   8: if a < 1 then
+#   9:     print !"OK";
+#  10: else
+#  11:     print !"NOTOK";
+#  12: end if
+#  13: 
+#  14: if a <= 0 then
+#  15:     print !"OK";
+#  16: else
+#  17:     print !"NOTOK";
+#  18: end if
+#  19: 
+#  20: if a >= 0 then
+#  21:     print !"OK";
+#  22: else
+#  23:     print !"NOTOK";
+#  24: end if
+#  25: 
+#  26: if a >= 0-1 then
+#  27:     print !"OK";
+#  28: else
+#  29:     print !"NOTOK";
+#  30: end if
+#  31: 
+#  32: if a > 0 then
+#  33:     print !"OK";
+#  34: else
+#  35:     print !"NOTOK";
+#  36: end if
+#  37: 
+#  38: if a <> 0 then
+#  39:     print !"OK";
+#  40: else
+#  41:     print !"NOTOK";
+#  42: end if
+#  43: 
+#  44: if a <> 1 then
+#  45:     print !"OK";
+#  46: else
+#  47:     print !"NOTOK";
+#  48: end if
+#  49: 
+#  50: if a = 1 then
+#  51:     print !"OK";
+#  52: else
+#  53:     print !"NOTOK";
+#  54: end if
+#  55: 
+#  56: if a = 0 then
+#  57:     print !"OK";
+#  58: else
+#  59:     print !"NOTOK";
+#  60: end if
+#  61: 
+#  62: end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/265
+DEFVAR GF@$str1                                                                 #     2/265
+DEFVAR GF@$str2                                                                 #     3/265
+DEFVAR GF@$num1                                                                 #     4/265
+DEFVAR GF@$num2                                                                 #     5/265
+DEFVAR GF@$num3                                                                 #     6/265
+DEFVAR GF@$bool1                                                                #     7/265
+DEFVAR GF@$counter                                                              #     8/265
+DEFVAR GF@$char                                                                 #     9/265
+JUMP $$main                                                                     #    10/265
+LABEL $$main                                                                    #    12/265
+CREATEFRAME                                                                     #    13/265
+PUSHFRAME                                                                       #    14/265
+DEFVAR LF@a                                                                     #    17/265
+MOVE LF@a float@0                                                               #    18/265
+PUSHS float@1.1                                                                 #    20/265
+POPS LF@a                                                                       #    21/265
+PUSHS LF@a                                                                      #    24/265
+PUSHS int@1                                                                     #    25/265
+INT2FLOATS                                                                      #    26/265
+LTS                                                                             #    27/265
+PUSHS bool@true                                                                 #    28/265
+JUMPIFNEQS &else8                                                               #    29/265
+PUSHS string@OK                                                                 #    32/265
+CREATEFRAME                                                                     #    33/265
+DEFVAR TF@write                                                                 #    34/265
+POPS TF@write                                                                   #    35/265
+WRITE TF@write                                                                  #    36/265
+JUMP &endif8                                                                    #    38/265
+LABEL &else8                                                                    #    39/265
+PUSHS string@NOTOK                                                              #    41/265
+CREATEFRAME                                                                     #    42/265
+DEFVAR TF@write                                                                 #    43/265
+POPS TF@write                                                                   #    44/265
+WRITE TF@write                                                                  #    45/265
+LABEL &endif8                                                                   #    47/265
+PUSHS LF@a                                                                      #    50/265
+PUSHS int@0                                                                     #    51/265
+INT2FLOATS                                                                      #    52/265
+GTS                                                                             #    53/265
+NOTS                                                                            #    54/265
+PUSHS bool@true                                                                 #    55/265
+JUMPIFNEQS &else14                                                              #    56/265
+PUSHS string@OK                                                                 #    59/265
+CREATEFRAME                                                                     #    60/265
+DEFVAR TF@write                                                                 #    61/265
+POPS TF@write                                                                   #    62/265
+WRITE TF@write                                                                  #    63/265
+JUMP &endif14                                                                   #    65/265
+LABEL &else14                                                                   #    66/265
+PUSHS string@NOTOK                                                              #    68/265
+CREATEFRAME                                                                     #    69/265
+DEFVAR TF@write                                                                 #    70/265
+POPS TF@write                                                                   #    71/265
+WRITE TF@write                                                                  #    72/265
+LABEL &endif14                                                                  #    74/265
+PUSHS LF@a                                                                      #    77/265
+PUSHS int@0                                                                     #    78/265
+INT2FLOATS                                                                      #    79/265
+LTS                                                                             #    80/265
+NOTS                                                                            #    81/265
+PUSHS bool@true                                                                 #    82/265
+JUMPIFNEQS &else20                                                              #    83/265
+PUSHS string@OK                                                                 #    86/265
+CREATEFRAME                                                                     #    87/265
+DEFVAR TF@write                                                                 #    88/265
+POPS TF@write                                                                   #    89/265
+WRITE TF@write                                                                  #    90/265
+JUMP &endif20                                                                   #    92/265
+LABEL &else20                                                                   #    93/265
+PUSHS string@NOTOK                                                              #    95/265
+CREATEFRAME                                                                     #    96/265
+DEFVAR TF@write                                                                 #    97/265
+POPS TF@write                                                                   #    98/265
+WRITE TF@write                                                                  #    99/265
+LABEL &endif20                                                                  #   101/265
+PUSHS LF@a                                                                      #   104/265
+PUSHS int@0                                                                     #   105/265
+INT2FLOATS                                                                      #   106/265
+PUSHS int@1                                                                     #   107/265
+INT2FLOATS                                                                      #   108/265
+SUBS                                                                            #   109/265
+LTS                                                                             #   110/265
+NOTS                                                                            #   111/265
+PUSHS bool@true                                                                 #   112/265
+JUMPIFNEQS &else26                                                              #   113/265
+PUSHS string@OK                                                                 #   116/265
+CREATEFRAME                                                                     #   117/265
+DEFVAR TF@write                                                                 #   118/265
+POPS TF@write                                                                   #   119/265
+WRITE TF@write                                                                  #   120/265
+JUMP &endif26                                                                   #   122/265
+LABEL &else26                                                                   #   123/265
+PUSHS string@NOTOK                                                              #   125/265
+CREATEFRAME                                                                     #   126/265
+DEFVAR TF@write                                                                 #   127/265
+POPS TF@write                                                                   #   128/265
+WRITE TF@write                                                                  #   129/265
+LABEL &endif26                                                                  #   131/265
+PUSHS LF@a                                                                      #   134/265
+PUSHS int@0                                                                     #   135/265
+INT2FLOATS                                                                      #   136/265
+GTS                                                                             #   137/265
+PUSHS bool@true                                                                 #   138/265
+JUMPIFNEQS &else32                                                              #   139/265
+PUSHS string@OK                                                                 #   142/265
+CREATEFRAME                                                                     #   143/265
+DEFVAR TF@write                                                                 #   144/265
+POPS TF@write                                                                   #   145/265
+WRITE TF@write                                                                  #   146/265
+JUMP &endif32                                                                   #   148/265
+LABEL &else32                                                                   #   149/265
+PUSHS string@NOTOK                                                              #   151/265
+CREATEFRAME                                                                     #   152/265
+DEFVAR TF@write                                                                 #   153/265
+POPS TF@write                                                                   #   154/265
+WRITE TF@write                                                                  #   155/265
+LABEL &endif32                                                                  #   157/265
+PUSHS LF@a                                                                      #   160/265
+PUSHS int@0                                                                     #   161/265
+INT2FLOATS                                                                      #   162/265
+EQS                                                                             #   163/265
+NOTS                                                                            #   164/265
+PUSHS bool@true                                                                 #   165/265
+JUMPIFNEQS &else38                                                              #   166/265
+PUSHS string@OK                                                                 #   169/265
+CREATEFRAME                                                                     #   170/265
+DEFVAR TF@write                                                                 #   171/265
+POPS TF@write                                                                   #   172/265
+WRITE TF@write                                                                  #   173/265
+JUMP &endif38                                                                   #   175/265
+LABEL &else38                                                                   #   176/265
+PUSHS string@NOTOK                                                              #   178/265
+CREATEFRAME                                                                     #   179/265
+DEFVAR TF@write                                                                 #   180/265
+POPS TF@write                                                                   #   181/265
+WRITE TF@write                                                                  #   182/265
+LABEL &endif38                                                                  #   184/265
+PUSHS LF@a                                                                      #   187/265
+PUSHS int@1                                                                     #   188/265
+INT2FLOATS                                                                      #   189/265
+EQS                                                                             #   190/265
+NOTS                                                                            #   191/265
+PUSHS bool@true                                                                 #   192/265
+JUMPIFNEQS &else44                                                              #   193/265
+PUSHS string@OK                                                                 #   196/265
+CREATEFRAME                                                                     #   197/265
+DEFVAR TF@write                                                                 #   198/265
+POPS TF@write                                                                   #   199/265
+WRITE TF@write                                                                  #   200/265
+JUMP &endif44                                                                   #   202/265
+LABEL &else44                                                                   #   203/265
+PUSHS string@NOTOK                                                              #   205/265
+CREATEFRAME                                                                     #   206/265
+DEFVAR TF@write                                                                 #   207/265
+POPS TF@write                                                                   #   208/265
+WRITE TF@write                                                                  #   209/265
+LABEL &endif44                                                                  #   211/265
+PUSHS LF@a                                                                      #   214/265
+PUSHS int@1                                                                     #   215/265
+INT2FLOATS                                                                      #   216/265
+EQS                                                                             #   217/265
+PUSHS bool@true                                                                 #   218/265
+JUMPIFNEQS &else50                                                              #   219/265
+PUSHS string@OK                                                                 #   222/265
+CREATEFRAME                                                                     #   223/265
+DEFVAR TF@write                                                                 #   224/265
+POPS TF@write                                                                   #   225/265
+WRITE TF@write                                                                  #   226/265
+JUMP &endif50                                                                   #   228/265
+LABEL &else50                                                                   #   229/265
+PUSHS string@NOTOK                                                              #   231/265
+CREATEFRAME                                                                     #   232/265
+DEFVAR TF@write                                                                 #   233/265
+POPS TF@write                                                                   #   234/265
+WRITE TF@write                                                                  #   235/265
+LABEL &endif50                                                                  #   237/265
+PUSHS LF@a                                                                      #   240/265
+PUSHS int@0                                                                     #   241/265
+INT2FLOATS                                                                      #   242/265
+EQS                                                                             #   243/265
+PUSHS bool@true                                                                 #   244/265
+JUMPIFNEQS &else56                                                              #   245/265
+PUSHS string@OK                                                                 #   248/265
+CREATEFRAME                                                                     #   249/265
+DEFVAR TF@write                                                                 #   250/265
+POPS TF@write                                                                   #   251/265
+WRITE TF@write                                                                  #   252/265
+JUMP &endif56                                                                   #   254/265
+LABEL &else56                                                                   #   255/265
+PUSHS string@NOTOK                                                              #   257/265
+CREATEFRAME                                                                     #   258/265
+DEFVAR TF@write                                                                 #   259/265
+POPS TF@write                                                                   #   260/265
+WRITE TF@write                                                                  #   261/265
+LABEL &endif56                                                                  #   263/265
+

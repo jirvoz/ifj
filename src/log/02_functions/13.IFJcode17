@@ -1,0 +1,448 @@
+# 2017-12-04 23:21:43.677685
+# SECTION: 02_functions
+# TEST: 13
+# INFO: calling multiple functions
+# REQUIRED EXTENSIONS: 
+# ACTIVATED EXTENSIONS: FUNEXP, BASE, IFTHEN
+# STATE: SUCCESS
+# 
+# COMPILER STDERR:
+# 
+# INTERPRETER STDERR:
+# Executing instruction: IDEFVAR at line: 2 with following arguments:
+# Dest: GF@$str1
+# Executing instruction: IDEFVAR at line: 3 with following arguments:
+# Dest: GF@$str2
+# Executing instruction: IDEFVAR at line: 4 with following arguments:
+# Dest: GF@$num1
+# Executing instruction: IDEFVAR at line: 5 with following arguments:
+# Dest: GF@$num2
+# Executing instruction: IDEFVAR at line: 6 with following arguments:
+# Dest: GF@$num3
+# Executing instruction: IDEFVAR at line: 7 with following arguments:
+# Dest: GF@$bool1
+# Executing instruction: IDEFVAR at line: 8 with following arguments:
+# Dest: GF@$counter
+# Executing instruction: IDEFVAR at line: 9 with following arguments:
+# Dest: GF@$char
+# Executing instruction: IJUMP at line: 10 with following arguments:
+# Executing instruction: ILABEL at line: 136 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 137 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 138 with following arguments:
+# Executing instruction: IDEFVAR at line: 140 with following arguments:
+# Dest: LF@a
+# Executing instruction: IMOVE at line: 141 with following arguments:
+# Arg1: Const@=0(double)
+# Dest: LF@a()
+# Executing instruction: ICALL at line: 143 with following arguments:
+# Executing instruction: ILABEL at line: 87 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 88 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 89 with following arguments:
+# Executing instruction: IDEFVAR at line: 92 with following arguments:
+# Dest: LF@res
+# Executing instruction: IPUSHS at line: 93 with following arguments:
+# Arg1: Const@=10(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 94 with following arguments:
+# Arg1: Stack@=10(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 95 with following arguments:
+# Arg1: Const@=9(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 96 with following arguments:
+# Arg1: Stack@=9(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 97 with following arguments:
+# Arg1: Stack@=10(double)
+# Arg2: Stack@=9(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 98 with following arguments:
+# Arg1: Stack@=1(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 99 with following arguments:
+# Arg1: Stack@=1(int)
+# Dest: LF@res()
+# Executing instruction: IPUSHS at line: 101 with following arguments:
+# Arg1: Const@=30(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 102 with following arguments:
+# Arg1: Stack@=30(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 103 with following arguments:
+# Arg1: Stack@=30(double)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 104 with following arguments:
+# Arg1: Const@=10(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 105 with following arguments:
+# Arg1: Stack@=10(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 106 with following arguments:
+# Arg1: Stack@=10(double)
+# Dest: Stack@()
+# Executing instruction: ICALL at line: 107 with following arguments:
+# Executing instruction: ILABEL at line: 46 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 47 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 48 with following arguments:
+# Executing instruction: IDEFVAR at line: 49 with following arguments:
+# Dest: LF@__
+# Executing instruction: IPOPS at line: 50 with following arguments:
+# Arg1: Stack@=10(int)
+# Dest: LF@__()
+# Executing instruction: IDEFVAR at line: 51 with following arguments:
+# Dest: LF@_
+# Executing instruction: IPOPS at line: 52 with following arguments:
+# Arg1: Stack@=30(int)
+# Dest: LF@_()
+# Executing instruction: IPUSHS at line: 56 with following arguments:
+# Arg1: LF@_=30(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 57 with following arguments:
+# Arg1: Stack@=30(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 58 with following arguments:
+# Arg1: LF@__=10(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 59 with following arguments:
+# Arg1: Stack@=10(int)
+# Dest: Stack@()
+# Executing instruction: IMULTS at line: 60 with following arguments:
+# Arg1: Stack@=30(double)
+# Arg2: Stack@=10(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 61 with following arguments:
+# Arg1: Stack@=300(double)
+# Dest: Stack@()
+# Executing instruction: IPOPFRAME at line: 62 with following arguments:
+# Executing instruction: IRETURN at line: 63 with following arguments:
+# Executing instruction: IINT2FLOATS at line: 108 with following arguments:
+# Arg1: Stack@=300(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 109 with following arguments:
+# Arg1: Stack@=300(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 110 with following arguments:
+# Arg1: Stack@=300(int)
+# Dest: LF@res=1(int)
+# Executing instruction: IPUSHS at line: 112 with following arguments:
+# Arg1: LF@res=300(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 113 with following arguments:
+# Arg1: Stack@=300(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 114 with following arguments:
+# Arg1: Stack@=300(double)
+# Dest: Stack@()
+# Executing instruction: ICALL at line: 115 with following arguments:
+# Executing instruction: ILABEL at line: 12 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 13 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 14 with following arguments:
+# Executing instruction: IDEFVAR at line: 15 with following arguments:
+# Dest: LF@_
+# Executing instruction: IPOPS at line: 16 with following arguments:
+# Arg1: Stack@=300(int)
+# Dest: LF@_()
+# Executing instruction: IDEFVAR at line: 19 with following arguments:
+# Dest: LF@res
+# Executing instruction: IPUSHS at line: 20 with following arguments:
+# Arg1: Const@=0(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 21 with following arguments:
+# Arg1: Stack@=0(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 22 with following arguments:
+# Arg1: Const@=15(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 23 with following arguments:
+# Arg1: Stack@=15(int)
+# Dest: Stack@()
+# Executing instruction: ISUBS at line: 24 with following arguments:
+# Arg1: Stack@=0(double)
+# Arg2: Stack@=15(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 25 with following arguments:
+# Arg1: Stack@=-15(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 26 with following arguments:
+# Arg1: Stack@=-15(int)
+# Dest: LF@res()
+# Executing instruction: IPUSHS at line: 28 with following arguments:
+# Arg1: LF@_=300(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 29 with following arguments:
+# Arg1: Stack@=300(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 30 with following arguments:
+# Arg1: Const@=2(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 31 with following arguments:
+# Arg1: Stack@=2(int)
+# Dest: Stack@()
+# Executing instruction: IADDS at line: 32 with following arguments:
+# Arg1: Stack@=300(double)
+# Arg2: Stack@=2(double)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 33 with following arguments:
+# Arg1: Stack@=302(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 34 with following arguments:
+# Arg1: Stack@=302(int)
+# Dest: LF@res=-15(int)
+# Executing instruction: IPUSHS at line: 36 with following arguments:
+# Arg1: LF@res=302(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 37 with following arguments:
+# Arg1: Stack@=302(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 38 with following arguments:
+# Arg1: Stack@=302(double)
+# Dest: Stack@()
+# Executing instruction: IPOPFRAME at line: 39 with following arguments:
+# Executing instruction: IRETURN at line: 40 with following arguments:
+# Executing instruction: IINT2FLOATS at line: 116 with following arguments:
+# Arg1: Stack@=302(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 117 with following arguments:
+# Arg1: Stack@=302(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 118 with following arguments:
+# Arg1: Stack@=302(int)
+# Dest: LF@res=300(int)
+# Executing instruction: IPUSHS at line: 120 with following arguments:
+# Arg1: LF@res=302(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 121 with following arguments:
+# Arg1: Stack@=302(int)
+# Dest: Stack@()
+# Executing instruction: IFLOAT2R2EINTS at line: 122 with following arguments:
+# Arg1: Stack@=302(double)
+# Dest: Stack@()
+# Executing instruction: ICALL at line: 123 with following arguments:
+# Executing instruction: ILABEL at line: 69 with following arguments:
+# Executing instruction: ICREATEFRAME at line: 70 with following arguments:
+# Executing instruction: IPUSHFRAME at line: 71 with following arguments:
+# Executing instruction: IDEFVAR at line: 72 with following arguments:
+# Dest: LF@_______
+# Executing instruction: IPOPS at line: 73 with following arguments:
+# Arg1: Stack@=302(int)
+# Dest: LF@_______()
+# Executing instruction: IPUSHS at line: 76 with following arguments:
+# Arg1: LF@_______=302(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 77 with following arguments:
+# Arg1: Stack@=302(int)
+# Dest: Stack@()
+# Executing instruction: IPUSHS at line: 78 with following arguments:
+# Arg1: Const@=0.5(double)
+# Dest: Stack@()
+# Executing instruction: IMULTS at line: 79 with following arguments:
+# Arg1: Stack@=302(double)
+# Arg2: Stack@=0.5(double)
+# Dest: Stack@()
+# Executing instruction: IPOPFRAME at line: 80 with following arguments:
+# Executing instruction: IRETURN at line: 81 with following arguments:
+# Executing instruction: IFLOAT2R2EINTS at line: 124 with following arguments:
+# Arg1: Stack@=151(double)
+# Dest: Stack@()
+# Executing instruction: IPOPS at line: 125 with following arguments:
+# Arg1: Stack@=151(int)
+# Dest: LF@res=302(int)
+# Executing instruction: IPUSHS at line: 127 with following arguments:
+# Arg1: LF@res=151(int)
+# Dest: Stack@()
+# Executing instruction: IINT2FLOATS at line: 128 with following arguments:
+# Arg1: Stack@=151(int)
+# Dest: Stack@()
+# Executing instruction: IPOPFRAME at line: 129 with following arguments:
+# Executing instruction: IRETURN at line: 130 with following arguments:
+# Executing instruction: IPOPS at line: 144 with following arguments:
+# Arg1: Stack@=151(double)
+# Dest: LF@a=0(double)
+# Executing instruction: IPUSHS at line: 146 with following arguments:
+# Arg1: LF@a=151(double)
+# Dest: Stack@()
+# Executing instruction: ICREATEFRAME at line: 147 with following arguments:
+# Executing instruction: IDEFVAR at line: 148 with following arguments:
+# Dest: TF@write
+# Executing instruction: IPOPS at line: 149 with following arguments:
+# Arg1: Stack@=151(double)
+# Dest: TF@write()
+# Executing instruction: IWRITE at line: 150 with following arguments:
+# Arg1: TF@write=151(double)
+# Executing instruction: IGROOT at line: 153 with following arguments:
+# I am Groot at 153 (535).
+# 
+# STDOUT DIFF:
+# 
+
+# INTERPRETER STDIN: 
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 0
+# CURRENT COMPILER EXIT CODE: 0
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: 0
+# PRICE: 535 (166+369)
+# GROOT: 535
+# 
+#   1: ' calling multiple functions
+#   2: 
+#   3: function _add_two(_ as integer) as integer
+#   4: 	dim res as integer = 0 - 15
+#   5: 	res = _ + 2
+#   6: 	return res
+#   7: end function
+#   8: 
+#   9: declare function _multiply(__acv as integer, __foo__ as integer) as integer
+#  10: 
+#  11: function _multiply(_ as integer, __ as integer) as integer
+#  12: 
+#  13: 	return _ * __
+#  14: end function
+#  15: 
+#  16: function ____(_______ as integer) as double
+#  17: 	return _______ * 0.5
+#  18: end function
+#  19: 
+#  20: function __compute() as double
+#  21: 	dim res as integer = 10 - 9
+#  22: 	res = _multiply(30, 10)
+#  23: 	res = _add_two(res)
+#  24: 	res = ____(res)
+#  25: 	return res
+#  26: end function
+#  27: 
+#  28: 
+#  29: 
+#  30: scope
+#  31: 	dim a as double
+#  32: 	a = __compute()
+#  33: 	print a;
+#  34: end scope
+
+########################################
+
+.IFJcode17                                                                      #     1/151
+DEFVAR GF@$str1                                                                 #     2/151
+DEFVAR GF@$str2                                                                 #     3/151
+DEFVAR GF@$num1                                                                 #     4/151
+DEFVAR GF@$num2                                                                 #     5/151
+DEFVAR GF@$num3                                                                 #     6/151
+DEFVAR GF@$bool1                                                                #     7/151
+DEFVAR GF@$counter                                                              #     8/151
+DEFVAR GF@$char                                                                 #     9/151
+JUMP $$main                                                                     #    10/151
+LABEL $_add_two                                                                 #    12/151
+CREATEFRAME                                                                     #    13/151
+PUSHFRAME                                                                       #    14/151
+DEFVAR LF@_                                                                     #    15/151
+POPS LF@_                                                                       #    16/151
+DEFVAR LF@res                                                                   #    19/151
+PUSHS int@0                                                                     #    20/151
+INT2FLOATS                                                                      #    21/151
+PUSHS int@15                                                                    #    22/151
+INT2FLOATS                                                                      #    23/151
+SUBS                                                                            #    24/151
+FLOAT2R2EINTS                                                                   #    25/151
+POPS LF@res                                                                     #    26/151
+PUSHS LF@_                                                                      #    28/151
+INT2FLOATS                                                                      #    29/151
+PUSHS int@2                                                                     #    30/151
+INT2FLOATS                                                                      #    31/151
+ADDS                                                                            #    32/151
+FLOAT2R2EINTS                                                                   #    33/151
+POPS LF@res                                                                     #    34/151
+PUSHS LF@res                                                                    #    36/151
+INT2FLOATS                                                                      #    37/151
+FLOAT2R2EINTS                                                                   #    38/151
+POPFRAME                                                                        #    39/151
+RETURN                                                                          #    40/151
+PUSHS int@0                                                                     #    42/151
+POPFRAME                                                                        #    43/151
+RETURN                                                                          #    44/151
+LABEL $_multiply                                                                #    46/151
+CREATEFRAME                                                                     #    47/151
+PUSHFRAME                                                                       #    48/151
+DEFVAR LF@__                                                                    #    49/151
+POPS LF@__                                                                      #    50/151
+DEFVAR LF@_                                                                     #    51/151
+POPS LF@_                                                                       #    52/151
+PUSHS LF@_                                                                      #    56/151
+INT2FLOATS                                                                      #    57/151
+PUSHS LF@__                                                                     #    58/151
+INT2FLOATS                                                                      #    59/151
+MULS                                                                            #    60/151
+FLOAT2R2EINTS                                                                   #    61/151
+POPFRAME                                                                        #    62/151
+RETURN                                                                          #    63/151
+PUSHS int@0                                                                     #    65/151
+POPFRAME                                                                        #    66/151
+RETURN                                                                          #    67/151
+LABEL $____                                                                     #    69/151
+CREATEFRAME                                                                     #    70/151
+PUSHFRAME                                                                       #    71/151
+DEFVAR LF@_______                                                               #    72/151
+POPS LF@_______                                                                 #    73/151
+PUSHS LF@_______                                                                #    76/151
+INT2FLOATS                                                                      #    77/151
+PUSHS float@0.5                                                                 #    78/151
+MULS                                                                            #    79/151
+POPFRAME                                                                        #    80/151
+RETURN                                                                          #    81/151
+PUSHS float@0                                                                   #    83/151
+POPFRAME                                                                        #    84/151
+RETURN                                                                          #    85/151
+LABEL $__compute                                                                #    87/151
+CREATEFRAME                                                                     #    88/151
+PUSHFRAME                                                                       #    89/151
+DEFVAR LF@res                                                                   #    92/151
+PUSHS int@10                                                                    #    93/151
+INT2FLOATS                                                                      #    94/151
+PUSHS int@9                                                                     #    95/151
+INT2FLOATS                                                                      #    96/151
+SUBS                                                                            #    97/151
+FLOAT2R2EINTS                                                                   #    98/151
+POPS LF@res                                                                     #    99/151
+PUSHS int@30                                                                    #   101/151
+INT2FLOATS                                                                      #   102/151
+FLOAT2R2EINTS                                                                   #   103/151
+PUSHS int@10                                                                    #   104/151
+INT2FLOATS                                                                      #   105/151
+FLOAT2R2EINTS                                                                   #   106/151
+CALL $_multiply                                                                 #   107/151
+INT2FLOATS                                                                      #   108/151
+FLOAT2R2EINTS                                                                   #   109/151
+POPS LF@res                                                                     #   110/151
+PUSHS LF@res                                                                    #   112/151
+INT2FLOATS                                                                      #   113/151
+FLOAT2R2EINTS                                                                   #   114/151
+CALL $_add_two                                                                  #   115/151
+INT2FLOATS                                                                      #   116/151
+FLOAT2R2EINTS                                                                   #   117/151
+POPS LF@res                                                                     #   118/151
+PUSHS LF@res                                                                    #   120/151
+INT2FLOATS                                                                      #   121/151
+FLOAT2R2EINTS                                                                   #   122/151
+CALL $____                                                                      #   123/151
+FLOAT2R2EINTS                                                                   #   124/151
+POPS LF@res                                                                     #   125/151
+PUSHS LF@res                                                                    #   127/151
+INT2FLOATS                                                                      #   128/151
+POPFRAME                                                                        #   129/151
+RETURN                                                                          #   130/151
+PUSHS float@0                                                                   #   132/151
+POPFRAME                                                                        #   133/151
+RETURN                                                                          #   134/151
+LABEL $$main                                                                    #   136/151
+CREATEFRAME                                                                     #   137/151
+PUSHFRAME                                                                       #   138/151
+DEFVAR LF@a                                                                     #   140/151
+MOVE LF@a float@0                                                               #   141/151
+CALL $__compute                                                                 #   143/151
+POPS LF@a                                                                       #   144/151
+PUSHS LF@a                                                                      #   146/151
+CREATEFRAME                                                                     #   147/151
+DEFVAR TF@write                                                                 #   148/151
+POPS TF@write                                                                   #   149/151
+WRITE TF@write                                                                  #   150/151
+
