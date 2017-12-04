@@ -21,8 +21,8 @@
 #define BACKSLASH 92
 #define QUOTE 34
 
-// Other constants
-#define KWD_COUNT 35            //number of keywords
+// Number of keywords
+#define KWD_COUNT 35            
 
 // Shortcut for cleaning string and successful return
 #define RETURN_TRUE(string) do { stringFree(&string); return true; } while (0)
@@ -31,12 +31,13 @@
 #define RETURN_FALSE(string, err_code, ...) do { stringFree(&string); addError(err_code, __VA_ARGS__); \
                                         return false; } while (0)
 
-extern unsigned line;           // Extern variable - line counter
+// Extern variable - line counter
+extern unsigned line;
 
 // Types of TOKENS sent to parser
 typedef enum token_type
 {
-    UNDEFINED_TOK = 0,          //non-existent token for functions in parser
+    UNDEFINED_TOK = 0,          // Non-existent token for functions in parser
     IDENTIFIER_TOK,
     INTEGER_TOK,
     DOUBLE_TOK,
@@ -97,6 +98,7 @@ typedef enum token_type
     WHILE
 } token_type;
 
+// Union representing attribute of number, double, string and identifier token
 typedef union tToken_attribute
 {
     int number;
@@ -104,17 +106,18 @@ typedef union tToken_attribute
     char* string_ptr;
 } tToken_attribute;
 
+// Structure representing Token
 typedef struct tToken
 {
     token_type type;
     tToken_attribute attribute;
 } tToken;
     
-//Declarations of functions
-
-int getNextToken(tToken* next_token, FILE* source_file);           // Main functions of scanner
-int operatorTest(char c);                   // This function tests, if next token is operator(+,-,...)
-int identifierTest(string* identifier);     // This function tests, if identifier is keyword
-bool returnFalse(err_code code, const char* message, string* str);   //this functions is called is error occured
+// This function tests, if next token is operator(+,-,...)
+int operatorTest(char c);
+// This function tests, if identifier is keyword
+int identifierTest(string* identifier);
+// Main function of scanner - implemented as a finite state automata
+int getNextToken(tToken* next_token, FILE* source_file);
 
 #endif

@@ -97,7 +97,7 @@ int identifierTest(string* identifier)
     return -1;
 }
 
-// Main functions of scanner
+// Main function of scanner - Implemented as a finite state automata
 int getNextToken (tToken* next_token, FILE* source_file)
 {
     // String to build token
@@ -108,7 +108,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
     int c;                                  // Lexem
     int int_tmp = 10;                       // Tmp int for identifiers and numbers BASE, default base is 10
 
-    // Finite automata
+    // Finite state automata
     do
     {
         c = getc(source_file);                  // Get lexem from source file
