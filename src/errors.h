@@ -1,12 +1,20 @@
+//  Course:      Formal Languages and Compilers (IFJ)
+//  Project:     Implementation of the IFJ17 imperative language compiler
+//  File:        errors.h
+//  Description: Header file of error module
+//
+//  Authors: Tomáš Nereča : xnerec00
+//           Samuel Obuch : xobuch00
+//           Jiří Vozár   : xvozar04
+//           Ján Farský   : xfarsk00
+
+
 #ifndef _ERRORS_H_
 #define _ERRORS_H_
 
-#include <stdbool.h>
-
 extern int exit_code;
 
-//this structure represent one error message
-
+// This structure represent one error message
 typedef enum err_code 
 {
     NO_ERROR = 0,

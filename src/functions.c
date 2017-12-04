@@ -314,7 +314,7 @@ bool function_def()
         return false;
 
     // Clear table of function variables
-    htClearAll(var_table);
+    htClear(var_table);
     free(actual_function);
     actual_function = NULL;
 

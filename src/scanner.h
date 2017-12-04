@@ -1,18 +1,18 @@
-/* *******************************(IFJ 2017)********************************* */
-/*  Course:  Formal Languages and Compilers (IFJ) - FIT VUT Brno 2017/18      */
-/*  Project: Implementation of the IFJ17 imperative language translator       */
-/*  File:    Header file of lexical analyser                                  */
-/*                                                                            */
-/*  Authors: Tomáš Nereča : xnerec00 : ()% (team leader)                      */
-/*           Samuel Obuch : xobuch00 : ()%                                    */
-/*           Jiří Vozár   : xvozar04 : ()%                                    */
-/*           Ján Farský   : xfarsk00 : ()%                                    */
-/* ************************************************************************** */
+//  Course:      Formal Languages and Compilers (IFJ)
+//  Project:     Implementation of the IFJ17 imperative language compiler
+//  File:        scanner.h
+//  Description: Header file of lexical analyser
+//
+//  Authors: Tomáš Nereča : xnerec00
+//           Samuel Obuch : xobuch00
+//           Jiří Vozár   : xvozar04
+//           Ján Farský   : xfarsk00
 
 #ifndef _SCANNER_H_
 #define _SCANNER_H_
 
 #include <stdio.h>
+#include <stdbool.h>
 #include "strings.h"
 #include "errors.h"
 
@@ -21,8 +21,8 @@
 #define BACKSLASH 92
 #define QUOTE 34
 
-// Other constants
-#define KWD_COUNT 35            //number of keywords
+// Number of keywords
+#define KWD_COUNT 35            
 
 // Shortcut for cleaning string and successful return
 #define RETURN_TRUE(string) do { stringFree(&string); return true; } while (0)
@@ -31,12 +31,13 @@
 #define RETURN_FALSE(string, err_code, ...) do { stringFree(&string); addError(err_code, __VA_ARGS__); \
                                         return false; } while (0)
 
-extern unsigned line;           //extern variable - line counter
+// Extern variable - line counter
+extern unsigned line;
 
-//types of TOKENS sent to parser
+// Types of TOKENS sent to parser
 typedef enum token_type
 {
-    UNDEFINED_TOK = 0,          //non-existent token for functions in parser
+    UNDEFINED_TOK = 0,          // Non-existent token for functions in parser
     IDENTIFIER_TOK,
     INTEGER_TOK,
     DOUBLE_TOK,
@@ -44,7 +45,7 @@ typedef enum token_type
     EOL_TOK,
     EOF_TOK,
     //------------OPERATORS-------------//
-    EQUAL_SIGN_OP = 10,         //operators starting at 10
+    EQUAL_SIGN_OP = 10,         // Operators starting at 10
     NO_EQUAL_OP,
     LOWER_EQUAL_OP,
     HIGHER_EQUAL_OP,
@@ -60,7 +61,7 @@ typedef enum token_type
     COLON_OP,
     SEMICOLON_OP,
     //------------KEYWORDS-------------//
-    AND = 30,                   //keywords starting at 30
+    AND = 30,                   // Keywords starting at 30
     AS,
     ASC,
     BOOLEAN,
@@ -97,6 +98,7 @@ typedef enum token_type
     WHILE
 } token_type;
 
+// Union representing attribute of number, double, string and identifier token
 typedef union tToken_attribute
 {
     int number;
@@ -104,17 +106,18 @@ typedef union tToken_attribute
     char* string_ptr;
 } tToken_attribute;
 
+// Structure representing Token
 typedef struct tToken
 {
     token_type type;
     tToken_attribute attribute;
 } tToken;
     
-//Declarations of functions
-
-int getNextToken(tToken* next_token, FILE* source_file);           // Main functions of scanner
-int operatorTest(char c);                   // This function tests, if next token is operator(+,-,...)
-int identifierTest(string* identifier);     // This function tests, if identifier is keyword
-bool returnFalse(err_code code, const char* message, string* str);   //this functions is called is error occured
+// This function tests, if next token is operator(+,-,...)
+int operatorTest(char c);
+// This function tests, if identifier is keyword
+int identifierTest(string* identifier);
+// Main function of scanner - implemented as a finite state automata
+int getNextToken(tToken* next_token, FILE* source_file);
 
 #endif

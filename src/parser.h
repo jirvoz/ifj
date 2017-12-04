@@ -17,10 +17,10 @@
 extern tToken last_token;
 
 // Table of declared/defined functions
-extern tHtable* func_table;
+extern tHTable* func_table;
 
 // Table of defined variables
-extern tHtable* var_table;
+extern tHTable* var_table;
 
 
 // Temporary function that eats tokens till EOL, END, EOF

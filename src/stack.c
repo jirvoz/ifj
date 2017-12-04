@@ -1,9 +1,19 @@
-#include <malloc.h>
+//  Course:      Formal Languages and Compilers (IFJ)
+//  Project:     Implementation of the IFJ17 imperative language compiler
+//  File:        stack.c
+//  Description: Source file of abstract structure stack
+//               All stack operations are implemented in this module  
+//
+//  Authors: Tomáš Nereča : xnerec00
+//           Samuel Obuch : xobuch00
+//           Jiří Vozár   : xvozar04
+//           Ján Farský   : xfarsk00
+
+#include <stdlib.h>
 #include "errors.h"
 #include "expressions.h"
 
-//initialization of stack - size is 8
-//top index is -1 => stack is empty
+// Initialization of stack
 tStack* stackInit() 
 {
     tStack* stack;
@@ -28,18 +38,18 @@ tStack* stackInit()
     return stack;
 }
 
-//if stack is empty return true
+// Find out if stack is empty
 bool stackEmpty(tStack* stack) 
 {
     return (stack->top == -1);
 }
 
-//push item to the top of stack
-//if the stack is full, is resized
+// Push item to the top of stack
 void stackPush(tStack* stack, tTerm term) 
 {
     if (stack->top + 1 <= stack->size)
     {
+        // New size is old size + 8 
         stack->arr = realloc(stack->arr, (sizeof(tTerm) * (stack->size + 8)));
         if (stack->arr == NULL) 
         {
@@ -53,7 +63,7 @@ void stackPush(tStack* stack, tTerm term)
     stack->arr[stack->top] = term;
 }
 
-//delete item from the top of stack
+// Delete item from the top of stack
 tTerm stackPop(tStack* stack)
 {
     if(!stackEmpty(stack)) 
@@ -70,7 +80,7 @@ tTerm stackPop(tStack* stack)
     }
 }
 
-//save the pointer of the item from the top of stack
+// Return item from the top of stack
 tTerm stackTop(tStack* stack) 
 {
     if (!stackEmpty(stack))
@@ -84,7 +94,7 @@ tTerm stackTop(tStack* stack)
     }
 }
 
-// Free alocated memory of arr and whole stack
+// Free alocated memory of arr and stack
 void stackFree(tStack* stack) 
 {
     if (stack != NULL)

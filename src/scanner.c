@@ -1,13 +1,13 @@
-/* *******************************(IFJ 2017)********************************* */
-/*  Course:  Formal Languages and Compilers (IFJ) - FIT VUT Brno 2017/18      */
-/*  Project: Implementation of the IFJ17 imperative language translator       */
-/*  File:    Source file of lexical analyser                                  */
-/*                                                                            */
-/*  Authors: Tomáš Nereča : xnerec00 : ()% (team leader)                      */
-/*           Samuel Obuch : xobuch00 : ()%                                    */
-/*           Jiří Vozár   : xvozar04 : ()%                                    */
-/*           Ján Farský   : xfarsk00 : ()%                                    */
-/* ************************************************************************** */
+//  Course:      Formal Languages and Compilers (IFJ)
+//  Project:     Implementation of the IFJ17 imperative language compiler
+//  File:        scanner.c
+//  Description: Source file of lexical analyser
+//               Lexical analyser is implemented as a finite state automata
+//
+//  Authors: Tomáš Nereča : xnerec00
+//           Samuel Obuch : xobuch00
+//           Jiří Vozár   : xvozar04
+//           Ján Farský   : xfarsk00
 
 #include <ctype.h>
 #include <stdlib.h>
@@ -23,16 +23,16 @@ typedef enum automata_state
     SINGLE_LINE_COMMENT_STATE,          // Single line comment
     MULTI_LINE_COMMENT_STATE,           // Multi line comment
     IDENTIFIER_STATE,                   // Identifier or (reserved)keyword
+    LOWER_STATE,                        // Lower operator - '<'
+    HIGHER_STATE,                       // Higher operator - '>'
     STRING_STATE,                       // String
     ESCAPE_SEQUENCE_STATE,              // Escape sequence in string
     ESCAPE_NUMBER_STATE,                // \ddd number in escape sequence
     NUMBER_STATE,                       // Decimal number
-    BASE_STATE,                         // Binary, octal and hexadecimal numbers
     DOUBLE_STATE,                       // Floating point number
     EXPONENT_CHECK_STATE,               // Check if exponent isn't empty
-    EXPONENT_STATE,                     // Exponential floating point number   
-    LOWER_STATE,                        // Lower operator - '<'
-    HIGHER_STATE                        // Higher operator - '>'
+    EXPONENT_STATE,                     // Exponential floating point number
+    BASE_STATE                          // Binary, octal and hexadecimal numbers   
 } automata_state;
 
 // Array of all keywords and reserved keywords
@@ -97,7 +97,7 @@ int identifierTest(string* identifier)
     return -1;
 }
 
-// Main functions of scanner
+// Main function of scanner - Implemented as a finite state automata
 int getNextToken (tToken* next_token, FILE* source_file)
 {
     // String to build token
@@ -105,10 +105,10 @@ int getNextToken (tToken* next_token, FILE* source_file)
     stringInit(&tmp_string);
 
     automata_state state = BEGIN_STATE;     // First state is BEGIN_STATE
-    int c;                      // Lexem
-    int int_tmp = 10;           // Tmp int for identifiers and numbers BASE, default base is 10
+    int c;                                  // Lexem
+    int int_tmp = 10;                       // Tmp int for identifiers and numbers BASE, default base is 10
 
-    // Finite automata
+    // Finite state automata
     do
     {
         c = getc(source_file);                  // Get lexem from source file
@@ -121,7 +121,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
         switch (state)
         {
 
-/*********************************BEGIN STATE************************************/
+/*********************************BEGIN_STATE************************************/
 
             case BEGIN_STATE:
             {
@@ -231,7 +231,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             }
                 break;
 
-/*********************************SINGLE_LINE COMMENT STATE************************************/
+/*******************************SINGLE_LINE_COMMENT_STATE*********************************/
 
             case SINGLE_LINE_COMMENT_STATE:
             {
@@ -252,7 +252,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             }
                 break;
 
-/*********************************MULTI_LINE COMMENT STATE************************************/
+/********************************MULTI_LINE_COMMENT_STATE*********************************/
 
             case MULTI_LINE_COMMENT_STATE:
             {
@@ -275,7 +275,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             }
                 break;
 
-/*********************************IDENTIFIER STATE************************************/
+/*********************************IDENTIFIER_STATE**************************************/
 
             case IDENTIFIER_STATE:
             {
@@ -306,7 +306,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             }
                 break;
 
-/*********************************OPERATOR LOWER STATE************************************/
+/************************************LOWER_STATE*************************************/
 
             case LOWER_STATE:
             {
@@ -327,7 +327,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             }
                 break;
 
-/*********************************OPERATOR HIGHER STATE************************************/
+/*************************************HIGHER_STATE************************************/
 
             case HIGHER_STATE:
             {
@@ -344,7 +344,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             }
                 break;
 
-/***********************************STRING STATE*******************************************/
+/***********************************STRING_STATE*************************************/
 
             case STRING_STATE:
             {
@@ -394,7 +394,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             }
                 break;
 
-/*********************************ESCAPE_SEQUENCE STATE************************************/
+/*******************************ESCAPE_SEQUENCE_STATE*********************************/
 
             case ESCAPE_SEQUENCE_STATE:
             {
@@ -460,7 +460,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             }
                 break;
 
-/*********************************ESCAPE_NUMBER STATE************************************/
+/*******************************ESCAPE_NUMBER_STATE*******************************/
 
             case ESCAPE_NUMBER_STATE:
             {
@@ -500,7 +500,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             }
                 break;
 
-/*********************************NUMBER STATE************************************/
+/*********************************NUMBER_STATE************************************/
 
             case NUMBER_STATE:
             {
@@ -543,7 +543,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             }
                 break;
 
-/*********************************FLOAT STATE************************************/
+/*********************************DOUBLE_STATE************************************/
 
             case DOUBLE_STATE:
             {
@@ -571,7 +571,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             }
                 break;
 
-/*********************************EXPONENT CHECK STATE******************************/
+/*********************************EXPONENT_CHECK_STATE******************************/
 
             case EXPONENT_CHECK_STATE:
             {
@@ -597,11 +597,11 @@ int getNextToken (tToken* next_token, FILE* source_file)
                 }
                 // Empty exponential part
                 else
-                    RETURN_FALSE(tmp_string, LEX_ERROR, "Wrong number");
+                    RETURN_FALSE(tmp_string, LEX_ERROR, "Exponent can't be empty");
             }
                 break;
 
-/*********************************EXPONENT STATE************************************/
+/*********************************EXPONENT_STATE************************************/
 
             case EXPONENT_STATE:
             {
@@ -622,7 +622,7 @@ int getNextToken (tToken* next_token, FILE* source_file)
             }
                 break;
 
-/*****************************BASE_STATE********************************/
+/**********************************BASE_STATE**************************************/
 
             case BASE_STATE:
             {
