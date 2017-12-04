@@ -12,6 +12,7 @@
 #define _SCANNER_H_
 
 #include <stdio.h>
+#include <stdbool.h>
 #include "strings.h"
 #include "errors.h"
 
