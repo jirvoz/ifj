@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "errors.h"
 #include "expressions.h"
+#include "errors.h"
 #include "functions.h"
 #include "parser.h"
 #include "statements.h"

@@ -2,8 +2,8 @@
 #define _EXPRESSIONS_H_
 
 #include <stdbool.h>
-#include "scanner.h"
 #include "stack.h"
+#include "scanner.h"
 
 //rows and cols in precedence table
 typedef enum p_table_index

@@ -10,8 +10,9 @@
 //           Ján Farský   : xfarsk00
 
 #include <stdlib.h>
-#include "errors.h"
 #include "expressions.h"
+// "stack.h" is included in "expression.h"
+#include "errors.h"
 
 // Initialization of stack
 tStack* stackInit() 
