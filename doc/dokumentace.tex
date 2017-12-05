@@ -10,21 +10,21 @@
         \begin{center}
             \vspace{\stretch{0.382}}
             
-            \includegraphics{FITlogo.jpg}\\[16mm]
+            \includegraphics[scale=0.4]{FITlogo.png}\\[30mm]
             
             \LARGE
-            Implementácia interpretu imperativného jazyka IFJ17 \\
+            Implementácia prekladača imperatívneho jazyka IFJ17 \\
             \large
-            Dokumentácia k projektu IFJ/IAL\\[8mm]
+            Dokumentácia k projektu IFJ/IAL\\[55mm]
             
-            \begin{tabular}{r l}
-                Tým & 094 \\
-                Varianta & II \\
-                Vedoucí: & Tomáš Nereča (xnerec00) \quad 26\% \\
-                Další členové & Samuel Obuch (xobuch00) \quad 26\% \\
-                    & Jiří Vozár (xvozar04) \quad 26\% \\
-                    & Ján Farský (xfarsk00) \quad 22\% \\
-                Implementované rozšíření & BASE, FUNEXP, IFTHEN\\
+            \begin{tabular}{r l l}
+                Tím: & 094 \\
+                Varianta: & II \\
+                Vedúci: & Tomáš Nereča (xnerec00) & 26\% \\
+                Ďalší členovia: & Samuel Obuch (xobuch00) & 26\% \\
+                    & Jiří Vozár (xvozar04) & 26\% \\
+                    & Ján Farský (xfarsk00) & 22\% \\
+                Implementované rozšírenia: & BASE, FUNEXP, IFTHEN\\
             \end{tabular}
             
             \vspace{\stretch{0.618}}
@@ -35,12 +35,13 @@
     \newpage
     
     \section{Úvod}
-        Dokumentácia popisuje implementáciu imperatívneho prekladača jazyku IFJ17. Program prekladaču
-        najprv načíta zdrojový súbor, potom ho vyhodnotí z hľadiska syntaxe a ak je všetko v poriadku, 
-        kód interpretuje. V prípade nájdenia chyby nasleduje výpis chybového hlásenia. 
-        Dokumentácia taktiež zahrňuje prácu v tíme a prílohy približujúce logiku fungovania jednotlivých 
-        častí prekladača. 
-        
+        Dokumentácia popisuje implementáciu imperatívneho prekladača jazyka IFJ17. Prekladač načítava
+        zdrojový kód jazyka IFJ17 z štandardného vstupu a ten pomocou lexikálnej, syntaktickej a sémantickej
+        analýzy vyhodnotí a vygeneruje potrebné inštrukcie v IFJcode17 pre interpret jazyka IFJ17. V prípade
+        výskytu chyby pri analýze kódu IFJ17 prekladač vráti kód príslušnej chyby a chybovú hlášku na štandardný
+        chybový výstup.  Dokumentácia taktiež zahŕňa zhodnotenie práce v tíme a približuje logiku a fungovanie
+        jednotlivých častí prekladača. 
+
         \subsection{Varianta zadania}
     
     \section{Implementácia}
@@ -48,27 +49,89 @@
         \subsection{Lexikálna analýza}
         
         \subsection{Syntaktická analýza}
-            \subsubsection{Rekurzivní sestup}
-            \subsubsection{Precedenční syntaktická analýza}
+            \subsubsection{Rekurzivní zostup}
+            \subsubsection{Precedenčná syntaktická analýza}
     
-        \subsection{Tabulka symbolů}
+        \subsection{Tabuľka symbolov}
         
-        \subsection{Vestavěné funkce}
-        
-        \subsection{Generování kódu}
+        \subsection{Vstavané funkcie}
+            \noindent
+            \textbf{Length}\\
+            Vstupným parametrom funkcie je string a výstupným je číselná hodnota dĺžky vstupného stringu.\\~\\
+            \textbf{SubStr}\\
+            Vstupné parametre funkcie sú string  a dva integery. Výstupom je podreťazec vstupného
+            stringu, ktorého začiatok je určený prvým integerom a jeho dĺžka druhým. Ak je index dĺžky
+            0 alebo indexujeme mimo medze stringu návratovou hodnotou je prázdny reťazec. Ak by časť 
+            znakov podreťazca pripadala mimo medze základného stringu návratovou hodnotou je string
+            obsahujúci iba znaky z medzí vstupného stringu.\\~\\
+            \textbf{Asc}\\
+            Vstupné parametre funkcie sú reťazec string a integer. Výstupnou hodnotou je ordinálna
+            hodnota (ASCII) znaku v stringu na pozícii zadanej integerom. Ak integer zasahuje mimo 
+            medze stringu návratovou hodnotou je 0.\\~\\
+            \textbf{Chr}\\
+            Vstupným parametrom je integer. Výstupom je znak, ktorého ASCII kód bol zadaný integerom.
+            V prípade integeru momo medzí 0-255 je chovanie funkcie nedefinované.
+            
+        \subsection{Generovanie kódu}
         
     \section{Rozšírenia}
+    Boli implementované celkom 3 rozšírenia
+        \begin{itemize}
+            \item[*]  \textbf{base}   - podpora zadávania celočíselných konštánt v 2, 8 a 16-tkovej sústave.
+            \item[*]  \textbf{funexp} - podpora volania funkcií, ktoré môžu v argumentoch obsahovať výrazy 
+                                        a zároveň súčasťou výrazu môže byť volanie funkcie.
+            \item[*]  \textbf{ifthen} - podpora zjednodušenej konštrukcie podmienky If-Then bez časti Else
+                                        a zároveň viacnásobnej konštrukcie Elseif-Then.
+        \end{itemize}
     
     \section{Testovanie}
+    Na začiatku sme určili jedného člena, ktorý písal jednotkové testy pre lexikálny analyzátor. 
+    Neskôr sme napísali zopár vlastných regresných testov no keď sme sa dozvedeli o verejnej 
+    databázi testov našich kolegov tak sme do nej prispeli aj vlastnými testami a využili 
+    ostatné testy na čo najrobustnejšie otestovanie funkčnosti nášho prekladača.
     
     \section{Práca v tíme}
-    
-        \subsection{Rozdělení}
-        
-    
+    Ako tím sme sa začali schádzať pomerne skoro po zaregistrovaní nášho zadania. Stretnutie sme mali 
+    minimálne raz týždenne, kde sme prediskutovali aktuálny stav práve implementovaných častí 
+    a ďalší postup či korekciu v zdrojovom kóde. Prácu sme sa snažili rozdeľovať rovnomerne medzi 
+    všetkých členov tímu čo sa nie vždy darilo. Po pridelení úlohy sme stanovili deadline, aby sme 
+    mohli čo najskôr pokračovať na nasledujúcej časti projektu. Jednotlivé časti sme sa snažili 
+    implementovať paralelne s preberanou látkou na prednáškach aby sme korektne implementovali
+    jednotlivé časti a vyhli sa zbytočným chybám.
+
+        \subsection{Správa zdrojového kódu}
+        Pre správu a zdielanie zdrojových súborov sme využili webovú službu GitHub, ktorú sme už 
+        počas štúdia využili na verzovanie projektov v iných predmetoch. Ako komunikačný kanál sme 
+        prevažne využívali skupinovú konverzáciu na sociálnej sieti Facebook, ktorá nám všetkým 
+        vyhovovala. Na sledovanie postupu pri plnení pridelených úloh a oznamovanie nájdených chýb 
+        sme využívali online nástroj Trello, ktorý slúži ako online kanban pre sledovanie projektov. 
+        Vďaka týmto informačným kanálom mohli mať všetci členovia tímu prístup k najaktuálnejšej
+        verzii projektu a reagovať na vzniknuté chyby efektívne.
+
+        \newpage
+        \subsection{Rozdelenie}
+        \noindent
+        Bodové rozdelenie je nasledovné:\\~\\
+        \begin{tabular}{l l}
+            Tomáš Nereča (xnerec00) & 26\% \\
+            Samuel Obuch (xobuch00) & 26\% \\
+            Jiří Vozár (xvozar04)   & 26\% \\
+            Ján Farský (xfarsk00)   & 22\% \\~\\
+        \end{tabular} \\
+        Dôvod nerovnomerného rozdelenia bodov bolo nedostatočné splnenie pridelených častí jednému 
+        z členov tímu, čo viedlo k potrebnému prepisu zdrojového kódu ostatnými členmi tímu.                                 
+
     \section{Záver}
+    S projektom podobného rozsahu sa ešte nikto z nás predtým nestretol, preto ho pokladáme za dobrú
+    skúsenosť pre každého z nás. Pri jeho riešení sme prakticky využili získané vedomosti z predmetov 
+    IFJ a IAL. Pre správne fungovanie tímu bola potrebná dobrá komunikácia, ktorá pretvala počas celého
+    priebehu projektu či už vďaka pravidelným stretnutiam alebo využitým nástrojom ale aj individuálne
+    schopnosti jednotlivých členov. Výsledkom tejto práce je funkčný a z nášho pohľadu vydarený 
+    prekladač jazyka IFJ17.
     
     \section{Prílohy}
         \subsection{LL gramatika}
+        \subsection{LL tabuľka}
+        \subsection{Precedenčná tabuľka}
 
 \end{document}
