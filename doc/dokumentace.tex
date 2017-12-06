@@ -84,6 +84,8 @@
         \subsection{Tabuľka symbolov}
             Tabulka symbolů je implementována jako hash tabulka. Hashovací funkce byla zvolena \emph{djb2}\footnote{\texttt{http://www.cse.yorku.ca/\~{}oz/hash.html}}, jelikož dávala dobré výsledky rozložení při experimentování s větším množstvím záznamů.
             
+            Velikost pole pro ukazatele byla zvolena $128$ aby se operace modulo v hash funkci převedla na bitové maskování a pro běžný počet proměnných ve funkci je dostačující.
+            
             Informace o symbolu jsou poté ukládány ve struktuře, která byla navržená univerzálně pro informace o proměnných i funkcích.
         
         \subsection{Vstavané funkcie}
