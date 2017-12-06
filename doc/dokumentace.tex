@@ -48,24 +48,24 @@
     \section{Implementácia}
     
         \subsection{Lexikálna analýza}
-        Hlavná funkcia lexikálneho analyzátora je \emph{getNextToken}. Je implementovaná v súbore \emph{scanner.c}.
-        Jej argumenty sú ukazatele na štruktúru typu \emph{tToken} a \emph{FILE} a jej návratový typ je \emph{bool}. 
+            Hlavná funkcia lexikálneho analyzátora je \emph{getNextToken}. Je implementovaná v súbore \emph{scanner.c}.
+            Jej argumenty sú ukazatele na štruktúru typu \emph{tToken} a \emph{FILE} a jej návratový typ je \emph{bool}. 
 
-        Funkcia číta lexémy zo zadaného súboru(spravidla \emph{stdin}). Lexémy sú spracované pomocou konečného automatu. 
-        Ak sa automat dostane do konečného stavu, funkcia vráti hodnotu \emph{true} a podľa spracovaných lexém nastaví
-        token predaný v argumente. Ak nastane počas lexikálnej analýzy chyba, vráti funkcia hodnotu \emph{false} a 
-        token nenastavuje. 
+            Funkcia číta lexémy zo zadaného súboru(spravidla \emph{stdin}). Lexémy sú spracované pomocou konečného automatu. 
+            Ak sa automat dostane do konečného stavu, funkcia vráti hodnotu \emph{true} a podľa spracovaných lexém nastaví
+            token predaný v argumente. Ak nastane počas lexikálnej analýzy chyba, vráti funkcia hodnotu \emph{false} a 
+            token nenastavuje. 
 
-        Dátová štruktúra \emph{tToken} a jej podštruktúry sú definované v hlavičkovom súbore \emph{scanner.h}. 
-        Platný token musí mať vždy definovaný typ, a ak to typ tokenu vyžaduje tak aj atribút 
-        (napr. načítaný reťazec v prípade, že je token typu \emph{string}). 
+            Dátová štruktúra \emph{tToken} a jej podštruktúry sú definované v hlavičkovom súbore \emph{scanner.h}. 
+            Platný token musí mať vždy definovaný typ, a ak to typ tokenu vyžaduje tak aj atribút 
+            (napr. načítaný reťazec v prípade, že je token typu \emph{string}). 
 
-        Funkcia \emph{getNextToken} sa taktiež stará o prevod veľkých písmen na malé a počítanie riadkov.
-        Taktiež uľahčuje prácu syntaktickému analyzátoru, pretože rozlišuje medzi identifikátormi a kľučovými slovami.
-        V poli reťazcov sú uložené všetky kľúčové slová a \emph{binárnym vyhľadávaním} vo funkcii \emph{identifierTest} 
-        sa testuje, či sa jedná o identifikátor alebo kľúčové slovo.
+            Funkcia \emph{getNextToken} sa taktiež stará o prevod veľkých písmen na malé a počítanie riadkov.
+            Taktiež uľahčuje prácu syntaktickému analyzátoru, pretože rozlišuje medzi identifikátormi a kľučovými slovami.
+            V poli reťazcov sú uložené všetky kľúčové slová a \emph{binárnym vyhľadávaním} vo funkcii \emph{identifierTest} 
+            sa testuje, či sa jedná o identifikátor alebo kľúčové slovo.
 
-        Diagram konečného automatu nájdete v prílohe.
+            Diagram konečného automatu nájdete v prílohe.
 
         \subsection{Syntaktická analýza}
             Překladač využívá syntaxí řízený překlad, ve kterém kombinuje \emph{rekurzivní sestup} pro základní konstrukce
@@ -89,26 +89,28 @@
             Informace o symbolu jsou poté ukládány ve struktuře, která byla navržená univerzálně pro informace o proměnných i funkcích.
         
         \subsection{Vstavané funkcie}
-            V prekladači sme implementovali aj štyri vstavané funkcie pre jazyk IFJ17.
-            
-            \subsubsection{Length}
-            Vstupným parametrom funkcie je string a výstupným je číselná hodnota dĺžky vstupného stringu.
-            
-            \subsubsection{SubStr}
-            Vstupné parametre funkcie sú string  a dva integery. Výstupom je podreťazec vstupného
-            stringu, ktorého začiatok je určený prvým integerom a jeho dĺžka druhým. Ak je index dĺžky
-            0 alebo indexujeme mimo medze stringu návratovou hodnotou je prázdny reťazec. Ak by časť 
-            znakov podreťazca pripadala mimo medze základného stringu návratovou hodnotou je string
-            obsahujúci iba znaky z~medzí vstupného stringu.
-            
-            \subsubsection{Asc}
-            Vstupné parametre funkcie sú reťazec string a integer. Výstupnou hodnotou je ordinálna
-            hodnota (ASCII) znaku v~stringu na pozícii zadanej integerom. Ak integer zasahuje mimo 
-            medze stringu návratovou hodnotou je 0.
-            
-            \subsubsection{Chr}
-            Vstupným parametrom je integer. Výstupom je znak, ktorého ASCII kód bol zadaný integerom.
-            V~prípade integeru momo medzí 0-255 je chovanie funkcie nedefinované.
+            V prekladači sme implementovali aj štyri vstavané funkcie jazyka IFJ17 a to \textbf{Length, Chr, Asc} a \textbf{Substr}.
+            Funkcie sme implementovali v module ifunc. Ak funkcia \texttt{expression} pri vyhodnocovaní výrazu narazí na volanie 
+            niektorej zo vstavaných funkcií, zavolá si konkrétnu funkciu z modulu ifunc. Tá si následne spracuje argumenty a následne
+            vygeneruje potrebné inštrukcie. Vstavané funkcie pracujú s premennými na globálnom rámci, ktoré sú vytvorené pri štarte programu.
+
+            \paragraph{Length}
+            Pomocou inštrukcie \emph{STRLEN} sa získa dĺžka stringu(argument funkcie). Je potrebné použiť pomocné premenné, pretože 
+            inštrukcia \emph{STRLEN} nemá zásobníkovú variantu.
+
+            \paragraph{Chr}
+            Pomocou zásobníkovej inštrukcie \emph{INT2CHARS} sa jednoducho prevedie zadané číslo z ascii tabuľky na znak.
+
+            \paragraph{Asc}
+            Po kontrole argumentov pomocou inštrukcií \emph{GT} a \emph{LT} sa buď skončí na náveštie pomocou inštrukcie 
+            \emph{JUMP} (v tomto prípade vráti funkcia hodnotu 0), alebo sa vykoná inštrukcia \emph{STRI2INT},
+            ktorá prevedie zadaný znak na požadovanom indexe na číslo z ascii tabuľky.
+
+            \paragraph{SubStr}
+            Riešenie tejto funkcie bolo zložitejšie, pretože pre získanie podreťazca sa v inštrukčnej sade nenachádza jednoduchá
+            inštrukcia. Po kontrole argumentov podobne ako pre funkciu \textbf{Asc}, sa v cykle tvoril výstupný reťazec
+            pomocou konkatenácie vždy jedného znaku na koniec výstupného reťazca. K tomu sme využili inštrukcie ako napríklad
+            \emph{ADD}, \emph{JUMPIFEQ} alebo \emph{GETCHAR}.
             
         \subsection{Generovanie kódu}
             Cílový kód je generován přímo během jediného průchodu vypisováním příslušných instrukcí ve funkci
@@ -142,46 +144,42 @@
     Keď sme sa dozvedeli o~verejnej databáze testov našich kolegov. Do nej sme prispeli aj vlastnými testami a využili ostatné testy na čo najrobustnejšie otestovanie funkčnosti nášho prekladača.
     
     \section{Práca v~tíme}
-    Ako tím sme sa začali schádzať pomerne skoro po zaregistrovaní nášho zadania. Stretnutie sme mali 
-    minimálne raz týždenne, kde sme prediskutovali aktuálny stav práve implementovaných častí 
-    a ďalší postup či korekciu v~zdrojovom kóde. Prácu sme sa snažili rozdeľovať rovnomerne medzi 
-    všetkých členov tímu čo sa nie vždy darilo. Po pridelení úlohy sme stanovili deadline, aby sme 
+    Ako tím sme sa začali schádzať prakticky ihneď po zaregistrovaní nášho zadania. Stretávali sme sa 
+    väčšinou raz do týždňa. Vždy sme prediskutovali aktuálny stav práve implementovaných častí 
+    a ďalší postup či korekcie v~zdrojovom kóde. Prácu sme sa snažili rozdeľovať rovnomerne medzi 
+    všetkých členov tímu, čo sa nám nepodarilo vždy. Po pridelení úlohy sme stanovili deadline, aby sme 
     mohli čo najskôr pokračovať na nasledujúcej časti projektu. Jednotlivé časti sme sa snažili 
-    implementovať paralelne s~preberanou látkou na prednáškach aby sme korektne implementovali
-    jednotlivé časti a vyhli sa zbytočným chybám.
+    implementovať paralelne s~preberanou látkou na prednáškach, aby sme sa vyhli chybám z dôvodu neznalosti.
 
         \subsection{Správa zdrojového kódu}
-        Pre správu a zdielanie zdrojových súborov sme využili verzovací systém \emph{Git} a webovú službu GitHub pre vzdialené ukladanie, ktorú sme už 
-        počas štúdia využili na verzovanie projektov v~iných predmetoch.
+        Pre správu a zdielanie zdrojových súborov sme využili verzovací systém \emph{Git} a webovú službu GitHub pre vzdialené ukladanie, ktorú sme už počas štúdia využili na verzovanie projektov v~iných predmetoch.
         
-        Ako komunikačný kanál sme 
-        prevažne využívali skupinovú konverzáciu na sociálnej sieti Facebook, ktorá nám všetkým 
+        Ako komunikačný kanál sme využívali prevažne skupinovú konverzáciu na sociálnej sieti Facebook, ktorá nám všetkým 
         vyhovovala.
         
         Na sledovanie postupu pri plnení pridelených úloh a oznamovanie nájdených chýb 
-        sme využívali online nástroj Trello, ktorý slúži ako online kanban pre sledovanie projektov. 
+        sme využívali nástroj Trello, ktorý slúži ako online kanban pre sledovanie projektov. 
         
         Vďaka týmto informačným kanálom mohli mať všetci členovia tímu prístup k~najaktuálnejšej
         verzii projektu a reagovať na vzniknuté chyby efektívne.
 
         \subsection{Rozdelenie práce v tíme}
 
-        \textbf{Tomáš Nereča} pracoval na lexikálnom analyzátore a v neskoršej fáze vývoja spolupracoval so \textbf{Samuelom Obuchom} na 
-        precedenčnej syntaktickej analýze. Okrem toho sa podieľal na menších moduloch errors, stack a ifunc. 
+        \textbf{Tomáš Nereča} pracoval na lexikálnom analyzátore a v neskoršej fáze vývoja pomáhal pri implementácii niektorých
+        funkcií precedenčnej syntaktickej analýzy. Okrem toho sa podieľal na menších moduloch errors, stack a ifunc. 
 
         \textbf{Jiří Vozár} měl na starosti vedení implementace, návrh komunikace mezi moduly a implementaci syntaktické analýzy rekurzivním sestupem.
 
-        Dôvod nerovnomerného rozdelenia bodov bolo nedostatočné splnenie pridelených častí jednému 
-        z~členov tímu, čo viedlo k~potrebnému prepisu zdrojového kódu ostatnými členmi tímu.
+        Dôvodom nerovnomerného rozdelenia bodov bolo nedostatočné splnenie úloh jedného 
+        z~členov tímu, čo viedlo k nutnosti zapojiť k týmto úlohám iných členov tímu.
 
     \section{Záver}
-    S~projektom podobného rozsahu sa ešte nikto z~nás predtým nestretol, preto ho pokladáme za dobrú
+    S~projektom podobného rozsahu sa ešte nikto z~nás predtým nestretol, preto ho považujeme za dobrú
     skúsenosť pre každého z~nás. Pri jeho riešení sme prakticky využili získané vedomosti z~predmetov 
     IFJ a IAL.
     
-    Pre správne fungovanie tímu bola potrebná dobrá komunikácia, riadenie a pridelovanie úloh, ktoré pretvali počas celého
-    priebehu projektu či už vďaka pravidelným stretnutiam alebo využitým nástrojom ale aj individuálne
-    schopnosti jednotlivých členov. Výsledkom tejto práce je funkčný a z~nášho pohľadu vydarený 
+    Pre správne fungovanie tímu bolo potrebné kvalitné riadenie a pridelovanie úloh a pravideľná
+    komunikácia medzi jednotlivými členmi tímu. Výsledkom tejto práce je funkčný a z~nášho pohľadu vydarený 
     prekladač jazyka IFJ17.
     
     \newpage
