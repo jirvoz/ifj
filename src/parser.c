@@ -120,6 +120,10 @@ bool program()
                     return false;
                 break;
             case SCOPE:
+                // Check if all functions are defined
+                if (!htCheckDefined(func_table))
+                    ERROR_AND_RETURN(SEM_PROG_ERROR, "There is undefined function in the code.");
+
                 UPDATE_LAST_TOKEN();
                 // Test end of line after SCOPE
                 if (last_token.type != EOL_TOK)
