@@ -365,7 +365,7 @@ bool postfix(token_type expected_type, token_type return_type, tTerm term, tStac
             else
             {
                 stackFree(stack);
-                ERROR_AND_RETURN(SEM_TYPE_ERROR,"More than one relation operation in expression");
+                ERROR_AND_RETURN(SYN_ERROR,"More than one relation operation in expression");
             }
         }
         else if (term.index == DOLAR_IN)		// End of expresion is signed as DOLLAR
