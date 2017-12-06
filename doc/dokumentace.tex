@@ -47,7 +47,26 @@
     \section{Implementácia}
     
         \subsection{Lexikálna analýza}
-        
+        Hlavná funkcia lexikálneho analyzátora je \emph{getNextToken}. Je implementovaná v súbore \emph{scanner.c.}.
+        Jej argumenty sú ukazatele na štruktúru typu \emph{tToken} a \emph{FILE} a jej návratový typ je \emph{bool}. 
+
+        Funkcia číta znaky zo zadaného súboru(spravidla \emph{stdin}). Znaky sú spracované pomocou konečného automatu. 
+        Ak sa automat dostane do konečného stavu, funkcia vráti hodnotu \emph{true} a podľa spracovaných znakov nastaví
+        token predaný v argumente. 
+
+        Dátová štruktúra \emph{tToken} a jej podštruktúry sú definované v hlavičkovom súbore \emph{scanner.h}. 
+        Platný token musí mať vždy definovaný typ, a ak to typ tokenu vyžaduje tak aj atribút 
+        (napr. načítaný reťazec v prípade, že je token typu \emph{string}). 
+
+        Ak nastane počas lexikálnej analýzy chyba, vráti funkcia hodnotu \emph{false} a token nenastavuje. 
+
+        Funkcia \emph{getNextToken} sa taktiež stará o prevod veľkých písmen na malé a počítanie riadkov.
+        Taktiež uľahčuje prácu syntaktickému analyzátoru, pretože rozlišuje medzi identifikátormi a kľučovými slovami.
+        V poli reťazcov sú uložené všetky kľúčové slová a \emph{binárnym vyhľadávaním} sa testuje, či sa jedná
+        o identifikátor alebo kľúčové slovo.
+
+        Diagram konečného automatu nájdete v prílohe.
+
         \subsection{Syntaktická analýza}
             \subsubsection{Rekurzívny zostup}
             \subsubsection{Precedenčná syntaktická analýza}
