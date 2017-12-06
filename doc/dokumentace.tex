@@ -4,6 +4,7 @@
 
 \usepackage{indentfirst}
 \usepackage{graphicx}
+\usepackage{lscape}
 
 \begin{document}
     \begin{titlepage}
@@ -144,8 +145,89 @@
     \section{Prílohy}
         \subsection{Diagram konečného automatu}
             \includegraphics[trim=6cm 0 0 0, width=15cm]{finite_automata.png}
+            \newpage
+            
         \subsection{LL gramatika}
+            \begin{enumerate}
+                % NESAHAT - zhenodnotí čísla v tabulce LL gramatiky!
+                \item \texttt{<program> -> declare function <functionDecl> eol <program>}
+                \item \texttt{<program> -> function <functionDef> eol <program>}
+                \item \texttt{<program> -> scope <statementList> end scope}
+                
+                \item \texttt{<functionDecl> -> <functionHeader>}
+                \item \texttt{<functionDef> -> <functionHeader> eol <statementList> end function}
+                
+                \item \texttt{<functionHeader> -> identifier ( <functionParams> ) as type}
+                
+                \item \texttt{<functionParams> -> <functionParam> <nextFuncParam>}
+                \item \texttt{<functionParams> -> epsilon}
+                
+                \item \texttt{<nextFuncParam> -> , <functionParam> <nextFuncParam>}
+                \item \texttt{<nextFuncParam> -> epsilon}
+                
+                \item \texttt{<functionParam> -> identifier as type}
+                
+                \item \texttt{<statementList> -> <statement> eol <statementList>}
+                \item \texttt{<statementList> -> epsilon}
+                
+                \item \texttt{<statement> -> dim <declaration>}
+                \item \texttt{<statement> -> identifier = <expression>}
+                \item \texttt{<statement> -> input identifier}
+                \item \texttt{<statement> -> print <printArgs>}
+                \item \texttt{<statement> -> if <expression> then eol <statementList> <else>}
+                \item \texttt{<statement> -> do while <expression> eol <statementList> loop}
+                \item \texttt{<statement> -> return identifier}
+                
+                \item \texttt{<declaration> -> identifier as type}
+                \item \texttt{<declaration> -> identifier as type = <expression>}
+                
+                \item \texttt{<printArgs> -> <expression> ;}
+                \item \texttt{<printArgs> -> <expression> ; <printArgs>}
+                
+                \item \texttt{<else> -> elseif <expression> then eol <else> end if}
+                \item \texttt{<else> -> else eol <statementList> end if}
+                \item \texttt{<else> -> end if}
+                
+                \item \texttt{<expression> ->} vyhodnocuje se precedenční syntaktickou analýzou
+            \end{enumerate}
+        \newpage
+        
         \subsection{LL tabuľka}
+        \newcommand{\tterm}[1]{\rotatebox[origin=c]{90}{\texttt{#1}}}
+            \begin{tabular}{|r|*{10}{c|}}
+                \hline
+                & \tterm{declare} & \tterm{function} & \tterm{scope} & \tterm{identifier} & \tterm{dim} &
+                \tterm{input} & \tterm{print} & \tterm{if} & \tterm{do} & \tterm{return} \\\hline \hline
+                \texttt{<program>} & 1 & 2 & 3 &&&&&&& \\\hline
+                \texttt{<functionDecl>} &&&& 4 &&&&&& \\\hline
+                \texttt{<functionDef>} &&&& 5 &&&&&& \\\hline
+                \texttt{<functionHeader>} &&&& 6 &&&&&& \\\hline
+                \texttt{<functionParams>} &&&& 7, 8 &&&&&& \\\hline
+                \texttt{<nextFuncParam>} &&&&&&&&&& \\\hline
+                \texttt{<functionParam>} &&&& 11 &&&&&& \\\hline
+                \texttt{<statementList>} &&&& 12 & 12 & 12 & 12 & 12 & 12 & 12 \\\hline
+                \texttt{<statement>} &&&& 15 & 14 & 16 & 17 & 18 & 19 & 20 \\\hline
+                \texttt{<declaration>} &&&& 21, 22&&&&&& \\\hline
+                \texttt{<else>} &&&& 23, 24&&&&&& \\\hline
+            \end{tabular}
+            
+            \begin{tabular}{|r|*{9}{c|}}
+                \hline
+                & \tterm{elseif} & \tterm{else} & \tterm{end} & \tterm{loop} & \tterm{eol} &
+                \tterm{(} & \tterm{)} & \tterm{=} & \tterm{,} \\\hline \hline
+                \texttt{<program>} &&&&&&&&& \\\hline
+                \texttt{<functionDecl>} &&&&&&&&& \\\hline
+                \texttt{<functionDef>} &&&&&&&&& \\\hline
+                \texttt{<functionHeader>} &&&&&&&&& \\\hline
+                \texttt{<functionParams>} &&&&&&& 8 && \\\hline
+                \texttt{<nextFuncParam>} &&&&&&& 10 && 9 \\\hline
+                \texttt{<statementList>} & 13 & 13 & 13 & 13 &&&&& \\\hline
+                \texttt{<statement>} &&&&&&&&& \\\hline
+                \texttt{<declaration>} &&&&&& 23, 24&&& \\\hline
+                \texttt{<else>} & 25 & 26 & 27 &&&&&& \\\hline
+            \end{tabular}
+        \newpage
+
         \subsection{Precedenčná tabuľka}
 
 \end{document}
