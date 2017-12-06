@@ -4,7 +4,6 @@
 
 \usepackage{indentfirst}
 \usepackage{graphicx}
-\usepackage{lscape}
 
 \begin{document}
     \begin{titlepage}
@@ -48,79 +47,90 @@
     \section{Implementácia}
     
         \subsection{Lexikálna analýza}
-            Hlavná funkcia lexikálneho analyzátora je \emph{getNextToken}. Je implementovaná v súbore \emph{scanner.c}.
-            Jej argumenty sú ukazatele na štruktúru typu \emph{tToken} a \emph{FILE} a jej návratový typ je \emph{bool}. 
+        Hlavná funkcia lexikálneho analyzátora je \texttt{getNextToken}. Je implementovaná v súbore \emph{scanner.c}.
+        Jej argumenty sú ukazatele na štruktúru typu \emph{tToken} a \emph{FILE} a jej návratový typ je \emph{bool}. 
 
-            Funkcia číta lexémy zo zadaného súboru(spravidla \emph{stdin}). Lexémy sú spracované pomocou konečného automatu. 
-            Ak sa automat dostane do konečného stavu, funkcia vráti hodnotu \emph{true} a podľa spracovaných lexém nastaví
-            token predaný v argumente. Ak nastane počas lexikálnej analýzy chyba, vráti funkcia hodnotu \emph{false} a 
-            token nenastavuje. 
+        Funkcia číta lexémy zo zadaného súboru(spravidla \emph{stdin}). Lexémy sú spracované pomocou konečného automatu. 
+        Ak sa automat dostane do konečného stavu, funkcia vráti hodnotu \emph{true} a podľa spracovaných lexém nastaví
+        token predaný v argumente. Ak nastane počas lexikálnej analýzy chyba, vráti funkcia hodnotu \emph{false} a 
+        token nenastavuje. 
 
-            Dátová štruktúra \emph{tToken} a jej podštruktúry sú definované v hlavičkovom súbore \emph{scanner.h}. 
-            Platný token musí mať vždy definovaný typ, a ak to typ tokenu vyžaduje tak aj atribút 
-            (napr. načítaný reťazec v prípade, že je token typu \emph{string}). 
+        Dátová štruktúra \emph{tToken} a jej podštruktúry sú definované v hlavičkovom súbore \emph{scanner.h}. 
+        Platný token musí mať vždy definovaný typ, a ak to typ tokenu vyžaduje tak aj atribút 
+        (napr. načítaný reťazec v prípade, že je token typu \emph{string}). 
 
-            Funkcia \emph{getNextToken} sa taktiež stará o prevod veľkých písmen na malé a počítanie riadkov.
-            Taktiež uľahčuje prácu syntaktickému analyzátoru, pretože rozlišuje medzi identifikátormi a kľučovými slovami.
-            V poli reťazcov sú uložené všetky kľúčové slová a \emph{binárnym vyhľadávaním} vo funkcii \emph{identifierTest} 
-            sa testuje, či sa jedná o identifikátor alebo kľúčové slovo.
+        Funkcia \emph{getNextToken} sa taktiež stará o prevod veľkých písmen na malé a počítanie riadkov.
+        Taktiež uľahčuje prácu syntaktickému analyzátoru, pretože rozlišuje medzi identifikátormi a kľučovými slovami.
+        V poli reťazcov sú uložené všetky kľúčové slová a \emph{binárnym vyhľadávaním} vo funkcii \texttt{identifierTest} 
+        sa testuje, či sa jedná o identifikátor alebo kľúčové slovo.
 
-            Diagram konečného automatu nájdete v prílohe.
+        Diagram konečného automatu nájdete v prílohe.
 
         \subsection{Syntaktická analýza}
-            Překladač využívá syntaxí řízený překlad, ve kterém kombinuje \emph{rekurzivní sestup} pro základní konstrukce
-            a příkazy jazyka s \emph{precedenční syntaktickou analýzou} pro výrazy.
-            Vstupním bodem překladače je funkce \texttt{parse}, která zavolá vyhodnocení hlavního neterminálu \emph{program},
-            který po kontrole volá funkce z něho vycházejících dalších neterminálů.
-            Pokud pravidlo očekává výraz, je volána funkce \texttt{expression}, která se postará o vyhodnocení výrazu převodem
-            do postfixové podoby.
+            Prekladač využíva syntaxou riadený preklad, v ktorom kombinuje \emph{rekurzívny zostup} pre základné konštrukcie
+            a príkazy jazyka s \emph{precedenčnou syntaktickou analýzou} pre výrazy.
+            Vstupným bodom prekladača je funkcia \texttt{parse}, ktorá zavolá vyhodnotenie hlavného neterminálu \emph{program},
+            ktorý po kontrole volá funkcie z neho vychádzajúcich ďalších neterminálov.
+            Pokiaľ pravidlo očakáva výraz, je zavolaná funkcia \texttt{expression}, ktorá se postará o vyhodnotenie výrazu prevodom
+            do postfixovej podoby.
             
             \subsubsection{Rekurzívny zostup}
-                Pro každý neterminál je vytvořena funkce, která je volána pro vyhodnocení daného neterminálu.
-                Funkce poté vrací hodnotu \texttt{true}, pokud bylo vyhodnocení úspěšné a hodnotu \texttt{false}, pokud došlo k nějaké chybě. Některé funkce z důvodu zjednodušení nereprezentují pravidla úplně přesně, kdy se například funkce \texttt{statementList} nevolá rekurzivně, ale je řízena cyklem. Samotný sestup je rozdělen do 3 modulů pro oddělení obecných neterminálů, neterminálů příkazů a neterminálů funkcí.
+                Pre každý neterminál je vytvorená funkcia, ktorá je volaná pre vyhodnotenie daného neterminálu.
+                Funkcia potom vracia hodnotu \texttt{true}, pokiaľ bolo vyhodnotenie úspešné a hodnotu \texttt{false}, pokiaľ došlo k nejakej chybe. Niektoré funkcie z dôvodu zjednodušenia nereprezentujú pravidlá úplne presne, kedy se napríklad funkcia \texttt{statementList} nevolá rekurzívne, ale je riadená cyklom. Samotný zostup je rozdelený do 3 modulov pre oddelenie obecných neterminálov, neterminálov príkazov a neterminálov funkcií.
             
             \subsubsection{Precedenčná syntaktická analýza}
+                Precedenčná syntaktická analýza je založená na precedenčnej tabuľke a prevode infixových výrazov
+                na postfix, z ktorého sú následne generované zásobníkové inštrukcie IFJcode17. 
+
+                Pri nájdení výrazu je zavolaná funkcia \texttt{expression}, ktorá ako argument dostane očakávaný
+                výstupný typ tokenu. Na základe tohoto očakávaného tokenu kontrolujeme pri vytváraní \emph{postfixového 
+                výrazu} pomocou funkcie \texttt{postfix} povolené dátové typy vo výraze. Na každý token je zavolaná 
+                funkcia \texttt{getTerm}, ktorá v prípade ak sa vo výraze nachádza premenná alebo funkcia overí či 
+                boli deklarované, funkcia vracia index tokenu z precedenčnej tabuľky a typ spracovaného tokenu. Ak 
+                vyhodnotenie operandu alebo operácie vo funckii \texttt{postfix} prebehlo korektne je zavolaná funkcia 
+                \texttt{generateInstruction} na vygenerovanie zásobníkovej inštrukcie pre daný token. Funkcia 
+                \texttt{postfix} spracúva dalšie tokeny až pokým nenarazí na koniec výrazu. Ak preklad na \emph{postfix}
+                prebehol úspešne funkcia \texttt{expression} vracia hodnotu \texttt{true}, v prípade chyby sa vypíše chybové
+                hlásenie a funkcia vracia hodnotu \texttt{false}.
     
         \subsection{Tabuľka symbolov}
-            Tabulka symbolů je implementována jako hash tabulka. Hashovací funkce byla zvolena \emph{djb2}\footnote{\texttt{http://www.cse.yorku.ca/\~{}oz/hash.html}}, jelikož dávala dobré výsledky rozložení při experimentování s větším množstvím záznamů.
+            Tabuľka symbolov je implementovaná ako hash tabuľka. Hashovacia funkcia bola zvolená \emph{djb2}\footnote{\texttt{http://www.cse.yorku.ca/\~{}oz/hash.html}}, pretože dávala dobré výsledky rozloženia pri experimentovaní s väčším množstvom záznamov.
             
-            Velikost pole pro ukazatele byla zvolena $128$ aby se operace modulo v hash funkci převedla na bitové maskování a pro běžný počet proměnných ve funkci je dostačující.
+            Veľkosť poľa pre ukazatele bola zvolená $128$ aby sa operácie modulo v hashovacej funkcii previedla na bitové maskovanie a pre bežný počet premenných vo funkcii je dostačujúci.
             
-            Informace o symbolu jsou poté ukládány ve struktuře, která byla navržená univerzálně pro informace o proměnných i funkcích.
+            Informácie o symbole sú následne ukladané v štruktúre, ktorá bola navrhnutá univerzálne pre informácie o premenných aj funkciách.
         
         \subsection{Vstavané funkcie}
-            V prekladači sme implementovali aj štyri vstavané funkcie jazyka IFJ17 a to \textbf{Length, Chr, Asc} a \textbf{Substr}.
-            Funkcie sme implementovali v module ifunc. Ak funkcia \texttt{expression} pri vyhodnocovaní výrazu narazí na volanie 
-            niektorej zo vstavaných funkcií, zavolá si konkrétnu funkciu z modulu ifunc. Tá si následne spracuje argumenty a následne
-            vygeneruje potrebné inštrukcie. Vstavané funkcie pracujú s premennými na globálnom rámci, ktoré sú vytvorené pri štarte programu.
-
-            \paragraph{Length}
-            Pomocou inštrukcie \emph{STRLEN} sa získa dĺžka stringu(argument funkcie). Je potrebné použiť pomocné premenné, pretože 
-            inštrukcia \emph{STRLEN} nemá zásobníkovú variantu.
-
-            \paragraph{Chr}
-            Pomocou zásobníkovej inštrukcie \emph{INT2CHARS} sa jednoducho prevedie zadané číslo z ascii tabuľky na znak.
-
-            \paragraph{Asc}
-            Po kontrole argumentov pomocou inštrukcií \emph{GT} a \emph{LT} sa buď skončí na náveštie pomocou inštrukcie 
-            \emph{JUMP} (v tomto prípade vráti funkcia hodnotu 0), alebo sa vykoná inštrukcia \emph{STRI2INT},
-            ktorá prevedie zadaný znak na požadovanom indexe na číslo z ascii tabuľky.
-
-            \paragraph{SubStr}
-            Riešenie tejto funkcie bolo zložitejšie, pretože pre získanie podreťazca sa v inštrukčnej sade nenachádza jednoduchá
-            inštrukcia. Po kontrole argumentov podobne ako pre funkciu \textbf{Asc}, sa v cykle tvoril výstupný reťazec
-            pomocou konkatenácie vždy jedného znaku na koniec výstupného reťazca. K tomu sme využili inštrukcie ako napríklad
-            \emph{ADD}, \emph{JUMPIFEQ} alebo \emph{GETCHAR}.
+            V prekladači sme implementovali aj štyri vstavané funkcie pre jazyk IFJ17.
+            
+            \subsubsection{Length}
+            Vstupným parametrom funkcie je string a výstupným je číselná hodnota dĺžky vstupného stringu.
+            
+            \subsubsection{SubStr}
+            Vstupné parametre funkcie sú string  a dva integery. Výstupom je podreťazec vstupného
+            stringu, ktorého začiatok je určený prvým integerom a jeho dĺžka druhým. Ak je index dĺžky
+            0 alebo indexujeme mimo medze stringu návratovou hodnotou je prázdny reťazec. Ak by časť 
+            znakov podreťazca pripadala mimo medze základného stringu návratovou hodnotou je string
+            obsahujúci iba znaky z~medzí vstupného stringu.
+            
+            \subsubsection{Asc}
+            Vstupné parametre funkcie sú reťazec string a integer. Výstupnou hodnotou je ordinálna
+            hodnota (ASCII) znaku v~stringu na pozícii zadanej integerom. Ak integer zasahuje mimo 
+            medze stringu návratovou hodnotou je 0.
+            
+            \subsubsection{Chr}
+            Vstupným parametrom je integer. Výstupom je znak, ktorého ASCII kód bol zadaný integerom.
+            V~prípade integeru momo medzí 0-255 je chovanie funkcie nedefinované.
             
         \subsection{Generovanie kódu}
-            Cílový kód je generován přímo během jediného průchodu vypisováním příslušných instrukcí ve funkci
-            příslušného pravidla.
+            Cieľový kód je generovaný priamo počas jediného priechodu vypisovaním príslušných inštrukcií vo funkcii
+            príslušného pravidla.
             
-            Proměnné definované uživatelem se ukládají na datový rámec, který se pro funkce
-            tvoří vždy nový.
-            Výrazy využívají pro mezivýsledky zásobník, kam se ukládají i vyhodnocené parametry a výsledky funkcí.
+            Premenné definované užívateľom sa ukladajú na dátový rámec, ktorý sa pre funkcie
+            vytvorí vždy nový.
+            Výrazy využívajú pre medzivýsledky zásobník, kam sa ukladajú aj vyhodnotené parametry a výsledky funkcií.
             
-            Podmínky a cykly využívají instrukce podmíněných a nepodmíněných skoků, ale funkce se volají instrukcemi \texttt{CALL}
+            Podmienky a cykly využívajú inštrukcie podmienených a nepodmienených skokov, ale funkcie se volajú inštrukciami \texttt{CALL}
             a \texttt{RETURN}.
         
     \section{Rozšírenia}
@@ -129,57 +139,66 @@
             \item \textbf{base}   - Lexikálny analyzátor dokáže prečítať celé číslo zadané v inej než
                                     desiatkovej sústave a následne ho previesť pomocou funkcie 
                                     \emph{strtol} s argumentom príslušnej číselnej sústavy do \emph{integeru}.
-            \item \textbf{funexp} - Díky vhodnému návrhu nezávislého vyhodnocování výrazů a předávání parametrů funkcí
-                                    přes zásobník jako výsledky rekurzivně volaných podvýrazů bylo toto rozšíření implementováno
-                                    už v základní verzi překladače.
-            \item \textbf{ifthen} - Podpora \emph{elseif} a možnost vynechání \emph{else} obnášela pouze lehkou úpravu funkce
-                                    pro vyhodnocování podmínek přepsáním do cyklu a rozšířením generování instrukcí
-                                    pro skoky a návěští.
+            \item \textbf{funexp} - Vďaka vhodnému návrhu nezávislého vyhodnocovania výrazov a predávaní parametrov funkcií
+                                    cez zásobník ako výsledky rekurzívne volaných podvýrazov bolo toto rozšírenie implementované
+                                    už v základnej verzii prekladača.
+            \item \textbf{ifthen} - Podpora \emph{elseif} a možnosť vynechania \emph{else} obnášala iba ľahkú úpravu funkcie
+                                    pre vyhodnocovanie podmienok prepísaním do cyklu a rozšírením generovánia inštrukcií
+                                    pre skoky a náveštia.
         \end{itemize}
     
     \section{Testovanie}
-    Na začiatku sme určili jedného člena, ktorý písal jednotkové testy pre lexikálny analyzátor. 
-    Neskôr sme napísali zopár vlastných regresných testov.
+    Na začiatku sme určili jedného člena, ktorý písal jednotkové testy pre lexikálny analyzátor.
+    Jednotkové testy boli napísané v jazyku C...
     
-    Keď sme sa dozvedeli o~verejnej databáze testov našich kolegov. Do nej sme prispeli aj vlastnými testami a využili ostatné testy na čo najrobustnejšie otestovanie funkčnosti nášho prekladača.
+    Neskôr sme napísali zopár vlastných regresných testov, tieto testy sme už písali v jazyku \emph{Python}, kde
+    sme na vstup nášho prekladača posielali zdrojový kód IFJ17, jeho výstup v prípade ak nenastala chyba sme posielali
+    do interpretu a výstup interpretu sme uložili do súboru. Na záver sme porovnali očakávaný výstup so získaným výstupom
+    z interpretu alebo chybovým hlásením z prekladača. Ak sa výstupy zhodovali test prebehol úspešne ak nie test zlyhal.
+    
+    Keď sme sa dozvedeli o~verejnej databáze testov našich kolegov. Do ktorej sme prispeli aj vlastnými testami a využili ostatné testy na čo najrobustnejšie otestovanie funkčnosti nášho prekladača.
     
     \section{Práca v~tíme}
-    Ako tím sme sa začali schádzať prakticky ihneď po zaregistrovaní nášho zadania. Stretávali sme sa 
-    väčšinou raz do týždňa. Vždy sme prediskutovali aktuálny stav práve implementovaných častí 
-    a ďalší postup či korekcie v~zdrojovom kóde. Prácu sme sa snažili rozdeľovať rovnomerne medzi 
-    všetkých členov tímu, čo sa nám nepodarilo vždy. Po pridelení úlohy sme stanovili deadline, aby sme 
+    Ako tím sme sa začali schádzať pomerne skoro po zaregistrovaní nášho zadania. Stretnutie sme mali 
+    minimálne raz týždenne, kde sme prediskutovali aktuálny stav práve implementovaných častí 
+    a ďalší postup či korekciu v~zdrojovom kóde. Prácu sme sa snažili rozdeľovať rovnomerne medzi 
+    všetkých členov tímu čo sa nie vždy darilo. Po pridelení úlohy sme stanovili deadline, aby sme 
     mohli čo najskôr pokračovať na nasledujúcej časti projektu. Jednotlivé časti sme sa snažili 
-    implementovať paralelne s~preberanou látkou na prednáškach, aby sme sa vyhli chybám z dôvodu neznalosti.
+    implementovať paralelne s~preberanou látkou na prednáškach aby sme korektne implementovali
+    jednotlivé časti a vyhli sa zbytočným chybám.
 
         \subsection{Správa zdrojového kódu}
-        Pre správu a zdielanie zdrojových súborov sme využili verzovací systém \emph{Git} a webovú službu GitHub pre vzdialené ukladanie, ktorú sme už počas štúdia využili na verzovanie projektov v~iných predmetoch.
+        Pre správu a zdielanie zdrojových súborov sme využili verzovací systém \emph{Git} a webovú službu GitHub pre vzdialené ukladanie, ktorú sme už 
+        počas štúdia využili na verzovanie projektov v~iných predmetoch.
         
-        Ako komunikačný kanál sme využívali prevažne skupinovú konverzáciu na sociálnej sieti Facebook, ktorá nám všetkým 
+        Ako komunikačný kanál sme 
+        prevažne využívali skupinovú konverzáciu na sociálnej sieti Facebook, ktorá nám všetkým 
         vyhovovala.
         
         Na sledovanie postupu pri plnení pridelených úloh a oznamovanie nájdených chýb 
-        sme využívali nástroj Trello, ktorý slúži ako online kanban pre sledovanie projektov. 
+        sme využívali online nástroj Trello, ktorý slúži ako online kanban pre sledovanie projektov. 
         
         Vďaka týmto informačným kanálom mohli mať všetci členovia tímu prístup k~najaktuálnejšej
         verzii projektu a reagovať na vzniknuté chyby efektívne.
 
         \subsection{Rozdelenie práce v tíme}
 
-        \textbf{Tomáš Nereča} pracoval na lexikálnom analyzátore a v neskoršej fáze vývoja pomáhal pri implementácii niektorých
-        funkcií precedenčnej syntaktickej analýzy. Okrem toho sa podieľal na menších moduloch errors, stack a ifunc. 
+        \textbf{Tomáš Nereča} pracoval na lexikálnom analyzátore a v neskoršej fáze vývoja spolupracoval so \textbf{Samuelom Obuchom} na 
+        precedenčnej syntaktickej analýze. Okrem toho sa podieľal na menších moduloch errors, stack a ifunc. 
 
         \textbf{Jiří Vozár} měl na starosti vedení implementace, návrh komunikace mezi moduly a implementaci syntaktické analýzy rekurzivním sestupem.
 
-        Dôvodom nerovnomerného rozdelenia bodov bolo nedostatočné splnenie úloh jedného 
-        z~členov tímu, čo viedlo k nutnosti zapojiť k týmto úlohám iných členov tímu.
+        Dôvod nerovnomerného rozdelenia bodov bolo nedostatočné splnenie pridelených častí jednému 
+        z~členov tímu, čo viedlo k~potrebnému prepisu zdrojového kódu ostatnými členmi tímu.
 
     \section{Záver}
-    S~projektom podobného rozsahu sa ešte nikto z~nás predtým nestretol, preto ho považujeme za dobrú
+    S~projektom podobného rozsahu sa ešte nikto z~nás predtým nestretol, preto ho pokladáme za dobrú
     skúsenosť pre každého z~nás. Pri jeho riešení sme prakticky využili získané vedomosti z~predmetov 
     IFJ a IAL.
     
-    Pre správne fungovanie tímu bolo potrebné kvalitné riadenie a pridelovanie úloh a pravideľná
-    komunikácia medzi jednotlivými členmi tímu. Výsledkom tejto práce je funkčný a z~nášho pohľadu vydarený 
+    Pre správne fungovanie tímu bola potrebná dobrá komunikácia, riadenie a pridelovanie úloh, ktoré pretvali počas celého
+    priebehu projektu či už vďaka pravidelným stretnutiam alebo využitým nástrojom ale aj individuálne
+    schopnosti jednotlivých členov. Výsledkom tejto práce je funkčný a z~nášho pohľadu vydarený 
     prekladač jazyka IFJ17.
     
     \newpage
@@ -271,4 +290,38 @@
 
         \subsection{Precedenčná tabuľka}
 
+        \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+                  & =(výraz) & $<>$ & $<$= & $>$= & $<$ & $>$ &  +  &  -  &  */  & \textbackslash &  (  &  )  & \$  \\ 
+        \hline
+        =(výraz)  &     $>$  &  $>$ &  $>$ &  $>$ & $>$ & $>$ & $<$ & $<$ &  $<$ & $<$            & $<$ & $>$ & $>$ \\ 
+        \hline
+          $<>$    &     $>$  &  $>$ &  $>$ &  $>$ & $>$ & $>$ & $<$ & $<$ &  $<$ & $<$            & $<$ & $>$ & $>$ \\
+        \hline
+          $<$=    &     $>$  &  $>$ &  $>$ &  $>$ & $>$ & $>$ & $<$ & $<$ &  $<$ & $<$            & $<$ & $>$ & $>$ \\
+        \hline
+          $>$=    &     $>$  &  $>$ &  $>$ &  $>$ & $>$ & $>$ & $<$ & $<$ &  $<$ & $<$            & $<$ & $>$ & $>$ \\
+        \hline
+          $<$     &     $>$  &  $>$ &  $>$ &  $>$ & $>$ & $>$ & $<$ & $<$ &  $<$ & $<$            & $<$ & $>$ & $>$ \\
+        \hline  
+          $>$     &     $>$  &  $>$ &  $>$ &  $>$ & $>$ & $>$ & $<$ & $<$ &  $<$ & $<$            & $<$ & $>$ & $>$ \\
+        \hline
+           +      &     $>$  &  $>$ &  $>$ &  $>$ & $>$ & $>$ & $>$ & $>$ &  $<$ & $<$            & $<$ & $>$ & $>$ \\
+        \hline
+           -      &     $>$  &  $>$ &  $>$ &  $>$ & $>$ & $>$ & $>$ & $>$ &  $<$ & $<$            & $<$ & $>$ & $>$ \\ 
+        \hline
+          */      &     $>$  &  $>$ &  $>$ &  $>$ & $>$ & $>$ & $>$ & $>$ &  $>$ & $>$            & $<$ & $>$ & $>$ \\ 
+        \hline
+\textbackslash    &     $>$  &  $>$ &  $>$ &  $>$ & $>$ & $>$ & $>$ & $>$ &  $<$ & $>$            & $<$ & $>$ & $>$ \\
+        \hline
+           (      &     $<$  &  $<$ &  $<$ &  $<$ & $<$ & $<$ & $<$ & $<$ &  $<$ & $<$            & $<$ &  =  &     \\  
+        \hline
+           (      &     $>$  &  $>$ &  $>$ &  $>$ & $>$ & $>$ & $>$ & $>$ &  $>$ & $>$            &     & $>$ & $>$ \\ 
+        \hline
+          \$      &     $<$  &  $<$ &  $<$ &  $<$ & $<$ & $<$ & $<$ & $<$ &  $<$ & $<$            & $<$ &     &     \\ 
+        \hline
+        \end{tabular}
+    \end{center}
+>>>>>>> sam
 \end{document}
