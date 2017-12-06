@@ -42,7 +42,7 @@ bool skip_statement();
 bool statement();
 
 // Parsing of set of statements ended by END token
-bool statement_list();
+bool statementList();
 
 // Parsing crossroads for functions and main scope
 bool program();

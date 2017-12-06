@@ -79,10 +79,10 @@ bool statement()
     }
 }
 
-bool statement_list()
+bool statementList()
 {
     // Read statements until keyword, that end statement block
-    // This should be: return statement() && statement_list();
+    // This should be: return statement() && statementList();
     // but it's written in while loop to lower recursion
     while (true)
     {
@@ -112,11 +112,11 @@ bool program()
         switch (last_token.type)
         {
             case DECLARE:
-                if (!function_decl())
+                if (!functionDecl())
                     return false;
                 break;
             case FUNCTION:
-                if (!function_def())
+                if (!functionDef())
                     return false;
                 break;
             case SCOPE:
@@ -130,7 +130,7 @@ bool program()
                 printf("PUSHFRAME\n");
 
                 // parse the inside of scope
-                if (!statement_list())
+                if (!statementList())
                     return false;
 
                 // Test the correct ending of code block
