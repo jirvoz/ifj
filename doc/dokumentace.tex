@@ -125,10 +125,12 @@
             \item \textbf{base}   - Lexikálny analyzátor dokáže prečítať celé číslo zadané v inej než
                                     desiatkovej sústave a následne ho previesť pomocou funkcie 
                                     \emph{strtol} s argumentom príslušnej číselnej sústavy do \emph{integeru}.
-            \item \textbf{funexp} - podpora volania funkcií, ktoré môžu v~argumentoch obsahovať výrazy 
-                                        a zároveň súčasťou výrazu môže byť volanie funkcie.
-            \item  \textbf{ifthen} - podpora zjednodušenej konštrukcie podmienky If-Then bez časti Else
-                                        a zároveň viacnásobnej konštrukcie Elseif-Then.
+            \item \textbf{funexp} - Díky vhodnému návrhu nezávislého vyhodnocování výrazů a předávání parametrů funkcí
+                                    přes zásobník jako výsledky rekurzivně volaných podvýrazů bylo toto rozšíření implementováno
+                                    už v základní verzi překladače.
+            \item \textbf{ifthen} - Podpora \emph{elseif} a možnost vynechání \emph{else} obnášela pouze lehkou úpravu funkce
+                                    pro vyhodnocování podmínek přepsáním do cyklu a rozšířením generování instrukcí
+                                    pro skoky a návěští.
         \end{itemize}
     
     \section{Testovanie}
@@ -160,20 +162,12 @@
         Vďaka týmto informačným kanálom mohli mať všetci členovia tímu prístup k~najaktuálnejšej
         verzii projektu a reagovať na vzniknuté chyby efektívne.
 
-        \newpage
         \subsection{Rozdelenie práce v tíme}
 
-        Tomáš Nereča pracoval na lexikálnom analyzátore a v neskoršej fáze vývoja spolupracoval so Samuelom Obuchom na 
+        \textbf{Tomáš Nereča} pracoval na lexikálnom analyzátore a v neskoršej fáze vývoja spolupracoval so \textbf{Samuelom Obuchom} na 
         precedenčnej syntaktickej analýze. Okrem toho sa podieľal na menších moduloch errors, stack a ifunc. 
 
-        Bodové rozdelenie je nasledovné:\\~\\
-
-        \begin{tabular}{l l}
-            Tomáš Nereča (xnerec00) & 26\% \\
-            Samuel Obuch (xobuch00) & 26\% \\
-            Jiří Vozár (xvozar04)   & 26\% \\
-            Ján Farský (xfarsk00)   & 22\% \\
-        \end{tabular} \\
+        \textbf{Jiří Vozár} měl na starosti vedení implementace, návrh komunikace mezi moduly a implementaci syntaktické analýzy rekurzivním sestupem.
 
         Dôvod nerovnomerného rozdelenia bodov bolo nedostatočné splnenie pridelených častí jednému 
         z~členov tímu, čo viedlo k~potrebnému prepisu zdrojového kódu ostatnými členmi tímu.
