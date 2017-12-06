@@ -47,23 +47,22 @@
     \section{Implementácia}
     
         \subsection{Lexikálna analýza}
-        Hlavná funkcia lexikálneho analyzátora je \emph{getNextToken}. Je implementovaná v súbore \emph{scanner.c.}.
+        Hlavná funkcia lexikálneho analyzátora je \emph{getNextToken}. Je implementovaná v súbore \emph{scanner.c}.
         Jej argumenty sú ukazatele na štruktúru typu \emph{tToken} a \emph{FILE} a jej návratový typ je \emph{bool}. 
 
-        Funkcia číta znaky zo zadaného súboru(spravidla \emph{stdin}). Znaky sú spracované pomocou konečného automatu. 
-        Ak sa automat dostane do konečného stavu, funkcia vráti hodnotu \emph{true} a podľa spracovaných znakov nastaví
-        token predaný v argumente. 
+        Funkcia číta lexémy zo zadaného súboru(spravidla \emph{stdin}). Lexémy sú spracované pomocou konečného automatu. 
+        Ak sa automat dostane do konečného stavu, funkcia vráti hodnotu \emph{true} a podľa spracovaných lexém nastaví
+        token predaný v argumente. Ak nastane počas lexikálnej analýzy chyba, vráti funkcia hodnotu \emph{false} a 
+        token nenastavuje. 
 
         Dátová štruktúra \emph{tToken} a jej podštruktúry sú definované v hlavičkovom súbore \emph{scanner.h}. 
         Platný token musí mať vždy definovaný typ, a ak to typ tokenu vyžaduje tak aj atribút 
         (napr. načítaný reťazec v prípade, že je token typu \emph{string}). 
 
-        Ak nastane počas lexikálnej analýzy chyba, vráti funkcia hodnotu \emph{false} a token nenastavuje. 
-
         Funkcia \emph{getNextToken} sa taktiež stará o prevod veľkých písmen na malé a počítanie riadkov.
         Taktiež uľahčuje prácu syntaktickému analyzátoru, pretože rozlišuje medzi identifikátormi a kľučovými slovami.
-        V poli reťazcov sú uložené všetky kľúčové slová a \emph{binárnym vyhľadávaním} sa testuje, či sa jedná
-        o identifikátor alebo kľúčové slovo.
+        V poli reťazcov sú uložené všetky kľúčové slová a \emph{binárnym vyhľadávaním} vo funkcii \emph{identifierTest} 
+        sa testuje, či sa jedná o identifikátor alebo kľúčové slovo.
 
         Diagram konečného automatu nájdete v prílohe.
 
@@ -100,7 +99,9 @@
     \section{Rozšírenia}
     Boli implementované celkom 3 rozšírenia
         \begin{itemize}
-            \item \textbf{base}   - podpora zadávania celočíselných konštánt v~2, 8 a 16-tkovej sústave.
+            \item \textbf{base}   - Lexikálny analyzátor dokáže prečítať celé číslo zadané v inej než
+                                    desiatkovej sústave a následne ho previesť pomocou funkcie 
+                                    \emph{strtol} s argumentom príslušnej číselnej sústavy do \emph{integeru}.
             \item \textbf{funexp} - podpora volania funkcií, ktoré môžu v~argumentoch obsahovať výrazy 
                                         a zároveň súčasťou výrazu môže byť volanie funkcie.
             \item  \textbf{ifthen} - podpora zjednodušenej konštrukcie podmienky If-Then bez časti Else
@@ -137,15 +138,20 @@
         verzii projektu a reagovať na vzniknuté chyby efektívne.
 
         \newpage
-        \subsection{Rozdelenie}
-        \noindent
+        \subsection{Rozdelenie práce v tíme}
+
+        Tomáš Nereča pracoval na lexikálnom analyzátore a v neskoršej fáze vývoja spolupracoval so Samuelom Obuchom na 
+        precedenčnej syntaktickej analýze. Okrem toho sa podieľal na menších moduloch errors, stack a ifunc. 
+
         Bodové rozdelenie je nasledovné:\\~\\
+
         \begin{tabular}{l l}
             Tomáš Nereča (xnerec00) & 26\% \\
             Samuel Obuch (xobuch00) & 26\% \\
             Jiří Vozár (xvozar04)   & 26\% \\
             Ján Farský (xfarsk00)   & 22\% \\
         \end{tabular} \\
+
         Dôvod nerovnomerného rozdelenia bodov bolo nedostatočné splnenie pridelených častí jednému 
         z~členov tímu, čo viedlo k~potrebnému prepisu zdrojového kódu ostatnými členmi tímu.
 
