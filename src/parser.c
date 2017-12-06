@@ -1,3 +1,14 @@
+//  Course:      Formal Languages and Compilers (IFJ)
+//  Project:     Implementation of the IFJ17 imperative language compiler
+//  File:        parser.c
+//  Description: Source file of top parser logic
+//               Starting and generic rules for syntax analysis
+//
+//  Authors: Tomáš Nereča : xnerec00
+//           Samuel Obuch : xobuch00
+//           Jiří Vozár   : xvozar04
+//           Ján Farský   : xfarsk00
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "errors.h"

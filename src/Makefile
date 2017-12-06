@@ -1,5 +1,12 @@
-# Makefile for compiling from src directory
-# Author: Jiri Vozar
+#  Course:      Formal Languages and Compilers (IFJ)
+#  Project:     Implementation of the IFJ17 imperative language compiler
+#  File:        Makefile
+#  Description: Makefile for the main executable
+#
+#  Authors: Tomáš Nereča : xnerec00
+#           Samuel Obuch : xobuch00
+#           Jiří Vozár   : xvozar04
+#           Ján Farský   : xfarsk00
 
 CC=gcc
 CFLAGS=-std=c99 -O2

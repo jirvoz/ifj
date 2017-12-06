@@ -1,3 +1,14 @@
+//  Course:      Formal Languages and Compilers (IFJ)
+//  Project:     Implementation of the IFJ17 imperative language compiler
+//  File:        symtable.h
+//  Description: Header file of symbol table
+//               Hash table for storing informations about functions and variables
+//
+//  Authors: Tomáš Nereča : xnerec00
+//           Samuel Obuch : xobuch00
+//           Jiří Vozár   : xvozar04
+//           Ján Farský   : xfarsk00
+
 #ifndef _SYMTABLE_H_
 #define _SYMTABLE_H_
 
