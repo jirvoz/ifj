@@ -251,7 +251,7 @@ bool if_stat()
     do
     {
         // Parse the statements inside of if block
-        if (!statement_list())
+        if (!statementList())
             return false;
 
         // Handle endings of if block
@@ -340,7 +340,7 @@ bool while_stat()
     printf("JUMPIFNEQS &loop%d\n", while_line_number);
 
     // Parse the inside of do while
-    if (!statement_list())
+    if (!statementList())
         return false;
 
     printf("JUMP &while%d\n", while_line_number);

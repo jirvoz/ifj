@@ -70,6 +70,25 @@ void htInsert(tHTable* ptrht, char* name, tSymbol symbol)
     
 }
 
+// Check if all items in table are defined
+bool htCheckDefined(tHTable* ptrht)
+{
+    tHTItem* ptr;
+    for (int i = 0; i < HTSIZE; i++)
+    {
+        ptr = ptrht[i];
+
+        while (ptr != NULL)
+        {
+            if (!ptr->symbol.defined)
+                return false;
+            ptr = ptr->next;
+        }
+    }
+
+    return true;
+}
+
 // Remove all items from table
 void htClear(tHTable* ptrht)
 {

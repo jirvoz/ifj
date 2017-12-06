@@ -4,6 +4,7 @@
 
 \usepackage{indentfirst}
 \usepackage{graphicx}
+\usepackage{lscape}
 
 \begin{document}
     \begin{titlepage}
@@ -47,13 +48,53 @@
     \section{Implementácia}
 
         \subsection{Lexikálna analýza}
+<<<<<<< HEAD
+=======
+        Hlavná funkcia lexikálneho analyzátora je \emph{getNextToken}. Je implementovaná v súbore \emph{scanner.c}.
+        Jej argumenty sú ukazatele na štruktúru typu \emph{tToken} a \emph{FILE} a jej návratový typ je \emph{bool}. 
+
+        Funkcia číta lexémy zo zadaného súboru(spravidla \emph{stdin}). Lexémy sú spracované pomocou konečného automatu. 
+        Ak sa automat dostane do konečného stavu, funkcia vráti hodnotu \emph{true} a podľa spracovaných lexém nastaví
+        token predaný v argumente. Ak nastane počas lexikálnej analýzy chyba, vráti funkcia hodnotu \emph{false} a 
+        token nenastavuje. 
+
+        Dátová štruktúra \emph{tToken} a jej podštruktúry sú definované v hlavičkovom súbore \emph{scanner.h}. 
+        Platný token musí mať vždy definovaný typ, a ak to typ tokenu vyžaduje tak aj atribút 
+        (napr. načítaný reťazec v prípade, že je token typu \emph{string}). 
+
+        Funkcia \emph{getNextToken} sa taktiež stará o prevod veľkých písmen na malé a počítanie riadkov.
+        Taktiež uľahčuje prácu syntaktickému analyzátoru, pretože rozlišuje medzi identifikátormi a kľučovými slovami.
+        V poli reťazcov sú uložené všetky kľúčové slová a \emph{binárnym vyhľadávaním} vo funkcii \emph{identifierTest} 
+        sa testuje, či sa jedná o identifikátor alebo kľúčové slovo.
+
+        Diagram konečného automatu nájdete v prílohe.
+>>>>>>> tondo
 
         \subsection{Syntaktická analýza}
+            Překladač využívá syntaxí řízený překlad, ve kterém kombinuje \emph{rekurzivní sestup} pro základní konstrukce
+            a příkazy jazyka s \emph{precedenční syntaktickou analýzou} pro výrazy.
+            Vstupním bodem překladače je funkce \texttt{parse}, která zavolá vyhodnocení hlavního neterminálu \emph{program},
+            který po kontrole volá funkce z něho vycházejících dalších neterminálů.
+            Pokud pravidlo očekává výraz, je volána funkce \texttt{expression}, která se postará o vyhodnocení výrazu převodem
+            do postfixové podoby.
+            
             \subsubsection{Rekurzívny zostup}
+                Pro každý neterminál je vytvořena funkce, která je volána pro vyhodnocení daného neterminálu.
+                Funkce poté vrací hodnotu \texttt{true}, pokud bylo vyhodnocení úspěšné a hodnotu \texttt{false}, pokud došlo k nějaké chybě. Některé funkce z důvodu zjednodušení nereprezentují pravidla úplně přesně, kdy se například funkce \texttt{statementList} nevolá rekurzivně, ale je řízena cyklem. Samotný sestup je rozdělen do 3 modulů pro oddělení obecných neterminálů, neterminálů příkazů a neterminálů funkcí.
+            
             \subsubsection{Precedenčná syntaktická analýza}
 
         \subsection{Tabuľka symbolov}
+<<<<<<< HEAD
 
+=======
+            Tabulka symbolů je implementována jako hash tabulka. Hashovací funkce byla zvolena \emph{djb2}\footnote{\texttt{http://www.cse.yorku.ca/\~{}oz/hash.html}}, jelikož dávala dobré výsledky rozložení při experimentování s větším množstvím záznamů.
+            
+            Velikost pole pro ukazatele byla zvolena $128$ aby se operace modulo v hash funkci převedla na bitové maskování a pro běžný počet proměnných ve funkci je dostačující.
+            
+            Informace o symbolu jsou poté ukládány ve struktuře, která byla navržená univerzálně pro informace o proměnných i funkcích.
+        
+>>>>>>> tondo
         \subsection{Vstavané funkcie}
             V prekladači sme implementovali aj štyri vstavané funkcie pre jazyk IFJ17 \textbf{Length, SubStr, Asc, Chr}.
             Funkcie sme implementovali ako samostatný modul. Pri ich implementovaní sme použili už definované
@@ -76,6 +117,7 @@
             vykonali podobne ako u predchádzajúcich vstavaných funkcií.
             
         \subsection{Generovanie kódu}
+<<<<<<< HEAD
 
     \section{Rozšírenia}
     Boli implementované celkom 3 rozšírenia
@@ -85,6 +127,30 @@
                                         a zároveň súčasťou výrazu môže byť volanie funkcie.
             \item  \textbf{ifthen} - podpora zjednodušenej konštrukcie podmienky If-Then bez časti Else
                                         a zároveň viacnásobnej konštrukcie Elseif-Then.
+=======
+            Cílový kód je generován přímo během jediného průchodu vypisováním příslušných instrukcí ve funkci
+            příslušného pravidla.
+            
+            Proměnné definované uživatelem se ukládají na datový rámec, který se pro funkce
+            tvoří vždy nový.
+            Výrazy využívají pro mezivýsledky zásobník, kam se ukládají i vyhodnocené parametry a výsledky funkcí.
+            
+            Podmínky a cykly využívají instrukce podmíněných a nepodmíněných skoků, ale funkce se volají instrukcemi \texttt{CALL}
+            a \texttt{RETURN}.
+        
+    \section{Rozšírenia}
+    Boli implementované celkom 3 rozšírenia
+        \begin{itemize}
+            \item \textbf{base}   - Lexikálny analyzátor dokáže prečítať celé číslo zadané v inej než
+                                    desiatkovej sústave a následne ho previesť pomocou funkcie 
+                                    \emph{strtol} s argumentom príslušnej číselnej sústavy do \emph{integeru}.
+            \item \textbf{funexp} - Díky vhodnému návrhu nezávislého vyhodnocování výrazů a předávání parametrů funkcí
+                                    přes zásobník jako výsledky rekurzivně volaných podvýrazů bylo toto rozšíření implementováno
+                                    už v základní verzi překladače.
+            \item \textbf{ifthen} - Podpora \emph{elseif} a možnost vynechání \emph{else} obnášela pouze lehkou úpravu funkce
+                                    pro vyhodnocování podmínek přepsáním do cyklu a rozšířením generování instrukcí
+                                    pro skoky a návěští.
+>>>>>>> tondo
         \end{itemize}
 
     \section{Testovanie}
@@ -116,6 +182,7 @@
         Vďaka týmto informačným kanálom mohli mať všetci členovia tímu prístup k~najaktuálnejšej
         verzii projektu a reagovať na vzniknuté chyby efektívne.
 
+<<<<<<< HEAD
         \newpage
         \subsection{Rozdelenie}
         \noindent
@@ -127,6 +194,16 @@
             Ján Farský (xfarsk00)   & 22\% \\
         \end{tabular} \\
         Dôvod nerovnomerného rozdelenia bodov bolo nedostatočné splnenie pridelených častí jednému
+=======
+        \subsection{Rozdelenie práce v tíme}
+
+        \textbf{Tomáš Nereča} pracoval na lexikálnom analyzátore a v neskoršej fáze vývoja spolupracoval so \textbf{Samuelom Obuchom} na 
+        precedenčnej syntaktickej analýze. Okrem toho sa podieľal na menších moduloch errors, stack a ifunc. 
+
+        \textbf{Jiří Vozár} měl na starosti vedení implementace, návrh komunikace mezi moduly a implementaci syntaktické analýzy rekurzivním sestupem.
+
+        Dôvod nerovnomerného rozdelenia bodov bolo nedostatočné splnenie pridelených častí jednému 
+>>>>>>> tondo
         z~členov tímu, čo viedlo k~potrebnému prepisu zdrojového kódu ostatnými členmi tímu.
 
     \section{Záver}
@@ -143,8 +220,89 @@
     \section{Prílohy}
         \subsection{Diagram konečného automatu}
             \includegraphics[trim=6cm 0 0 0, width=15cm]{finite_automata.png}
+            \newpage
+            
         \subsection{LL gramatika}
+            \begin{enumerate}
+                % NESAHAT - zhenodnotí čísla v tabulce LL gramatiky!
+                \item \texttt{<program> -> declare function <functionDecl> eol <program>}
+                \item \texttt{<program> -> function <functionDef> eol <program>}
+                \item \texttt{<program> -> scope <statementList> end scope}
+                
+                \item \texttt{<functionDecl> -> <functionHeader>}
+                \item \texttt{<functionDef> -> <functionHeader> eol <statementList> end function}
+                
+                \item \texttt{<functionHeader> -> identifier ( <functionParams> ) as type}
+                
+                \item \texttt{<functionParams> -> <functionParam> <nextFuncParam>}
+                \item \texttt{<functionParams> -> epsilon}
+                
+                \item \texttt{<nextFuncParam> -> , <functionParam> <nextFuncParam>}
+                \item \texttt{<nextFuncParam> -> epsilon}
+                
+                \item \texttt{<functionParam> -> identifier as type}
+                
+                \item \texttt{<statementList> -> <statement> eol <statementList>}
+                \item \texttt{<statementList> -> epsilon}
+                
+                \item \texttt{<statement> -> dim <declaration>}
+                \item \texttt{<statement> -> identifier = <expression>}
+                \item \texttt{<statement> -> input identifier}
+                \item \texttt{<statement> -> print <printArgs>}
+                \item \texttt{<statement> -> if <expression> then eol <statementList> <else>}
+                \item \texttt{<statement> -> do while <expression> eol <statementList> loop}
+                \item \texttt{<statement> -> return identifier}
+                
+                \item \texttt{<declaration> -> identifier as type}
+                \item \texttt{<declaration> -> identifier as type = <expression>}
+                
+                \item \texttt{<printArgs> -> <expression> ;}
+                \item \texttt{<printArgs> -> <expression> ; <printArgs>}
+                
+                \item \texttt{<else> -> elseif <expression> then eol <else> end if}
+                \item \texttt{<else> -> else eol <statementList> end if}
+                \item \texttt{<else> -> end if}
+                
+                \item \texttt{<expression> ->} vyhodnocuje se precedenční syntaktickou analýzou
+            \end{enumerate}
+        \newpage
+        
         \subsection{LL tabuľka}
+        \newcommand{\tterm}[1]{\rotatebox[origin=c]{90}{\texttt{#1}}}
+            \begin{tabular}{|r|*{10}{c|}}
+                \hline
+                & \tterm{declare} & \tterm{function} & \tterm{scope} & \tterm{identifier} & \tterm{dim} &
+                \tterm{input} & \tterm{print} & \tterm{if} & \tterm{do} & \tterm{return} \\\hline \hline
+                \texttt{<program>} & 1 & 2 & 3 &&&&&&& \\\hline
+                \texttt{<functionDecl>} &&&& 4 &&&&&& \\\hline
+                \texttt{<functionDef>} &&&& 5 &&&&&& \\\hline
+                \texttt{<functionHeader>} &&&& 6 &&&&&& \\\hline
+                \texttt{<functionParams>} &&&& 7, 8 &&&&&& \\\hline
+                \texttt{<nextFuncParam>} &&&&&&&&&& \\\hline
+                \texttt{<functionParam>} &&&& 11 &&&&&& \\\hline
+                \texttt{<statementList>} &&&& 12 & 12 & 12 & 12 & 12 & 12 & 12 \\\hline
+                \texttt{<statement>} &&&& 15 & 14 & 16 & 17 & 18 & 19 & 20 \\\hline
+                \texttt{<declaration>} &&&& 21, 22&&&&&& \\\hline
+                \texttt{<else>} &&&& 23, 24&&&&&& \\\hline
+            \end{tabular}
+            
+            \begin{tabular}{|r|*{9}{c|}}
+                \hline
+                & \tterm{elseif} & \tterm{else} & \tterm{end} & \tterm{loop} & \tterm{eol} &
+                \tterm{(} & \tterm{)} & \tterm{=} & \tterm{,} \\\hline \hline
+                \texttt{<program>} &&&&&&&&& \\\hline
+                \texttt{<functionDecl>} &&&&&&&&& \\\hline
+                \texttt{<functionDef>} &&&&&&&&& \\\hline
+                \texttt{<functionHeader>} &&&&&&&&& \\\hline
+                \texttt{<functionParams>} &&&&&&& 8 && \\\hline
+                \texttt{<nextFuncParam>} &&&&&&& 10 && 9 \\\hline
+                \texttt{<statementList>} & 13 & 13 & 13 & 13 &&&&& \\\hline
+                \texttt{<statement>} &&&&&&&&& \\\hline
+                \texttt{<declaration>} &&&&&& 23, 24&&& \\\hline
+                \texttt{<else>} & 25 & 26 & 27 &&&&&& \\\hline
+            \end{tabular}
+        \newpage
+
         \subsection{Precedenčná tabuľka}
 
 \end{document}

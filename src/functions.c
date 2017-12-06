@@ -83,7 +83,7 @@ bool addParamToSymbol(tSymbol* symbol, char* name, token_type type)
     return true;
 }
 
-bool function_params(tSymbol* symbol)
+bool functionParams(tSymbol* symbol)
 {
     // last_token.type is left bracket
 
@@ -169,7 +169,7 @@ bool function_params(tSymbol* symbol)
     return true;
 }
 
-bool function_header(bool define)
+bool functionHeader(bool define)
 {
     // last_token.type is FUNCTION
 
@@ -229,7 +229,7 @@ bool function_header(bool define)
         free(identif_name);
 
     // Read function parameters
-    if (!function_params(symbol))
+    if (!functionParams(symbol))
         return false;
     // last_token.type is right bracket
 
@@ -262,7 +262,7 @@ bool function_header(bool define)
     return true;
 }
 
-bool function_decl()
+bool functionDecl()
 {
     // last_token.type is DECLARE
 
@@ -271,15 +271,15 @@ bool function_decl()
     if (last_token.type != FUNCTION)
         ERROR_AND_RETURN(SYN_ERROR, "Expected FUNCTION after DECLARE.");
 
-    return function_header(false);
+    return functionHeader(false);
 }
 
-bool function_def()
+bool functionDef()
 {
     // last_token.type is FUNCTION
 
     // Parse function header (name, parameters and return value)
-    if (!function_header(true))
+    if (!functionHeader(true))
         return false;
     // last_token.type is EOL_TOK
 
@@ -321,7 +321,7 @@ bool function_def()
     }
 
     // Parse the inside of function
-    if (!statement_list())
+    if (!statementList())
         return false;
 
     // Clear table of function variables

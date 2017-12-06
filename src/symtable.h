@@ -55,6 +55,9 @@ tSymbol* htSearch(tHTable* ptrht, char* name);
 // Insert new item to table
 void htInsert(tHTable* ptrht, char* name, tSymbol symbol);
 
+// Check if all items in table are defined
+bool htCheckDefined(tHTable* ptrht);
+
 // Remove all items from table
 void htClear(tHTable* ptrht);
 

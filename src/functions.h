@@ -24,9 +24,9 @@ extern char* actual_function;
 bool call(char* name);
 
 // Parse declaration of function
-bool function_decl();
+bool functionDecl();
 
 // Parse definition of function
-bool function_def();
+bool functionDef();
 
 #endif
