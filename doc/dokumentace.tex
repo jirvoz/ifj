@@ -50,10 +50,23 @@
         \subsection{Lexikálna analýza}
         
         \subsection{Syntaktická analýza}
+            Překladač využívá syntaxí řízený překlad, ve kterém kombinuje \emph{rekurzivní sestup} pro základní konstrukce
+            a příkazy jazyka s \emph{precedenční syntaktickou analýzou} pro výrazy.
+            Vstupním bodem překladače je funkce \texttt{parse}, která zavolá vyhodnocení hlavního neterminálu \emph{program},
+            který po kontrole volá funkce z něho vycházejících dalších neterminálů.
+            Pokud pravidlo očekává výraz, je volána funkce \texttt{expression}, která se postará o vyhodnocení výrazu převodem
+            do postfixové podoby.
+            
             \subsubsection{Rekurzívny zostup}
+                Pro každý neterminál je vytvořena funkce, která je volána pro vyhodnocení daného neterminálu.
+                Funkce poté vrací hodnotu \texttt{true}, pokud bylo vyhodnocení úspěšné a hodnotu \texttt{false}, pokud došlo k nějaké chybě. Některé funkce z důvodu zjednodušení nereprezentují pravidla úplně přesně, kdy se například funkce \texttt{statementList} nevolá rekurzivně, ale je řízena cyklem. Samotný sestup je rozdělen do 3 modulů pro oddělení obecných neterminálů, neterminálů příkazů a neterminálů funkcí.
+            
             \subsubsection{Precedenčná syntaktická analýza}
     
         \subsection{Tabuľka symbolov}
+            Tabulka symbolů je implementována jako hash tabulka. Hashovací funkce byla zvolena \emph{djb2}\footnote{\texttt{http://www.cse.yorku.ca/\~{}oz/hash.html}}, jelikož dávala dobré výsledky rozložení při experimentování s větším množstvím záznamů.
+            
+            Informace o symbolu jsou poté ukládány ve struktuře, která byla navržená univerzálně pro informace o proměnných i funkcích.
         
         \subsection{Vstavané funkcie}
             V prekladači sme implementovali aj štyri vstavané funkcie pre jazyk IFJ17.
@@ -78,6 +91,15 @@
             V~prípade integeru momo medzí 0-255 je chovanie funkcie nedefinované.
             
         \subsection{Generovanie kódu}
+            Cílový kód je generován přímo během jediného průchodu vypisováním příslušných instrukcí ve funkci
+            příslušného pravidla.
+            
+            Proměnné definované uživatelem se ukládají na datový rámec, který se pro funkce
+            tvoří vždy nový.
+            Výrazy využívají pro mezivýsledky zásobník, kam se ukládají i vyhodnocené parametry a výsledky funkcí.
+            
+            Podmínky a cykly využívají instrukce podmíněných a nepodmíněných skoků, ale funkce se volají instrukcemi \texttt{CALL}
+            a \texttt{RETURN}.
         
     \section{Rozšírenia}
     Boli implementované celkom 3 rozšírenia
