@@ -1,0 +1,14 @@
+declare function foo() as integer
+declare function bar(foo as integer) as integer
+
+function foo() as integer
+    return 42
+end function
+
+function bar(a as integer) as integer
+    return 42
+end function
+    
+scope
+
+end scope

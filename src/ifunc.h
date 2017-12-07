@@ -1,15 +1,23 @@
-// Inbuild functions
+//  Course:      Formal Languages and Compilers (IFJ)
+//  Project:     Implementation of the IFJ17 imperative language compiler
+//  File:        ifunc.h
+//  Description: Header file of inbuild functions module
+//
+//  Authors: Tomáš Nereča : xnerec00
+//           Samuel Obuch : xobuch00
+//           Jiří Vozár   : xvozar04
+//           Ján Farský   : xfarsk00
 
-//function gets int and on stack returns chr from ASCII table
+#ifndef _IFUNC_H_
+#define _IFUNC_H_
+
+// Convert character in string to number from ascii table
 bool callAsc();
-
-//function gets int and on stack returns char related to ints position in ASCII
+// Convert number from ascii table to character
 bool callChr();
-
-//get string and on stack returns number of chars in it
-//if function succeded retrun "true" else "false"
+// Return length of string
 bool callLength();
-
-//func gets one string and two ints. First int is start position in string
-//second is length of substring which i return to top of stack
+// Return required substring
 bool callSubstr();
+
+#endif

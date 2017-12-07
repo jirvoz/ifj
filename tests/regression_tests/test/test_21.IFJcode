@@ -1,0 +1,5 @@
+scope
+	dim a as integer
+	a = &hF2
+	print a;
+end scope

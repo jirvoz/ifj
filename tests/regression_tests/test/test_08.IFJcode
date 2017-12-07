@@ -1,0 +1,8 @@
+scope
+	dim a as string
+
+	a = !"/'comment'/ 'comment"
+
+	print a;
+
+end scope

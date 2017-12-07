@@ -1,3 +1,14 @@
+//  Course:      Formal Languages and Compilers (IFJ)
+//  Project:     Implementation of the IFJ17 imperative language compiler
+//  File:        parser.c
+//  Description: Source file of top parser logic
+//               Starting and generic rules for syntax analysis
+//
+//  Authors: Tomáš Nereča : xnerec00
+//           Samuel Obuch : xobuch00
+//           Jiří Vozár   : xvozar04
+//           Ján Farský   : xfarsk00
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "errors.h"
@@ -9,8 +20,8 @@
 tToken last_token;
 
 // Symbol tables
-tHtable* func_table;
-tHtable* var_table;
+tHTable* func_table;
+tHTable* var_table;
 
 // Temporary function to skip not implemented statements
 bool skip_statement()
@@ -68,10 +79,10 @@ bool statement()
     }
 }
 
-bool statement_list()
+bool statementList()
 {
     // Read statements until keyword, that end statement block
-    // This should be: return statement() && statement_list();
+    // This should be: return statement() && statementList();
     // but it's written in while loop to lower recursion
     while (true)
     {
@@ -101,20 +112,29 @@ bool program()
         switch (last_token.type)
         {
             case DECLARE:
-                if (!function_decl())
+                if (!functionDecl())
                     return false;
                 break;
             case FUNCTION:
-                if (!function_def())
+                if (!functionDef())
                     return false;
                 break;
             case SCOPE:
+                // Check if all functions are defined
+                if (!htCheckDefined(func_table))
+                    ERROR_AND_RETURN(SEM_PROG_ERROR, "There is undefined function in the code.");
+
+                UPDATE_LAST_TOKEN();
+                // Test end of line after SCOPE
+                if (last_token.type != EOL_TOK)
+                    ERROR_AND_RETURN(SYN_ERROR, "Expected end of line after SCOPE.");
+
                 printf("LABEL $$main\n");
                 printf("CREATEFRAME\n");
                 printf("PUSHFRAME\n");
 
                 // parse the inside of scope
-                if (!statement_list())
+                if (!statementList())
                     return false;
 
                 // Test the correct ending of code block
@@ -145,12 +165,31 @@ bool program()
 bool parse()
 {
     printf(".IFJcode17\n");
+    // String variables
+    printf("DEFVAR GF@$str1\n");
+    printf("DEFVAR GF@$str2\n");
+
+    // Number variables
+    printf("DEFVAR GF@$num1\n");
+    printf("DEFVAR GF@$num2\n");
+    printf("DEFVAR GF@$num3\n");
+
+    // Boolean variable
+    printf("DEFVAR GF@$bool1\n");
+
+    // Cycle counter
+    printf("DEFVAR GF@$counter\n");
+
+    // Variable for character
+    printf("DEFVAR GF@$char\n");
+
     printf("JUMP $$main\n\n");
 
-    func_table = malloc(sizeof(tHtitem) * HTSIZE);
-    var_table = malloc(sizeof(tHtitem) * HTSIZE);
-    htInit(func_table);
-    htInit(var_table);
+    func_table = htInit();
+    var_table = htInit();
+
+    if (!func_table || !var_table)
+        ERROR_AND_RETURN(OTHER_ERROR, "Can't allocate symbol tables.");
 
     if (!program())
         return false;
@@ -164,10 +203,8 @@ bool parse()
             case EOL_TOK:
                 continue;
             case EOF_TOK:
-                htClearAll(func_table);
-                free(func_table);
-                htClearAll(var_table);
-                free(var_table);
+                htFree(func_table);
+                htFree(var_table);
                 return true;
             default:
                 ERROR_AND_RETURN(SYN_ERROR, "There is something after main scope.");

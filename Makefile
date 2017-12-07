@@ -19,14 +19,14 @@ sctest: scanner_tests.o errors.o scanner.o strings.o
 
 errors.o: errors.c errors.h scanner.h strings.h
 expressions.o: expressions.c errors.h expressions.h scanner.h strings.h \
- functions.h symtable.h parser.h statements.h ifunc.h
+ functions.h symtable.h parser.h statements.h ifunc.h stack.h
 functions.o: functions.c errors.h expressions.h scanner.h strings.h \
  functions.h symtable.h parser.h statements.h
 main.o: main.c errors.h parser.h scanner.h strings.h symtable.h
 parser.o: parser.c errors.h functions.h symtable.h scanner.h strings.h \
  parser.h statements.h
 scanner.o: scanner.c scanner.h strings.h errors.h
-stack.o: stack.c errors.h scanner.h strings.h expressions.h
+stack.o: stack.c stack.h errors.h scanner.h strings.h expressions.h
 statements.o: statements.c errors.h expressions.h scanner.h strings.h \
  functions.h symtable.h parser.h statements.h
 strings.o: strings.c strings.h
@@ -38,11 +38,17 @@ ifunc.o: ifunc.c errors.h parser.h scanner.h symtable.h ifunc.h expressions.h
 tags: src/*
 	ctags -R .
 
-pack: 
+doc:
+	# Compile twice because of the table of contents
+	cd doc && pdflatex dokumentace.tex; pdflatex dokumentace.tex
+	mv doc/dokumentace.pdf .
+
+pack: ifj doc
+	mv dokumentace.pdf src
 	cd src && \
 	tar pczvf ../xnerec00.tgz *
 
 clean:
-	rm -f ifj sctest xnerec00.tgz *.o
+	rm -f ifj sctest xnerec00.tgz *.o *.pdf src/*.pdf doc/*.aux doc/*.log doc/*.toc
 
-.PHONY: all pack clean
+.PHONY: all doc pack clean

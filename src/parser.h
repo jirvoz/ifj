@@ -1,3 +1,14 @@
+//  Course:      Formal Languages and Compilers (IFJ)
+//  Project:     Implementation of the IFJ17 imperative language compiler
+//  File:        parser.h
+//  Description: Header file of top parser logic
+//               Starting and generic rules for syntax analysis
+//
+//  Authors: Tomáš Nereča : xnerec00
+//           Samuel Obuch : xobuch00
+//           Jiří Vozár   : xvozar04
+//           Ján Farský   : xfarsk00
+
 #ifndef _PARSER_H_
 #define _PARSER_H_
 
@@ -17,10 +28,10 @@
 extern tToken last_token;
 
 // Table of declared/defined functions
-extern tHtable* func_table;
+extern tHTable* func_table;
 
 // Table of defined variables
-extern tHtable* var_table;
+extern tHTable* var_table;
 
 
 // Temporary function that eats tokens till EOL, END, EOF
@@ -31,7 +42,7 @@ bool skip_statement();
 bool statement();
 
 // Parsing of set of statements ended by END token
-bool statement_list();
+bool statementList();
 
 // Parsing crossroads for functions and main scope
 bool program();

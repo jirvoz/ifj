@@ -1,3 +1,14 @@
+//  Course:      Formal Languages and Compilers (IFJ)
+//  Project:     Implementation of the IFJ17 imperative language compiler
+//  File:        statements.c
+//  Description: Source file of function parsing
+//               Rules for parsing functions
+//
+//  Authors: Tomáš Nereča : xnerec00
+//           Samuel Obuch : xobuch00
+//           Jiří Vozár   : xvozar04
+//           Ján Farský   : xfarsk00
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -8,7 +19,7 @@
 #include "statements.h"
 #include "symtable.h"
 
-char* actual_function;
+char* actual_function = NULL;
 
 bool call(char* name)
 {
@@ -27,19 +38,19 @@ bool call(char* name)
     {
         UPDATE_LAST_TOKEN();
         if (last_token.type == RIGHT_PARENTH_OP)
-            ERROR_AND_RETURN(SYN_ERROR, "Expected more parameters for function '%s'.", name);
+            ERROR_AND_RETURN(SEM_TYPE_ERROR, "Expected more parameters for function '%s'.", name);
         // Call expression evaluation
         if(!expression(symbol->arg_types[i]))
             return false;
 
         // Check for colon between parameters
         if (i < symbol->arg_count - 1 && last_token.type != COLON_OP)
-            ERROR_AND_RETURN(SYN_ERROR, "Expected colon between parameters.");
+            ERROR_AND_RETURN(SEM_TYPE_ERROR, "Expected more parameters.");
     }
 
     // Check for right bracket after parameters
     if (last_token.type != RIGHT_PARENTH_OP)
-        ERROR_AND_RETURN(SYN_ERROR, "Expected right parenthesis after function parameters.");
+        ERROR_AND_RETURN(SEM_TYPE_ERROR, "Expected right parenthesis after function parameters.");
 
     printf("CALL $%s\n", name);
 
@@ -72,7 +83,7 @@ bool addParamToSymbol(tSymbol* symbol, char* name, token_type type)
     return true;
 }
 
-bool function_params(tSymbol* symbol)
+bool functionParams(tSymbol* symbol)
 {
     // last_token.type is left bracket
 
@@ -86,6 +97,10 @@ bool function_params(tSymbol* symbol)
 
         // Get parameter name
         char* var_name = last_token.attribute.string_ptr;
+
+        // Check for collision with functions name
+        if (htSearch(func_table, var_name))
+            ERROR_AND_RETURN(SEM_PROG_ERROR, "There is already function named '%s'.", var_name);
 
         // Check for same parameter names
         for (int i = 0; i < param_count - 1; i++)
@@ -132,6 +147,8 @@ bool function_params(tSymbol* symbol)
                 ERROR_AND_RETURN(SYN_ERROR, "Expected correct type of '%s' after AS.", var_name);
         }
 
+        free(var_name);
+
         UPDATE_LAST_TOKEN();
 
         // Check for correct parameter ending
@@ -143,7 +160,7 @@ bool function_params(tSymbol* symbol)
 
     // Check same number of parameters at declaration and definition
     if (symbol->type != UNDEFINED_TOK && param_count != symbol->arg_count)
-        ERROR_AND_RETURN(SEM_TYPE_ERROR, "Lower parmeter count at definition.");
+        ERROR_AND_RETURN(SEM_PROG_ERROR, "Lower parmeter count at definition.");
 
     // Check for right bracket after parameters
     if (last_token.type != RIGHT_PARENTH_OP)
@@ -152,7 +169,7 @@ bool function_params(tSymbol* symbol)
     return true;
 }
 
-bool function_header(bool define)
+bool functionHeader(bool define)
 {
     // last_token.type is FUNCTION
 
@@ -208,9 +225,11 @@ bool function_header(bool define)
     }
 
     symbol->defined = define;
+    if (actual_function != identif_name)
+        free(identif_name);
 
     // Read function parameters
-    if (!function_params(symbol))
+    if (!functionParams(symbol))
         return false;
     // last_token.type is right bracket
 
@@ -233,7 +252,7 @@ bool function_header(bool define)
                 symbol->type = last_token.type;
             // Different return types at declaration and definition
             else if (symbol->type != last_token.type)
-                ERROR_AND_RETURN(SEM_TYPE_ERROR,
+                ERROR_AND_RETURN(SEM_PROG_ERROR,
                     "Different return types at declaration and definition.");
             break;
         default:
@@ -243,7 +262,7 @@ bool function_header(bool define)
     return true;
 }
 
-bool function_decl()
+bool functionDecl()
 {
     // last_token.type is DECLARE
 
@@ -252,15 +271,15 @@ bool function_decl()
     if (last_token.type != FUNCTION)
         ERROR_AND_RETURN(SYN_ERROR, "Expected FUNCTION after DECLARE.");
 
-    return function_header(false);
+    return functionHeader(false);
 }
 
-bool function_def()
+bool functionDef()
 {
     // last_token.type is FUNCTION
 
     // Parse function header (name, parameters and return value)
-    if (!function_header(true))
+    if (!functionHeader(true))
         return false;
     // last_token.type is EOL_TOK
 
@@ -302,11 +321,12 @@ bool function_def()
     }
 
     // Parse the inside of function
-    if (!statement_list())
+    if (!statementList())
         return false;
 
     // Clear table of function variables
-    htClearAll(var_table);
+    htClear(var_table);
+    free(actual_function);
     actual_function = NULL;
 
     // Test the correct ending of function block

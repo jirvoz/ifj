@@ -1,0 +1,4 @@
+scope
+    dim rat as integer = -211
+	print 422 + 926 + rat + rat;
+end scope
